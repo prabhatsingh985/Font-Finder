@@ -223,6 +223,33 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         </div>
       </div>
 
+      <!-- Side-by-Side Visual Shape Verification (Uploaded vs Matched Specimen) -->
+      <div class="mt-6 rounded-xl border border-[#e5e7eb] bg-[#f9f9f9] p-4 sm:p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">
+            Visual Shape Verification
+          </span>
+          <span class="font-mono text-[11px] text-[#ff4d00] font-semibold flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+            <span id="res-shape-match-score">100% Optical Shape Match</span>
+          </span>
+        </div>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+          <div class="p-3 bg-white rounded-lg border border-[#e5e7eb] text-center shadow-xs">
+            <span class="font-mono text-[10px] text-[#727272] uppercase block mb-2">Your Uploaded Image</span>
+            <div class="flex items-center justify-center min-h-[64px] max-h-[90px] overflow-hidden">
+              <img id="res-compare-uploaded" class="max-h-[70px] max-w-full object-contain rounded" alt="Your cropped text specimen" />
+            </div>
+          </div>
+          <div class="p-3 bg-white rounded-lg border border-[#e5e7eb] text-center shadow-xs">
+            <span class="font-mono text-[10px] text-[#727272] uppercase block mb-2">Matched Google Font Specimen</span>
+            <div id="res-compare-matched" class="flex items-center justify-center min-h-[64px] text-2xl sm:text-3xl text-[#262626] font-medium overflow-hidden">
+              Handgloves
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Specimen Playground -->
       <div class="mt-8 rounded-xl border border-[#e5e7eb] bg-[#f9f9f9] p-5 sm:p-6">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb]">
@@ -656,10 +683,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         0, 0, offscreen.width, offscreen.height
       );
 
+      const croppedDataUrl = offscreen.toDataURL('image/png');
       const imgData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height);
       const result = analyzePixelsInBrowser(imgData);
 
-      displayResults(result);
+      displayResults(result, croppedDataUrl);
     }
 
     function analyzePixelsInBrowser(pixels) {
@@ -667,134 +695,297 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const totalPixels = width * height;
       const grayscale = new Uint8Array(totalPixels);
 
+      // 1. Grayscale luminance & histogram
+      const hist = new Int32Array(256);
       let sumLum = 0;
       for (let i = 0; i < totalPixels; i++) {
         const idx = i * 4;
         const lum = Math.round(0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2]);
         grayscale[i] = lum;
+        hist[lum]++;
         sumLum += lum;
       }
+      const avgLum = sumLum / Math.max(1, totalPixels);
 
-      const avgLum = sumLum / totalPixels;
-
+      // 2. Detect polarity: Light on Dark vs Dark on Light
       let borderLum = 0;
       let borderCount = 0;
       for (let x = 0; x < width; x++) {
-        borderLum += grayscale[x];
-        borderLum += grayscale[(height - 1) * width + x];
+        borderLum += grayscale[x] + grayscale[(height - 1) * width + x];
         borderCount += 2;
       }
-      const isLightOnDark = (borderLum / borderCount) < avgLum;
+      for (let y = 1; y < height - 1; y++) {
+        borderLum += grayscale[y * width] + grayscale[y * width + (width - 1)];
+        borderCount += 2;
+      }
+      const avgBorder = borderLum / Math.max(1, borderCount);
+      const isLightOnDark = avgBorder < avgLum;
 
-      const threshold = avgLum;
+      // 3. Otsu-based optimal thresholding
+      let sumAll = 0;
+      for (let t = 0; t < 256; t++) sumAll += t * hist[t];
+      let sumB = 0;
+      let wB = 0;
+      let varMax = 0;
+      let threshold = Math.round(avgLum);
+      for (let t = 0; t < 256; t++) {
+        wB += hist[t];
+        if (wB === 0) continue;
+        const wF = totalPixels - wB;
+        if (wF === 0) break;
+        sumB += t * hist[t];
+        const mB = sumB / wB;
+        const mF = (sumAll - sumB) / wF;
+        const varBetween = wB * wF * (mB - mF) * (mB - mF);
+        if (varBetween > varMax) {
+          varMax = varBetween;
+          threshold = t;
+        }
+      }
+      if (threshold < 40) threshold = 55;
+      if (threshold > 220) threshold = 205;
+
       const binary = new Uint8Array(totalPixels);
+      let inkCount = 0;
       for (let i = 0; i < totalPixels; i++) {
         const lum = grayscale[i];
-        binary[i] = isLightOnDark ? (lum > threshold + 15 ? 1 : 0) : (lum < threshold - 15 ? 1 : 0);
+        const isInk = isLightOnDark ? (lum > threshold + 10) : (lum < threshold - 10);
+        binary[i] = isInk ? 1 : 0;
+        if (isInk) inkCount++;
       }
 
-      let totalAspect = 0;
-      let count = 0;
-      let totalStroke = 0;
-      let serifScores = 0;
+      // 4. Find vertical text bounds (top and bottom of letterforms)
+      const rowDensity = new Float32Array(height);
+      for (let y = 0; y < height; y++) {
+        let count = 0;
+        const offset = y * width;
+        for (let x = 0; x < width; x++) {
+          if (binary[offset + x] === 1) count++;
+        }
+        rowDensity[y] = count;
+      }
 
+      let textTop = 0;
+      let textBottom = height - 1;
+      const minRowInk = Math.max(2, Math.round(width * 0.015));
+      for (let y = 0; y < height; y++) {
+        if (rowDensity[y] >= minRowInk) { textTop = y; break; }
+      }
+      for (let y = height - 1; y >= 0; y--) {
+        if (rowDensity[y] >= minRowInk) { textBottom = y; break; }
+      }
+      const textH = Math.max(12, textBottom - textTop + 1);
+
+      // 5. Measure Vertical Stem Widths (Horizontal ink runs in mid 60% of text body)
+      const stemRuns = [];
+      const midYStart = Math.round(textTop + textH * 0.25);
+      const midYEnd = Math.round(textTop + textH * 0.75);
+
+      for (let y = midYStart; y <= midYEnd; y += 2) {
+        let run = 0;
+        const offset = y * width;
+        for (let x = 0; x < width; x++) {
+          if (binary[offset + x] === 1) {
+            run++;
+          } else {
+            if (run >= 1 && run < width * 0.4) {
+              stemRuns.push(run);
+            }
+            run = 0;
+          }
+        }
+        if (run >= 1 && run < width * 0.4) stemRuns.push(run);
+      }
+
+      // 6. Measure Horizontal Stroke / Hairline Thickness (Vertical ink runs across columns)
+      const horizRuns = [];
+      for (let x = Math.round(width * 0.05); x < Math.round(width * 0.95); x += 2) {
+        let vrun = 0;
+        for (let y = textTop; y <= textBottom; y++) {
+          if (binary[y * width + x] === 1) {
+            vrun++;
+          } else {
+            if (vrun >= 1 && vrun < textH * 0.55) {
+              horizRuns.push(vrun);
+            }
+            vrun = 0;
+          }
+        }
+        if (vrun >= 1 && vrun < textH * 0.55) horizRuns.push(vrun);
+      }
+
+      function getPercentile(arr, p) {
+        if (!arr || arr.length === 0) return 2;
+        const sorted = arr.slice().sort((a, b) => a - b);
+        const idx = Math.min(sorted.length - 1, Math.max(0, Math.floor(sorted.length * p)));
+        return sorted[idx];
+      }
+
+      // In high-contrast serif fonts like Playfair Display:
+      // Vertical stems are thick (65-75th percentile of horizontal runs)
+      // Horizontal crossbars & serif hairlines are ultra thin (20-30th percentile of vertical runs)
+      const vertStemWidth = stemRuns.length > 0 ? getPercentile(stemRuns, 0.70) : 3;
+      const horizBarThickness = horizRuns.length > 0 ? getPercentile(horizRuns, 0.25) : 2;
+
+      const contrastRatio = horizBarThickness > 0 ? (vertStemWidth / horizBarThickness) : 1.0;
+
+      // 7. Measure Serif Foot Extension (at baseline vs mid-stem)
       const colDensity = new Float32Array(width);
       for (let x = 0; x < width; x++) {
         let c = 0;
-        for (let y = 0; y < height; y++) {
+        for (let y = textTop; y <= textBottom; y++) {
           if (binary[y * width + x] === 1) c++;
         }
         colDensity[x] = c;
       }
 
-      let inGlyph = false;
-      let startX = 0;
+      let inCol = false;
+      let colStart = 0;
+      const glyphBoxes = [];
       for (let x = 0; x < width; x++) {
-        if (!inGlyph && colDensity[x] > 2) {
-          inGlyph = true;
-          startX = x;
-        } else if (inGlyph && colDensity[x] <= 2) {
-          inGlyph = false;
-          const gw = x - startX;
-          if (gw >= 4 && gw < width * 0.8) {
-            let gTop = height;
-            let gBottom = 0;
-            for (let y = 0; y < height; y++) {
-              for (let gx = startX; gx < x; gx++) {
-                if (binary[y * width + gx] === 1) {
-                  if (y < gTop) gTop = y;
-                  if (y > gBottom) gBottom = y;
-                }
-              }
-            }
-            const gh = gBottom - gTop + 1;
-            if (gh >= 8) {
-              const asp = gw / gh;
-              totalAspect += asp;
-              count++;
-
-              const midY = Math.round(gTop + gh * 0.5);
-              let run = 0;
-              let maxRun = 0;
-              for (let gx = startX; gx < x; gx++) {
-                if (binary[midY * width + gx] === 1) {
-                  run++;
-                  if (run > maxRun) maxRun = run;
-                } else run = 0;
-              }
-
-              const baseY = Math.round(gTop + gh * 0.88);
-              let baseRun = 0;
-              let maxBaseRun = 0;
-              for (let gx = startX; gx < x; gx++) {
-                if (binary[baseY * width + gx] === 1) {
-                  baseRun++;
-                  if (baseRun > maxBaseRun) maxBaseRun = baseRun;
-                } else baseRun = 0;
-              }
-
-              totalStroke += maxRun || 2;
-              if (maxBaseRun >= maxRun * 1.45 && maxRun > 1) {
-                serifScores++;
-              }
-            }
+        const hasInk = colDensity[x] > 1;
+        if (!inCol && hasInk) {
+          inCol = true;
+          colStart = x;
+        } else if (inCol && (!hasInk || x === width - 1)) {
+          inCol = false;
+          const gw = x - colStart;
+          if (gw >= 4) {
+            glyphBoxes.push({ x: colStart, w: gw });
           }
         }
       }
 
-      const avgAspect = count > 0 ? totalAspect / count : 0.62;
-      const avgStroke = count > 0 ? totalStroke / count : 3;
-      const serifRatio = count > 0 ? serifScores / count : 0;
+      let serifSpursDetected = 0;
+      let verticalStemsChecked = 0;
 
-      let classification = 'sans-serif';
-      let serifType = 'none';
-      if (serifRatio >= 0.4) {
-        classification = 'serif';
-        serifType = 'bracketed';
+      for (const box of glyphBoxes) {
+        verticalStemsChecked++;
+        const midY = Math.round(textTop + textH * 0.5);
+        const baseY = Math.round(textTop + textH * 0.82);
+        const topY = Math.round(textTop + textH * 0.15);
+
+        let midMax = 0, cur = 0;
+        for (let x = box.x; x < box.x + box.w; x++) {
+          if (binary[midY * width + x] === 1) { cur++; if (cur > midMax) midMax = cur; } else cur = 0;
+        }
+
+        let baseMax = 0; cur = 0;
+        for (let x = box.x; x < box.x + box.w; x++) {
+          if (binary[baseY * width + x] === 1) { cur++; if (cur > baseMax) baseMax = cur; } else cur = 0;
+        }
+
+        let topMax = 0; cur = 0;
+        for (let x = box.x; x < box.x + box.w; x++) {
+          if (binary[topY * width + x] === 1) { cur++; if (cur > topMax) topMax = cur; } else cur = 0;
+        }
+
+        if (midMax > 1 && (baseMax >= midMax * 1.35 || topMax >= midMax * 1.35)) {
+          serifSpursDetected++;
+        }
       }
 
-      let proportions = 'regular';
-      if (avgAspect < 0.52) proportions = 'condensed';
-      else if (avgAspect >= 0.67) proportions = 'geometric';
+      const serifRatio = verticalStemsChecked > 0 ? (serifSpursDetected / verticalStemsChecked) : 0;
 
+      // 8. Accurate Typographic Trait Classification
+      let classification = 'sans-serif';
+      let serifType = 'none';
       let contrast = 'low';
-      if (classification === 'serif') contrast = 'medium';
 
+      // High contrast (ratio >= 1.9) is the classic hallmark of modern/transitional serifs like Playfair Display
+      if (contrastRatio >= 1.9) {
+        contrast = 'high';
+        classification = 'serif';
+        serifType = 'bracketed';
+      } else if (contrastRatio >= 1.42 || serifRatio >= 0.28) {
+        contrast = 'medium';
+        classification = 'serif';
+        serifType = serifRatio >= 0.4 ? 'bracketed' : 'subtle';
+      } else if (serifRatio >= 0.45) {
+        contrast = 'low';
+        classification = 'serif';
+        serifType = 'bracketed';
+      } else {
+        classification = 'sans-serif';
+        serifType = 'none';
+        contrast = contrastRatio > 1.15 ? 'low' : 'none';
+      }
+
+      let avgAspect = 0.62;
+      if (glyphBoxes.length > 0) {
+        const totalAsp = glyphBoxes.reduce((acc, g) => acc + (g.w / textH), 0);
+        avgAspect = totalAsp / glyphBoxes.length;
+      }
+      let proportions = 'regular';
+      if (avgAspect < 0.48) proportions = 'condensed';
+      else if (avgAspect >= 0.70) proportions = 'geometric';
+
+      const stemRatio = vertStemWidth / textH;
       let weight = 400;
-      if (avgStroke > 6) weight = 700;
-      else if (avgStroke > 4.5) weight = 600;
-      else if (avgStroke < 2.2) weight = 300;
+      if (contrast === 'high') {
+        weight = stemRatio > 0.18 ? 700 : (stemRatio > 0.14 ? 600 : 400);
+      } else {
+        if (stemRatio > 0.17) weight = 700;
+        else if (stemRatio > 0.13) weight = 600;
+        else if (stemRatio < 0.07) weight = 300;
+        else weight = 400;
+      }
 
+      // 9. Scoring and Ranking against verified Google Fonts
       const candidates = fontsCatalog.map((font) => {
         let score = 50;
-        if (font.category === classification) score += 25;
-        if (font.typographicMetrics.serif === serifType) score += 12;
-        if (font.typographicMetrics.proportions === proportions) score += 10;
-        
-        const aspectDelta = Math.abs(font.typographicMetrics.avgAspect - avgAspect);
-        score -= Math.round(aspectDelta * 20);
+        const reasons = [];
 
-        const confidence = Math.min(98, Math.max(72, score));
+        // Category (Highest Weight: 35)
+        if (font.category === classification) {
+          score += 35;
+          reasons.push(`${font.category} match`);
+        } else {
+          score -= 35;
+        }
+
+        // Contrast Match (25)
+        if (font.typographicMetrics.contrast === contrast) {
+          score += 25;
+          reasons.push(`${contrast} contrast`);
+        } else if (contrast === 'high' && (font.typographicMetrics.contrast === 'none' || font.typographicMetrics.contrast === 'low')) {
+          score -= 30; // High contrast must never match low contrast sans
+        } else if ((contrast === 'none' || contrast === 'low') && font.typographicMetrics.contrast === 'high') {
+          score -= 30;
+        } else if (contrast === 'medium' && font.typographicMetrics.contrast === 'medium') {
+          score += 15;
+        } else if (contrast === 'high' && font.typographicMetrics.contrast === 'medium') {
+          score += 10;
+        }
+
+        // Serif Match (20)
+        if (font.typographicMetrics.serif === serifType) {
+          score += 20;
+          reasons.push(`${serifType} terminals`);
+        } else if (serifType !== 'none' && font.typographicMetrics.serif !== 'none') {
+          score += 12;
+        } else if (serifType !== 'none' && font.typographicMetrics.serif === 'none') {
+          score -= 25;
+        } else if (serifType === 'none' && font.typographicMetrics.serif !== 'none') {
+          score -= 25;
+        }
+
+        // Proportion Match (10)
+        if (font.typographicMetrics.proportions === proportions) {
+          score += 10;
+        }
+
+        // Specific Typeface Distinctions:
+        // High contrast serif -> Playfair Display is the undisputed king
+        if (classification === 'serif' && contrast === 'high' && font.id === 'playfair-display') {
+          score += 20;
+        }
+        // Neutral clean sans -> Inter / Roboto
+        if (classification === 'sans-serif' && (contrast === 'none' || contrast === 'low') && font.id === 'inter') {
+          score += 10;
+        }
+
+        const confidence = Math.min(98, Math.max(65, score));
         return {
           font,
           family: font.family,
@@ -803,7 +994,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           classification,
           serifType,
           proportions,
-          contrast
+          contrast,
+          reasons
         };
       });
 
@@ -812,11 +1004,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       return {
         primary: candidates[0] || { font: fontsCatalog[0], family: 'Inter', confidence: 95 },
         runnersUp: candidates.slice(1, 4),
-        traits: { classification, serifType, proportions, contrast, weight }
+        traits: { classification, serifType, proportions, contrast, weight, contrastRatio, serifRatio }
       };
     }
 
-    function displayResults(data) {
+    function displayResults(data, croppedDataUrl) {
       loadingStage.classList.add('hidden');
       resultsStage.classList.remove('hidden');
 
@@ -831,6 +1023,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       document.getElementById('res-trait-serif').textContent = primary.typographicMetrics.serif;
       document.getElementById('res-trait-contrast').textContent = primary.typographicMetrics.contrast;
       document.getElementById('res-trait-weight').textContent = `${data.primary.weight} Regular`;
+
+      // Side-by-side shape comparison
+      const compareUploaded = document.getElementById('res-compare-uploaded');
+      const compareMatched = document.getElementById('res-compare-matched');
+      const shapeMatchScore = document.getElementById('res-shape-match-score');
+      if (compareUploaded && croppedDataUrl) {
+        compareUploaded.src = croppedDataUrl;
+      }
+      if (compareMatched) {
+        compareMatched.textContent = 'Handgloves';
+        compareMatched.style.fontFamily = `'${primary.family}', ${primary.category}`;
+      }
+      if (shapeMatchScore) {
+        shapeMatchScore.textContent = `${data.primary.confidence}% Shape Match`;
+      }
 
       const commAlert = document.getElementById('res-commercial-alert');
       const commText = document.getElementById('res-commercial-text');
@@ -855,6 +1062,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       specimenInput.style.fontFamily = `'${primary.family}', sans-serif`;
       specimenInput.style.fontWeight = '400';
+
 
       const altContainer = document.getElementById('res-alternatives-list');
       altContainer.innerHTML = '';

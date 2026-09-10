@@ -184,16 +184,21 @@ export class OpticalFontEngine {
     else if (contrastRatio >= 1.4) contrast = 'medium';
     else if (contrastRatio <= 1.15) contrast = 'none';
 
-    // Serif categorization
+    // Serif categorization: High contrast is an unambiguous hallmark of serif typefaces (Playfair Display, Bodoni, Didot)
     let serifType: 'none' | 'subtle' | 'bracketed' | 'slab' | 'hairline' = 'none';
     let classification: 'sans-serif' | 'serif' | 'display' | 'monospace' = 'sans-serif';
 
-    if (serifRatio >= 0.45) {
+    if (contrast === 'high' || contrastRatio >= 1.9) {
       classification = 'serif';
-      serifType = contrast === 'high' ? 'hairline' : 'bracketed';
+      serifType = 'bracketed';
+      contrast = 'high';
+    } else if (serifRatio >= 0.35 || contrastRatio >= 1.45) {
+      classification = 'serif';
+      serifType = serifRatio >= 0.4 ? 'bracketed' : 'subtle';
+      contrast = 'medium';
     } else if (serifRatio >= 0.25) {
       serifType = 'subtle';
-      classification = contrast === 'high' ? 'serif' : 'sans-serif';
+      classification = 'serif';
     }
 
     // Proportion categorization
@@ -212,11 +217,15 @@ export class OpticalFontEngine {
     // Weight estimation (ratio of stroke thickness to glyph height)
     const stemRatio = avgVertStroke / textHeight;
     let estimatedWeight = 400;
-    if (stemRatio > 0.18) estimatedWeight = 900;
-    else if (stemRatio > 0.15) estimatedWeight = 700;
-    else if (stemRatio > 0.12) estimatedWeight = 600;
-    else if (stemRatio > 0.09) estimatedWeight = 500;
-    else if (stemRatio < 0.06) estimatedWeight = 300;
+    if (contrast === 'high') {
+      estimatedWeight = stemRatio > 0.18 ? 700 : (stemRatio > 0.14 ? 600 : 400);
+    } else {
+      if (stemRatio > 0.18) estimatedWeight = 900;
+      else if (stemRatio > 0.15) estimatedWeight = 700;
+      else if (stemRatio > 0.12) estimatedWeight = 600;
+      else if (stemRatio > 0.09) estimatedWeight = 500;
+      else if (stemRatio < 0.06) estimatedWeight = 300;
+    }
 
     return {
       classification,
@@ -344,7 +353,9 @@ export class OpticalFontEngine {
         (font.category === 'display' && traits.classification === 'sans-serif') ||
         (font.category === 'sans-serif' && traits.classification === 'display')
       ) {
-        score += 20;
+        score += 15;
+      } else {
+        score -= 30; // Strong penalty for cross-classification mismatch (e.g. sans vs serif)
       }
 
       // 2. Serif characteristics (25%)
