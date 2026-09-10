@@ -7,12 +7,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 <div id="finder" class="w-full max-w-[1000px] mx-auto scroll-mt-20">
   <script id="fonts-data" type="application/json" is:inline set:html={fontsJson}></script>
 
-  <!-- Section 01 Header -->
-  <div class="flex items-center gap-2 mb-4">
-    <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-    <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / OPTICAL FONT DETECTOR</span>
-  </div>
-
   <!-- Step 1: Firecrawl-style Search & Upload Interaction Bar -->
   <div id="upload-stage" class="transition-all">
     <!-- Elevated Dropzone Card -->
@@ -37,10 +31,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         </div>
 
         <h3 class="text-lg font-medium text-[#262626] tracking-tight">
-          Drop an image, paste screenshot (<kbd class="font-mono text-xs bg-[#f9f9f9] border border-[#e5e7eb] px-1.5 py-0.5 rounded">⌘V</kbd>), or browse
+          Drop an image or paste screenshot (<kbd class="font-mono text-xs bg-[#f9f9f9] border border-[#e5e7eb] px-1.5 py-0.5 rounded">⌘V</kbd>)
         </h3>
         <p class="text-xs text-[#727272] mt-1.5">
-          Supports PNG, JPG, WebP. Optical letterforms are analyzed in-browser with zero image storage.
+          Supports PNG, JPG, WebP &bull; 100% private in-browser detection
         </p>
 
         <!-- Pill Action Button inside Dropzone -->
@@ -58,7 +52,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       <div class="mt-8 pt-6 border-t border-[#e5e7eb]">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
           <span class="font-mono text-[11px] text-[#727272] uppercase tracking-wider">
-            Quick Test Specimens:
+            Quick Test Samples:
           </span>
           <div class="flex flex-wrap items-center gap-2">
             <button
