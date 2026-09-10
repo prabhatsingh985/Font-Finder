@@ -185,7 +185,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         <div class="flex items-center gap-3">
           <div class="text-right">
             <div class="font-mono text-xs text-[#727272]">CONFIDENCE</div>
-            <div id="res-confidence" class="font-mono text-xl font-bold text-[#ff4d00]">96%</div>
+            <div id="res-confidence" class="font-mono text-xl font-bold text-[#ff4d00]">100%</div>
           </div>
           <button
             id="btn-scan-another"
@@ -1083,7 +1083,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           score += 10;
         }
 
-        const confidence = Math.min(98, Math.max(65, score));
+        const confidence = (score >= 85) ? 100 : Math.min(95, Math.max(65, score));
         return {
           font,
           family: font.family,
@@ -1100,7 +1100,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       candidates.sort((a, b) => b.confidence - a.confidence);
 
       return {
-        primary: candidates[0] || { font: fontsCatalog[0], family: 'Inter', confidence: 95 },
+        primary: candidates[0] || { font: fontsCatalog[0], family: 'Inter', confidence: 100 },
         runnersUp: candidates.slice(1, 4),
         traits: { classification, serifType, proportions, contrast, weight, contrastRatio, serifRatio }
       };
@@ -1113,9 +1113,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const primary = data.primary.font;
       currentPrimaryFont = primary;
 
+      const displayConfidence = (primary.isGoogleFont && data.primary.confidence >= 80) ? 100 : data.primary.confidence;
+
       document.getElementById('res-font-family').textContent = primary.family;
       document.getElementById('res-font-designer').textContent = `Designed by ${primary.designer} \u2022 SIL Open Font License`;
-      document.getElementById('res-confidence').textContent = `${data.primary.confidence}%`;
+      document.getElementById('res-confidence').textContent = `${displayConfidence}%`;
 
       document.getElementById('res-trait-category').textContent = primary.category;
       document.getElementById('res-trait-serif').textContent = primary.typographicMetrics.serif;
@@ -1144,7 +1146,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
 
       if (shapeMatchScore) {
-        shapeMatchScore.textContent = `${data.primary.confidence}% Shape Match`;
+        shapeMatchScore.textContent = `${displayConfidence}% Shape Match`;
       }
 
       const commAlert = document.getElementById('res-commercial-alert');

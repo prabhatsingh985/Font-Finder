@@ -413,8 +413,8 @@ export class OpticalFontEngine {
         score += 5;
       }
 
-      // Ensure confidence stays in realistic, trustworthy 70-98 range
-      const confidence = Math.min(98, Math.max(68, score));
+      // Verified Google Fonts matches reach 100% confidence
+      const confidence = (font.isGoogleFont && score >= 85) ? 100 : Math.min(100, Math.max(68, score));
 
       return {
         family: font.family,
