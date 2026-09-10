@@ -1,0 +1,77 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title = 'Font Finder — Free Image Font Identifier & Google Fonts Verification',
+  description = 'Instantly identify fonts from any image or screenshot. Powered by optical typography analysis with verified Google Fonts matches, copy-ready CSS, and free alternatives.',
+  canonicalUrl = Astro.url.href,
+  ogImage = '/og-image.png',
+  type = 'website'
+} = Astro.props;
+
+const siteName = 'Font Finder';
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Preload Inter Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Font Finder",
+    "url": "https://fontfinder.dev",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Optical image font recognition",
+      "100% verified Google Fonts matches",
+      "Instant copy-ready CSS @import and font-family declarations",
+      "Free open-source alternatives to commercial typefaces",
+      "Live interactive font specimen tester",
+      "Zero image storage, privacy-first in-browser processing"
+    ],
+    "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets."
+  }
+</script>

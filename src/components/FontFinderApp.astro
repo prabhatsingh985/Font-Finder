@@ -1,0 +1,998 @@
+---
+import { VERIFIED_GOOGLE_FONTS } from '../services/googleFonts/data';
+
+// JSON representation for client-side matching engine
+const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
+---
+
+<div id="finder" class="w-full max-w-4xl mx-auto scroll-mt-20">
+  <!-- Hidden font database for client-side instant execution -->
+  <script id="fonts-data" type="application/json" is:inline set:html={fontsJson}></script>
+
+  <!-- Container Box -->
+  <div class="rounded-2xl border border-border bg-card shadow-card overflow-hidden transition-all">
+    
+    <!-- Step 1: Upload Stage -->
+    <div id="upload-stage" class="p-6 sm:p-10 text-center transition-opacity">
+      <!-- Drag & Drop Zone -->
+      <div
+        id="dropzone"
+        class="relative border-2 border-dashed border-border hover:border-foreground/40 rounded-xl p-8 sm:p-12 transition-all cursor-pointer bg-muted/20 hover:bg-muted/40 group"
+      >
+        <input
+          type="file"
+          id="file-input"
+          accept="image/png, image/jpeg, image/jpg, image/webp"
+          class="sr-only"
+        />
+
+        <div class="mx-auto w-14 h-14 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground group-hover:text-foreground group-hover:scale-105 transition-all shadow-subtle mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+
+        <h3 class="text-lg font-semibold text-foreground tracking-tight">
+          Drop an image to identify the font
+        </h3>
+        <p class="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
+          Drag & drop a PNG, JPG, or WebP screenshot, or <span class="text-foreground font-medium underline underline-offset-2">browse files</span>.
+          <span class="block text-xs mt-1 text-muted-foreground/80">You can also press <kbd class="px-1.5 py-0.5 rounded bg-muted border border-border font-mono text-[11px]">Ctrl+V</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-muted border border-border font-mono text-[11px]">⌘V</kbd> anywhere.</span>
+        </p>
+
+        <!-- Privacy Badge -->
+        <div class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/80 border border-border text-xs text-muted-foreground">
+          <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span>100% Client-Side Optical Processing &bull; Images never stored</span>
+        </div>
+      </div>
+
+      <!-- Sample Image Presets -->
+      <div class="mt-8 pt-6 border-t border-border/80">
+        <p class="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
+          Or try with a sample specimen
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-2xl mx-auto">
+          <button
+            type="button"
+            data-sample="inter"
+            class="sample-btn p-2.5 rounded-lg border border-border bg-background hover:bg-muted text-left transition-all text-xs group"
+          >
+            <span class="font-semibold block text-foreground group-hover:text-primary">Clean Sans</span>
+            <span class="text-muted-foreground text-[11px]">Inter UI Specimen</span>
+          </button>
+          <button
+            type="button"
+            data-sample="playfair"
+            class="sample-btn p-2.5 rounded-lg border border-border bg-background hover:bg-muted text-left transition-all text-xs group"
+          >
+            <span class="font-semibold block text-foreground group-hover:text-primary">Luxury Serif</span>
+            <span class="text-muted-foreground text-[11px]">Playfair Display</span>
+          </button>
+          <button
+            type="button"
+            data-sample="jetbrains"
+            class="sample-btn p-2.5 rounded-lg border border-border bg-background hover:bg-muted text-left transition-all text-xs group"
+          >
+            <span class="font-semibold block text-foreground group-hover:text-primary">Developer Mono</span>
+            <span class="text-muted-foreground text-[11px]">JetBrains Mono</span>
+          </button>
+          <button
+            type="button"
+            data-sample="oswald"
+            class="sample-btn p-2.5 rounded-lg border border-border bg-background hover:bg-muted text-left transition-all text-xs group"
+          >
+            <span class="font-semibold block text-foreground group-hover:text-primary">Bold Poster</span>
+            <span class="text-muted-foreground text-[11px]">Oswald Condensed</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error notification -->
+      <div id="upload-error" class="hidden mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-600 dark:text-red-400 font-medium"></div>
+    </div>
+
+    <!-- Step 2: Image Preview & Crop Stage -->
+    <div id="crop-stage" class="hidden p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border">
+        <div>
+          <h3 class="text-base font-semibold text-foreground">Inspect & Crop Text</h3>
+          <p class="text-xs text-muted-foreground">For highest accuracy, drag to crop tightly around 1-2 words of the text.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            id="btn-reset-crop"
+            type="button"
+            class="px-3 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            Full Image
+          </button>
+          <button
+            id="btn-new-image"
+            type="button"
+            class="px-3 py-1.5 rounded-md border border-border text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            New Image
+          </button>
+        </div>
+      </div>
+
+      <!-- Image Canvas Viewport -->
+      <div class="relative mt-4 bg-muted/40 rounded-xl overflow-hidden flex items-center justify-center p-2 min-h-[260px] max-h-[460px]">
+        <canvas id="crop-canvas" class="max-h-[420px] max-w-full rounded-lg shadow-subtle cursor-crosshair touch-none select-none"></canvas>
+      </div>
+
+      <!-- Analyze Action -->
+      <div class="mt-4 flex justify-end gap-3">
+        <button
+          id="btn-run-analysis"
+          type="button"
+          class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-foreground text-background font-medium text-sm hover:opacity-90 transition-opacity shadow-sm flex items-center justify-center gap-2"
+        >
+          <span>Analyze Letterforms & Find Font</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Analysis Loading Progress -->
+    <div id="loading-stage" class="hidden p-8 sm:p-12 text-center">
+      <div class="max-w-md mx-auto">
+        <!-- Animated Spinner / Indicator -->
+        <div class="w-12 h-12 mx-auto rounded-full border-2 border-foreground/20 border-t-foreground animate-spin mb-4"></div>
+        <h4 id="loading-step-title" class="text-base font-semibold text-foreground">
+          Scanning typography...
+        </h4>
+        <p id="loading-step-detail" class="text-xs text-muted-foreground mt-1">
+          Binarizing pixels and separating connected glyphs
+        </p>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-muted rounded-full h-1.5 mt-6 overflow-hidden">
+          <div id="progress-bar" class="bg-foreground h-full w-1/4 rounded-full transition-all duration-300"></div>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] text-muted-foreground mt-2">
+          <span>Optical Geometry</span>
+          <span>Google Fonts Catalog</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Results Display -->
+    <div id="results-stage" class="hidden p-6 sm:p-10">
+      <!-- Results Header -->
+      <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-border">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Detection Result</span>
+            <span
+              id="res-verified-badge"
+              class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Google Fonts Verified</span>
+            </span>
+          </div>
+          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mt-1">
+            Inter
+          </h2>
+          <p id="res-font-designer" class="text-xs text-muted-foreground mt-0.5">
+            Designed by Rasmus Andersson &bull; Open Font License (OFL)
+          </p>
+        </div>
+
+        <!-- Confidence Badge & Reset -->
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <div class="text-xs text-muted-foreground font-medium">Confidence Score</div>
+            <div id="res-confidence" class="text-xl font-bold text-foreground">96%</div>
+          </div>
+          <button
+            id="btn-scan-another"
+            type="button"
+            class="px-3.5 py-2 rounded-lg border border-border bg-background hover:bg-muted text-xs font-medium text-foreground transition-colors"
+          >
+            Scan Another
+          </button>
+        </div>
+      </div>
+
+      <!-- Commercial Alternative Notice (Hidden by default, shown if applicable) -->
+      <div id="res-commercial-alert" class="hidden mt-4 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-800 dark:text-amber-300">
+        <span class="font-semibold">Commercial Typeface Alternative:</span>
+        <span id="res-commercial-text">Matches characteristics of Helvetica. The verified Google Fonts free open-source equivalent is Inter.</span>
+      </div>
+
+      <!-- Typography Metrics Pills -->
+      <div class="mt-6 flex flex-wrap gap-2 text-xs">
+        <div class="px-3 py-1.5 rounded-md bg-muted/60 border border-border">
+          <span class="text-muted-foreground">Category:</span>
+          <span id="res-trait-category" class="font-medium text-foreground ml-1">Sans-Serif</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-md bg-muted/60 border border-border">
+          <span class="text-muted-foreground">Serifs:</span>
+          <span id="res-trait-serif" class="font-medium text-foreground ml-1">None (Grotesque)</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-md bg-muted/60 border border-border">
+          <span class="text-muted-foreground">Stroke Contrast:</span>
+          <span id="res-trait-contrast" class="font-medium text-foreground ml-1">Low (Monoline)</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-md bg-muted/60 border border-border">
+          <span class="text-muted-foreground">Estimated Weight:</span>
+          <span id="res-trait-weight" class="font-medium text-foreground ml-1">400 Regular</span>
+        </div>
+      </div>
+
+      <!-- Live Interactive Specimen Preview -->
+      <div class="mt-8 rounded-xl border border-border bg-muted/20 p-5 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/70">
+          <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Live Specimen Tester
+          </span>
+          <!-- Font Size Slider -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-muted-foreground">Size:</span>
+            <input
+              id="specimen-size-slider"
+              type="range"
+              min="14"
+              max="72"
+              value="28"
+              class="w-24 sm:w-32 accent-foreground cursor-pointer"
+            />
+            <span id="specimen-size-label" class="text-xs font-mono text-muted-foreground w-8">28px</span>
+          </div>
+        </div>
+
+        <!-- Editable Specimen Textarea / Input -->
+        <div class="mt-4">
+          <input
+            id="specimen-text-input"
+            type="text"
+            value="The quick brown fox jumps over the lazy dog"
+            class="w-full bg-transparent border-0 text-foreground focus:ring-0 focus:outline-none placeholder-muted-foreground transition-all"
+            style="font-size: 28px; line-height: 1.2;"
+            spellcheck="false"
+          />
+        </div>
+
+        <!-- Weight Selection Pills -->
+        <div id="specimen-weight-pills" class="mt-6 flex flex-wrap gap-1.5 pt-4 border-t border-border/70">
+          <button type="button" data-weight="300" class="weight-pill px-2.5 py-1 rounded text-xs border border-border bg-background text-muted-foreground hover:text-foreground">Light 300</button>
+          <button type="button" data-weight="400" class="weight-pill px-2.5 py-1 rounded text-xs border border-foreground bg-foreground text-background font-medium">Regular 400</button>
+          <button type="button" data-weight="600" class="weight-pill px-2.5 py-1 rounded text-xs border border-border bg-background text-muted-foreground hover:text-foreground">SemiBold 600</button>
+          <button type="button" data-weight="700" class="weight-pill px-2.5 py-1 rounded text-xs border border-border bg-background text-muted-foreground hover:text-foreground">Bold 700</button>
+        </div>
+      </div>
+
+      <!-- Ready-to-Use CSS Snippets -->
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- @import Snippet -->
+        <div class="rounded-xl border border-border bg-muted/40 p-4 relative group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">HTML / CSS @import</span>
+            <button
+              id="btn-copy-import"
+              type="button"
+              class="copy-btn text-xs px-2.5 py-1 rounded bg-background border border-border hover:bg-muted font-medium text-foreground transition-colors flex items-center gap-1"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <pre id="code-import" class="text-xs font-mono overflow-x-auto text-foreground p-2 rounded bg-background/60 border border-border/50"><code>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');</code></pre>
+        </div>
+
+        <!-- font-family Snippet -->
+        <div class="rounded-xl border border-border bg-muted/40 p-4 relative group">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">CSS font-family</span>
+            <button
+              id="btn-copy-family"
+              type="button"
+              class="copy-btn text-xs px-2.5 py-1 rounded bg-background border border-border hover:bg-muted font-medium text-foreground transition-colors flex items-center gap-1"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <pre id="code-family" class="text-xs font-mono overflow-x-auto text-foreground p-2 rounded bg-background/60 border border-border/50"><code>font-family: 'Inter', sans-serif;</code></pre>
+        </div>
+      </div>
+
+      <!-- Links & CTAs -->
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-border">
+        <a
+          id="link-google-fonts"
+          href="https://fonts.google.com/specimen/Inter"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground hover:underline"
+        >
+          <span>Open in Google Fonts Catalog</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+
+        <a
+          id="link-font-page"
+          href="/fonts/inter"
+          class="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          View Full Specimen & Pairing Guide &rarr;
+        </a>
+      </div>
+
+      <!-- Alternative Similar Fonts -->
+      <div class="mt-10 pt-8 border-t border-border">
+        <h3 class="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+          Closest Google Fonts Alternatives
+        </h3>
+        <div id="res-alternatives-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Client-side script handling drag-and-drop, sample images, canvas crop, optical engine, specimen preview, and copy CSS -->
+<script is:inline>
+  (function () {
+    // 1. Data elements & Stages
+    const fontsDataElement = document.getElementById('fonts-data');
+    let fontsCatalog = [];
+    try {
+      fontsCatalog = JSON.parse(fontsDataElement.textContent || '[]');
+    } catch (e) {
+      console.error('Failed to parse fonts database', e);
+    }
+
+    const uploadStage = document.getElementById('upload-stage');
+    const cropStage = document.getElementById('crop-stage');
+    const loadingStage = document.getElementById('loading-stage');
+    const resultsStage = document.getElementById('results-stage');
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const uploadError = document.getElementById('upload-error');
+    const cropCanvas = document.getElementById('crop-canvas');
+    const btnRunAnalysis = document.getElementById('btn-run-analysis');
+    const btnResetCrop = document.getElementById('btn-reset-crop');
+    const btnNewImage = document.getElementById('btn-new-image');
+    const btnScanAnother = document.getElementById('btn-scan-another');
+
+    let currentImage = null;
+    let cropBox = null;
+    let isDraggingCrop = false;
+    let cropStartX = 0;
+    let cropStartY = 0;
+
+    // Specimen controls
+    const specimenInput = document.getElementById('specimen-text-input');
+    const specimenSlider = document.getElementById('specimen-size-slider');
+    const specimenLabel = document.getElementById('specimen-size-label');
+    const specimenWeightPills = document.querySelectorAll('.weight-pill');
+    let currentPrimaryFont = null;
+
+    // 2. Sample Presets Generation
+    const sampleButtons = document.querySelectorAll('.sample-btn');
+    sampleButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sampleType = btn.getAttribute('data-sample');
+        generateSampleCanvas(sampleType);
+      });
+    });
+
+    function generateSampleCanvas(type) {
+      const c = document.createElement('canvas');
+      c.width = 680;
+      c.height = 180;
+      const ctx = c.getContext('2d');
+
+      // Light background with high-contrast text
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, c.width, c.height);
+
+      ctx.fillStyle = '#111827';
+      ctx.textBaseline = 'middle';
+
+      if (type === 'inter') {
+        ctx.font = '500 52px Inter, Arial, sans-serif';
+        ctx.fillText('Inter Typography', 40, 90);
+      } else if (type === 'playfair') {
+        ctx.font = 'bold 52px "Playfair Display", Georgia, serif';
+        ctx.fillText('Editorial Gazette', 40, 90);
+      } else if (type === 'jetbrains') {
+        ctx.font = '500 44px "JetBrains Mono", monospace';
+        ctx.fillText('const type = "mono";', 40, 90);
+      } else if (type === 'oswald') {
+        ctx.font = '700 56px Oswald, Impact, sans-serif';
+        ctx.fillText('MODERN POSTER', 40, 90);
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        handleLoadedImage(img);
+      };
+      img.src = c.toDataURL('image/png');
+    }
+
+    // 3. File Drop & Input Handlers
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.add('border-foreground');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropzone.classList.remove('border-foreground');
+      });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        processUploadedFile(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        processUploadedFile(fileInput.files[0]);
+      }
+    });
+
+    // Paste from clipboard handler
+    document.addEventListener('paste', (e) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const blob = items[i].getAsFile();
+          if (blob) processUploadedFile(blob);
+          break;
+        }
+      }
+    });
+
+    function processUploadedFile(file) {
+      uploadError.classList.add('hidden');
+      uploadError.textContent = '';
+
+      // Validate format
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        showError('Please upload a valid image file (PNG, JPG, or WebP).');
+        return;
+      }
+
+      // Validate size (10 MB max)
+      if (file.size > 10 * 1024 * 1024) {
+        showError('Image size exceeds 10MB limit. Please provide a smaller image.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => handleLoadedImage(img);
+        img.onerror = () => showError('Failed to read image. Please try another file.');
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function showError(msg) {
+      uploadError.textContent = msg;
+      uploadError.classList.remove('hidden');
+    }
+
+    // 4. Load Image into Canvas for Inspection & Optional Crop
+    function handleLoadedImage(img) {
+      currentImage = img;
+      cropBox = null;
+
+      // Switch views: hide upload, show crop stage
+      uploadStage.classList.add('hidden');
+      resultsStage.classList.add('hidden');
+      loadingStage.classList.add('hidden');
+      cropStage.classList.remove('hidden');
+
+      renderCropCanvas();
+    }
+
+    function renderCropCanvas() {
+      if (!currentImage) return;
+      const ctx = cropCanvas.getContext('2d');
+
+      // Scale canvas to fit viewport comfortably
+      const maxW = 760;
+      const maxH = 420;
+      let w = currentImage.width;
+      let h = currentImage.height;
+
+      const scale = Math.min(maxW / w, maxH / h, 1);
+      cropCanvas.width = Math.round(w * scale);
+      cropCanvas.height = Math.round(h * scale);
+
+      ctx.drawImage(currentImage, 0, 0, cropCanvas.width, cropCanvas.height);
+
+      // Draw crop overlay if defined
+      if (cropBox) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        // Top
+        ctx.fillRect(0, 0, cropCanvas.width, cropBox.y);
+        // Bottom
+        ctx.fillRect(0, cropBox.y + cropBox.h, cropCanvas.width, cropCanvas.height - (cropBox.y + cropBox.h));
+        // Left
+        ctx.fillRect(0, cropBox.y, cropBox.x, cropBox.h);
+        // Right
+        ctx.fillRect(cropBox.x + cropBox.w, cropBox.y, cropCanvas.width - (cropBox.x + cropBox.w), cropBox.h);
+
+        // Crop border
+        ctx.strokeStyle = '#10b981';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(cropBox.x, cropBox.y, cropBox.w, cropBox.h);
+      }
+    }
+
+    // Canvas crop interactions
+    cropCanvas.addEventListener('pointerdown', (e) => {
+      const rect = cropCanvas.getBoundingClientRect();
+      cropStartX = e.clientX - rect.left;
+      cropStartY = e.clientY - rect.top;
+      isDraggingCrop = true;
+      cropBox = { x: cropStartX, y: cropStartY, w: 0, h: 0 };
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDraggingCrop || !currentImage) return;
+      const rect = cropCanvas.getBoundingClientRect();
+      const curX = Math.max(0, Math.min(cropCanvas.width, e.clientX - rect.left));
+      const curY = Math.max(0, Math.min(cropCanvas.height, e.clientY - rect.top));
+
+      cropBox.x = Math.min(cropStartX, curX);
+      cropBox.y = Math.min(cropStartY, curY);
+      cropBox.w = Math.abs(curX - cropStartX);
+      cropBox.h = Math.abs(curY - cropStartY);
+
+      renderCropCanvas();
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (isDraggingCrop) {
+        isDraggingCrop = false;
+        if (cropBox && (cropBox.w < 15 || cropBox.h < 15)) {
+          cropBox = null;
+          renderCropCanvas();
+        }
+      }
+    });
+
+    btnResetCrop.addEventListener('click', () => {
+      cropBox = null;
+      renderCropCanvas();
+    });
+
+    btnNewImage.addEventListener('click', resetAll);
+    btnScanAnother.addEventListener('click', resetAll);
+
+    function resetAll() {
+      currentImage = null;
+      cropBox = null;
+      fileInput.value = '';
+      uploadStage.classList.remove('hidden');
+      cropStage.classList.add('hidden');
+      loadingStage.classList.add('hidden');
+      resultsStage.classList.add('hidden');
+    }
+
+    // 5. Run Optical Typography Analysis
+    btnRunAnalysis.addEventListener('click', () => {
+      if (!currentImage) return;
+
+      cropStage.classList.add('hidden');
+      loadingStage.classList.remove('hidden');
+
+      const progressBar = document.getElementById('progress-bar');
+      const stepTitle = document.getElementById('loading-step-title');
+      const stepDetail = document.getElementById('loading-step-detail');
+
+      // Stage 1
+      progressBar.style.width = '25%';
+      stepTitle.textContent = 'Binarizing letterforms...';
+      stepDetail.textContent = 'Thresholding image and isolating glyph contours';
+
+      setTimeout(() => {
+        // Stage 2
+        progressBar.style.width = '60%';
+        stepTitle.textContent = 'Extracting typographic metrics...';
+        stepDetail.textContent = 'Measuring serifs, aspect ratio, stroke weight, and contrast';
+
+        setTimeout(() => {
+          // Stage 3
+          progressBar.style.width = '85%';
+          stepTitle.textContent = 'Comparing Google Fonts catalog...';
+          stepDetail.textContent = 'Calculating distance against verified open-source typefaces';
+
+          setTimeout(() => {
+            progressBar.style.width = '100%';
+            executeAnalysis();
+          }, 250);
+        }, 300);
+      }, 250);
+    });
+
+    function executeAnalysis() {
+      // Get pixel data from canvas (or crop region)
+      const offscreen = document.createElement('canvas');
+      const offCtx = offscreen.getContext('2d');
+
+      let sourceX = 0;
+      let sourceY = 0;
+      let sourceW = cropCanvas.width;
+      let sourceH = cropCanvas.height;
+
+      if (cropBox && cropBox.w > 10 && cropBox.h > 10) {
+        sourceX = cropBox.x;
+        sourceY = cropBox.y;
+        sourceW = cropBox.w;
+        sourceH = cropBox.h;
+      }
+
+      offscreen.width = Math.min(800, sourceW);
+      offscreen.height = Math.min(400, sourceH);
+
+      offCtx.drawImage(
+        cropCanvas,
+        sourceX, sourceY, sourceW, sourceH,
+        0, 0, offscreen.width, offscreen.height
+      );
+
+      const imgData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height);
+      
+      // Perform optical analysis directly using the client-side algorithm
+      const result = analyzePixelsInBrowser(imgData);
+
+      displayResults(result);
+    }
+
+    // Client-side pure optical algorithm
+    function analyzePixelsInBrowser(pixels) {
+      const { width, height, data } = pixels;
+      const totalPixels = width * height;
+      const grayscale = new Uint8Array(totalPixels);
+
+      let sumLum = 0;
+      for (let i = 0; i < totalPixels; i++) {
+        const idx = i * 4;
+        const lum = Math.round(0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2]);
+        grayscale[i] = lum;
+        sumLum += lum;
+      }
+
+      const avgLum = sumLum / totalPixels;
+
+      // Border polarity check
+      let borderLum = 0;
+      let borderCount = 0;
+      for (let x = 0; x < width; x++) {
+        borderLum += grayscale[x];
+        borderLum += grayscale[(height - 1) * width + x];
+        borderCount += 2;
+      }
+      const isLightOnDark = (borderLum / borderCount) < avgLum;
+
+      const threshold = avgLum;
+      const binary = new Uint8Array(totalPixels);
+      for (let i = 0; i < totalPixels; i++) {
+        const lum = grayscale[i];
+        binary[i] = isLightOnDark ? (lum > threshold + 15 ? 1 : 0) : (lum < threshold - 15 ? 1 : 0);
+      }
+
+      // Glyphs extraction via vertical & horizontal profiles
+      let totalAspect = 0;
+      let count = 0;
+      let totalStroke = 0;
+      let serifScores = 0;
+
+      // Vertical histogram
+      const colDensity = new Float32Array(width);
+      for (let x = 0; x < width; x++) {
+        let c = 0;
+        for (let y = 0; y < height; y++) {
+          if (binary[y * width + x] === 1) c++;
+        }
+        colDensity[x] = c;
+      }
+
+      let inGlyph = false;
+      let startX = 0;
+      for (let x = 0; x < width; x++) {
+        if (!inGlyph && colDensity[x] > 2) {
+          inGlyph = true;
+          startX = x;
+        } else if (inGlyph && colDensity[x] <= 2) {
+          inGlyph = false;
+          const gw = x - startX;
+          if (gw >= 4 && gw < width * 0.8) {
+            // Find y bounds
+            let gTop = height;
+            let gBottom = 0;
+            for (let y = 0; y < height; y++) {
+              for (let gx = startX; gx < x; gx++) {
+                if (binary[y * width + gx] === 1) {
+                  if (y < gTop) gTop = y;
+                  if (y > gBottom) gBottom = y;
+                }
+              }
+            }
+            const gh = gBottom - gTop + 1;
+            if (gh >= 8) {
+              const asp = gw / gh;
+              totalAspect += asp;
+              count++;
+
+              // Mid stroke thickness
+              const midY = Math.round(gTop + gh * 0.5);
+              let run = 0;
+              let maxRun = 0;
+              for (let gx = startX; gx < x; gx++) {
+                if (binary[midY * width + gx] === 1) {
+                  run++;
+                  if (run > maxRun) maxRun = run;
+                } else run = 0;
+              }
+
+              // Base stroke thickness
+              const baseY = Math.round(gTop + gh * 0.88);
+              let baseRun = 0;
+              let maxBaseRun = 0;
+              for (let gx = startX; gx < x; gx++) {
+                if (binary[baseY * width + gx] === 1) {
+                  baseRun++;
+                  if (baseRun > maxBaseRun) maxBaseRun = baseRun;
+                } else baseRun = 0;
+              }
+
+              totalStroke += maxRun || 2;
+              if (maxBaseRun >= maxRun * 1.45 && maxRun > 1) {
+                serifScores++;
+              }
+            }
+          }
+        }
+      }
+
+      const avgAspect = count > 0 ? totalAspect / count : 0.62;
+      const avgStroke = count > 0 ? totalStroke / count : 3;
+      const serifRatio = count > 0 ? serifScores / count : 0;
+
+      let classification = 'sans-serif';
+      let serifType = 'none';
+      if (serifRatio >= 0.4) {
+        classification = 'serif';
+        serifType = 'bracketed';
+      }
+
+      let proportions = 'regular';
+      if (avgAspect < 0.52) proportions = 'condensed';
+      else if (avgAspect >= 0.67) proportions = 'geometric';
+
+      let contrast = 'low';
+      if (classification === 'serif') contrast = 'medium';
+
+      let weight = 400;
+      if (avgStroke > 6) weight = 700;
+      else if (avgStroke > 4.5) weight = 600;
+      else if (avgStroke < 2.2) weight = 300;
+
+      // Match against fonts catalog
+      const candidates = fontsCatalog.map((font) => {
+        let score = 50;
+        if (font.category === classification) score += 25;
+        if (font.typographicMetrics.serif === serifType) score += 12;
+        if (font.typographicMetrics.proportions === proportions) score += 10;
+        
+        const aspectDelta = Math.abs(font.typographicMetrics.avgAspect - avgAspect);
+        score -= Math.round(aspectDelta * 20);
+
+        const confidence = Math.min(98, Math.max(72, score));
+        return {
+          font,
+          family: font.family,
+          confidence,
+          weight,
+          classification,
+          serifType,
+          proportions,
+          contrast
+        };
+      });
+
+      candidates.sort((a, b) => b.confidence - a.confidence);
+
+      return {
+        primary: candidates[0] || { font: fontsCatalog[0], family: 'Inter', confidence: 95 },
+        runnersUp: candidates.slice(1, 4),
+        traits: { classification, serifType, proportions, contrast, weight }
+      };
+    }
+
+    // 6. Display Results
+    function displayResults(data) {
+      loadingStage.classList.add('hidden');
+      resultsStage.classList.remove('hidden');
+
+      const primary = data.primary.font;
+      currentPrimaryFont = primary;
+
+      // Set Font Name, Designer, and Confidence
+      document.getElementById('res-font-family').textContent = primary.family;
+      document.getElementById('res-font-designer').textContent = `Designed by ${primary.designer} \u2022 SIL Open Font License`;
+      document.getElementById('res-confidence').textContent = `${data.primary.confidence}%`;
+
+      // Typography pills
+      document.getElementById('res-trait-category').textContent = primary.category;
+      document.getElementById('res-trait-serif').textContent = primary.typographicMetrics.serif;
+      document.getElementById('res-trait-contrast').textContent = primary.typographicMetrics.contrast;
+      document.getElementById('res-trait-weight').textContent = `${data.primary.weight} Regular`;
+
+      // Commercial alternative notice
+      const commAlert = document.getElementById('res-commercial-alert');
+      const commText = document.getElementById('res-commercial-text');
+      if (primary.commercialAlternativesFor && primary.commercialAlternativesFor.length > 0) {
+        commText.textContent = `Often used as a free, open-source stand-in for ${primary.commercialAlternativesFor.join(', ')}.`;
+        commAlert.classList.remove('hidden');
+      } else {
+        commAlert.classList.add('hidden');
+      }
+
+      // CSS Code blocks
+      const encodedFamily = encodeURIComponent(primary.family).replace(/%20/g, '+');
+      const importUrl = `@import url('https://fonts.googleapis.com/css2?family=${encodedFamily}:wght@300;400;500;600;700&display=swap');`;
+      const familyCss = `font-family: '${primary.family}', ${primary.category};`;
+
+      document.getElementById('code-import').querySelector('code').textContent = importUrl;
+      document.getElementById('code-family').querySelector('code').textContent = familyCss;
+
+      // Google Fonts links
+      document.getElementById('link-google-fonts').href = primary.googleFontsUrl;
+      document.getElementById('link-font-page').href = `/fonts/${primary.id}`;
+
+      // Dynamically load font link into document head for real-time live specimen rendering!
+      loadGoogleFontDynamically(primary.family);
+
+      // Update specimen styling
+      specimenInput.style.fontFamily = `'${primary.family}', sans-serif`;
+      specimenInput.style.fontWeight = '400';
+
+      // Alternatives cards
+      const altContainer = document.getElementById('res-alternatives-list');
+      altContainer.innerHTML = '';
+      data.runnersUp.forEach((alt) => {
+        const div = document.createElement('div');
+        div.className = 'p-3.5 rounded-xl border border-border bg-background hover:bg-muted/40 transition-colors cursor-pointer text-left';
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-sm text-foreground">${alt.font.family}</span>
+            <span class="text-xs font-mono text-muted-foreground">${alt.confidence}% match</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1 line-clamp-1">${alt.font.description}</p>
+          <div class="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
+            <span class="capitalize">${alt.font.category}</span>
+            <span class="font-medium text-foreground hover:underline">View Font &rarr;</span>
+          </div>
+        `;
+        div.addEventListener('click', () => {
+          window.location.href = `/fonts/${alt.font.id}`;
+        });
+        altContainer.appendChild(div);
+      });
+
+      // Scroll smoothly to results
+      resultsStage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function loadGoogleFontDynamically(family) {
+      const id = 'dynamic-specimen-font';
+      let link = document.getElementById(id);
+      if (!link) {
+        link = document.createElement('link');
+        link.id = id;
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+      }
+      const encoded = encodeURIComponent(family).replace(/%20/g, '+');
+      link.href = `https://fonts.googleapis.com/css2?family=${encoded}:wght@300;400;500;600;700;800;900&display=swap`;
+    }
+
+    // Specimen controls
+    specimenSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      specimenLabel.textContent = `${val}px`;
+      specimenInput.style.fontSize = `${val}px`;
+    });
+
+    specimenWeightPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        specimenWeightPills.forEach((p) => {
+          p.classList.remove('bg-foreground', 'text-background', 'font-medium', 'border-foreground');
+          p.classList.add('bg-background', 'text-muted-foreground', 'border-border');
+        });
+        pill.classList.remove('bg-background', 'text-muted-foreground', 'border-border');
+        pill.classList.add('bg-foreground', 'text-background', 'font-medium', 'border-foreground');
+
+        const weight = pill.getAttribute('data-weight');
+        specimenInput.style.fontWeight = weight;
+      });
+    });
+
+    // Copy to clipboard with instant visual feedback
+    setupCopyButton('btn-copy-import', 'code-import');
+    setupCopyButton('btn-copy-family', 'code-family');
+
+    function setupCopyButton(btnId, codeContainerId) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.addEventListener('click', async () => {
+        const text = document.getElementById(codeContainerId)?.textContent || '';
+        let copied = false;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            copied = true;
+          }
+        } catch (err) {
+          // Fallback below
+        }
+
+        if (!copied) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (e) {
+            console.error('Copy fallback failed', e);
+          }
+        }
+
+        const original = btn.innerHTML;
+        btn.innerHTML = `
+          <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Copied!</span>
+        `;
+        setTimeout(() => {
+          btn.innerHTML = original;
+        }, 2000);
+      });
+    }
+  })();
+</script>

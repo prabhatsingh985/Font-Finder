@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — Zero Image Retention Guarantee | Font Finder"
+  description="Read Font Finder's clear privacy policy. We never store, log, or share your uploaded images. Image processing happens strictly in-memory."
+>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto">
+    <div class="mb-10 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-medium mb-4">
+        <span>Privacy First Architecture</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+        Privacy Policy
+      </h1>
+      <p class="mt-3 text-base text-muted-foreground leading-relaxed">
+        Last revised: March 2026. How we treat your images, data, and privacy.
+      </p>
+    </div>
+
+    <div class="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-sm leading-relaxed text-muted-foreground">
+      
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          1. Uploaded Images & Zero Retention
+        </h2>
+        <p>
+          When you drag, drop, or paste an image or screenshot into Font Finder:
+        </p>
+        <ul class="space-y-2 list-disc pl-5">
+          <li>The image is loaded into your browser's local HTML5 Canvas memory.</li>
+          <li>Pixel values are measured strictly during your active session.</li>
+          <li><strong class="text-foreground">Your image is never written to disk, saved into a database, or transmitted to any third party.</strong></li>
+          <li>When you click "New Image", "Scan Another", or close the browser tab, the image memory is purged immediately.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          2. No AI Model Training On Your Data
+        </h2>
+        <p>
+          We do not feed, train, or store user screenshots in any AI training corpus. Font Finder uses direct mathematical letterform analysis (geometric contours, contrast ratios, and terminal measurements).
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          3. Tracking & Cookies
+        </h2>
+        <p>
+          Font Finder does not use intrusive marketing cookies, profiling trackers, or third-party advertising networks.
+        </p>
+        <p>
+          We use browser <code>localStorage</code> solely to remember your Dark/Light theme preference between visits. No personal identifiers or browsing histories are retained.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          4. External Links
+        </h2>
+        <p>
+          When you click "Open in Google Fonts", you navigate to Google's official specimen repository (fonts.google.com), which operates under Google's standard privacy guidelines.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          5. Contact Us
+        </h2>
+        <p>
+          If you have questions regarding this privacy policy, please reach out via our open-source project repository.
+        </p>
+      </section>
+
+    </div>
+  </article>
+</BaseLayout>

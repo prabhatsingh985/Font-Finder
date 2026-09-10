@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Production build output
+dist/
+
+# Astro cache & generated types
+.astro/
+
+# Playwright reports & test artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment variables
+.env
+.env.production
+
+# OS generated files
+.DS_Store
+Thumbs.db

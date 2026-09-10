@@ -1,0 +1,103 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-border/80 bg-background/80 backdrop-blur-md transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center gap-2.5 font-semibold text-foreground tracking-tight text-lg group">
+      <div class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-base shadow-sm transition-transform group-hover:scale-105">
+        F
+      </div>
+      <span>Font Finder</span>
+      <span class="hidden sm:inline-block text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        Verified
+      </span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-muted-foreground" aria-label="Main Navigation">
+      <a
+        href="/"
+        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
+          currentPath === '/' ? 'text-foreground bg-muted font-semibold' : ''
+        }`}
+      >
+        Finder
+      </a>
+      <a
+        href="/fonts"
+        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
+          currentPath.startsWith('/fonts') ? 'text-foreground bg-muted font-semibold' : ''
+        }`}
+      >
+        Browse Fonts
+      </a>
+      <a
+        href="/how-it-works"
+        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
+          currentPath === '/how-it-works' ? 'text-foreground bg-muted font-semibold' : ''
+        }`}
+      >
+        How It Works
+      </a>
+      <a
+        href="/about"
+        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
+          currentPath === '/about' ? 'text-foreground bg-muted font-semibold' : ''
+        }`}
+      >
+        About
+      </a>
+    </nav>
+
+    <!-- Actions: Theme Toggle & CTA -->
+    <div class="flex items-center gap-3">
+      <!-- Dark/Light Theme Toggle -->
+      <button
+        id="theme-toggle"
+        type="button"
+        class="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+        aria-label="Toggle dark mode"
+      >
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg id="theme-sun" class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg id="theme-moon" class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+
+      <!-- CTA Button -->
+      <a
+        href="/#finder"
+        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity shadow-sm"
+      >
+        Identify a Font
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Secondary Menu Bar -->
+  <div class="flex md:hidden items-center justify-around border-t border-border/60 py-2 px-4 text-xs font-medium text-muted-foreground">
+    <a href="/" class={`hover:text-foreground ${currentPath === '/' ? 'text-foreground font-semibold' : ''}`}>Finder</a>
+    <a href="/fonts" class={`hover:text-foreground ${currentPath.startsWith('/fonts') ? 'text-foreground font-semibold' : ''}`}>Browse Fonts</a>
+    <a href="/how-it-works" class={`hover:text-foreground ${currentPath === '/how-it-works' ? 'text-foreground font-semibold' : ''}`}>How It Works</a>
+    <a href="/about" class={`hover:text-foreground ${currentPath === '/about' ? 'text-foreground font-semibold' : ''}`}>About</a>
+  </div>
+</header>
+
+<script is:inline>
+  // Theme toggle initialization and handler
+  (function () {
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    }
+  })();
+</script>

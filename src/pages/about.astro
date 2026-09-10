@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About Font Finder — Open Source Typography Recognition"
+  description="Learn about Font Finder's mission to make font identification transparent, privacy-first, and completely free using open-source Google Fonts."
+>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto">
+    <div class="mb-10 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-xs font-medium text-muted-foreground mb-4">
+        <span>Our Mission</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+        About Font Finder
+      </h1>
+      <p class="mt-3 text-base text-muted-foreground leading-relaxed">
+        Building a cleaner, faster, and more honest way to discover and use web typography.
+      </p>
+    </div>
+
+    <div class="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-sm leading-relaxed text-muted-foreground">
+      
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          The Problem with Traditional Font Finders
+        </h2>
+        <p>
+          Most font identification websites on the web share the same frustrating traits: intrusive banner advertisements, mandatory registration screens, paywalled results, and worst of all — naming obscure proprietary typefaces that cost hundreds of dollars to license without offering any usable alternatives.
+        </p>
+        <p>
+          We created Font Finder with a simple premise: when a designer, developer, or creator sees a font they like, they want to know what it is and how to use it on their website right now.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          Our Guiding Principles
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+          <div class="p-4 rounded-xl border border-border bg-card">
+            <h3 class="font-semibold text-foreground text-sm">100% Free & Unlimited</h3>
+            <p class="text-xs text-muted-foreground mt-1">No scan limits, no credit cards, and no account creation. The tool is free for everyone forever.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-border bg-card">
+            <h3 class="font-semibold text-foreground text-sm">Verified Google Fonts</h3>
+            <p class="text-xs text-muted-foreground mt-1">Every match is guaranteed to exist on Google Fonts, licensed under the SIL Open Font License for unrestricted commercial use.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-border bg-card">
+            <h3 class="font-semibold text-foreground text-sm">Zero Image Storage</h3>
+            <p class="text-xs text-muted-foreground mt-1">Uploaded images never touch a persistent database. Canvas pixel analysis runs locally in your browser session.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-border bg-card">
+            <h3 class="font-semibold text-foreground text-sm">Ready-to-Use CSS</h3>
+            <p class="text-xs text-muted-foreground mt-1">Instant copy-paste <code>@import</code> tags and <code>font-family</code> rules, plus an interactive live preview specimen.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-foreground tracking-tight">
+          Open Source Typography
+        </h2>
+        <p>
+          We believe the open-source typography movement — led by Google Fonts and thousands of independent type designers around the world — is one of the greatest gifts to modern graphic design and software development.
+        </p>
+        <p>
+          By matching fonts directly to open-source families and offering free stand-ins for expensive commercial fonts, we hope to support designers in shipping beautiful, accessible typography on the web.
+        </p>
+      </section>
+
+    </div>
+  </article>
+</BaseLayout>
