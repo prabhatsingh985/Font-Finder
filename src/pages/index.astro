@@ -8,297 +8,252 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
 ---
 
 <BaseLayout
-  title="Font Finder — Free Image Font Identifier & Verified Google Fonts"
-  description="Identify any font from an image in seconds. Measured through optical letterform analysis, verified against Google Fonts, with ready-to-use CSS snippets."
+  title="Font Finder — Developer-First Image Font Identifier & Google Fonts Verification"
+  description="Identify any font from screenshots with optical precision. Technical letterform analysis verified against authentic Google Fonts with production CSS blueprints."
 >
-  <!-- Hero Section -->
-  <section class="relative pt-16 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <!-- Trust Eyebrow -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-xs font-medium text-muted-foreground mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse-subtle"></span>
-        <span>100% Optical Typography Matching &bull; Verified Google Fonts</span>
+  <!-- Hero Section with Graph Paper Hairline Pattern -->
+  <section class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb]">
+    <div class="max-w-[1200px] mx-auto text-center">
+      
+      <!-- Numbered Section Tag with Orange Dot -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono text-xs text-[#727272] mb-6 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+        <span>OPTICAL ENGINE &bull; VERIFIED GOOGLE FONTS</span>
       </div>
 
-      <!-- Main Heading -->
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+      <!-- Display Heading: Suisse 52-60px, weight 500, with single Orange highlight -->
+      <h1 class="text-4xl sm:text-6xl font-medium tracking-[-0.26px] text-[#262626] leading-[1.07] max-w-4xl mx-auto">
         Upload an image. <br class="hidden sm:inline" />
-        <span class="text-muted-foreground font-semibold">Find the font.</span>
+        <span class="text-[#ff4d00]">Find the font</span> with optical precision.
       </h1>
 
-      <p class="mt-5 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-        Identify fonts from screenshots, logos, and print. Inspect optical letterform measurements, get guaranteed Google Fonts matches, and copy production-ready CSS.
+      <p class="mt-4 text-base sm:text-lg text-[#727272] max-w-2xl mx-auto leading-relaxed">
+        A developer-first typeface identifier. Measure letterform serifs, aspect ratios, and stroke contrast directly in-browser with zero image retention.
       </p>
     </div>
 
-    <!-- Font Finder Interactive App -->
-    <div class="mt-10 sm:mt-12">
+    <!-- Core Font Finder Tool -->
+    <div class="mt-10 sm:mt-14">
       <FontFinderApp />
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section class="py-16 sm:py-20 border-t border-border bg-muted/20 px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Process</h2>
-        <p class="text-2xl sm:text-3xl font-bold text-foreground mt-2">How Font Identification Works</p>
-        <p class="text-sm text-muted-foreground mt-2">
-          No vague guesses or hallucinated names. Every result is computed through optical typography geometry.
+  <!-- Section 01: Three-column Centered Feature Cards -->
+  <section class="py-20 sm:py-24 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <!-- Numbered Section Header -->
+    <div class="flex items-center gap-2 mb-3">
+      <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+      <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / THREE-STEP WORKFLOW</span>
+    </div>
+    <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626] mb-10">
+      How optical letterform identification works
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1: Centered Icon in 40px circle -->
+      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 text-center flex flex-col items-center">
+        <div class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#ff4d00] mb-5 shadow-sm">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+        </div>
+        <h3 class="font-medium text-base text-[#262626]">Upload or Paste</h3>
+        <p class="text-xs text-[#727272] mt-2 leading-relaxed">
+          Drop a screenshot or paste directly from clipboard (<kbd class="font-mono text-[10px] bg-white border border-[#e5e7eb] px-1 py-0.5 rounded">⌘V</kbd>). Tight crops around text maximize measurement accuracy.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Step 1 -->
-        <div class="rounded-xl border border-border bg-card p-6 shadow-subtle flex flex-col justify-between">
-          <div>
-            <div class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-sm mb-4">
-              01
-            </div>
-            <h3 class="text-base font-semibold text-foreground">Upload or Paste</h3>
-            <p class="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Drag in a screenshot, paste from clipboard (<kbd class="px-1 py-0.5 rounded bg-muted border border-border text-[10px] font-mono">⌘V</kbd>), or try our sample specimens. Tight crops around horizontal text yield the highest precision.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground">
-            Adaptive contrast thresholding
-          </div>
+      <!-- Card 2: Centered Icon -->
+      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 text-center flex flex-col items-center">
+        <div class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#ff4d00] mb-5 shadow-sm">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+          </svg>
         </div>
+        <h3 class="font-medium text-base text-[#262626]">Measure Letterforms</h3>
+        <p class="text-xs text-[#727272] mt-2 leading-relaxed">
+          Our in-browser canvas engine binarizes the ink, calculates vertical stem widths, detects serif terminal feet, and calculates character aspect ratios.
+        </p>
+      </div>
 
-        <!-- Step 2 -->
-        <div class="rounded-xl border border-border bg-card p-6 shadow-subtle flex flex-col justify-between">
-          <div>
-            <div class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-sm mb-4">
-              02
-            </div>
-            <h3 class="text-base font-semibold text-foreground">Measure Letterforms</h3>
-            <p class="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Our optical engine analyzes glyph contours, measuring terminal serif flares, vertical stem width, horizontal hairline contrast, aspect ratios, and x-height.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground">
-            Zero cloud uploads &bull; Pure browser canvas
-          </div>
+      <!-- Card 3: Centered Icon -->
+      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 text-center flex flex-col items-center">
+        <div class="w-10 h-10 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#ff4d00] mb-5 shadow-sm">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
-
-        <!-- Step 3 -->
-        <div class="rounded-xl border border-border bg-card p-6 shadow-subtle flex flex-col justify-between">
-          <div>
-            <div class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-sm mb-4">
-              03
-            </div>
-            <h3 class="text-base font-semibold text-foreground">Verified Match & CSS</h3>
-            <p class="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Candidates are ranked against the verified open-source Google Fonts catalog. Preview the font with your own text and copy ready-to-use CSS snippets instantly.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground">
-            One-click CSS @import & font-family
-          </div>
-        </div>
+        <h3 class="font-medium text-base text-[#262626]">Verified Match & Code</h3>
+        <p class="text-xs text-[#727272] mt-2 leading-relaxed">
+          Results are verified against the open-source Google Fonts registry. Preview live with your own text and copy ready-to-use CSS declarations.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Core Differentiators Section -->
-  <section class="py-16 sm:py-20 border-t border-border px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+  <!-- Section 02: Blueprint & Code Window Section -->
+  <section class="py-20 sm:py-24 border-t border-[#e5e7eb] bg-[#f9f9f9]">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-            Engineered for Precision
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-foreground mt-2 tracking-tight">
-            Built to be trusted, not just quick.
+          <!-- Numbered Section Header with 2px Orange Vertical Accent -->
+          <div class="border-l-2 border-[#ff4d00] pl-3 mb-4">
+            <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">02 / TECHNICAL ADVANTAGE</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-medium tracking-tight text-[#262626]">
+            Engineered to be trusted, <br />
+            <span class="text-[#ff4d00]">not just approximate</span>.
           </h2>
-          <p class="text-sm text-muted-foreground mt-3 leading-relaxed">
-            Most font detectors present arbitrary percentages or make up font names that do not exist or cost hundreds of dollars to license. Font Finder prioritizes open, accessible typography you can actually use today.
+          <p class="text-sm text-[#727272] mt-4 leading-relaxed">
+            Unlike commercial font identifiers that name obscure $300 typefaces behind paywalls, Font Finder connects you to open-source Google Fonts you can use today without licensing friction.
           </p>
 
-          <div class="mt-6 space-y-3.5">
-            <div class="flex items-start gap-3">
-              <div class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-              </div>
-              <div>
-                <h4 class="text-sm font-semibold text-foreground">No Hallucinations</h4>
-                <p class="text-xs text-muted-foreground">Every detected typeface corresponds to an authentic, documented font family.</p>
-              </div>
+          <div class="mt-6 space-y-3 font-mono text-xs text-[#262626]">
+            <div class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-[#e5e7eb]">
+              <span class="text-[#ff4d00]">&bull;</span>
+              <span>No AI Hallucinations: Results grounded in measured geometry</span>
             </div>
-
-            <div class="flex items-start gap-3">
-              <div class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-              </div>
-              <div>
-                <h4 class="text-sm font-semibold text-foreground">Google Fonts Verification</h4>
-                <p class="text-xs text-muted-foreground">Only fonts verified in the official Google Fonts registry receive the verified badge.</p>
-              </div>
+            <div class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-[#e5e7eb]">
+              <span class="text-[#ff4d00]">&bull;</span>
+              <span>100% Google Fonts Verified: Official spec links & active CDN URLs</span>
             </div>
-
-            <div class="flex items-start gap-3">
-              <div class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-              </div>
-              <div>
-                <h4 class="text-sm font-semibold text-foreground">Free Commercial Alternatives</h4>
-                <p class="text-xs text-muted-foreground">Identifies commercial classics like Helvetica, Futura, and Gotham and pairs them with 100% free open-source equivalents.</p>
-              </div>
+            <div class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-[#e5e7eb]">
+              <span class="text-[#ff4d00]">&bull;</span>
+              <span>Free Stand-ins for Paid Type: Helvetica &rarr; Inter, Futura &rarr; Montserrat</span>
             </div>
-
-            <div class="flex items-start gap-3">
-              <div class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-              </div>
-              <div>
-                <h4 class="text-sm font-semibold text-foreground">Complete Privacy</h4>
-                <p class="text-xs text-muted-foreground">No image files are saved to disks or external servers. Analysis runs in volatile memory.</p>
-              </div>
+            <div class="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-[#e5e7eb]">
+              <span class="text-[#ff4d00]">&bull;</span>
+              <span>Zero Server Retention: In-memory browser execution only</span>
             </div>
           </div>
         </div>
 
-        <!-- Visual Typography Card -->
-        <div class="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-elevated">
-          <div class="flex items-center justify-between pb-4 border-b border-border text-xs">
-            <span class="font-mono text-muted-foreground">TYPOGRAPHIC ANATOMY</span>
-            <span class="px-2 py-0.5 rounded bg-muted text-foreground font-mono">100% OPTICAL</span>
+        <!-- Realistic Firecrawl Code Window -->
+        <div class="rounded-lg border border-[#e5e7eb] bg-[#ffffff] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
+          <div class="h-10 px-4 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <span class="font-mono text-xs text-[#727272] ml-2">opticalMetrics.json</span>
+            </div>
+            <span class="font-mono text-[11px] text-[#727272]">JSON Blueprint</span>
           </div>
-
-          <div class="mt-6 space-y-4">
-            <div class="p-3.5 rounded-lg bg-muted/40 border border-border/80">
-              <div class="flex justify-between text-xs mb-1">
-                <span class="font-medium text-foreground">Terminal Serifs</span>
-                <span class="text-muted-foreground font-mono">Flared vs Hairline vs None</span>
-              </div>
-              <p class="text-xs text-muted-foreground">Distinguishes bracketed classical serifs (Playfair Display) from monoline grotesques (Inter).</p>
-            </div>
-
-            <div class="p-3.5 rounded-lg bg-muted/40 border border-border/80">
-              <div class="flex justify-between text-xs mb-1">
-                <span class="font-medium text-foreground">Geometric Proportions</span>
-                <span class="text-muted-foreground font-mono">Aspect Ratio Index</span>
-              </div>
-              <p class="text-xs text-muted-foreground">Calculates width-to-height distribution to separate circular designs (Montserrat) from condensed headlines (Oswald).</p>
-            </div>
-
-            <div class="p-3.5 rounded-lg bg-muted/40 border border-border/80">
-              <div class="flex justify-between text-xs mb-1">
-                <span class="font-medium text-foreground">Stroke Contrast</span>
-                <span class="text-muted-foreground font-mono">Stem / Hairline Ratio</span>
-              </div>
-              <p class="text-xs text-muted-foreground">Detects high stroke modulation in modern display serifs vs consistent stroke weight in technical monospace.</p>
-            </div>
-          </div>
+          <pre class="p-5 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>&#123;
+  <span class="text-[#ff4d00]">"classification"</span>: <span class="text-[#616161]">"sans-serif"</span>,
+  <span class="text-[#ff4d00]">"terminal_serifs"</span>: <span class="text-[#616161]">"none"</span>,
+  <span class="text-[#ff4d00]">"aspect_ratio"</span>: <span class="text-[#262626]">0.62</span>,
+  <span class="text-[#ff4d00]">"stroke_contrast"</span>: <span class="text-[#616161]">"low"</span>,
+  <span class="text-[#ff4d00]">"estimated_weight"</span>: <span class="text-[#262626]">400</span>,
+  <span class="text-[#ff4d00]">"verified_match"</span>: &#123;
+    <span class="text-[#ff4d00]">"family"</span>: <span class="text-[#616161]">"Inter"</span>,
+    <span class="text-[#ff4d00]">"license"</span>: <span class="text-[#616161]">"SIL Open Font License"</span>,
+    <span class="text-[#ff4d00]">"cdn_import"</span>: <span class="text-[#616161]">"fonts.googleapis.com/css2?family=Inter..."</span>,
+    <span class="text-[#ff4d00]">"isGoogleFontsVerified"</span>: <span class="text-[#ff4d00]">true</span>
+  &#125;
+&#125;</code></pre>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Popular Verified Fonts Showcase -->
-  <section class="py-16 sm:py-20 border-t border-border bg-muted/20 px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
-        <div>
-          <h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Verified Typefaces</h2>
-          <p class="text-2xl sm:text-3xl font-bold text-foreground mt-1">Browse Popular Fonts</p>
+  <!-- Section 03: Verified Typefaces Catalog -->
+  <section class="py-20 sm:py-24 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+          <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">03 / VERIFIED REPOSITORY</span>
         </div>
-        <a
-          href="/fonts"
-          class="text-xs font-semibold text-foreground hover:underline inline-flex items-center gap-1"
-        >
-          View all verified fonts &rarr;
-        </a>
+        <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626]">
+          Popular open-source typefaces
+        </h2>
       </div>
+      <a
+        href="/fonts"
+        class="font-mono text-xs font-semibold text-[#ff4d00] hover:underline inline-flex items-center gap-1"
+      >
+        <span>View all verified fonts</span> &rarr;
+      </a>
+    </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {featuredFonts.map((font) => <FontCard font={font} />)}
-      </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {featuredFonts.map((font) => <FontCard font={font} />)}
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="py-16 sm:py-20 border-t border-border px-4 sm:px-6">
-    <div class="max-w-3xl mx-auto">
-      <div class="text-center mb-10">
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">FAQ</h2>
-        <p class="text-2xl sm:text-3xl font-bold text-foreground mt-1">Frequently Asked Questions</p>
+  <!-- Section 04: FAQ Section -->
+  <section class="py-20 sm:py-24 border-t border-[#e5e7eb] bg-[#f9f9f9]">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center gap-2 mb-2 justify-center">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">04 / SPECIFICATION & FAQ</span>
       </div>
+      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626] text-center mb-10">
+        Frequently Asked Questions
+      </h2>
 
-      <div class="divide-y divide-border border-y border-border">
-        <!-- Q1 -->
+      <div class="divide-y divide-[#e5e7eb] border-y border-[#e5e7eb] bg-white rounded-xl shadow-sm px-6">
         <details class="group py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-foreground list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
             <span>Is Font Finder completely free to use?</span>
-            <span class="transition-transform group-open:rotate-180 text-muted-foreground">&darr;</span>
+            <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2.5 text-xs text-muted-foreground leading-relaxed">
-            Yes, Font Finder is 100% free with unlimited scans, no credit card required, and no account signup. All matching runs in-browser or volatile memory, and all recommended font families are licensed under the SIL Open Font License (OFL) for free commercial and personal use.
+          <p class="mt-2.5 text-xs text-[#727272] leading-relaxed">
+            Yes, Font Finder is 100% free with unlimited scans, no credit card, and no account required. All matching runs in-browser, and all fonts are licensed under the SIL Open Font License (OFL) for free commercial use.
           </p>
         </details>
 
-        <!-- Q2 -->
         <details class="group py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-foreground list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
             <span>Do you store my uploaded images or screenshots?</span>
-            <span class="transition-transform group-open:rotate-180 text-muted-foreground">&darr;</span>
+            <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2.5 text-xs text-muted-foreground leading-relaxed">
-            No. Your privacy is paramount. Uploaded images are rendered directly onto an in-memory HTML5 canvas element for optical trait measurement and discarded. No images are saved to any permanent disk, database, or third party.
+          <p class="mt-2.5 text-xs text-[#727272] leading-relaxed">
+            No. Uploaded images are rendered directly onto an in-memory HTML5 canvas element for optical trait measurement and immediately purged. No images ever touch a server or persistent disk.
           </p>
         </details>
 
-        <!-- Q3 -->
         <details class="group py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-foreground list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
             <span>How does Google Fonts verification work?</span>
-            <span class="transition-transform group-open:rotate-180 text-muted-foreground">&darr;</span>
+            <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2.5 text-xs text-muted-foreground leading-relaxed">
+          <p class="mt-2.5 text-xs text-[#727272] leading-relaxed">
             Only fonts that match an authentic entry in our verified Google Fonts registry receive the "Google Fonts Verified" checkmark. We provide the official family name, available styles, designer credit, direct Google Fonts link, and tested CSS snippets.
           </p>
         </details>
 
-        <!-- Q4 -->
         <details class="group py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-foreground list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
             <span>Can I identify commercial fonts like Helvetica or Futura?</span>
-            <span class="transition-transform group-open:rotate-180 text-muted-foreground">&darr;</span>
+            <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2.5 text-xs text-muted-foreground leading-relaxed">
-            Yes! If your image contains a commercial font like Helvetica, Futura, Gotham, or Didot, the tool identifies the typography characteristics and provides the closest 100% free open-source Google Font alternative (e.g. Inter for Helvetica, Montserrat for Futura, EB Garamond for Adobe Garamond).
-          </p>
-        </details>
-
-        <!-- Q5 -->
-        <details class="group py-4">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold text-foreground list-none">
-            <span>How can I get the best identification accuracy?</span>
-            <span class="transition-transform group-open:rotate-180 text-muted-foreground">&darr;</span>
-          </summary>
-          <p class="mt-2.5 text-xs text-muted-foreground leading-relaxed">
-            Crop tightly around 1-3 words of horizontal, undistorted text. Ensure adequate contrast between letters and background. Lowercase letters provide richer typographic fingerprints (x-height and apertures) than all-caps headings.
+          <p class="mt-2.5 text-xs text-[#727272] leading-relaxed">
+            Yes! If your image contains a commercial font, the tool identifies the typography characteristics and provides the closest 100% free open-source Google Font alternative (e.g. Inter for Helvetica, Montserrat for Futura).
           </p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
-  <section class="py-16 sm:py-20 border-t border-border bg-foreground text-background px-4 sm:px-6 text-center">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
-        Ready to identify your font?
+  <!-- Final CTA: Firecrawl Pill treatment -->
+  <section class="py-20 max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+    <div class="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-10 sm:p-14 shadow-[0_0_0_6px_rgb(249,249,249)]">
+      <h2 class="text-2xl sm:text-4xl font-medium tracking-tight text-[#262626]">
+        Ready to identify your typography?
       </h2>
-      <p class="mt-3 text-sm text-background/80">
-        Drop a screenshot into the finder and get your verified Google Fonts CSS snippet in seconds.
+      <p class="mt-3 text-sm text-[#727272] max-w-md mx-auto">
+        Drop a screenshot and receive a verified Google Fonts CSS blueprint in seconds.
       </p>
-      <div class="mt-6">
+      <div class="mt-8">
         <a
           href="#finder"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-background text-foreground font-semibold text-sm hover:opacity-95 transition-opacity shadow-sm"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#ff4d00] text-white font-medium text-xs tracking-wide hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
         >
-          Jump to Font Finder
+          Jump to Font Finder &rarr;
         </a>
       </div>
     </div>

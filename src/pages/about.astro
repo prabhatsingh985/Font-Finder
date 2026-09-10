@@ -3,74 +3,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="About Font Finder — Open Source Typography Recognition"
+  title="About Font Finder — Developer-First Typography Tools"
   description="Learn about Font Finder's mission to make font identification transparent, privacy-first, and completely free using open-source Google Fonts."
 >
-  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto">
-    <div class="mb-10 text-center sm:text-left">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-xs font-medium text-muted-foreground mb-4">
-        <span>Our Mission</span>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto">
+    <div class="mb-12">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / MISSION STATEMENT</span>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] tracking-tight">
         About Font Finder
       </h1>
-      <p class="mt-3 text-base text-muted-foreground leading-relaxed">
-        Building a cleaner, faster, and more honest way to discover and use web typography.
+      <p class="mt-3 text-base text-[#727272] leading-relaxed">
+        Building a cleaner, faster, and more honest way to discover and use open-source web typography.
       </p>
     </div>
 
-    <div class="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-sm leading-relaxed text-muted-foreground">
+    <div class="space-y-10 text-sm leading-relaxed text-[#727272]">
       
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          The Problem with Traditional Font Finders
-        </h2>
-        <p>
-          Most font identification websites on the web share the same frustrating traits: intrusive banner advertisements, mandatory registration screens, paywalled results, and worst of all — naming obscure proprietary typefaces that cost hundreds of dollars to license without offering any usable alternatives.
-        </p>
-        <p>
-          We created Font Finder with a simple premise: when a designer, developer, or creator sees a font they like, they want to know what it is and how to use it on their website right now.
-        </p>
-      </section>
-
-      <section class="space-y-4">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          Our Guiding Principles
-        </h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
-          <div class="p-4 rounded-xl border border-border bg-card">
-            <h3 class="font-semibold text-foreground text-sm">100% Free & Unlimited</h3>
-            <p class="text-xs text-muted-foreground mt-1">No scan limits, no credit cards, and no account creation. The tool is free for everyone forever.</p>
-          </div>
-
-          <div class="p-4 rounded-xl border border-border bg-card">
-            <h3 class="font-semibold text-foreground text-sm">Verified Google Fonts</h3>
-            <p class="text-xs text-muted-foreground mt-1">Every match is guaranteed to exist on Google Fonts, licensed under the SIL Open Font License for unrestricted commercial use.</p>
-          </div>
-
-          <div class="p-4 rounded-xl border border-border bg-card">
-            <h3 class="font-semibold text-foreground text-sm">Zero Image Storage</h3>
-            <p class="text-xs text-muted-foreground mt-1">Uploaded images never touch a persistent database. Canvas pixel analysis runs locally in your browser session.</p>
-          </div>
-
-          <div class="p-4 rounded-xl border border-border bg-card">
-            <h3 class="font-semibold text-foreground text-sm">Ready-to-Use CSS</h3>
-            <p class="text-xs text-muted-foreground mt-1">Instant copy-paste <code>@import</code> tags and <code>font-family</code> rules, plus an interactive live preview specimen.</p>
-          </div>
+      <section class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+        <div class="border-l-2 border-[#ff4d00] pl-3 mb-3">
+          <h2 class="text-base font-semibold text-[#262626]">
+            The Problem with Legacy Font Finders
+          </h2>
         </div>
+        <p>
+          Legacy font tools force users through aggressive popup ads, mandatory email signups, paywalled matches, and suggestions for commercial fonts costing hundreds of dollars.
+        </p>
+        <p class="mt-3">
+          Font Finder operates on a simple principle: when you see typography you love, you need the name, verified open-source Google Fonts alternatives, and copy-ready CSS declarations in seconds.
+        </p>
       </section>
 
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          Open Source Typography
-        </h2>
-        <p>
-          We believe the open-source typography movement — led by Google Fonts and thousands of independent type designers around the world — is one of the greatest gifts to modern graphic design and software development.
-        </p>
-        <p>
-          By matching fonts directly to open-source families and offering free stand-ins for expensive commercial fonts, we hope to support designers in shipping beautiful, accessible typography on the web.
-        </p>
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+            <h3 class="font-semibold text-sm text-[#262626]">100% Free & Unlimited</h3>
+          </div>
+          <p class="text-xs text-[#727272]">No scan limits, no account creation, and zero paywalls.</p>
+        </div>
+
+        <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+            <h3 class="font-semibold text-sm text-[#262626]">Verified Google Fonts</h3>
+          </div>
+          <p class="text-xs text-[#727272]">Every match links to official Google Fonts repositories under the SIL Open Font License.</p>
+        </div>
+
+        <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+            <h3 class="font-semibold text-sm text-[#262626]">Zero Image Retention</h3>
+          </div>
+          <p class="text-xs text-[#727272]">Canvas pixel analysis runs strictly in-memory within your browser tab.</p>
+        </div>
+
+        <div class="rounded-2xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+            <h3 class="font-semibold text-sm text-[#262626]">Production CSS Blueprints</h3>
+          </div>
+          <p class="text-xs text-[#727272]">Tested <code>@import</code> and <code>font-family</code> declarations with live specimen testing.</p>
+        </div>
       </section>
 
     </div>

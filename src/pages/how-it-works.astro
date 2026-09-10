@@ -3,110 +3,102 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="How It Works — Optical Typography Analysis & Font Identification"
+  title="How It Works — Optical Typography Analysis Blueprint | Font Finder"
   description="Learn how Font Finder identifies typefaces from images using optical letterform geometry, stroke contrast, serifs, and aspect ratios. No AI hallucinations."
 >
-  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto">
-    <div class="mb-10 text-center sm:text-left">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-xs font-medium text-muted-foreground mb-4">
-        <span>Engineering & Typography Guide</span>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto">
+    <div class="mb-12">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / TECHNICAL SPECIFICATION</span>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] tracking-tight">
         How Font Finder Works
       </h1>
-      <p class="mt-3 text-base text-muted-foreground leading-relaxed">
-        A deep look at how typography is mechanically measured from pixels, and why optical geometry beats blind guessing.
+      <p class="mt-3 text-base text-[#727272] leading-relaxed">
+        A technical deep dive into in-browser letterform extraction, geometric property calculation, and catalog distance matching.
       </p>
     </div>
 
-    <div class="prose prose-neutral dark:prose-invert max-w-none space-y-10 text-sm leading-relaxed text-muted-foreground">
+    <div class="space-y-12 text-sm leading-relaxed text-[#727272]">
       
       <!-- Section 1 -->
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          1. Image Binarization & Adaptive Polarity
-        </h2>
-        <p>
-          The first challenge in reading type from an image is separating the ink of the letters from the background. Simple thresholding fails when an image has gradients, shadows, or light text on a dark canvas.
-        </p>
-        <p>
-          Font Finder samples border pixels to compute background luminance versus foreground luminance. Once polarity is confirmed, an adaptive Rec. 709 luminance threshold converts each pixel into clean binary foreground ink.
+      <section class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-mono text-xs font-semibold text-[#ff4d00]">01.01</span>
+          <h2 class="text-base font-semibold text-[#262626]">
+            Adaptive Contrast Binarization
+          </h2>
+        </div>
+        <p class="mt-2">
+          The canvas binarizer inspects edge luminance across image perimeters to evaluate background polarity (dark-on-light vs. light-on-dark). Using Rec. 709 luminance weighing (<code class="font-mono text-xs text-[#262626] bg-white px-1.5 py-0.5 rounded border border-[#e5e7eb]">0.2126R + 0.7152G + 0.0722B</code>), pixels are dynamically separated into foreground letter ink and background.
         </p>
       </section>
 
       <!-- Section 2 -->
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          2. Isolating Connected Letterforms
-        </h2>
-        <p>
-          Next, horizontal and vertical histogram projections scan the canvas to detect letter baselines, x-height, and individual character bounding boxes. Connected ink regions are identified as distinct glyphs.
-        </p>
-        <p>
-          Noise, flecks, and decorative border frames are filtered out based on aspect ratio and minimum stroke density.
+      <section class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-mono text-xs font-semibold text-[#ff4d00]">01.02</span>
+          <h2 class="text-base font-semibold text-[#262626]">
+            Character Bounding & Line Projections
+          </h2>
+        </div>
+        <p class="mt-2">
+          Horizontal and vertical pixel histograms detect line baselines, cap heights, and character bounding envelopes. Artifacts, photo noise, and decorative borders are stripped out using aspect filters.
         </p>
       </section>
 
       <!-- Section 3 -->
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          3. Extracting Typographic Geometry
-        </h2>
-        <p>
-          Every typeface carries an unmistakable anatomical signature. Rather than relying on black-box probabilistic text prediction, Font Finder directly measures five physical typographic properties:
-        </p>
-        <ul class="space-y-2 list-disc pl-5">
-          <li>
-            <strong class="text-foreground">Terminal Serifs:</strong> By sampling vertical stroke terminals at the baseline and cap-height, we determine whether a font has bracketed serifs (like <em>Playfair Display</em>), slab serifs (like <em>Space Mono</em>), or monoline sans-serif terminals (like <em>Inter</em>).
-          </li>
-          <li>
-            <strong class="text-foreground">Aspect Ratio & Geometry:</strong> The average width-to-height ratio of characters defines whether a font is condensed (aspect &lt; 0.50, e.g. <em>Oswald</em>), regular (aspect ~ 0.60, e.g. <em>Roboto</em>), or geometric (aspect &gt; 0.68, e.g. <em>Montserrat</em>).
-          </li>
-          <li>
-            <strong class="text-foreground">Stroke Contrast:</strong> The ratio between the thickest vertical stem and the thinnest horizontal crossbar. High contrast signifies transitional/modern serifs; low contrast characterizes grotesques.
-          </li>
-          <li>
-            <strong class="text-foreground">X-Height & Proportions:</strong> The vertical height of lowercase letters relative to capital letters. Modern UI typefaces feature high x-heights for screen clarity.
-          </li>
-          <li>
-            <strong class="text-foreground">Stroke Weight:</strong> Stem thickness mapped to standard CSS weights (300 Light, 400 Regular, 600 SemiBold, 700 Bold, 900 Black).
-          </li>
-        </ul>
-      </section>
-
-      <!-- Section 4 -->
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          4. Verified Google Fonts Catalog Matching
-        </h2>
-        <p>
-          The measured typographic fingerprint is evaluated against the verified Google Fonts database using weighted geometric distance scoring.
-        </p>
-        <p>
-          The highest-ranking family is presented with an exact confidence score. If the specimen strongly resembles a commercial proprietary typeface (such as Helvetica, Futura, or Gotham), Font Finder explicitly identifies the style and recommends the verified free Google Fonts stand-in.
-        </p>
-      </section>
-
-      <!-- Section 5 -->
-      <section class="space-y-3">
-        <h2 class="text-xl font-bold text-foreground tracking-tight">
-          5. Tips for 99% Accuracy
-        </h2>
-        <div class="p-4 rounded-xl border border-border bg-card space-y-2">
-          <p><strong class="text-foreground">&bull; Crop Tightly:</strong> Focus on 1 to 3 words. Eliminate background photos, illustrations, or multi-font headings in the same crop.</p>
-          <p><strong class="text-foreground">&bull; Choose Lowercase:</strong> Lowercase letters have distinctive ascenders, descenders, and bowls that make identification much faster than all-caps logos.</p>
-          <p><strong class="text-foreground">&bull; Horizontal Alignment:</strong> Rotate tilted photos upright before cropping for precise baseline measurement.</p>
+      <section class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-mono text-xs font-semibold text-[#ff4d00]">01.03</span>
+          <h2 class="text-base font-semibold text-[#262626]">
+            Typographic Metric Extraction
+          </h2>
+        </div>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
+          <div class="p-4 rounded-xl bg-white border border-[#e5e7eb]">
+            <span class="text-[#ff4d00] font-semibold block mb-1">Terminal Serifs</span>
+            <span class="text-[#727272]">Detects horizontal feet and brackets at baseline to identify serif typefaces.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-[#e5e7eb]">
+            <span class="text-[#ff4d00] font-semibold block mb-1">Aspect Geometry</span>
+            <span class="text-[#727272]">Separates condensed (&lt;0.50), regular (~0.62), and geometric wide (&gt;0.68).</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-[#e5e7eb]">
+            <span class="text-[#ff4d00] font-semibold block mb-1">Stroke Contrast</span>
+            <span class="text-[#727272]">Ratio of vertical stem to horizontal hairline thickness.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-[#e5e7eb]">
+            <span class="text-[#ff4d00] font-semibold block mb-1">Weight Density</span>
+            <span class="text-[#727272]">Translates stem thickness directly into standard CSS font weights (300–900).</span>
+          </div>
         </div>
       </section>
 
+      <!-- Section 4 -->
+      <section class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-mono text-xs font-semibold text-[#ff4d00]">01.04</span>
+          <h2 class="text-base font-semibold text-[#262626]">
+            Verified Google Fonts Distance Scoring
+          </h2>
+        </div>
+        <p class="mt-2">
+          Calculated vectors are scored against pre-indexed Google Fonts metadata. The closest match is ranked with an exact confidence percentage and instant CSS blueprint generation.
+        </p>
+      </section>
+
       <!-- CTA -->
-      <div class="pt-6 text-center sm:text-left">
+      <div class="pt-4">
         <a
           href="/#finder"
-          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff4d00] text-white text-xs font-semibold hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
         >
-          <span>Try Font Finder Now</span>
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          <span>Launch Font Finder</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
         </a>
       </div>
 

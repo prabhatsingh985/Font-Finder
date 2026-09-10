@@ -17,58 +17,53 @@ interface Props {
 const { font } = Astro.props;
 const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 
-// Find similar fonts in the same category
 const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
   (f) => f.id !== font.id && f.category === font.category
 ).slice(0, 3);
 ---
 
 <BaseLayout
-  title={`${font.family} — Free Google Font Specimen, Weights & CSS`}
+  title={`${font.family} — Free Google Font Specimen, Weights & CSS Blueprint`}
   description={`Download and use ${font.family} by ${font.designer}. Free Google Font with ${font.variants.length} styles, copy-ready CSS declarations, and recommended font pairings.`}
 >
-  <!-- Preload this font for instant rendering -->
   <link
     rel="stylesheet"
     href={`https://fonts.googleapis.com/css2?family=${encodedFamily}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap`}
   />
 
-  <article class="py-12 sm:py-16 px-4 sm:px-6 max-w-5xl mx-auto">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-muted-foreground mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-foreground">Home</a>
+  <article class="py-12 sm:py-16 px-4 sm:px-6 max-w-[1200px] mx-auto">
+    <!-- Breadcrumb in Geist Mono -->
+    <nav class="flex items-center gap-2 font-mono text-xs text-[#727272] mb-6" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-[#ff4d00]">Home</a>
       <span>/</span>
-      <a href="/fonts" class="hover:text-foreground">Fonts</a>
+      <a href="/fonts" class="hover:text-[#ff4d00]">Fonts</a>
       <span>/</span>
-      <span class="text-foreground font-medium">{font.family}</span>
+      <span class="text-[#262626] font-medium">{font.family}</span>
     </nav>
 
     <!-- Header Section -->
-    <div class="flex flex-wrap items-start justify-between gap-6 pb-8 border-b border-border">
+    <div class="flex flex-wrap items-start justify-between gap-6 pb-8 border-b border-[#e5e7eb]">
       <div>
-        <div class="flex items-center gap-2.5">
-          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl sm:text-5xl font-medium tracking-tight text-[#262626]">
             {font.family}
           </h1>
-          <span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            Google Fonts Verified
+          <span class="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1 rounded-full bg-[#f9f9f9] text-[#262626] border border-[#e5e7eb]">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+            <span>Google Fonts Verified</span>
           </span>
         </div>
-        <p class="text-sm text-muted-foreground mt-2">
-          Designed by <span class="text-foreground font-medium">{font.designer}</span> &bull; <span class="capitalize">{font.category}</span> &bull; SIL Open Font License (OFL)
+        <p class="text-sm text-[#727272] mt-2">
+          Designed by <span class="text-[#262626] font-medium">{font.designer}</span> &bull; <span class="capitalize">{font.category}</span> &bull; SIL Open Font License (OFL)
         </p>
       </div>
 
-      <!-- Google Fonts Button -->
       <div class="flex items-center gap-3">
         <a
           href={font.googleFontsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-foreground text-background text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ff4d00] text-white font-mono text-xs font-semibold hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
         >
           <span>Open on Google Fonts</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,70 +76,74 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
     <!-- Description & Typographic Traits -->
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="md:col-span-2">
-        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">About the Typeface</h2>
-        <p class="text-base text-foreground leading-relaxed">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+          <h2 class="font-mono text-xs uppercase tracking-wider text-[#727272]">TYPEFACE OVERVIEW</h2>
+        </div>
+        <p class="text-base text-[#262626] leading-relaxed">
           {font.description}
         </p>
 
         {font.commercialAlternativesFor && font.commercialAlternativesFor.length > 0 && (
-          <div class="mt-4 p-3 rounded-lg bg-muted/40 border border-border text-xs text-muted-foreground">
-            <span class="font-semibold text-foreground">Free Commercial Stand-In:</span> Often recommended as an open-source alternative to {font.commercialAlternativesFor.join(', ')}.
+          <div class="mt-5 p-4 rounded-xl bg-[#f9f9f9] border border-[#e5e7eb] font-mono text-xs text-[#616161]">
+            <span class="font-semibold text-[#262626]">Commercial Stand-In:</span> Often chosen as an open-source alternative to {font.commercialAlternativesFor.join(', ')}.
           </div>
         )}
       </div>
 
-      <!-- Quick Metrics Panel -->
-      <div class="p-5 rounded-xl border border-border bg-card shadow-subtle space-y-3 text-xs">
-        <h3 class="font-semibold text-foreground uppercase tracking-wider text-[11px]">Typographic Metrics</h3>
-        <div class="flex justify-between py-1 border-b border-border/60">
-          <span class="text-muted-foreground">Category</span>
-          <span class="font-medium text-foreground capitalize">{font.category}</span>
+      <!-- Quick Metrics Panel (Vellum 16px radius) -->
+      <div class="p-6 rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_6px_rgb(249,249,249)] space-y-3 font-mono text-xs">
+        <h3 class="font-semibold text-[#262626] uppercase tracking-wider text-[11px] pb-2 border-b border-[#e5e7eb]">
+          OPTICAL CHARACTERISTICS
+        </h3>
+        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
+          <span class="text-[#727272]">Category</span>
+          <span class="font-medium text-[#262626] capitalize">{font.category}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-border/60">
-          <span class="text-muted-foreground">Serifs</span>
-          <span class="font-medium text-foreground capitalize">{font.typographicMetrics.serif}</span>
+        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
+          <span class="text-[#727272]">Serifs</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.serif}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-border/60">
-          <span class="text-muted-foreground">Contrast</span>
-          <span class="font-medium text-foreground capitalize">{font.typographicMetrics.contrast}</span>
+        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
+          <span class="text-[#727272]">Contrast</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.contrast}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-border/60">
-          <span class="text-muted-foreground">Proportions</span>
-          <span class="font-medium text-foreground capitalize">{font.typographicMetrics.proportions}</span>
+        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
+          <span class="text-[#727272]">Proportions</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.proportions}</span>
         </div>
         <div class="flex justify-between py-1">
-          <span class="text-muted-foreground">Variable Font</span>
-          <span class="font-medium text-foreground">{font.variable ? 'Yes' : 'Static'}</span>
+          <span class="text-[#727272]">Variable Font</span>
+          <span class="font-medium text-[#262626]">{font.variable ? 'Yes' : 'Static'}</span>
         </div>
       </div>
     </div>
 
-    <!-- Interactive Specimen Tester -->
-    <div class="mt-12 rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-card">
-      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-border">
-        <h2 class="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          Interactive Type Specimen
-        </h2>
-        <!-- Size control -->
+    <!-- Interactive Specimen Playground -->
+    <div class="mt-12 rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#e5e7eb]">
+        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">
+          INTERACTIVE SPECIMEN TESTER
+        </span>
         <div class="flex items-center gap-2">
-          <span class="text-xs text-muted-foreground">Font Size:</span>
+          <span class="font-mono text-xs text-[#727272]">Size:</span>
           <input
             id="page-size-slider"
             type="range"
             min="16"
             max="80"
             value="36"
-            class="w-28 sm:w-36 accent-foreground cursor-pointer"
+            class="w-28 sm:w-36 accent-[#ff4d00] cursor-pointer"
           />
-          <span id="page-size-label" class="text-xs font-mono text-muted-foreground w-10">36px</span>
+          <span id="page-size-label" class="font-mono text-xs text-[#262626] w-10">36px</span>
         </div>
       </div>
 
       <div class="mt-6">
         <textarea
           id="page-specimen-text"
-          rows="3"
-          class="w-full bg-transparent border-0 text-foreground focus:ring-0 focus:outline-none resize-none leading-tight transition-all"
+          rows="2"
+          class="w-full bg-transparent border-0 text-[#262626] focus:ring-0 focus:outline-none resize-none leading-tight transition-all"
           style={`font-family: '${font.family}', ${font.category}; font-size: 36px;`}
         >All their equipment and instruments are alive.</textarea>
       </div>
@@ -152,17 +151,17 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
 
     <!-- Styles & Weights Showcase -->
     <div class="mt-12">
-      <h2 class="text-lg font-bold text-foreground tracking-tight mb-4">
+      <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-4">
         Styles & Weights ({font.variants.length})
       </h2>
-      <div class="divide-y divide-border border-y border-border">
+      <div class="divide-y divide-[#e5e7eb] border-y border-[#e5e7eb] bg-white rounded-xl shadow-sm px-6">
         {font.variants.map((variant) => (
-          <div class="py-5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-            <span class="text-xs font-mono text-muted-foreground w-36 shrink-0">
+          <div class="py-5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+            <span class="font-mono text-xs text-[#727272] w-36 shrink-0">
               {variant.weight} {variant.style === 'italic' ? 'Italic' : 'Regular'}
             </span>
             <p
-              class="text-xl sm:text-2xl text-foreground truncate select-all flex-1"
+              class="text-xl sm:text-2xl text-[#262626] truncate select-all flex-1"
               style={`font-family: '${font.family}', ${font.category}; font-weight: ${variant.weight}; font-style: ${variant.style};`}
             >
               Pack my box with five dozen liquor jugs.
@@ -172,76 +171,71 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
       </div>
     </div>
 
-    <!-- Complete Character Glyph Set -->
-    <div class="mt-12 rounded-xl border border-border bg-muted/20 p-6">
-      <h2 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-        Full Character Set Specimen
-      </h2>
-      <div
-        class="space-y-4 text-xl sm:text-2xl text-foreground select-all leading-relaxed"
-        style={`font-family: '${font.family}', ${font.category};`}
-      >
-        <p class="tracking-widest">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
-        <p class="tracking-widest">a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
-        <p class="tracking-widest">0 1 2 3 4 5 6 7 8 9 ! ? @ # $ % & * ( ) [ ] { } &bull; —</p>
-      </div>
-    </div>
-
-    <!-- CSS Snippets -->
+    <!-- Firecrawl Code Windows: CSS Snippets -->
     <div class="mt-12">
-      <h2 class="text-lg font-bold text-foreground tracking-tight mb-4">
-        Use in Your Web Project
+      <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-4">
+        Production CSS Blueprint
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- @import snippet -->
-        <div class="rounded-xl border border-border bg-muted/40 p-4">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">HTML / CSS @import</span>
+        <!-- @import Code Window -->
+        <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
+          <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <span class="font-mono text-xs text-[#727272] ml-2">google-fonts.css</span>
+            </div>
             <button
               type="button"
-              class="copy-btn text-xs px-2.5 py-1 rounded bg-background border border-border hover:bg-muted font-medium text-foreground transition-colors flex items-center gap-1"
+              class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
               data-text={font.importUrl}
             >
-              <span>Copy</span>
+              Copy
             </button>
           </div>
-          <pre class="text-xs font-mono overflow-x-auto text-foreground p-3 rounded bg-background/60 border border-border/50"><code>{font.importUrl}</code></pre>
+          <pre class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>{font.importUrl}</code></pre>
         </div>
 
-        <!-- font-family snippet -->
-        <div class="rounded-xl border border-border bg-muted/40 p-4">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">CSS font-family</span>
+        <!-- font-family Code Window -->
+        <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
+          <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
+              <span class="font-mono text-xs text-[#727272] ml-2">style.css</span>
+            </div>
             <button
               type="button"
-              class="copy-btn text-xs px-2.5 py-1 rounded bg-background border border-border hover:bg-muted font-medium text-foreground transition-colors flex items-center gap-1"
+              class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
               data-text={font.fontFamilyCss}
             >
-              <span>Copy</span>
+              Copy
             </button>
           </div>
-          <pre class="text-xs font-mono overflow-x-auto text-foreground p-3 rounded bg-background/60 border border-border/50"><code>{font.fontFamilyCss}</code></pre>
+          <pre class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>{font.fontFamilyCss}</code></pre>
         </div>
       </div>
     </div>
 
     <!-- Similar Fonts -->
     {similarFonts.length > 0 && (
-      <div class="mt-16 pt-12 border-t border-border">
-        <h2 class="text-lg font-bold text-foreground tracking-tight mb-6">
-          Similar Verified Fonts
+      <div class="mt-16 pt-12 border-t border-[#e5e7eb]">
+        <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-6">
+          Similar Verified Typefaces
         </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {similarFonts.map((sim) => (
             <a
               href={`/fonts/${sim.id}`}
-              class="group p-4 rounded-xl border border-border bg-card hover:border-foreground/30 transition-all block"
+              class="group p-5 rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-white hover:border-[#ff4d00]/30 hover:shadow-[0_0_0_6px_rgb(249,249,249)] transition-all block"
             >
-              <h3 class="font-bold text-foreground text-sm group-hover:underline">{sim.family}</h3>
-              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">{sim.description}</p>
-              <div class="mt-3 flex items-center justify-between text-[11px] text-muted-foreground">
+              <h3 class="font-medium text-[#262626] text-sm group-hover:text-[#ff4d00] transition-colors">{sim.family}</h3>
+              <p class="text-xs text-[#727272] mt-1 line-clamp-2">{sim.description}</p>
+              <div class="mt-4 flex items-center justify-between font-mono text-[11px] text-[#727272]">
                 <span class="capitalize">{sim.category}</span>
-                <span class="font-medium text-foreground">View Specimen &rarr;</span>
+                <span class="font-medium text-[#262626]">View Specimen &rarr;</span>
               </div>
             </a>
           ))}
@@ -265,14 +259,13 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
       });
     }
 
-    // Copy buttons
     document.querySelectorAll('.copy-btn').forEach((btn) => {
       btn.addEventListener('click', async () => {
         const text = btn.getAttribute('data-text') || '';
         try {
           await navigator.clipboard.writeText(text);
           const original = btn.innerHTML;
-          btn.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400">Copied!</span>`;
+          btn.innerHTML = `<span class="text-[#ff4d00] font-semibold">Copied!</span>`;
           setTimeout(() => {
             btn.innerHTML = original;
           }, 2000);

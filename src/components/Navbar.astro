@@ -2,95 +2,114 @@
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-border/80 bg-background/80 backdrop-blur-md transition-colors">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <!-- Brand Logo -->
-    <a href="/" class="flex items-center gap-2.5 font-semibold text-foreground tracking-tight text-lg group">
-      <div class="w-8 h-8 rounded-lg bg-foreground text-background flex items-center justify-center font-bold text-base shadow-sm transition-transform group-hover:scale-105">
-        F
+<!-- Announcement Banner flush above the nav -->
+<div class="w-full bg-[#ff4d00] text-white text-xs sm:text-sm font-medium py-2 px-4 text-center tracking-wide">
+  <span>Free, open-source typography recognition &bull; 100% verified against Google Fonts</span>
+  <a href="/fonts" class="underline underline-offset-2 ml-2 hover:opacity-90 transition-opacity">Browse Catalog &rarr;</a>
+</div>
+
+<!-- Sticky Top Nav Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-[#e5e7eb] bg-white/95 backdrop-blur-md">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    
+    <!-- Left: Flame Icon Logo + Wordmark -->
+    <a href="/" class="flex items-center gap-2 font-medium tracking-tight text-[#262626] text-[15px] group">
+      <!-- Fire / Signal Icon in #ff4d00 -->
+      <div class="w-7 h-7 rounded-full bg-[#ff4d00]/10 flex items-center justify-center text-[#ff4d00] group-hover:scale-105 transition-transform">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M12 2c-.8 2.2-2.8 4.2-4.5 6-2 2.2-3.5 4.8-3.5 7.8 0 4.4 3.6 8.2 8 8.2s8-3.8 8-8.2c0-2.5-1-4.8-2.6-6.7-1.5-1.8-3.4-3.5-4.4-5.3-.3-.6-.7-1.3-1-1.8zM12 20c-2.8 0-5-2.2-5-5 0-1.8 1-3.3 2.1-4.7 1.1-1.3 2.2-2.7 2.9-4.3.7 1.5 1.8 2.9 2.9 4.3 1.1 1.4 2.1 2.9 2.1 4.7 0 2.8-2.2 5-5 5z"/>
+        </svg>
       </div>
-      <span>Font Finder</span>
-      <span class="hidden sm:inline-block text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-        Verified
+      <span class="font-semibold tracking-tight text-[#262626]">Font Finder</span>
+      <span class="font-mono text-[11px] text-[#727272] border border-[#e5e7eb] px-1.5 py-0.5 rounded-full bg-[#f9f9f9] hidden sm:inline-block">
+        v1.0
       </span>
     </a>
 
-    <!-- Desktop Navigation Links -->
-    <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-muted-foreground" aria-label="Main Navigation">
+    <!-- Center: Main Navigation Links -->
+    <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-[#262626]" aria-label="Main Navigation">
       <a
         href="/"
-        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
-          currentPath === '/' ? 'text-foreground bg-muted font-semibold' : ''
+        class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
+          currentPath === '/' ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
         }`}
       >
         Finder
       </a>
       <a
         href="/fonts"
-        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
-          currentPath.startsWith('/fonts') ? 'text-foreground bg-muted font-semibold' : ''
+        class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
+          currentPath.startsWith('/fonts') ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
         }`}
       >
         Browse Fonts
       </a>
       <a
         href="/how-it-works"
-        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
-          currentPath === '/how-it-works' ? 'text-foreground bg-muted font-semibold' : ''
+        class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
+          currentPath === '/how-it-works' ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
         }`}
       >
-        How It Works
+        Anatomy & Guide
       </a>
       <a
         href="/about"
-        class={`px-3 py-1.5 rounded-md transition-colors hover:text-foreground hover:bg-muted ${
-          currentPath === '/about' ? 'text-foreground bg-muted font-semibold' : ''
+        class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
+          currentPath === '/about' ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
         }`}
       >
         About
       </a>
     </nav>
 
-    <!-- Actions: Theme Toggle & CTA -->
+    <!-- Right: GitHub Link & Primary CTA Button -->
     <div class="flex items-center gap-3">
-      <!-- Dark/Light Theme Toggle -->
+      <a
+        href="https://github.com/prabhatsingh985/Font-Finder"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-[#262626] bg-[#f9f9f9] hover:bg-[#e5e7eb] px-2.5 py-1.5 rounded-full border border-[#e5e7eb] transition-colors"
+      >
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+
+      <!-- Theme button toggle for automated tests & dark preferences -->
       <button
         id="theme-toggle"
         type="button"
-        class="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
-        aria-label="Toggle dark mode"
+        class="w-8 h-8 rounded-full border border-[#e5e7eb] flex items-center justify-center text-[#727272] hover:text-[#262626] hover:bg-[#f9f9f9] transition-colors cursor-pointer"
+        aria-label="Toggle theme"
       >
-        <!-- Sun Icon (shown in dark mode) -->
-        <svg id="theme-sun" class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-        <!-- Moon Icon (shown in light mode) -->
-        <svg id="theme-moon" class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="12" r="5" stroke-width="2"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
         </svg>
       </button>
 
-      <!-- CTA Button -->
+      <!-- Primary Action: Orange Pill CTA with Glow -->
       <a
         href="/#finder"
-        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity shadow-sm"
+        class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold rounded-full bg-[#ff4d00] text-white hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
       >
-        Identify a Font
+        Identify Font &rarr;
       </a>
     </div>
+
   </div>
 
   <!-- Mobile Secondary Menu Bar -->
-  <div class="flex md:hidden items-center justify-around border-t border-border/60 py-2 px-4 text-xs font-medium text-muted-foreground">
-    <a href="/" class={`hover:text-foreground ${currentPath === '/' ? 'text-foreground font-semibold' : ''}`}>Finder</a>
-    <a href="/fonts" class={`hover:text-foreground ${currentPath.startsWith('/fonts') ? 'text-foreground font-semibold' : ''}`}>Browse Fonts</a>
-    <a href="/how-it-works" class={`hover:text-foreground ${currentPath === '/how-it-works' ? 'text-foreground font-semibold' : ''}`}>How It Works</a>
-    <a href="/about" class={`hover:text-foreground ${currentPath === '/about' ? 'text-foreground font-semibold' : ''}`}>About</a>
+  <div class="flex md:hidden items-center justify-around border-t border-[#e5e7eb] py-2 px-4 text-xs font-medium text-[#727272] bg-[#ffffff]">
+    <a href="/" class={`hover:text-[#ff4d00] ${currentPath === '/' ? 'text-[#ff4d00] font-semibold' : ''}`}>Finder</a>
+    <a href="/fonts" class={`hover:text-[#ff4d00] ${currentPath.startsWith('/fonts') ? 'text-[#ff4d00] font-semibold' : ''}`}>Browse Fonts</a>
+    <a href="/how-it-works" class={`hover:text-[#ff4d00] ${currentPath === '/how-it-works' ? 'text-[#ff4d00] font-semibold' : ''}`}>Guide</a>
+    <a href="/about" class={`hover:text-[#ff4d00] ${currentPath === '/about' ? 'text-[#ff4d00] font-semibold' : ''}`}>About</a>
   </div>
 </header>
 
 <script is:inline>
-  // Theme toggle initialization and handler
   (function () {
     const toggleBtn = document.getElementById('theme-toggle');
     if (toggleBtn) {

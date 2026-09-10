@@ -5,54 +5,44 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+        ember: {
+          orange: '#ff4d00',
+          glow: '#fcddcc',
+          wash: '#febec2'
         },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
-        },
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
-        },
-        verified: {
-          DEFAULT: '#10b981',
-          bg: '#ecfdf5',
-          border: '#a7f3d0'
-        }
+        gridline: '#e5e7eb',
+        ink: '#262626',
+        vellum: '#f9f9f9',
+        slate: '#727272',
+        graphite: '#616161',
+        ash: '#949494',
+        stone: '#c7c7c7',
+        mist: '#b5b5b5',
+        pebble: '#838383',
+        border: '#e5e7eb',
+        background: '#ffffff',
+        foreground: '#262626'
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+        sans: ['Suisse', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        mono: ['Geist Mono', 'JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+      },
+      borderRadius: {
+        pill: '999px',
+        card: '16px',
+        input: '8px',
+        code: '8px'
       },
       boxShadow: {
-        subtle: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-        card: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-        elevated: '0 10px 30px -4px rgba(0, 0, 0, 0.08)'
+        'ember-glow': '0 0 0 6px #fcddcc',
+        'vellum-ring': 'rgb(249, 249, 249) 0px 0px 0px 6px',
+        'subtle-ambient': 'rgba(0, 0, 0, 0.02) 0px 40px 48px -20px, rgba(0, 0, 0, 0.03) 0px 0px 0px 1px',
+        'code-window': 'rgb(253, 253, 253) 0px 0px 0px 8px'
       },
-      animation: {
-        'pulse-subtle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'fade-in': 'fadeIn 0.25s ease-out forwards',
-        'slide-up': 'slideUp 0.3s ease-out forwards'
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' }
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(8px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' }
-        }
+      letterSpacing: {
+        display: '-0.26px',
+        'display-xl': '-0.6px',
+        'heading-lg': '-0.2px'
       }
     }
   },

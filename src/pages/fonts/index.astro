@@ -7,48 +7,49 @@ const categories = ['all', 'sans-serif', 'serif', 'display', 'monospace', 'handw
 ---
 
 <BaseLayout
-  title="Browse Verified Google Fonts — Free Open Source Typography Library"
-  description="Explore our curated directory of verified Google Fonts. Search by category, test with custom specimen text, and copy ready-to-use CSS declarations."
+  title="Browse Verified Google Fonts — Developer-First Typography Directory"
+  description="Explore our curated directory of verified Google Fonts. Filter by category, test with custom specimen text, and copy ready-to-use CSS declarations."
 >
-  <section class="py-12 sm:py-16 px-4 sm:px-6 max-w-6xl mx-auto">
+  <section class="py-12 sm:py-16 px-4 sm:px-6 max-w-[1200px] mx-auto">
     <!-- Header -->
     <div class="max-w-2xl">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-xs font-medium text-muted-foreground mb-4">
-        <span>Verified Registry &bull; SIL Open Font License</span>
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / DIRECTORY</span>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] tracking-tight">
         Verified Google Fonts
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
-        Browse open-source typefaces with tested CSS declarations, weights, and commercial alternatives. All fonts are free for personal and commercial design projects.
+      <p class="mt-3 text-sm text-[#727272] leading-relaxed">
+        Browse open-source typefaces with tested CSS declarations, available weights, and commercial alternatives. All fonts are free under SIL Open Font License.
       </p>
     </div>
 
-    <!-- Search & Filter Controls -->
-    <div class="mt-8 p-4 rounded-xl border border-border bg-card shadow-subtle flex flex-col md:flex-row gap-4 items-center justify-between">
+    <!-- Search & Filter Controls (Firecrawl Pill container) -->
+    <div class="mt-8 p-4 rounded-2xl border border-[#e5e7eb] bg-white shadow-[0_0_0_6px_rgb(249,249,249)] flex flex-col md:flex-row gap-4 items-center justify-between">
       <!-- Search Input -->
       <div class="relative w-full md:w-80">
         <input
           id="font-search"
           type="text"
-          placeholder="Search fonts by name, designer..."
-          class="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground placeholder:text-muted-foreground"
+          placeholder="Search fonts by family or designer..."
+          class="w-full pl-9 pr-4 py-2 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] text-xs font-mono text-[#262626] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#c7c7c7]"
         />
-        <svg class="w-4 h-4 text-muted-foreground absolute left-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="w-4 h-4 text-[#727272] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
 
-      <!-- Category Filter Tabs -->
+      <!-- Category Filter Tabs (Pills) -->
       <div class="flex flex-wrap gap-1.5 w-full md:w-auto" id="category-tabs">
         {categories.map((cat) => (
           <button
             type="button"
             data-cat={cat}
-            class={`cat-tab px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer capitalize ${
+            class={`cat-tab px-3 py-1.5 rounded-full font-mono text-xs transition-colors cursor-pointer capitalize ${
               cat === 'all'
-                ? 'bg-foreground text-background font-semibold'
-                : 'bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted'
+                ? 'bg-[#262626] text-white font-medium'
+                : 'bg-[#f9f9f9] text-[#727272] border border-[#e5e7eb] hover:text-[#262626] hover:bg-[#e5e7eb]'
             }`}
           >
             {cat.replace('-', ' ')}
@@ -57,22 +58,22 @@ const categories = ['all', 'sans-serif', 'serif', 'display', 'monospace', 'handw
       </div>
     </div>
 
-    <!-- Global Preview Text Adjuster -->
-    <div class="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground px-1">
+    <!-- Specimen Adjuster Bar -->
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-[#727272] px-1">
       <div class="flex items-center gap-2">
-        <span>Preview specimen:</span>
+        <span>Specimen text:</span>
         <input
           id="global-specimen-text"
           type="text"
           value="Almost before we knew it, we had left the ground."
-          class="px-2.5 py-1 rounded border border-border bg-background text-foreground text-xs w-64 sm:w-96 focus:outline-none focus:ring-1 focus:ring-foreground"
+          class="px-3 py-1 rounded-full border border-[#e5e7eb] bg-white text-[#262626] text-xs w-64 sm:w-96 focus:outline-none focus:border-[#ff4d00]"
         />
       </div>
-      <span id="font-count-label" class="font-mono text-[11px]">Showing {VERIFIED_GOOGLE_FONTS.length} verified fonts</span>
+      <span id="font-count-label" class="text-[11px]">Showing {VERIFIED_GOOGLE_FONTS.length} verified fonts</span>
     </div>
 
     <!-- Fonts Grid -->
-    <div id="fonts-grid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div id="fonts-grid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {VERIFIED_GOOGLE_FONTS.map((font) => (
         <div class="font-item" data-family={font.family.toLowerCase()} data-designer={font.designer.toLowerCase()} data-cat={font.category}>
           <FontCard font={font} />
@@ -80,8 +81,8 @@ const categories = ['all', 'sans-serif', 'serif', 'display', 'monospace', 'handw
       ))}
     </div>
 
-    <div id="no-results" class="hidden py-16 text-center text-muted-foreground text-sm">
-      No verified fonts match your search query. Try searching for "Inter", "Sans", or "Serif".
+    <div id="no-results" class="hidden py-16 text-center text-[#727272] font-mono text-xs">
+      No verified fonts match your search query. Try "Inter", "Roboto", or "Sans".
     </div>
   </section>
 </BaseLayout>
@@ -132,18 +133,17 @@ const categories = ['all', 'sans-serif', 'serif', 'display', 'monospace', 'handw
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         tabs.forEach((t) => {
-          t.classList.remove('bg-foreground', 'text-background', 'font-semibold');
-          t.classList.add('bg-muted/60', 'text-muted-foreground');
+          t.classList.remove('bg-[#262626]', 'text-white', 'font-medium');
+          t.classList.add('bg-[#f9f9f9]', 'text-[#727272]', 'border', 'border-[#e5e7eb]');
         });
-        tab.classList.remove('bg-muted/60', 'text-muted-foreground');
-        tab.classList.add('bg-foreground', 'text-background', 'font-semibold');
+        tab.classList.remove('bg-[#f9f9f9]', 'text-[#727272]', 'border', 'border-[#e5e7eb]');
+        tab.classList.add('bg-[#262626]', 'text-white', 'font-medium');
 
         activeCategory = tab.getAttribute('data-cat') || 'all';
         filterFonts();
       });
     });
 
-    // Sync global specimen text across all specimen cards
     globalSpecimenInput.addEventListener('input', (e) => {
       const val = e.target.value || 'Almost before we knew it, we had left the ground.';
       document.querySelectorAll('.font-item p.truncate').forEach((p) => {
