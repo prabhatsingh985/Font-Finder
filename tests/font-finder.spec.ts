@@ -66,11 +66,23 @@ test.describe('Font Finder Website E2E Tests', () => {
     await copyBtn.click();
     await expect(copyBtn).toContainText(/Copied!/i);
 
+    // Verify side-by-side comparison specimen is dynamically matched and NOT hardcoded Handgloves
+    const compareMatched = page.locator('#res-compare-matched');
+    await expect(compareMatched).not.toHaveText('Handgloves');
+    await expect(compareMatched).toHaveText('Inter Typography');
+
+    // Test typing in compare-text-input (e.g. monkeytype)
+    const compareInput = page.locator('#compare-text-input');
+    await compareInput.fill('monkeytype');
+    await expect(compareMatched).toHaveText('monkeytype');
+
     // Verify interactive specimen tester
     const specimenInput = page.locator('#specimen-text-input');
     await expect(specimenInput).toBeVisible();
+    await expect(specimenInput).toHaveValue('monkeytype');
     await specimenInput.fill('Custom Brand Headline Testing');
     await expect(specimenInput).toHaveValue('Custom Brand Headline Testing');
+    await expect(compareMatched).toHaveText('Custom Brand Headline Testing');
   });
 
   test('3. Test Serif typography sample detection', async ({ page }) => {
@@ -160,5 +172,69 @@ test.describe('Font Finder Website E2E Tests', () => {
     await themeBtn.click();
     const isLight = await page.evaluate(() => !document.documentElement.classList.contains('dark'));
     expect(isLight).toBe(true);
+  });
+
+  test('8. Dark background image (Monkeytype style) detection evaluates as sans-serif and dynamically syncs specimen', async ({ page }) => {
+    await page.goto('/');
+
+    // Generate simulated Monkeytype image in browser (dark background with light sans-serif text)
+    const dataUrl = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 120;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#323437';
+      ctx.fillRect(0, 0, 400, 120);
+      ctx.fillStyle = '#e2b714';
+      ctx.fillRect(20, 45, 25, 25);
+      ctx.fillStyle = '#d1d0c5';
+      ctx.font = 'bold 40px Arial, sans-serif';
+      ctx.fillText('monkeytype', 60, 68);
+      return canvas.toDataURL('image/png');
+    });
+
+    // Feed file into file-input
+    await page.evaluate(async (url) => {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'monkeytype-screenshot.png', { type: 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, dataUrl);
+
+    // Verify crop stage appears
+    const cropStage = page.locator('#crop-stage');
+    await expect(cropStage).toBeVisible({ timeout: 5000 });
+
+    // Click analyze
+    const analyzeBtn = page.locator('#btn-run-analysis');
+    await analyzeBtn.click();
+
+    // Verify results stage appears
+    const resultsStage = page.locator('#results-stage');
+    await expect(resultsStage).toBeVisible({ timeout: 10000 });
+
+    // Category MUST be sans-serif, NEVER serif or Playfair Display!
+    const traitCategory = page.locator('#res-trait-category');
+    await expect(traitCategory).toContainText(/sans-serif/i);
+
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).not.toContainText(/Playfair/i);
+
+    // Verify comparison matched specimen is NOT Handgloves
+    const compareMatched = page.locator('#res-compare-matched');
+    await expect(compareMatched).not.toHaveText('Handgloves');
+
+    // Type "monkeytype" in the comparison bar
+    const compareInput = page.locator('#compare-text-input');
+    await compareInput.fill('monkeytype');
+    await expect(compareMatched).toHaveText('monkeytype');
+
+    // Specimen playground should also reflect monkeytype
+    const specimenInput = page.locator('#specimen-text-input');
+    await expect(specimenInput).toHaveValue('monkeytype');
   });
 });

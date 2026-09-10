@@ -180,25 +180,30 @@ export class OpticalFontEngine {
     // Contrast calculation
     const contrastRatio = avgHorizStroke > 0 ? avgVertStroke / avgHorizStroke : 1.0;
     let contrast: 'none' | 'low' | 'medium' | 'high' = 'low';
-    if (contrastRatio >= 1.9) contrast = 'high';
-    else if (contrastRatio >= 1.4) contrast = 'medium';
-    else if (contrastRatio <= 1.15) contrast = 'none';
+    if (contrastRatio >= 2.0) contrast = 'high';
+    else if (contrastRatio >= 1.45) contrast = 'medium';
+    else if (contrastRatio <= 1.2) contrast = 'none';
 
-    // Serif categorization: High contrast is an unambiguous hallmark of serif typefaces (Playfair Display, Bodoni, Didot)
+    // Serif categorization: requires physical serif feet or high contrast with verified spurs
     let serifType: 'none' | 'subtle' | 'bracketed' | 'slab' | 'hairline' = 'none';
     let classification: 'sans-serif' | 'serif' | 'display' | 'monospace' = 'sans-serif';
 
-    if (contrast === 'high' || contrastRatio >= 1.9) {
+    if (serifRatio >= 0.35 && contrastRatio >= 1.35) {
+      classification = 'serif';
+      serifType = 'bracketed';
+      contrast = contrastRatio >= 1.9 ? 'high' : 'medium';
+    } else if (serifRatio >= 0.40) {
+      classification = 'serif';
+      serifType = 'bracketed';
+      contrast = contrastRatio >= 1.5 ? 'medium' : 'low';
+    } else if (contrastRatio >= 2.1 && serifRatio >= 0.18) {
       classification = 'serif';
       serifType = 'bracketed';
       contrast = 'high';
-    } else if (serifRatio >= 0.35 || contrastRatio >= 1.45) {
-      classification = 'serif';
-      serifType = serifRatio >= 0.4 ? 'bracketed' : 'subtle';
-      contrast = 'medium';
-    } else if (serifRatio >= 0.25) {
-      serifType = 'subtle';
-      classification = 'serif';
+    } else {
+      classification = 'sans-serif';
+      serifType = 'none';
+      contrast = contrastRatio > 1.25 ? 'low' : 'none';
     }
 
     // Proportion categorization
@@ -330,9 +335,23 @@ export class OpticalFontEngine {
       }
     }
 
-    const hasSerifFoot = maxRun > 0 && maxBottomRun >= maxRun * 1.5;
+    // Measure vertical runs across columns to get horizontal bar thickness
+    let maxVRun = 0;
+    for (let x = glyph.x + 1; x < glyph.x + glyph.w - 1; x++) {
+      let curV = 0;
+      for (let y = glyph.y; y < glyph.y + glyph.h; y++) {
+        if (binary[y * width + x] === 1) {
+          curV++;
+          if (curV > maxVRun && curV <= glyph.h * 0.55) maxVRun = curV;
+        } else {
+          curV = 0;
+        }
+      }
+    }
+
+    const hasSerifFoot = maxRun > 0 && maxBottomRun >= maxRun * 1.55;
     const vertStroke = maxRun || 2;
-    const horizStroke = Math.max(1, Math.round(vertStroke * 0.75));
+    const horizStroke = maxVRun || Math.max(1, Math.round(vertStroke * 0.85));
 
     return { vertStroke, horizStroke, hasSerifFoot };
   }
