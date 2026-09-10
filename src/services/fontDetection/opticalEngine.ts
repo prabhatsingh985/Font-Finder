@@ -184,11 +184,32 @@ export class OpticalFontEngine {
     else if (contrastRatio >= 1.45) contrast = 'medium';
     else if (contrastRatio <= 1.2) contrast = 'none';
 
+    // Monospace detection: check uniform width spread and coefficient of variation
+    const letterGlyphs = glyphs.filter((g) => g.h >= textHeight * 0.35 && g.w >= 4);
+    let isMonospace = false;
+    if (letterGlyphs.length >= 4) {
+      const widths = letterGlyphs.map((g) => g.w).sort((a, b) => a - b);
+      const avgW = widths.reduce((a, b) => a + b, 0) / widths.length;
+      const variance = widths.reduce((a, b) => a + Math.pow(b - avgW, 2), 0) / widths.length;
+      const relWidthStdDev = Math.sqrt(variance) / Math.max(1, avgW);
+      const p15 = widths[Math.floor(widths.length * 0.15)] ?? 1;
+      const p85 = widths[Math.floor(widths.length * 0.85)] ?? 2;
+      const widthSpread = p15 > 0 ? p85 / p15 : 2.0;
+
+      if (relWidthStdDev < 0.18 && widthSpread <= 1.32) {
+        isMonospace = true;
+      }
+    }
+
     // Serif categorization: requires physical serif feet or high contrast with verified spurs
     let serifType: 'none' | 'subtle' | 'bracketed' | 'slab' | 'hairline' = 'none';
     let classification: 'sans-serif' | 'serif' | 'display' | 'monospace' = 'sans-serif';
 
-    if (serifRatio >= 0.35 && contrastRatio >= 1.35) {
+    if (isMonospace) {
+      classification = 'monospace';
+      serifType = 'none';
+      contrast = 'none';
+    } else if (serifRatio >= 0.35 && contrastRatio >= 1.35) {
       classification = 'serif';
       serifType = 'bracketed';
       contrast = contrastRatio >= 1.9 ? 'high' : 'medium';

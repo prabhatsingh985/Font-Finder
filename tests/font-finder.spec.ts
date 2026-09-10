@@ -104,6 +104,28 @@ test.describe('Font Finder Website E2E Tests', () => {
     await expect(traitCategory).toContainText(/serif/i);
   });
 
+  test('3b. Test Monospace typography sample detection', async ({ page }) => {
+    await page.goto('/');
+
+    // Click "Dev Mono" sample preset
+    const monoBtn = page.locator('[data-sample="jetbrains"]');
+    await monoBtn.click();
+
+    // Click analyze
+    const analyzeBtn = page.locator('#btn-run-analysis');
+    await analyzeBtn.click();
+
+    // Verify result
+    const resultsStage = page.locator('#results-stage');
+    await expect(resultsStage).toBeVisible({ timeout: 10000 });
+
+    const traitCategory = page.locator('#res-trait-category');
+    await expect(traitCategory).toContainText(/monospace/i);
+
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).toContainText(/JetBrains Mono|Space Mono|Fira Code/i);
+  });
+
   test('4. Browse Fonts page has search, category filter, and live preview', async ({ page }) => {
     await page.goto('/fonts');
 

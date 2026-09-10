@@ -968,15 +968,32 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const serifRatio = stemsAnalyzed > 0 ? (serifStemsCount / stemsAnalyzed) : 0;
 
       // 8. Monospace & Aspect Ratio Analysis
-      let aspectVariance = 1.0;
       let avgAspect = 0.62;
       if (glyphBoxes.length >= 3) {
         const aspects = glyphBoxes.map(g => g.w / g.h);
         avgAspect = aspects.reduce((a, b) => a + b, 0) / aspects.length;
-        const variance = aspects.reduce((a, b) => a + Math.pow(b - avgAspect, 2), 0) / aspects.length;
-        aspectVariance = Math.sqrt(variance);
       }
-      const isMonospace = glyphBoxes.length >= 4 && aspectVariance < 0.11;
+
+      // Filter out small punctuation marks (like dots, quotes, colons) to measure letter body widths
+      const letterGlyphs = glyphBoxes.filter(g => g.h >= textH * 0.35 && g.w >= 4);
+      let isMonospace = false;
+      if (letterGlyphs.length >= 4) {
+        const widths = letterGlyphs.map(g => g.w).sort((a, b) => a - b);
+        const avgW = widths.reduce((a, b) => a + b, 0) / widths.length;
+        const variance = widths.reduce((a, b) => a + Math.pow(b - avgW, 2), 0) / widths.length;
+        const relWidthStdDev = Math.sqrt(variance) / Math.max(1, avgW);
+
+        const p15 = widths[Math.floor(widths.length * 0.15)];
+        const p85 = widths[Math.floor(widths.length * 0.85)];
+        const widthSpread = p15 > 0 ? (p85 / p15) : 2.0;
+
+        // In monospace fonts (JetBrains Mono, Fira Code, Space Mono):
+        // All letters have uniform fixed cell widths (relWidthStdDev < 0.18 AND widthSpread <= 1.32).
+        // In proportional fonts (Inter, Arial, Monkeytype), 'm'/'w' are 2.5x wider than 't'/'i', so spread >= 1.6
+        if (relWidthStdDev < 0.18 && widthSpread <= 1.32) {
+          isMonospace = true;
+        }
+      }
 
       // 9. Unbiased Trait Classification
       let classification = 'sans-serif';
