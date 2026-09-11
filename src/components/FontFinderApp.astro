@@ -1,6 +1,31 @@
 ---
 import { VERIFIED_GOOGLE_FONTS } from '../services/googleFonts/data';
 
+interface Props {
+  dropzoneTitle?: string;
+  dropzoneSubtitle?: string;
+  buttonText?: string;
+  samplesTitle?: string;
+  samples?: Array<{ id: string; label: string; sampleKey: string }>;
+  accept?: string;
+  wordmarkInputPlaceholder?: string;
+}
+
+const {
+  dropzoneTitle = 'Drop an image or paste screenshot (⌘V)',
+  dropzoneSubtitle = 'Supports PNG, JPG, WebP • 100% private in-browser detection',
+  buttonText = 'Select Image File',
+  samplesTitle = 'Quick Test Samples:',
+  samples = [
+    { id: 'inter', label: 'Clean Sans (Inter)', sampleKey: 'inter' },
+    { id: 'playfair', label: 'Luxury Serif (Playfair)', sampleKey: 'playfair' },
+    { id: 'jetbrains', label: 'Dev Mono (JetBrains)', sampleKey: 'jetbrains' },
+    { id: 'oswald', label: 'Bold Poster (Oswald)', sampleKey: 'oswald' }
+  ],
+  accept = 'image/png, image/jpeg, image/jpg, image/webp',
+  wordmarkInputPlaceholder = ''
+} = Astro.props;
+
 const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 ---
 
@@ -12,12 +37,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     <!-- Elevated Dropzone Card -->
     <div
       id="dropzone"
-      class="relative rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-8 sm:p-10 shadow-[0_0_0_6px_rgb(249,249,249)] hover:border-[#ff4d00]/40 transition-all cursor-pointer group"
+      class="relative rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-8 sm:p-10 shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] hover:border-[#ff4d00]/40 transition-all cursor-pointer group"
     >
       <input
         type="file"
         id="file-input"
-        accept="image/png, image/jpeg, image/jpg, image/webp"
+        accept={accept}
         class="sr-only"
       />
 
@@ -30,17 +55,17 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           </svg>
         </div>
 
-        <h3 class="text-lg font-medium text-[#262626] tracking-tight">
-          Drop an image or paste screenshot (<kbd class="font-mono text-xs bg-[#f9f9f9] border border-[#e5e7eb] px-1.5 py-0.5 rounded">⌘V</kbd>)
+        <h3 class="text-lg font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+          {dropzoneTitle}
         </h3>
-        <p class="text-xs text-[#727272] mt-1.5">
-          Supports PNG, JPG, WebP &bull; 100% private in-browser detection
+        <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1.5">
+          {dropzoneSubtitle}
         </p>
 
         <!-- Pill Action Button inside Dropzone -->
         <div class="mt-5">
-          <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#262626] text-white text-xs font-medium hover:bg-[#ff4d00] transition-colors shadow-sm">
-            <span>Select Image File</span>
+          <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-xs font-medium hover:bg-[#ff4d00] transition-colors shadow-sm">
+            <span>{buttonText}</span>
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -49,40 +74,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
 
       <!-- Sample Specimen Action Chips -->
-      <div class="mt-8 pt-6 border-t border-[#e5e7eb]">
+      <div class="mt-8 pt-6 border-t border-[#e5e7eb] dark:border-[#242834]">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span class="font-mono text-[11px] text-[#727272] uppercase tracking-wider">
-            Quick Test Samples:
+          <span class="font-mono text-[11px] text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">
+            {samplesTitle}
           </span>
           <div class="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              data-sample="inter"
-              class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#e5e7eb] hover:border-[#727272]/30 text-[#262626] transition-colors"
-            >
-              <span class="text-[#ff4d00] mr-1">&bull;</span> Clean Sans (Inter)
-            </button>
-            <button
-              type="button"
-              data-sample="playfair"
-              class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#e5e7eb] hover:border-[#727272]/30 text-[#262626] transition-colors"
-            >
-              <span class="text-[#ff4d00] mr-1">&bull;</span> Luxury Serif (Playfair)
-            </button>
-            <button
-              type="button"
-              data-sample="jetbrains"
-              class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#e5e7eb] hover:border-[#727272]/30 text-[#262626] transition-colors"
-            >
-              <span class="text-[#ff4d00] mr-1">&bull;</span> Dev Mono (JetBrains)
-            </button>
-            <button
-              type="button"
-              data-sample="oswald"
-              class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#e5e7eb] hover:border-[#727272]/30 text-[#262626] transition-colors"
-            >
-              <span class="text-[#ff4d00] mr-1">&bull;</span> Bold Poster (Oswald)
-            </button>
+            {samples.map((s) => (
+              <button
+                type="button"
+                data-sample={s.sampleKey}
+                class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] hover:border-[#727272]/30 text-[#262626] dark:text-[#f3f4f6] transition-colors cursor-pointer"
+              >
+                <span class="text-[#ff4d00] mr-1">&bull;</span> {s.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -560,6 +566,38 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         currentSampleText = 'MODERN POSTER';
         ctx.font = '700 56px Oswald, Impact, sans-serif';
         ctx.fillText('MODERN POSTER', 40, 90);
+      } else if (type === 'supreme') {
+        currentSampleText = 'SUPREME';
+        ctx.font = 'italic 800 64px "Futura", "Montserrat", sans-serif';
+        ctx.fillText('SUPREME', 40, 90);
+      } else if (type === 'nike') {
+        currentSampleText = 'JUST DO IT';
+        ctx.font = '900 62px "Oswald", "Impact", sans-serif';
+        ctx.fillText('JUST DO IT', 40, 90);
+      } else if (type === 'spotify') {
+        currentSampleText = 'Spotify';
+        ctx.font = '700 58px "Plus Jakarta Sans", "Poppins", sans-serif';
+        ctx.fillText('Spotify', 40, 90);
+      } else if (type === 'netflix') {
+        currentSampleText = 'NETFLIX';
+        ctx.font = 'bold 64px "Bebas Neue", "Oswald", sans-serif';
+        ctx.fillText('NETFLIX', 40, 90);
+      } else if (type === 'caveat') {
+        currentSampleText = 'Handwritten signature';
+        ctx.font = '500 56px "Caveat", cursive';
+        ctx.fillText('Handwritten signature', 40, 90);
+      } else if (type === 'pacifico') {
+        currentSampleText = 'Brush Calligraphy';
+        ctx.font = '400 52px "Pacifico", cursive';
+        ctx.fillText('Brush Calligraphy', 40, 90);
+      } else if (type === 'greatvibes') {
+        currentSampleText = 'Royal Script';
+        ctx.font = '400 58px "Great Vibes", cursive';
+        ctx.fillText('Royal Script', 40, 90);
+      } else if (type === 'pdfdoc') {
+        currentSampleText = 'FINANCIAL REPORT 2026';
+        ctx.font = '600 48px "Merriweather", "Times New Roman", serif';
+        ctx.fillText('FINANCIAL REPORT 2026', 40, 90);
       }
 
       if (cropTextInput) cropTextInput.value = currentSampleText;

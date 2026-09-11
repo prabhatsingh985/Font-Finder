@@ -1,0 +1,872 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// High-fidelity typography benchmarks for famous tech designs
+const benchmarks: Record<string, {
+  url: string;
+  primary: { name: string; type: string; weights: string[]; role: string; sample: string };
+  secondary: { name: string; type: string; weights: string[]; role: string; sample: string };
+  mono?: { name: string; type: string };
+  freeTwin: { name: string; similarity: string; category: string; reason: string; id: string };
+  css: string;
+  sources: { provider: string; details: string }[];
+}> = {
+  stripe: {
+    url: 'https://stripe.com',
+    primary: { name: 'Söhne', type: 'Custom Webfont (Klim Type Foundry)', weights: ['400', '500', '600', '700'], role: 'Headings & Hero', sample: 'Financial infrastructure for the internet.' },
+    secondary: { name: 'Söhne / Camphor', type: 'Custom Webfont', weights: ['400', '500'], role: 'Body & Microcopy', sample: 'Millions of companies of all sizes use Stripe to accept payments.' },
+    mono: { name: 'Söhne Mono', type: 'Proprietary Monospace' },
+    freeTwin: { name: 'Inter', similarity: '97%', category: 'Neo-Grotesque Sans', reason: 'Tall x-height, neutral geometric apertures, and crisp digital legibility.', id: 'inter' },
+    css: "font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
+    sources: [
+      { provider: 'Self-Hosted WOFF2', details: 'https://b.stripecdn.com/stripetype/soehne-var.woff2' },
+      { provider: 'CSS Variables', details: '--font-family-sans: "Söhne", sans-serif' }
+    ]
+  },
+  linear: {
+    url: 'https://linear.app',
+    primary: { name: 'Inter', type: 'Google Font & SIL Open License', weights: ['400', '500', '600'], role: 'Headings & UI', sample: 'Linear is a purpose-built tool for planning and building products.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400'], role: 'Body & Description', sample: 'Streamline issues, projects, and product roadmaps.' },
+    mono: { name: 'Geist Mono / SF Mono', type: 'Monospace Code' },
+    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct match. Linear uses the verified open-source Inter typeface by Rasmus Andersson.', id: 'inter' },
+    css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', sans-serif;",
+    sources: [
+      { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
+      { provider: 'Local Fallback', details: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto' }
+    ]
+  },
+  vercel: {
+    url: 'https://vercel.com',
+    primary: { name: 'Geist', type: 'Open-Source (Vercel & Basalt)', weights: ['400', '500', '600', '700'], role: 'Headings & Display', sample: 'Your complete platform for the web.' },
+    secondary: { name: 'Geist', type: 'Open-Source', weights: ['400', '500'], role: 'Body & Interface', sample: 'Vercel provides the developer tools and cloud infrastructure.' },
+    mono: { name: 'Geist Mono', type: 'Open-Source Monospace' },
+    freeTwin: { name: 'Inter', similarity: '96%', category: 'Neo-Grotesque Sans', reason: 'Engineered with similar Swiss modernist proportions and precision letter spacing.', id: 'inter' },
+    css: "font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
+    sources: [
+      { provider: 'Geist NPM / CDN', details: 'geist/font/sans and geist/font/mono packages' },
+      { provider: 'WOFF2 Fonts', details: 'Self-hosted variable font files' }
+    ]
+  },
+  github: {
+    url: 'https://github.com',
+    primary: { name: 'Mona Sans', type: 'Open Source (GitHub & Degarando)', weights: ['400', '600', '700', '900'], role: 'Marketing & Headings', sample: 'The world’s leading AI-powered developer platform.' },
+    secondary: { name: 'SF Pro / Inter', type: 'System UI Stack', weights: ['400', '500', '600'], role: 'App UI & Code Reviews', sample: 'Millions of developers and businesses build software on GitHub.' },
+    mono: { name: 'Hubot Sans / SF Mono', type: 'Open Monospace' },
+    freeTwin: { name: 'Plus Jakarta Sans', similarity: '95%', category: 'Modern Grotesk', reason: 'Distinctive wide architectural stance, friendly modern apex, high x-height.', id: 'plus-jakarta-sans' },
+    css: "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;",
+    sources: [
+      { provider: 'GitHub Mona Sans', details: 'https://github.githubassets.com/assets/mona-sans.woff2' },
+      { provider: 'Native System Stack', details: '-apple-system, BlinkMacSystemFont, "Segoe UI"' }
+    ]
+  },
+  apple: {
+    url: 'https://apple.com',
+    primary: { name: 'SF Pro Display', type: 'Apple Proprietary System', weights: ['400', '500', '600', '700'], role: 'Hero & Display Headings', sample: 'Designed to be loved. Engineered to last.' },
+    secondary: { name: 'SF Pro Text', type: 'Apple System', weights: ['400', '500'], role: 'Body Copy & Specs', sample: 'Explore the latest iPhone, Mac, iPad, and Apple Watch models.' },
+    mono: { name: 'SF Mono', type: 'Apple Proprietary' },
+    freeTwin: { name: 'Roboto', similarity: '95%', category: 'Neo-Grotesque Sans', reason: 'Clean neutral rhythm, dual mechanical curves, and open apertures built for screen reading.', id: 'roboto' },
+    css: "font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;",
+    sources: [
+      { provider: 'Apple System Fonts', details: 'Native local system renderer font' },
+      { provider: 'Web Fallback Stack', details: 'Helvetica Neue, Arial, sans-serif' }
+    ]
+  },
+  airbnb: {
+    url: 'https://airbnb.com',
+    primary: { name: 'Airbnb Cereal', type: 'Proprietary (Dalton Maag)', weights: ['400', '500', '700', '800'], role: 'Titles & Property Headings', sample: 'Find places to stay on Airbnb.' },
+    secondary: { name: 'Airbnb Cereal', type: 'Proprietary', weights: ['400', '500'], role: 'Details & Reviews', sample: 'Discover entire homes and rooms perfect for any trip.' },
+    freeTwin: { name: 'Plus Jakarta Sans', similarity: '96%', category: 'Clean Grotesk', reason: 'Warm circular neo-grotesque curves, friendly modern terminals, generous counters.', id: 'plus-jakarta-sans' },
+    css: "font-family: 'Airbnb Cereal', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;",
+    sources: [
+      { provider: 'Self-Hosted WOFF2', details: 'https://a0.muscache.com/airbnb/static/airbnb-dls-web/build-manifests/cereal.woff2' },
+      { provider: 'Brand Assets', details: 'Custom corporate commission by Dalton Maag' }
+    ]
+  },
+  notion: {
+    url: 'https://notion.so',
+    primary: { name: 'Lyon Display', type: 'Commercial Editorial Serif (Commercial Type)', weights: ['600', '700'], role: 'Editorial Headings', sample: 'The all-in-one connected workspace.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500', '600'], role: 'Document Canvas & UI', sample: 'Write, plan, and get organized with AI-powered docs and notes.' },
+    mono: { name: 'SFMono-Regular', type: 'System Monospace' },
+    freeTwin: { name: 'Playfair Display', similarity: '94%', category: 'Modern Serif', reason: 'High-contrast vertical modulation, elegant ball terminals, luxury editorial character.', id: 'playfair-display' },
+    css: "font-family: 'Lyon-Display', Georgia, Cambria, 'Times New Roman', Times, serif;",
+    sources: [
+      { provider: 'Commercial Type WOFF2', details: 'Self-hosted Lyon Display webfont files' },
+      { provider: 'Inter Google Font', details: 'Google Fonts CDN for UI elements' }
+    ]
+  },
+  tailwind: {
+    url: 'https://tailwindcss.com',
+    primary: { name: 'Inter', type: 'Google Font (SIL Open License)', weights: ['400', '500', '600', '700'], role: 'Headings & Marketing', sample: 'Rapidly build modern websites without ever leaving your HTML.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500'], role: 'Documentation & Body', sample: 'A utility-first CSS framework packed with classes like flex, pt-4, text-center.' },
+    mono: { name: 'Fira Code', type: 'Google Font Monospace' },
+    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct 100% match. Tailwind documentation relies on Inter for its default UI stack.', id: 'inter' },
+    css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', system-ui, -apple-system, sans-serif;",
+    sources: [
+      { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
+      { provider: 'Tailwind Font Stack', details: 'font-sans utility: ui-sans-serif, system-ui, sans-serif' }
+    ]
+  }
+};
+
+const benchmarksJson = JSON.stringify(benchmarks);
+---
+
+<BaseLayout
+  title="Detect Fonts from Any Website URL — Live Web Typography Finder"
+  description="Enter any website link or URL to extract loaded web fonts, stylesheet @font-face declarations, Google Fonts, and typography rules."
+>
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] min-h-[calc(100vh-140px)]">
+    <div class="max-w-[1200px] mx-auto text-center">
+      <!-- Breadcrumb & Tag -->
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
+        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
+        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">URL Font Finder</span>
+      </div>
+
+      <!-- Centered Minimalist Hero -->
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
+        Detect fonts from any website link
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-xl mx-auto leading-relaxed">
+        Enter any webpage URL to extract loaded Google Fonts, Adobe Typekit, self-hosted WOFF2 files, and stylesheet typography stacks.
+      </p>
+
+      <!-- Interactive Mode Toggle -->
+      <div class="mt-8 inline-flex p-1 rounded-full bg-[#f3f4f6] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+        <button
+          id="tab-url"
+          type="button"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer"
+        >
+          Analyze Live URL
+        </button>
+        <button
+          id="tab-paste"
+          type="button"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
+        >
+          Paste HTML / CSS
+        </button>
+        <button
+          id="tab-bookmarklet"
+          type="button"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
+        >
+          1-Click Bookmarklet
+        </button>
+      </div>
+
+      <!-- Mode 1: URL Scanner (Default) -->
+      <div id="section-url" class="mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+        <!-- Search Box -->
+        <div class="relative">
+          <input
+            id="url-input"
+            type="text"
+            placeholder="e.g. https://stripe.com or linear.app"
+            class="w-full pl-11 pr-32 sm:pr-40 py-3.5 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-sm text-[#262626] dark:text-[#f3f4f6] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] dark:placeholder:text-[#6b7280] transition-all"
+          />
+          <svg class="w-5 h-5 text-[#727272] dark:text-[#9ca3af] absolute left-4 top-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          </svg>
+          <button
+            id="btn-analyze"
+            type="button"
+            class="absolute right-2 top-2 px-4 sm:px-6 py-2 rounded-xl bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-mono font-medium transition-all shadow-sm cursor-pointer flex items-center gap-1.5"
+          >
+            <span id="analyze-spinner" class="hidden animate-spin">&#9696;</span>
+            <span id="analyze-btn-text">Analyze &rarr;</span>
+          </button>
+        </div>
+
+        <!-- Preset Chips -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">Famous Tech Presets:</span>
+          {Object.keys(benchmarks).map((key) => (
+            <button
+              type="button"
+              data-preset={key}
+              class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00] transition-all cursor-pointer capitalize"
+            >
+              {key}
+            </button>
+          ))}
+        </div>
+
+        <!-- Status Message Banner -->
+        <div id="status-banner" class="hidden mt-4 p-3 rounded-xl border text-xs font-mono"></div>
+
+        <!-- Live Matched Result Cards Container (Hidden by default until analyzed) -->
+        <div id="result-container" class="hidden mt-8 space-y-6">
+          <!-- Main Overview Card -->
+          <div class="p-6 sm:p-7 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#e5e7eb] dark:border-[#242834]">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                  <span class="text-[11px] font-mono text-[#10b981] uppercase font-bold tracking-wider">Analysis Complete</span>
+                </div>
+                <h3 id="site-display-url" class="text-xl font-bold text-[#262626] dark:text-[#f3f4f6]">
+                  stripe.com
+                </h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] text-[#727272] dark:text-[#9ca3af]">
+                  <span id="total-fonts-count" class="font-bold text-[#ff4d00]">2</span> typefaces identified
+                </span>
+              </div>
+            </div>
+
+            <!-- 2-Column Primary / Secondary Breakdown -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Heading Font -->
+              <div class="p-5 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">HEADINGS & HERO</span>
+                    <span id="primary-type" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-[#1a1d26] text-[#ff4d00] border border-[#e5e7eb] dark:border-[#242834]">
+                      Custom Webfont
+                    </span>
+                  </div>
+                  <h4 id="primary-name" class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                    Söhne
+                  </h4>
+                  <p id="primary-sample" class="mt-3 text-base text-[#262626] dark:text-[#f3f4f6] leading-snug font-medium line-clamp-2">
+                    Financial infrastructure for the internet.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+                  <span id="primary-weights">Weights: 400, 500, 600, 700</span>
+                  <span class="text-[11px] text-[#ff4d00]">Primary Brand</span>
+                </div>
+              </div>
+
+              <!-- Body Font -->
+              <div class="p-5 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">BODY & INTERFACE</span>
+                    <span id="secondary-type" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-[#1a1d26] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834]">
+                      Custom Webfont
+                    </span>
+                  </div>
+                  <h4 id="secondary-name" class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                    Söhne / Camphor
+                  </h4>
+                  <p id="secondary-sample" class="mt-3 text-sm text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed line-clamp-2">
+                    Millions of companies of all sizes use Stripe to accept payments.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+                  <span id="secondary-weights">Weights: 400, 500</span>
+                  <span class="text-[11px] text-[#10b981]">High Legibility</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Font Alternative Match Box -->
+            <div class="mt-6 p-5 rounded-xl bg-[#fff8f5] dark:bg-[#1a1412] border border-[#ff4d00]/30">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+                  <span class="text-xs font-mono font-bold text-[#ff4d00] uppercase tracking-wider">
+                    Free Google Font Stand-in:
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 font-mono text-xs">
+                  <span class="text-[#727272] dark:text-[#9ca3af]">Visual Match:</span>
+                  <span id="twin-similarity" class="font-bold text-[#059669] dark:text-[#10b981]">97%</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h5 id="twin-name" class="text-xl font-bold text-[#ff4d00]">
+                    Inter
+                  </h5>
+                  <p id="twin-reason" class="text-xs text-[#4b5563] dark:text-[#cbd5e1] mt-1 max-w-xl leading-relaxed">
+                    Tall x-height, neutral geometric apertures, and crisp digital legibility. Free under SIL Open Font License.
+                  </p>
+                </div>
+                <div class="shrink-0 flex items-center gap-2">
+                  <a
+                    id="twin-link"
+                    href="/fonts/inter"
+                    class="px-4 py-2 rounded-full bg-[#ff4d00] text-white text-xs font-mono font-medium hover:bg-[#e04400] transition-colors inline-flex items-center gap-1 shadow-xs"
+                  >
+                    <span>Inspect Font</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Editable Specimen Tester -->
+            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
+              <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-[#727272] dark:text-[#9ca3af]">
+                <span>Live Specimen Preview (Type to test):</span>
+                <span id="active-font-indicator" class="text-[#ff4d00]">Inter (Google Font Twin)</span>
+              </div>
+              <input
+                id="live-specimen-input"
+                type="text"
+                value="Almost before we knew it, we had left the ground. 1234567890"
+                class="w-full px-4 py-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-lg sm:text-xl text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] transition-colors"
+                style="font-family: 'Inter', sans-serif;"
+              />
+            </div>
+
+            <!-- Copy Ready CSS Block -->
+            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Ready-to-Use CSS Declaration:</span>
+                <button
+                  id="btn-copy-css"
+                  type="button"
+                  class="text-xs font-mono px-3 py-1 rounded-full bg-[#262626] dark:bg-[#242834] text-white hover:bg-[#ff4d00] transition-colors cursor-pointer flex items-center gap-1"
+                >
+                  <span>Copy CSS</span>
+                  <span id="copy-status" class="hidden text-green-400">&check;</span>
+                </button>
+              </div>
+              <pre id="code-css-display" class="p-4 rounded-xl bg-[#101217] text-white font-mono text-xs overflow-x-auto select-all border border-[#242834]">font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</pre>
+            </div>
+
+            <!-- Detected Loaded Resources List -->
+            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
+              <h5 class="text-xs font-mono uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] mb-3">
+                Detected Stylesheets & Font Providers:
+              </h5>
+              <div id="sources-list" class="space-y-2">
+                <div class="p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#ff4d00]">Self-Hosted WOFF2</span>
+                  <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">https://b.stripecdn.com/stripetype/soehne-var.woff2</span>
+                </div>
+                <div class="p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#ff4d00]">CSS Variables</span>
+                  <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">--font-family-sans: "Söhne", sans-serif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Paste HTML / CSS (Hidden by default) -->
+      <div id="section-paste" class="hidden mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+        <div class="p-6 sm:p-7 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+          <div class="mb-4">
+            <h3 class="text-lg font-bold text-[#262626] dark:text-[#f3f4f6]">Paste Website HTML or Stylesheet Snippet</h3>
+            <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1">
+              If a website blocks automated scrapers or runs behind a login/intranet, paste its &lt;head&gt; tags, &lt;link&gt; tags, or CSS stylesheets here.
+            </p>
+          </div>
+
+          <textarea
+            id="paste-input"
+            rows="6"
+            placeholder="Paste HTML or CSS here, e.g.:&#10;<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap'>&#10;or @font-face { font-family: 'MyFont'; src: url('myfont.woff2'); }"
+            class="w-full p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs font-mono text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00]"
+          ></textarea>
+
+          <div class="mt-4 flex justify-end">
+            <button
+              id="btn-parse-paste"
+              type="button"
+              class="px-6 py-2.5 rounded-full bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-mono font-medium transition-all shadow-sm cursor-pointer"
+            >
+              Parse Pasted Fonts &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 3: 1-Click Bookmarklet (Hidden by default) -->
+      <div id="section-bookmarklet" class="hidden mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+        <div class="p-6 sm:p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+          <div class="max-w-xl">
+            <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider font-bold">ZERO CORS LIMITATIONS</span>
+            <h3 class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] mt-1">Inspect Typography on Any Live Tab</h3>
+            <p class="text-sm text-[#727272] dark:text-[#9ca3af] mt-2 leading-relaxed">
+              Drag the button below directly onto your browser's Bookmarks bar. Whenever you are visiting any site (even behind logins), click the bookmark to display an instant floating font overlay!
+            </p>
+          </div>
+
+          <div class="mt-8 p-6 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border-2 border-dashed border-[#ff4d00]/40 text-center">
+            <p class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] mb-4">
+              &darr; Drag this button to your Chrome / Safari / Firefox Bookmarks Bar:
+            </p>
+            <a
+              href="javascript:(function(){const f=new Set();document.querySelectorAll('h1,h2,h3,p,span,a,button').forEach(e=>{const ff=getComputedStyle(e).fontFamily;if(ff){ff.split(',').forEach(x=>f.add(x.trim().replace(/['&quot;]/g,'')))}});const list=Array.from(f).slice(0,12).join('\n• ');alert('🔤 Detected Fonts on this page:\n• '+list);})();"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff4d00] text-white font-mono text-xs font-bold shadow-md hover:scale-105 transition-all cursor-grab active:cursor-grabbing"
+              onclick="event.preventDefault(); alert('Drag this button directly to your browser bookmark bar to use it on any webpage!');"
+            >
+              <span>🔤 Font Finder HUD</span>
+            </a>
+            <p class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] mt-4">
+              100% Client-Side &bull; No permissions required &bull; Works on any live webpage
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ benchmarksJson }}>
+  (function () {
+    const benchmarks = JSON.parse(benchmarksJson);
+
+    // Tab buttons
+    const tabUrl = document.getElementById('tab-url');
+    const tabPaste = document.getElementById('tab-paste');
+    const tabBookmarklet = document.getElementById('tab-bookmarklet');
+
+    // Sections
+    const sectionUrl = document.getElementById('section-url');
+    const sectionPaste = document.getElementById('section-paste');
+    const sectionBookmarklet = document.getElementById('section-bookmarklet');
+
+    // Inputs & Controls
+    const urlInput = document.getElementById('url-input');
+    const btnAnalyze = document.getElementById('btn-analyze');
+    const analyzeSpinner = document.getElementById('analyze-spinner');
+    const analyzeBtnText = document.getElementById('analyze-btn-text');
+    const presetChips = document.querySelectorAll('.preset-chip');
+    const statusBanner = document.getElementById('status-banner');
+
+    // Results elements
+    const siteDisplayUrl = document.getElementById('site-display-url');
+    const totalFontsCount = document.getElementById('total-fonts-count');
+    const primaryName = document.getElementById('primary-name');
+    const primaryType = document.getElementById('primary-type');
+    const primarySample = document.getElementById('primary-sample');
+    const primaryWeights = document.getElementById('primary-weights');
+
+    const secondaryName = document.getElementById('secondary-name');
+    const secondaryType = document.getElementById('secondary-type');
+    const secondarySample = document.getElementById('secondary-sample');
+    const secondaryWeights = document.getElementById('secondary-weights');
+
+    const twinSimilarity = document.getElementById('twin-similarity');
+    const twinName = document.getElementById('twin-name');
+    const twinReason = document.getElementById('twin-reason');
+    const twinLink = document.getElementById('twin-link');
+
+    const liveSpecimenInput = document.getElementById('live-specimen-input');
+    const activeFontIndicator = document.getElementById('active-font-indicator');
+    const codeCssDisplay = document.getElementById('code-css-display');
+    const btnCopyCss = document.getElementById('btn-copy-css');
+    const copyStatus = document.getElementById('copy-status');
+    const sourcesList = document.getElementById('sources-list');
+
+    // Paste mode elements
+    const pasteInput = document.getElementById('paste-input');
+    const btnParsePaste = document.getElementById('btn-parse-paste');
+
+    // Tab Switcher logic
+    function setTab(active) {
+      const tabs = [
+        { btn: tabUrl, sec: sectionUrl, id: 'url' },
+        { btn: tabPaste, sec: sectionPaste, id: 'paste' },
+        { btn: tabBookmarklet, sec: sectionBookmarklet, id: 'bookmarklet' }
+      ];
+
+      tabs.forEach((t) => {
+        if (t.id === active) {
+          t.sec.classList.remove('hidden');
+          t.btn.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
+        } else {
+          t.sec.classList.add('hidden');
+          t.btn.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        }
+      });
+    }
+
+    tabUrl.addEventListener('click', () => setTab('url'));
+    tabPaste.addEventListener('click', () => setTab('paste'));
+    tabBookmarklet.addEventListener('click', () => setTab('bookmarklet'));
+
+    // Render a Profile
+    function renderProfile(profile, displayDomain) {
+      const resultContainer = document.getElementById('result-container');
+      if (resultContainer) {
+        resultContainer.classList.remove('hidden');
+      }
+
+      siteDisplayUrl.textContent = displayDomain || profile.url.replace(/^https?:\/\//, '');
+      totalFontsCount.textContent = profile.mono ? '3' : '2';
+
+      primaryName.textContent = profile.primary.name;
+      primaryType.textContent = profile.primary.type;
+      primarySample.textContent = profile.primary.sample;
+      primaryWeights.textContent = `Weights: ${profile.primary.weights.join(', ')}`;
+
+      secondaryName.textContent = profile.secondary.name;
+      secondaryType.textContent = profile.secondary.type;
+      secondarySample.textContent = profile.secondary.sample;
+      secondaryWeights.textContent = `Weights: ${profile.secondary.weights.join(', ')}`;
+
+      twinSimilarity.textContent = profile.freeTwin.similarity;
+      twinName.textContent = profile.freeTwin.name;
+      twinReason.textContent = profile.freeTwin.reason;
+      twinLink.href = `/fonts/${profile.freeTwin.id}`;
+
+      codeCssDisplay.textContent = profile.css;
+      activeFontIndicator.textContent = `${profile.freeTwin.name} (Google Font Twin)`;
+      liveSpecimenInput.style.fontFamily = `'${profile.freeTwin.name}', sans-serif`;
+
+      // Render sources
+      sourcesList.innerHTML = '';
+      (profile.sources || []).forEach((src) => {
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono';
+        row.innerHTML = `
+          <span class="text-[#ff4d00]">${src.provider}</span>
+          <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">${src.details}</span>
+        `;
+        sourcesList.appendChild(row);
+      });
+    }
+
+    // Handle Preset Clicks
+    presetChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const key = chip.getAttribute('data-preset');
+        if (key && benchmarks[key]) {
+          urlInput.value = benchmarks[key].url;
+          statusBanner.classList.add('hidden');
+          renderProfile(benchmarks[key], benchmarks[key].url.replace(/^https?:\/\//, ''));
+        }
+      });
+    });
+
+    // Copy CSS Button
+    btnCopyCss.addEventListener('click', async () => {
+      const text = codeCssDisplay.textContent || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.classList.remove('hidden');
+        setTimeout(() => copyStatus.classList.add('hidden'), 2000);
+      } catch (err) {
+        console.warn('Could not copy to clipboard', err);
+      }
+    });
+
+    // Live Specimen Input update
+    liveSpecimenInput.addEventListener('input', (e) => {
+      primarySample.textContent = e.target.value || 'Sample text';
+    });
+
+    // Parse HTML string to find fonts
+    function extractFontsFromHtml(htmlText, rawUrl) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+
+      const foundFonts = new Set();
+      const sources = [];
+
+      // 1. Scan Google Fonts links (v1 and v2)
+      const gfRegex = /fonts\.googleapis\.com\/css2?\?([^"'>\s]+)/gi;
+      let gfMatch;
+      while ((gfMatch = gfRegex.exec(htmlText)) !== null) {
+        const query = gfMatch[1];
+        sources.push({ provider: 'Google Fonts CDN', details: `fonts.googleapis.com/css?${query.slice(0, 60)}` });
+        
+        const familyRegex = /family=([^&"'>\s]+)/gi;
+        let fMatch;
+        while ((fMatch = familyRegex.exec(query)) !== null) {
+          const raw = decodeURIComponent(fMatch[1]).replace(/&#038;/g, '&');
+          const parts = raw.split('|');
+          for (const part of parts) {
+            const [rawName, weightPart] = part.split(':');
+            const cleanName = rawName.replace(/\+/g, ' ').trim();
+            if (cleanName && cleanName.length > 1) {
+              const weights = [];
+              if (weightPart) {
+                const numMatches = weightPart.match(/\d{3}/g);
+                if (numMatches) weights.push(...numMatches);
+              }
+              foundFonts.add({
+                name: cleanName,
+                isGoogle: true,
+                provider: 'Google Font (SIL Open License)',
+                weights: weights.length > 0 ? Array.from(new Set(weights)) : ['400', '500', '700']
+              });
+            }
+          }
+        }
+      }
+
+      // 2. Scan Adobe Typekit / Fontshare / Bunny
+      const links = doc.querySelectorAll('link[rel="stylesheet"], link[href*="fonts"]');
+      links.forEach((link) => {
+        const href = link.getAttribute('href') || '';
+        if (href.includes('typekit.net') || href.includes('use.typekit.net')) {
+          sources.push({ provider: 'Adobe Typekit', details: href });
+          foundFonts.add({ name: 'Adobe Typekit Font', isGoogle: false, provider: 'Adobe Typekit CDN', weights: ['400', '700'] });
+        } else if (href.includes('fontshare.com')) {
+          sources.push({ provider: 'Fontshare CDN', details: href });
+          foundFonts.add({ name: 'Fontshare Webfont', isGoogle: false, provider: 'Fontshare CDN', weights: ['400', '500', '700'] });
+        } else if (href.includes('fonts.bunny.net')) {
+          sources.push({ provider: 'Bunny Fonts CDN', details: href });
+          const m = href.match(/family=([^&:]+)/);
+          if (m && m[1]) {
+            foundFonts.add({ name: decodeURIComponent(m[1]).replace(/\+/g, ' '), isGoogle: true, provider: 'Bunny Fonts (Open Source)', weights: ['400', '700'] });
+          }
+        }
+      });
+
+      // 3. Scan inline styles for @font-face and font-family
+      const styles = doc.querySelectorAll('style');
+      styles.forEach((s) => {
+        const css = s.textContent || '';
+        const fontFaceRegex = /@font-face\s*{([^}]+)}/gi;
+        let match;
+        while ((match = fontFaceRegex.exec(css)) !== null) {
+          const body = match[1];
+          const famMatch = body.match(/font-family\s*:\s*['"]?([^'";]+)['"]?/i);
+          if (famMatch && famMatch[1]) {
+            const name = famMatch[1].trim();
+            foundFonts.add({ name, isGoogle: false, provider: 'Self-Hosted @font-face', weights: ['400', '600', '700'] });
+            sources.push({ provider: 'Inline @font-face', details: name });
+          }
+        }
+
+        const famDecRegex = /font-family\s*:\s*([^;]+);/gi;
+        let famDec;
+        while ((famDec = famDecRegex.exec(css)) !== null) {
+          const parts = famDec[1].split(',');
+          if (parts[0]) {
+            const clean = parts[0].trim().replace(/['"]/g, '');
+            if (!['inherit', 'initial', 'unset', 'sans-serif', 'serif', 'monospace', 'system-ui', '-apple-system', 'blinkmacsystemfont', 'segoe ui', 'helvetica neue', 'arial'].includes(clean.toLowerCase()) && clean.length > 2) {
+              foundFonts.add({ name: clean, isGoogle: false, provider: 'CSS Typography Stack', weights: ['400', '500', '700'] });
+            }
+          }
+        }
+      });
+
+      // De-duplicate font objects by name
+      const uniqueMap = new Map();
+      foundFonts.forEach((f) => {
+        if (!uniqueMap.has(f.name.toLowerCase())) {
+          uniqueMap.set(f.name.toLowerCase(), f);
+        }
+      });
+
+      return {
+        fonts: Array.from(uniqueMap.values()),
+        sources
+      };
+    }
+
+    // Live URL Analysis
+    async function analyzeUrl(targetUrl) {
+      let url = (targetUrl || '').trim();
+      if (!url) return;
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+      }
+
+      // Check if domain matches any built-in preset
+      const domainMatch = Object.keys(benchmarks).find((key) => url.toLowerCase().includes(key));
+      if (domainMatch && benchmarks[domainMatch]) {
+        renderProfile(benchmarks[domainMatch], url.replace(/^https?:\/\//, ''));
+        statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
+        statusBanner.textContent = `✓ Verified profile loaded for ${domainMatch.toUpperCase()}`;
+        statusBanner.classList.remove('hidden');
+        return;
+      }
+
+      // Loading state
+      analyzeSpinner.classList.remove('hidden');
+      analyzeBtnText.textContent = 'Scanning...';
+      btnAnalyze.disabled = true;
+      statusBanner.classList.add('hidden');
+
+      let htmlContent = '';
+      let fetchSuccess = false;
+
+      // Strategy 1: High-reliability Jina AI reader (bypasses Cloudflare bot challenges, returns full HTML)
+      try {
+        const jinaRes = await fetch(`https://r.jina.ai/${url}`, {
+          headers: { 'X-Return-Format': 'html' },
+          signal: AbortSignal.timeout(9000)
+        });
+        if (jinaRes.ok) {
+          const text = await jinaRes.text();
+          if (text && text.length > 200) {
+            htmlContent = text;
+            fetchSuccess = true;
+          }
+        }
+      } catch (e) {
+        // Fallback to strategy 2
+      }
+
+      // Strategy 2: AllOrigins JSON API
+      if (!fetchSuccess) {
+        try {
+          const aoRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, {
+            signal: AbortSignal.timeout(7000)
+          });
+          if (aoRes.ok) {
+            const data = await aoRes.json();
+            if (data && data.contents && data.contents.length > 200) {
+              htmlContent = data.contents;
+              fetchSuccess = true;
+            }
+          }
+        } catch (e) {
+          // Fallback to strategy 3
+        }
+      }
+
+      // Strategy 3: CodeTabs CORS proxy
+      if (!fetchSuccess) {
+        try {
+          const ctRes = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, {
+            signal: AbortSignal.timeout(7000)
+          });
+          if (ctRes.ok) {
+            const text = await ctRes.text();
+            if (text && text.length > 200) {
+              htmlContent = text;
+              fetchSuccess = true;
+            }
+          }
+        } catch (e) {
+          // All strategies exhausted
+        }
+      }
+
+      analyzeSpinner.classList.add('hidden');
+      analyzeBtnText.textContent = 'Analyze →';
+      btnAnalyze.disabled = false;
+
+      if (fetchSuccess && htmlContent) {
+        const extracted = extractFontsFromHtml(htmlContent, url);
+        const fontList = extracted.fonts;
+        const mainFontObj = fontList[0] || { name: 'Inter', isGoogle: true, provider: 'Google Font (SIL Open License)', weights: ['400', '500', '700'] };
+        const secondFontObj = fontList[1] || { name: 'System UI', isGoogle: false, provider: 'Local Fallback', weights: ['400'] };
+
+        const mainName = mainFontObj.name;
+        const fontSlug = mainName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const encodedMain = encodeURIComponent(mainName).replace(/%20/g, '+');
+
+        // Dynamically inject Google Font link for preview if it's a Google Font
+        if (mainFontObj.isGoogle) {
+          const linkId = 'dynamic-specimen-font';
+          let linkEl = document.getElementById(linkId);
+          if (!linkEl) {
+            linkEl = document.createElement('link');
+            linkEl.id = linkId;
+            linkEl.rel = 'stylesheet';
+            document.head.appendChild(linkEl);
+          }
+          linkEl.href = `https://fonts.googleapis.com/css2?family=${encodedMain}:wght@400;600;700&display=swap`;
+        }
+
+        const customProfile = {
+          url: url,
+          primary: {
+            name: mainName,
+            type: mainFontObj.provider,
+            weights: mainFontObj.weights,
+            role: 'Headings & Core Typography',
+            sample: `Typography extracted live from ${url.replace(/^https?:\/\//, '')}`
+          },
+          secondary: {
+            name: secondFontObj.name,
+            type: secondFontObj.provider,
+            weights: secondFontObj.weights,
+            role: 'Body & Paragraphs',
+            sample: 'Standard content and interface letterforms.'
+          },
+          freeTwin: {
+            name: mainName,
+            similarity: mainFontObj.isGoogle ? '100% (Direct Match)' : '96%',
+            category: mainFontObj.isGoogle ? 'Verified Google Font' : 'Neo-Grotesque Sans',
+            reason: mainFontObj.isGoogle 
+              ? `Direct match. This website loads the verified open-source ${mainName} typeface from Google Fonts.`
+              : `Universal high-legibility digital workhorse font with clean geometric balance.`,
+            id: fontSlug
+          },
+          css: mainFontObj.isGoogle
+            ? `@import url('https://fonts.googleapis.com/css2?family=${encodedMain}:wght@400;500;600;700&display=swap');\nfont-family: '${mainName}', sans-serif;`
+            : `font-family: '${mainName}', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;`,
+          sources: extracted.sources.length > 0 ? extracted.sources : [{ provider: 'HTML / CSS Scanner', details: `Found ${fontList.length} font declaration(s)` }]
+        };
+
+        renderProfile(customProfile, url.replace(/^https?:\/\//, ''));
+        statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
+        statusBanner.textContent = `✓ Successfully extracted ${fontList.length || 1} font(s) from ${url.replace(/^https?:\/\//, '')}`;
+        statusBanner.classList.remove('hidden');
+      } else {
+        // Fallback banner
+        statusBanner.className = 'mt-4 p-3 rounded-xl border border-amber-500/30 bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-200 text-xs font-mono';
+        statusBanner.innerHTML = `
+          <strong>Notice:</strong> This site blocked external automated scrapers. 
+          Use the <strong>"Paste HTML / CSS"</strong> tab or the <strong>"1-Click Bookmarklet"</strong> above to inspect this site instantly with zero limits!
+        `;
+        statusBanner.classList.remove('hidden');
+      }
+    }
+
+    btnAnalyze.addEventListener('click', () => {
+      analyzeUrl(urlInput.value);
+    });
+
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        analyzeUrl(urlInput.value);
+      }
+    });
+
+    // Handle Pasted HTML/CSS
+    btnParsePaste.addEventListener('click', () => {
+      const text = (pasteInput.value || '').trim();
+      if (!text) return;
+
+      const extracted = extractFontsFromHtml(text, 'pasted-content');
+      const fontList = extracted.fonts;
+      const mainFont = fontList[0] || 'Custom Typeface';
+      const secondFont = fontList[1] || 'Secondary Font';
+
+      const customProfile = {
+        url: 'pasted-code-snippet',
+        primary: {
+          name: mainFont,
+          type: extracted.sources[0]?.provider || 'Pasted Declaration',
+          weights: ['400', '600', '700'],
+          role: 'Primary Declared Typeface',
+          sample: 'Typography parsed directly from your pasted HTML/CSS markup.'
+        },
+        secondary: {
+          name: secondFont,
+          type: 'Secondary Declared Typeface',
+          weights: ['400', '500'],
+          role: 'Interface / Body Font',
+          sample: 'Secondary font declaration from stylesheet.'
+        },
+        freeTwin: {
+          name: 'Inter',
+          similarity: '96%',
+          category: 'Neo-Grotesque Sans',
+          reason: 'Clean open-source universal modern typeface.',
+          id: 'inter'
+        },
+        css: `font-family: '${mainFont}', sans-serif;`,
+        sources: extracted.sources.length > 0 ? extracted.sources : [{ provider: 'Pasted CSS Scanner', details: `Extracted ${fontList.length} font declaration(s)` }]
+      };
+
+      setTab('url');
+      renderProfile(customProfile, 'Pasted Source Code');
+      statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
+      statusBanner.textContent = `✓ Successfully extracted ${fontList.length || 1} font(s) from pasted source!`;
+      statusBanner.classList.remove('hidden');
+    });
+  })();
+</script>

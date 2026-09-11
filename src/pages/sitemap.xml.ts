@@ -8,6 +8,7 @@ export const GET: APIRoute = async () => {
     '',
     '/tools',
     '/tools/commercial-alternative',
+    '/tools/url-font-finder',
     '/tools/logo-font-finder',
     '/tools/screenshot-font-finder',
     '/tools/pdf-font-finder',

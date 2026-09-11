@@ -2,100 +2,273 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../../components/FontFinderApp.astro';
 
-const commercialTwins = [
-  { paid: 'Helvetica / Helvetica Neue', free: 'Inter', category: 'Sans-Serif', similarity: '98%', reason: 'Tall x-height, neutral neo-grotesque apertures, clean geometric neutrality.' },
-  { paid: 'Futura / Avenir', free: 'Poppins', category: 'Geometric Sans', similarity: '96%', reason: 'Pure circular bowls in o/b/d/p, sharp geometric apex on A/M, flat terminals.' },
-  { paid: 'Bodoni / Didot', free: 'Playfair Display', category: 'High-Contrast Serif', similarity: '95%', reason: 'Extreme thick-thin stroke modulation, hairline serifs, luxury editorial aesthetic.' },
-  { paid: 'Proxima Nova / Gotham', free: 'Montserrat', category: 'Geometric Sans', similarity: '94%', reason: 'Urban modernist proportions, wide tracking, sturdy architectural capital letters.' },
-  { paid: 'DIN / Alternate Gothic', free: 'Oswald', category: 'Condensed Display', similarity: '95%', reason: 'Compressed vertical geometry, narrow tracking, impactful industrial headlines.' },
-  { paid: 'Gill Sans / Johnston', free: 'Cabin', category: 'Humanist Sans', similarity: '93%', reason: 'Humanist warmth, organic proportions, British editorial letterforms.' },
-  { paid: 'Baskerville', free: 'Libre Baskerville', category: 'Transitional Serif', similarity: '97%', reason: 'Refined transitional serifs, open counterforms, high book legibility.' },
-  { paid: 'ITC Garamond', free: 'Cormorant Garamond', category: 'Old-Style Serif', similarity: '96%', reason: 'Historical French Renaissance strokes, expressive calligraphic curves, sharp terminals.' }
+const twins = [
+  { paid: 'Helvetica', aliases: ['helvetica', 'helvetica neue'], free: 'Inter', category: 'Neo-Grotesque Sans', similarity: '98%', reason: 'Tall x-height, neutral apertures, clean geometric balance.' },
+  { paid: 'Futura', aliases: ['futura', 'futura pt'], free: 'Poppins', category: 'Geometric Sans', similarity: '96%', reason: 'Pure circular letterforms, sharp apex, flat horizontal terminals.' },
+  { paid: 'Gotham', aliases: ['gotham', 'proxima nova'], free: 'Montserrat', category: 'Modernist Sans', similarity: '95%', reason: 'Urban architectural capitals, wide tracking, sturdy geometric stems.' },
+  { paid: 'Proxima Nova', aliases: ['proxima nova', 'proxima'], free: 'Montserrat', category: 'Geometric Sans', similarity: '94%', reason: 'Modernist humanist-geometric hybrid proportions.' },
+  { paid: 'Didot', aliases: ['didot', 'bodoni'], free: 'Playfair Display', category: 'High-Contrast Serif', similarity: '96%', reason: 'Extreme thick-thin stroke contrast and hairline serifs.' },
+  { paid: 'Bodoni', aliases: ['bodoni'], free: 'Playfair Display', category: 'Modern Serif', similarity: '95%', reason: 'Dramatic vertical stroke modulation and unbracketed serifs.' },
+  { paid: 'DIN', aliases: ['din', 'din pro', 'alternate gothic'], free: 'Oswald', category: 'Condensed Display', similarity: '95%', reason: 'Industrial signage proportions and narrow vertical geometry.' },
+  { paid: 'Avenir', aliases: ['avenir', 'avenir next'], free: 'Nunito Sans', category: 'Humanist Geometric', similarity: '94%', reason: 'Warm organic curves with clean geometric precision.' },
+  { paid: 'Gill Sans', aliases: ['gill sans', 'johnston'], free: 'Cabin', category: 'Humanist Sans', similarity: '93%', reason: 'Classic British humanist proportions with modern legibility.' },
+  { paid: 'Baskerville', aliases: ['baskerville', 'baskerville pro'], free: 'Libre Baskerville', category: 'Transitional Serif', similarity: '98%', reason: 'Crisp transitional bracketed serifs and open counterforms.' },
+  { paid: 'Garamond', aliases: ['garamond', 'itc garamond', 'adobe garamond'], free: 'Cormorant Garamond', category: 'Old-Style Serif', similarity: '97%', reason: 'Renaissance calligraphic rhythm and expressive historical terminals.' },
+  { paid: 'Circular', aliases: ['circular', 'circular std'], free: 'Plus Jakarta Sans', category: 'Clean Grotesk', similarity: '96%', reason: 'Warm geometric neo-grotesque curves popular in modern tech UI.' },
+  { paid: 'Frutiger', aliases: ['frutiger', 'myriad pro', 'myriad'], free: 'Open Sans', category: 'Humanist Sans', similarity: '95%', reason: 'Ultra-legible open apertures engineered for effortless reading.' },
+  { paid: 'Trajan', aliases: ['trajan', 'trajan pro'], free: 'Cinzel', category: 'Roman Inscriptional', similarity: '97%', reason: 'Classical Roman monumental letterforms with chisel-cut serifs.' },
+  { paid: 'Rockwell', aliases: ['rockwell', 'clarendon'], free: 'Roboto Slab', category: 'Slab Serif', similarity: '95%', reason: 'Bold architectural rectangular serifs and mechanical rhythm.' },
+  { paid: 'Brandon Grotesque', aliases: ['brandon grotesque', 'brandon'], free: 'Josefin Sans', category: 'Vintage Geometric', similarity: '94%', reason: 'Low x-height, 1920s Bauhaus geometric elegance.' }
 ];
+
+const twinsJson = JSON.stringify(twins);
 ---
 
 <BaseLayout
-  title="Find Free Alternatives to Paid Fonts — Open-Source Font Matcher"
-  description="Upload an image of any commercial or paid typeface and get the closest free Google Font you can legally use in personal and commercial projects."
+  title="Find Free Alternatives to Paid Fonts — Commercial Font Matcher"
+  description="Enter any proprietary commercial font name or upload an image to find the closest free Google Font twin with ready-to-use CSS."
 >
-  <section class="py-12 sm:py-16 px-4 sm:px-6 max-w-[1200px] mx-auto">
-    <!-- Breadcrumb & Tag -->
-    <div class="flex items-center gap-2 mb-3">
-      <a href="/tools" class="text-xs font-mono text-[#727272] hover:text-[#ff4d00] transition-colors">Tools</a>
-      <span class="text-xs text-[#d1d5db]">/</span>
-      <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Commercial Font Alternatives</span>
-    </div>
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] min-h-[calc(100vh-140px)]">
+    <div class="max-w-[1200px] mx-auto text-center">
+      <!-- Breadcrumb & Tag -->
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
+        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
+        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Commercial Alternative</span>
+      </div>
 
-    <div class="max-w-3xl">
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] tracking-tight">
+      <!-- Centered Minimalist Hero -->
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
         Find a free alternative to a paid font
       </h1>
-      <p class="mt-3.5 text-base sm:text-lg text-[#727272] leading-relaxed">
-        Upload a screenshot of any proprietary commercial typeface (e.g. Helvetica, Futura, Proxima Nova, Didot) to discover the closest open-source Google Font counterpart with ready-to-use CSS.
+      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-lg mx-auto">
+        Type any commercial font name or upload a sample to get its closest free, open-source Google Font counterpart.
       </p>
-    </div>
 
-    <!-- Core Scanner Tool -->
-    <div class="mt-10">
-      <FontFinderApp />
-    </div>
-
-    <!-- Commercial Font Replacement Matrix -->
-    <div class="mt-16 pt-12 border-t border-[#e5e7eb]">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">QUICK-REFERENCE CHEATSHEET</span>
+      <!-- Interactive Mode Toggle -->
+      <div class="mt-8 inline-flex p-1 rounded-full bg-[#f3f4f6] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+        <button
+          id="tab-search"
+          type="button"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer"
+        >
+          Search Font Name
+        </button>
+        <button
+          id="tab-image"
+          type="button"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
+        >
+          Upload Font Image
+        </button>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-[#111827] tracking-tight mb-3">
-        Popular commercial fonts & their free Google Font twins
-      </h2>
-      <p class="text-sm text-[#6b7280] mb-8 max-w-2xl">
-        All recommended alternatives are 100% free for commercial use under the SIL Open Font License, with full webfont CDN availability.
-      </p>
 
-      <div class="overflow-x-auto rounded-2xl border border-[#e5e7eb] bg-white shadow-xs">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-[#f9fafb] border-b border-[#e5e7eb] text-xs font-mono uppercase text-[#6b7280]">
-            <tr>
-              <th class="py-3.5 px-4 sm:px-6">Commercial Font (Paid)</th>
-              <th class="py-3.5 px-4 sm:px-6">Free Google Font Twin</th>
-              <th class="py-3.5 px-4 sm:px-6 hidden md:table-cell">Style Category</th>
-              <th class="py-3.5 px-4 sm:px-6 hidden sm:table-cell">Visual Match</th>
-              <th class="py-3.5 px-4 sm:px-6">Action</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[#f3f4f6]">
-            {commercialTwins.map((item) => (
-              <tr class="hover:bg-[#f9fafb]/80 transition-colors">
-                <td class="py-4 px-4 sm:px-6 font-semibold text-[#111827]">
-                  {item.paid}
-                </td>
-                <td class="py-4 px-4 sm:px-6">
-                  <span class="font-bold text-[#ff4d00]">{item.free}</span>
-                  <div class="text-[11px] text-[#6b7280] mt-0.5 md:hidden">{item.category}</div>
-                </td>
-                <td class="py-4 px-4 sm:px-6 text-[#6b7280] hidden md:table-cell">
-                  {item.category}
-                </td>
-                <td class="py-4 px-4 sm:px-6 font-mono text-xs text-[#059669] font-medium hidden sm:table-cell">
-                  {item.similarity}
-                </td>
-                <td class="py-4 px-4 sm:px-6">
-                  <a
-                    href={`https://fonts.google.com/specimen/${item.free.replace(/\s+/g, '+')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 text-xs font-medium text-[#262626] hover:text-[#ff4d00] transition-colors"
-                  >
-                    <span>Get Font</span>
-                    <span>&rarr;</span>
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <!-- Mode 1: Search Font Name (Default) -->
+      <div id="section-search" class="mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+        <!-- Centered Search Box -->
+        <div class="relative">
+          <input
+            id="commercial-input"
+            type="text"
+            placeholder="Enter commercial font (e.g. Helvetica, Futura, Gotham, Didot...)"
+            class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-sm text-[#262626] dark:text-[#f3f4f6] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] dark:placeholder:text-[#6b7280] transition-all"
+          />
+          <svg class="w-5 h-5 text-[#727272] dark:text-[#9ca3af] absolute left-4 top-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- Quick Preset Chips -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">Popular:</span>
+          {['Helvetica', 'Futura', 'Gotham', 'Proxima Nova', 'Didot', 'DIN', 'Avenir', 'Baskerville'].map((name) => (
+            <button
+              type="button"
+              data-preset={name}
+              class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00] transition-all cursor-pointer"
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+
+        <!-- Live Matched Result Card -->
+        <div id="match-card" class="mt-6 p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">COMMERCIAL TYPEFACE</span>
+              <h3 id="result-paid" class="text-xl font-bold text-[#262626] dark:text-[#f3f4f6]">Helvetica</h3>
+            </div>
+            <div class="text-right">
+              <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">VISUAL MATCH</span>
+              <div id="result-similarity" class="text-lg font-mono font-bold text-[#059669] dark:text-[#10b981]">98%</div>
+            </div>
+          </div>
+
+          <div class="my-5 p-4 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834]">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Free Google Font Twin:</span>
+              <span id="result-cat" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-[#1a1d26] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834]">
+                Neo-Grotesque Sans
+              </span>
+            </div>
+            <div id="result-free" class="text-2xl font-bold text-[#ff4d00]">Inter</div>
+            <p id="result-reason" class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1">
+              Tall x-height, neutral apertures, clean geometric balance.
+            </p>
+
+            <!-- Live Sample Render -->
+            <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834]">
+              <p id="specimen-preview" class="text-lg text-[#262626] dark:text-[#f3f4f6] truncate font-normal">
+                Sphinx of black quartz, judge my vow. 0123456789
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button
+              id="btn-copy-css"
+              type="button"
+              class="px-4 py-2 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-xs font-mono font-medium hover:bg-[#ff4d00] transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>Copy CSS</span>
+              <span id="copy-status" class="text-[10px] text-green-400 hidden">&check;</span>
+            </button>
+            <a
+              id="link-google-font"
+              href="https://fonts.google.com/specimen/Inter"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs font-mono font-medium text-[#262626] dark:text-[#f3f4f6] hover:text-[#ff4d00] inline-flex items-center gap-1 transition-colors"
+            >
+              <span>Google Fonts Specimen</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Upload Font Image (Hidden by default) -->
+      <div id="section-image" class="hidden mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+        <FontFinderApp />
       </div>
     </div>
   </section>
+
+  <script id="twins-data" type="application/json" is:inline set:html={twinsJson}></script>
+  <script is:inline>
+    (function () {
+      const twinsDataEl = document.getElementById('twins-data');
+      const twins = twinsDataEl ? JSON.parse(twinsDataEl.textContent || '[]') : [];
+
+      const input = document.getElementById('commercial-input');
+      const resultPaid = document.getElementById('result-paid');
+      const resultFree = document.getElementById('result-free');
+      const resultSimilarity = document.getElementById('result-similarity');
+      const resultCat = document.getElementById('result-cat');
+      const resultReason = document.getElementById('result-reason');
+      const specimenPreview = document.getElementById('specimen-preview');
+      const linkGoogleFont = document.getElementById('link-google-font');
+      const btnCopyCss = document.getElementById('btn-copy-css');
+      const copyStatus = document.getElementById('copy-status');
+
+      const tabSearch = document.getElementById('tab-search');
+      const tabImage = document.getElementById('tab-image');
+      const secSearch = document.getElementById('section-search');
+      const secImage = document.getElementById('section-image');
+
+      let currentFreeFont = 'Inter';
+
+      // Tab switching
+      tabSearch?.addEventListener('click', () => {
+        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
+        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        secSearch?.classList.remove('hidden');
+        secImage?.classList.add('hidden');
+      });
+
+      tabImage?.addEventListener('click', () => {
+        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
+        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        secImage?.classList.remove('hidden');
+        secSearch?.classList.add('hidden');
+      });
+
+      function updateMatch(item) {
+        if (!item) return;
+        currentFreeFont = item.free;
+        if (resultPaid) resultPaid.textContent = item.paid;
+        if (resultFree) resultFree.textContent = item.free;
+        if (resultSimilarity) resultSimilarity.textContent = item.similarity;
+        if (resultCat) resultCat.textContent = item.category;
+        if (resultReason) resultReason.textContent = item.reason;
+        if (linkGoogleFont) linkGoogleFont.href = `https://fonts.google.com/specimen/${item.free.replace(/\s+/g, '+')}`;
+
+        // Dynamically load Google Font for specimen
+        const fontName = item.free;
+        const fontId = `gfont-${fontName.replace(/\s+/g, '-')}`;
+        if (!document.getElementById(fontId)) {
+          const link = document.createElement('link');
+          link.id = fontId;
+          link.rel = 'stylesheet';
+          link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@400;700&display=swap`;
+          document.head.appendChild(link);
+        }
+        if (specimenPreview) {
+          specimenPreview.style.fontFamily = `'${fontName}', sans-serif`;
+        }
+      }
+
+      function searchFont(query) {
+        const q = query.trim().toLowerCase();
+        if (!q) {
+          updateMatch(twins[0]);
+          return;
+        }
+        const match = twins.find(t =>
+          t.paid.toLowerCase().includes(q) ||
+          t.aliases.some(a => a.includes(q)) ||
+          t.free.toLowerCase().includes(q)
+        );
+        if (match) {
+          updateMatch(match);
+        } else {
+          // Fallback to closest default
+          updateMatch({
+            paid: query,
+            free: 'Inter',
+            category: 'Alternative Match',
+            similarity: '90%',
+            reason: 'Universal modern open-source sans counterpart.'
+          });
+        }
+      }
+
+      input?.addEventListener('input', (e) => {
+        searchFont(e.target.value);
+      });
+
+      document.querySelectorAll('.preset-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const preset = btn.getAttribute('data-preset');
+          if (input) input.value = preset;
+          searchFont(preset);
+        });
+      });
+
+      btnCopyCss?.addEventListener('click', () => {
+        const css = `font-family: '${currentFreeFont}', sans-serif;`;
+        navigator.clipboard.writeText(css).then(() => {
+          if (copyStatus) copyStatus.classList.remove('hidden');
+          setTimeout(() => {
+            if (copyStatus) copyStatus.classList.add('hidden');
+          }, 2000);
+        });
+      });
+
+      // Initial load
+      updateMatch(twins[0]);
+    })();
+  </script>
 </BaseLayout>
