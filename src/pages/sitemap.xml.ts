@@ -6,6 +6,13 @@ export const GET: APIRoute = async () => {
 
   const staticPages = [
     '',
+    '/tools',
+    '/tools/commercial-alternative',
+    '/tools/logo-font-finder',
+    '/tools/screenshot-font-finder',
+    '/tools/pdf-font-finder',
+    '/tools/handwriting-font-finder',
+    '/tools/font-pairing',
     '/fonts',
     '/how-it-works',
     '/about',

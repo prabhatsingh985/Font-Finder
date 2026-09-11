@@ -37,6 +37,14 @@ const currentPath = Astro.url.pathname;
         Finder
       </a>
       <a
+        href="/tools"
+        class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
+          currentPath.startsWith('/tools') ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
+        }`}
+      >
+        Tools
+      </a>
+      <a
         href="/fonts"
         class={`px-3 py-1.5 rounded-full transition-colors hover:text-[#ff4d00] hover:bg-[#f9f9f9] ${
           currentPath.startsWith('/fonts') ? 'text-[#ff4d00] bg-[#f9f9f9] font-semibold' : 'text-[#262626]'
@@ -97,6 +105,7 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Secondary Menu Bar -->
   <div class="flex md:hidden items-center justify-around border-t border-[#e5e7eb] py-2 px-4 text-xs font-medium text-[#727272] bg-[#ffffff]">
     <a href="/" class={`hover:text-[#ff4d00] ${currentPath === '/' ? 'text-[#ff4d00] font-semibold' : ''}`}>Finder</a>
+    <a href="/tools" class={`hover:text-[#ff4d00] ${currentPath.startsWith('/tools') ? 'text-[#ff4d00] font-semibold' : ''}`}>Tools</a>
     <a href="/fonts" class={`hover:text-[#ff4d00] ${currentPath.startsWith('/fonts') ? 'text-[#ff4d00] font-semibold' : ''}`}>Browse Fonts</a>
     <a href="/how-it-works" class={`hover:text-[#ff4d00] ${currentPath === '/how-it-works' ? 'text-[#ff4d00] font-semibold' : ''}`}>Guide</a>
     <a href="/about" class={`hover:text-[#ff4d00] ${currentPath === '/about' ? 'text-[#ff4d00] font-semibold' : ''}`}>About</a>
