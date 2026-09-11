@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { VERIFIED_GOOGLE_FONTS } from '../../services/googleFonts/data';
+import { getAllStaticFontPaths } from '../../services/googleFonts/fontCatalog';
 import type { FontFamily } from '../../types/font';
 
 export async function getStaticPaths() {
-  return VERIFIED_GOOGLE_FONTS.map((font) => ({
-    params: { font: font.id },
-    props: { font }
-  }));
+  return getAllStaticFontPaths();
 }
 
 interface Props {
@@ -102,15 +100,15 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
         </div>
         <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
           <span class="text-[#727272]">Serifs</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.serif}</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.serif || 'None'}</span>
         </div>
         <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
           <span class="text-[#727272]">Contrast</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.contrast}</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.contrast || 'Low'}</span>
         </div>
         <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
           <span class="text-[#727272]">Proportions</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics.proportions}</span>
+          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.proportions || 'Regular'}</span>
         </div>
         <div class="flex justify-between py-1">
           <span class="text-[#727272]">Variable Font</span>
