@@ -719,28 +719,18 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const stepTitle = document.getElementById('loading-step-title');
       const stepDetail = document.getElementById('loading-step-detail');
 
-      progressBar.style.width = '30%';
-      stepTitle.textContent = 'Binarizing letterforms...';
-      stepDetail.textContent = 'Thresholding image and isolating glyph contours';
+      progressBar.style.width = '15%';
+      stepTitle.textContent = 'Loading font catalog...';
+      stepDetail.textContent = 'Pre-loading Google Fonts for accurate glyph comparison';
 
-      setTimeout(() => {
-        progressBar.style.width = '70%';
-        stepTitle.textContent = 'Extracting typographic metrics...';
-        stepDetail.textContent = 'Measuring serifs, aspect ratio, stroke weight, and contrast';
-
-        setTimeout(() => {
-          progressBar.style.width = '100%';
-          stepTitle.textContent = 'Comparing Google Fonts catalog...';
-          stepDetail.textContent = 'Calculating distance against verified open-source typefaces';
-
-          setTimeout(() => {
-            executeAnalysis();
-          }, 200);
-        }, 250);
-      }, 200);
+      // Run the async analysis pipeline
+      executeAnalysis(progressBar, stepTitle, stepDetail).catch((err) => {
+        console.error('Analysis error:', err);
+        loadingStage.classList.add('hidden');
+      });
     });
 
-    function executeAnalysis() {
+    async function executeAnalysis(progressBar, stepTitle, stepDetail) {
       const offscreen = document.createElement('canvas');
       const offCtx = offscreen.getContext('2d');
 
@@ -768,12 +758,110 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const croppedDataUrl = offscreen.toDataURL('image/png');
       const imgData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height);
       const knownText = (cropTextInput && cropTextInput.value.trim()) || (compareTextInput && compareTextInput.value.trim()) || currentSampleText || '';
-      const result = analyzePixelsInBrowser(imgData, knownText);
 
+      // Pre-load ALL catalog fonts so we compare real glyphs, not fallback system fonts
+      if (progressBar) {
+        progressBar.style.width = '35%';
+        stepTitle.textContent = 'Loading font catalog...';
+        stepDetail.textContent = 'Fetching Google Fonts for accurate glyph comparison';
+      }
+
+      const fontsLoaded = await preloadAllFonts(fontsCatalog);
+
+      if (progressBar) {
+        progressBar.style.width = '70%';
+        stepTitle.textContent = 'Extracting typographic metrics...';
+        stepDetail.textContent = 'Measuring serifs, aspect ratio, stroke weight, and contrast';
+      }
+
+      await new Promise(r => setTimeout(r, 80));
+
+      if (progressBar) {
+        progressBar.style.width = '100%';
+        stepTitle.textContent = 'Comparing Google Fonts catalog...';
+        stepDetail.textContent = 'Calculating distance against verified open-source typefaces';
+      }
+
+      const result = analyzePixelsInBrowser(imgData, knownText, fontsLoaded);
       displayResults(result, croppedDataUrl);
     }
 
-    function analyzePixelsInBrowser(pixels, knownText) {
+    // Session-level cache so fonts are only loaded once per page session
+    let _fontsLoadedCache = null;
+
+    // Pre-load all catalog fonts and return a Set of successfully loaded family names
+    async function preloadAllFonts(catalog) {
+      // Return cached result if already computed this session
+      if (_fontsLoadedCache !== null) {
+        console.log(`[FontFinder] Using cached font set: ${_fontsLoadedCache.size} loaded`);
+        return _fontsLoadedCache;
+      }
+
+      const loaded = new Set();
+      const PROBE_TEXT = 'Handgloves';
+      const PROBE_SIZE = '32px';
+
+      // Inject all Google Font stylesheets at once
+      const bulkUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=DM+Sans:wght@400;700&family=Manrope:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=EB+Garamond:wght@400;700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Pacifico:wght@400&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Outfit:wght@400;700&family=Work+Sans:wght@400;700&display=swap';
+
+      // Add stylesheet if not already added
+      const existingLink = document.getElementById('bulk-font-preload');
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.id = 'bulk-font-preload';
+        link.rel = 'stylesheet';
+        link.href = bulkUrl;
+        document.head.appendChild(link);
+      }
+
+      // Wait for document.fonts to process the new stylesheet (max 5s)
+      try {
+        await Promise.race([
+          document.fonts.ready,
+          new Promise(r => setTimeout(r, 5000))
+        ]);
+      } catch (e) {}
+
+      // Verify each font individually
+      await Promise.all(catalog.map(async (font) => {
+        try {
+          const spec = `${PROBE_SIZE} "${font.family}"`;
+          await Promise.race([
+            document.fonts.load(spec, PROBE_TEXT),
+            new Promise(r => setTimeout(r, 2500))
+          ]);
+          // Confirm the font is actually the right one (not fallback)
+          // by checking if measureText differs from generic fallback
+          const probeCanvas = document.createElement('canvas');
+          const probeCtx = probeCanvas.getContext('2d');
+          probeCanvas.width = 300; probeCanvas.height = 50;
+
+          probeCtx.font = `400 ${PROBE_SIZE} sans-serif`;
+          const fallbackW = probeCtx.measureText(PROBE_TEXT).width;
+
+          probeCtx.font = `400 ${PROBE_SIZE} "${font.family}", sans-serif`;
+          const fontW = probeCtx.measureText(PROBE_TEXT).width;
+
+          // If width differs by >= 0.5px OR the font is a monospace (always distinct) OR serif
+          if (Math.abs(fontW - fallbackW) >= 0.5 || font.category === 'monospace' || font.category === 'handwriting') {
+            loaded.add(font.family);
+          }
+        } catch (e) {
+          // Font load failed
+        }
+      }));
+
+      console.log(`[FontFinder] Fonts loaded: ${loaded.size}/${catalog.length}`, [...loaded]);
+      // Only cache if we successfully loaded a meaningful number of fonts
+      // (prevents bad network responses from permanently disabling glyph comparison)
+      if (loaded.size >= Math.floor(catalog.length * 0.35)) {
+        _fontsLoadedCache = loaded;
+      }
+      return loaded;
+    }
+
+
+    function analyzePixelsInBrowser(pixels, knownText, fontsLoaded) {
       const { width, height, data } = pixels;
       const totalPixels = width * height;
       const grayscale = new Uint8Array(totalPixels);
@@ -869,7 +957,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       let inCol = false;
       let colStart = 0;
-      const glyphBoxes = [];
+      const rawGlyphBoxes = [];
       for (let x = 0; x < width; x++) {
         const hasInk = colDensity[x] >= 2;
         if (!inCol && hasInk) {
@@ -890,11 +978,52 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
               }
             }
             if (gBottom >= gTop + 4) {
-              glyphBoxes.push({ x: colStart, y: gTop, w: gw, h: gBottom - gTop + 1 });
+              rawGlyphBoxes.push({ x: colStart, y: gTop, w: gw, h: gBottom - gTop + 1 });
             }
           }
         }
       }
+
+      // FIX: Merge floating dots (i, j, !, :, ;) with nearby lower body
+      // Dots are boxes with height < 25% of textH that are horizontally aligned with a taller box
+      const dotHeightThresh = textH * 0.28;
+      const mergeGapThresh = textH * 0.30;
+      const glyphBoxes = [];
+      const merged = new Uint8Array(rawGlyphBoxes.length);
+      for (let i = 0; i < rawGlyphBoxes.length; i++) {
+        if (merged[i]) continue;
+        const a = rawGlyphBoxes[i];
+        if (a.h <= dotHeightThresh) {
+          // Look for a body box that this dot sits above
+          let bestJ = -1, bestGap = Infinity;
+          for (let j = 0; j < rawGlyphBoxes.length; j++) {
+            if (i === j || merged[j]) continue;
+            const b = rawGlyphBoxes[j];
+            if (b.h <= dotHeightThresh) continue; // body must be taller
+            const horizontalOverlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+            const gap = b.y - (a.y + a.h);
+            if (horizontalOverlap > 0 && gap >= 0 && gap <= mergeGapThresh) {
+              if (gap < bestGap) { bestGap = gap; bestJ = j; }
+            }
+          }
+          if (bestJ >= 0) {
+            // Merge dot into body
+            const b = rawGlyphBoxes[bestJ];
+            const mx = Math.min(a.x, b.x);
+            const my = Math.min(a.y, b.y);
+            const mw = Math.max(a.x + a.w, b.x + b.w) - mx;
+            const mh = Math.max(a.y + a.h, b.y + b.h) - my;
+            rawGlyphBoxes[bestJ] = { x: mx, y: my, w: mw, h: mh };
+            merged[i] = 1;
+            continue;
+          }
+        }
+        glyphBoxes.push(a);
+      }
+      // Sort by x-position (left-to-right reading order)
+      glyphBoxes.sort((a, b) => a.x - b.x);
+      // Limit to 35 glyphs
+      if (glyphBoxes.length > 35) glyphBoxes.length = 35;
 
       function getPercentile(arr, p, defaultVal) {
         if (!arr || arr.length === 0) return defaultVal;
@@ -1249,6 +1378,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         renderCtx = renderCanvas.getContext('2d', { willReadFrequently: true });
       }
 
+      // Estimate xHeightRatio from glyph heights
+      // X-height glyphs (short lowercase) should cluster around x-height / textH
+      // Cap-height = textH (assumed). Median short-glyph height = x-height proxy.
+      let imgXHeightRatio = 0;
+      if (glyphSignatures.length >= 2) {
+        const shortGlyphs = glyphSignatures
+          .map(g => g.box.h)
+          .filter(h => h < textH * 0.95) // exclude ascenders/caps
+          .sort((a, b) => a - b);
+        if (shortGlyphs.length >= 1) {
+          const medH = shortGlyphs[Math.floor(shortGlyphs.length * 0.5)];
+          imgXHeightRatio = Math.min(0.95, Math.max(0.50, medH / textH));
+        }
+      }
+
       const candidateScores = fontsCatalog.map((font) => {
         let geomScore = 50;
         const reasons = [];
@@ -1309,6 +1453,14 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
         geomScore += serifScore;
 
+        // xHeightRatio scoring (5 pts max) — tiebreaker between same-category fonts
+        // Uses a gentle gradient so nearby values don't lose unfairly
+        const catalogXH = font.typographicMetrics.xHeightRatio || 0.70;
+        if (imgXHeightRatio > 0) {
+          const xhDelta = Math.abs(imgXHeightRatio - catalogXH);
+          geomScore += Math.max(0, 5 - Math.round(xhDelta * 30));
+        }
+
         // Proportions & Condensed Geometry
         if (proportions === 'condensed') {
           if (font.typographicMetrics.proportions === 'condensed') {
@@ -1352,10 +1504,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         // Glyph-level shape evidence matching
         let glyphScore = 70;
 
+        const fontIsLoaded = fontsLoaded && fontsLoaded.has(font.family);
+        // Weight of glyph evidence depends on whether the font actually loaded
+        // If not loaded, fallback glyphs are unreliable — reduce glyph influence heavily
+        const glyphConfidenceFactor = fontIsLoaded ? 1.0 : 0.30;
+
         if (hasReliableText && renderCtx && renderCanvas) {
           // MODE A: Character-Aware Glyph Matching
           try {
-            const renderFontSize = Math.max(28, Math.min(60, textH));
+            const renderFontSize = Math.max(32, Math.min(64, textH));
             renderCtx.font = `${weight} ${renderFontSize}px "${font.family}", ${font.category}`;
             const measured = renderCtx.measureText(activeText);
             const rw = Math.max(80, Math.ceil(measured.width) + 40);
@@ -1384,7 +1541,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
               }
             }
 
-            const candBoxes = [];
+            // Segment candidate glyphs with same dot-merging logic
+            const rawCandBoxes = [];
             let rInCol = false, rStart = 0;
             for (let x = 0; x < rw; x++) {
               if (!rInCol && rCols[x] > 0) {
@@ -1403,11 +1561,45 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
                     }
                   }
                   if (cBottom >= cTop + 3) {
-                    candBoxes.push({ x: rStart, y: cTop, w: cw, h: cBottom - cTop + 1 });
+                    rawCandBoxes.push({ x: rStart, y: cTop, w: cw, h: cBottom - cTop + 1 });
                   }
                 }
               }
             }
+
+            // Apply same dot-merging to candidate boxes
+            const candTextH = rh;
+            const candDotThresh = candTextH * 0.35;
+            const candMergeGap = candTextH * 0.40;
+            const candBoxes = [];
+            const candMerged = new Uint8Array(rawCandBoxes.length);
+            for (let i = 0; i < rawCandBoxes.length; i++) {
+              if (candMerged[i]) continue;
+              const a = rawCandBoxes[i];
+              if (a.h <= candDotThresh) {
+                let bestJ = -1, bestGap = Infinity;
+                for (let j = 0; j < rawCandBoxes.length; j++) {
+                  if (i === j || candMerged[j]) continue;
+                  const b = rawCandBoxes[j];
+                  if (b.h <= candDotThresh) continue;
+                  const overlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+                  const gap = b.y - (a.y + a.h);
+                  if (overlap > 0 && gap >= 0 && gap <= candMergeGap && gap < bestGap) {
+                    bestGap = gap; bestJ = j;
+                  }
+                }
+                if (bestJ >= 0) {
+                  const b = rawCandBoxes[bestJ];
+                  const mx = Math.min(a.x, b.x);
+                  const my = Math.min(a.y, b.y);
+                  rawCandBoxes[bestJ] = { x: mx, y: my, w: Math.max(a.x + a.w, b.x + b.w) - mx, h: Math.max(a.y + a.h, b.y + b.h) - my };
+                  candMerged[i] = 1;
+                  continue;
+                }
+              }
+              candBoxes.push(a);
+            }
+            candBoxes.sort((a, b) => a.x - b.x);
 
             const numPairs = Math.min(glyphSignatures.length, candBoxes.length, activeText.length);
             if (numPairs >= 1) {
@@ -1429,7 +1621,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
                 };
 
                 const pairSim = compareGlyphs(upGlyph, candGlyph);
-                totalGlyphSim += pairSim * w;
+                // Apply font-load confidence factor to each pair similarity
+                const effectiveSim = fontIsLoaded ? pairSim : (pairSim * 0.40 + 0.60 * 0.70);
+                totalGlyphSim += effectiveSim * w;
                 totalWeight += w;
               }
 
@@ -1518,7 +1712,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           }
         }
 
-        const glyphWeight = hasReliableText ? 0.55 : 0.40;
+        // Glyph weight: higher when font is confirmed loaded (0.70 loaded vs 0.25 fallback)
+        // This prevents fallback font identicals from dominating the score
+        const baseGlyphWeight = hasReliableText ? 0.70 : 0.50;
+        const glyphWeight = fontIsLoaded ? baseGlyphWeight : 0.25;
         const finalRawScore = Math.round((1 - glyphWeight) * geomScore + glyphWeight * glyphScore);
 
         return {

@@ -47,7 +47,14 @@ const HELD_OUT_SET: BenchmarkSpecimen[] = [
 
 test.describe('Expanded Robust Font Identification Benchmark Matrix', () => {
   test('Run Comprehensive Matrix (Tuning, Validation, and Held-Out Sets)', async ({ page }) => {
-    test.setTimeout(120000);
+    // Extended timeout: font pre-loading adds ~4-8s per run
+    test.setTimeout(180000);
+    page.on('console', (msg) => {
+      const text = msg.text();
+      if (text.includes('[FontFinder]') || text.includes('error') || text.includes('Error')) {
+        console.log('PAGE LOG:', text);
+      }
+    });
     await page.goto('/');
 
     const allSets = [
@@ -127,7 +134,7 @@ test.describe('Expanded Robust Font Identification Benchmark Matrix', () => {
         const analyzeBtn = page.locator('#btn-run-analysis');
         await analyzeBtn.click();
 
-        await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('#results-stage')).toBeVisible({ timeout: 25000 });
 
         const predictedFamily = (await page.locator('#res-font-family').textContent())?.trim() || '';
         const predictedCategory = (await page.locator('#res-trait-category').textContent())?.trim().toLowerCase() || '';
@@ -188,15 +195,41 @@ test.describe('Expanded Robust Font Identification Benchmark Matrix', () => {
     }
     console.log('================================================================\n');
 
-    // Assertions: Held-Out Top-3 must be >= 80%, Category accuracy >= 90%
-    const heldOut = results.filter((r) => r.set === 'Held-Out Test Set');
-    const heldTop3Count = heldOut.filter((r) => r.top3Hit).length;
-    expect(heldTop3Count).toBeGreaterThanOrEqual(7);
+    // ====================================================================
+    // BENCHMARK ASSERTIONS (Do NOT weaken these to make the test pass)
+    // ====================================================================
 
-    // Honest confidence check: No false 100% clamps anywhere
+    const tuning = results.filter((r) => r.set === 'Tuning Set');
+    const validation = results.filter((r) => r.set === 'Validation Set');
+    const heldOut = results.filter((r) => r.set === 'Held-Out Test Set');
+
+    const tuningTop1 = tuning.filter((r) => r.top1Hit).length;
+    const validationTop1 = validation.filter((r) => r.top1Hit).length;
+    const heldTop1Count = heldOut.filter((r) => r.top1Hit).length;
+    const heldTop3Count = heldOut.filter((r) => r.top3Hit).length;
+
+    console.log(`\n=== FINAL ACCURACY SUMMARY ===`);
+    console.log(`Tuning Top-1:     ${tuningTop1}/${tuning.length} = ${(tuningTop1/tuning.length*100).toFixed(1)}%`);
+    console.log(`Validation Top-1: ${validationTop1}/${validation.length} = ${(validationTop1/validation.length*100).toFixed(1)}%`);
+    console.log(`Held-Out Top-1:   ${heldTop1Count}/${heldOut.length} = ${(heldTop1Count/heldOut.length*100).toFixed(1)}%`);
+    console.log(`Held-Out Top-3:   ${heldTop3Count}/${heldOut.length} = ${(heldTop3Count/heldOut.length*100).toFixed(1)}%`);
+
+    // Tuning set: 100% Top-1 is non-negotiable (these are our tuning specimens)
+    expect(tuningTop1, `Tuning Top-1 must be 100% (got ${tuningTop1}/${tuning.length})`).toBe(tuning.length);
+
+    // Validation set: At least 50% Top-1 (3/6) — was 33% before
+    expect(validationTop1, `Validation Top-1 must be ≥ 3/6 (got ${validationTop1})`).toBeGreaterThanOrEqual(3);
+
+    // Held-Out: Top-1 ≥ 70% (7/10) — this is the real generalization target
+    expect(heldTop1Count, `Held-Out Top-1 must be ≥ 7/10 (got ${heldTop1Count})`).toBeGreaterThanOrEqual(7);
+
+    // Held-Out: Top-3 ≥ 85% (≥ 9/10)
+    expect(heldTop3Count, `Held-Out Top-3 must be ≥ 9/10 (got ${heldTop3Count})`).toBeGreaterThanOrEqual(9);
+
+    // Honest confidence: Never fake 100%; lower bound ensures some signal
     for (const r of results) {
-      expect(r.confidence).toBeLessThanOrEqual(95);
-      expect(r.confidence).toBeGreaterThanOrEqual(35);
+      expect(r.confidence, `Confidence must be ≤ 95% for ${r.specimen}`).toBeLessThanOrEqual(95);
+      expect(r.confidence, `Confidence must be ≥ 35% for ${r.specimen}`).toBeGreaterThanOrEqual(35);
     }
   });
 });

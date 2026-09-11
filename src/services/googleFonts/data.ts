@@ -33,7 +33,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'semi-closed',
       avgAspect: 0.62,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.73,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Helvetica', 'Helvetica Neue', 'San Francisco', 'Arial'],
     recommendedPairings: ['Playfair Display', 'Merriweather', 'Lora', 'Space Mono']
@@ -68,7 +70,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.60,
-      strokeWidthRatio: 0.11
+      strokeWidthRatio: 0.11,
+      xHeightRatio: 0.68,
+      terminalStyle: 'diagonal'
     },
     commercialAlternativesFor: ['Helvetica', 'Univers', 'DIN'],
     recommendedPairings: ['Roboto Slab', 'Merriweather', 'Playfair Display']
@@ -104,7 +108,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.68,
-      strokeWidthRatio: 0.13
+      strokeWidthRatio: 0.13,
+      xHeightRatio: 0.7,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Gotham', 'Futura', 'Proxima Nova', 'Avenir'],
     recommendedPairings: ['Lora', 'Merriweather', 'Cormorant Garamond']
@@ -141,7 +147,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.69,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.75,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Futura', 'Avant Garde', 'Gilroy', 'Avenir'],
     recommendedPairings: ['Playfair Display', 'Merriweather', 'PT Serif']
@@ -175,7 +183,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.65,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.74,
+      terminalStyle: 'diagonal'
     },
     commercialAlternativesFor: ['Circular', 'Sharp Sans', 'Proxima Nova'],
     recommendedPairings: ['Newsreader', 'Fraunces', 'Space Mono']
@@ -207,7 +217,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.64,
-      strokeWidthRatio: 0.11
+      strokeWidthRatio: 0.11,
+      xHeightRatio: 0.72,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['Neuzeit Grotesk', 'Avenir', 'Founders Grotesk'],
     recommendedPairings: ['DM Serif Display', 'Lora', 'Playfair Display']
@@ -242,7 +254,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.63,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.74,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['Euclid Circular', 'Circular Std', 'FF Mark'],
     recommendedPairings: ['Playfair Display', 'Cinzel', 'EB Garamond']
@@ -275,7 +289,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.61,
-      strokeWidthRatio: 0.11
+      strokeWidthRatio: 0.11,
+      xHeightRatio: 0.74,
+      terminalStyle: 'sheared'
     },
     commercialAlternativesFor: ['Frutiger', 'Myriad Pro', 'Lucida Grande'],
     recommendedPairings: ['Merriweather', 'Lora', 'Playfair Display']
@@ -308,7 +324,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.61,
-      strokeWidthRatio: 0.11
+      strokeWidthRatio: 0.11,
+      xHeightRatio: 0.69,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['Gill Sans', 'Myriad', 'Frutiger'],
     recommendedPairings: ['Playfair Display', 'Merriweather', 'Cinzel']
@@ -343,7 +361,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'low',
       aperture: 'open',
       avgAspect: 0.64,
-      strokeWidthRatio: 0.10
+      strokeWidthRatio: 0.10,
+      xHeightRatio: 0.64,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Century Gothic', 'Avant Garde', 'Neutraface'],
     recommendedPairings: ['Merriweather', 'Playfair Display', 'Lora']
@@ -379,7 +399,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.65,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.7,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['Gotham Rounded', 'Proxima Soft', 'Arial Rounded'],
     recommendedPairings: ['Lora', 'Playfair Display', 'Merriweather']
@@ -413,7 +435,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'semi-closed',
       avgAspect: 0.44,
-      strokeWidthRatio: 0.14
+      strokeWidthRatio: 0.14,
+      xHeightRatio: 0.74,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Alternate Gothic', 'Impact', 'DIN Condensed'],
     recommendedPairings: ['Open Sans', 'Roboto', 'Lora']
@@ -448,7 +472,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'closed',
       avgAspect: 0.65,
-      strokeWidthRatio: 0.14
+      strokeWidthRatio: 0.14,
+      xHeightRatio: 0.66,
+      terminalStyle: 'ball'
     },
     commercialAlternativesFor: ['Bodoni', 'Didot', 'Baskerville', 'Playbill'],
     recommendedPairings: ['Inter', 'Montserrat', 'Plus Jakarta Sans', 'Open Sans']
@@ -481,7 +507,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.62,
-      strokeWidthRatio: 0.13
+      strokeWidthRatio: 0.13,
+      xHeightRatio: 0.76,
+      terminalStyle: 'sheared'
     },
     commercialAlternativesFor: ['Georgia', 'Charter', 'Palatino'],
     recommendedPairings: ['Open Sans', 'Roboto', 'Montserrat']
@@ -514,7 +542,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.63,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.68,
+      terminalStyle: 'ball'
     },
     commercialAlternativesFor: ['Minion Pro', 'Times New Roman', 'Galliard'],
     recommendedPairings: ['Inter', 'DM Sans', 'Poppins']
@@ -548,7 +578,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'low',
       aperture: 'open',
       avgAspect: 0.58,
-      strokeWidthRatio: 0.10
+      strokeWidthRatio: 0.10,
+      xHeightRatio: 0.6,
+      terminalStyle: 'sheared'
     },
     commercialAlternativesFor: ['Adobe Garamond', 'Garamond Premier', 'Sabon'],
     recommendedPairings: ['Montserrat', 'Inter', 'Cinzel']
@@ -582,7 +614,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.72,
-      strokeWidthRatio: 0.13
+      strokeWidthRatio: 0.13,
+      xHeightRatio: 0.62,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Trajan', 'Columna', 'Friz Quadrata'],
     recommendedPairings: ['Lora', 'Fauna One', 'Inter']
@@ -616,7 +650,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'low',
       aperture: 'closed',
       avgAspect: 0.59,
-      strokeWidthRatio: 0.10
+      strokeWidthRatio: 0.10,
+      xHeightRatio: 0.57,
+      terminalStyle: 'ball'
     },
     commercialAlternativesFor: ['Didot', 'ITC Garamond', 'Walbaum'],
     recommendedPairings: ['Montserrat', 'Inter', 'Plus Jakarta Sans']
@@ -651,7 +687,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.60,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.77,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Operator Mono', 'Dank Mono', 'Consolas', 'Menlo'],
     recommendedPairings: ['Inter', 'Plus Jakarta Sans', 'DM Sans']
@@ -682,7 +720,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.60,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.68,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Apercu Mono', 'Pitch', 'Monaco'],
     recommendedPairings: ['Space Grotesk', 'Inter', 'Work Sans']
@@ -715,7 +755,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.60,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.7,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['PragmataPro', 'Monaco', 'Courier New'],
     recommendedPairings: ['Fira Sans', 'Inter', 'Roboto']
@@ -744,7 +786,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'closed',
       avgAspect: 0.42,
-      strokeWidthRatio: 0.16
+      strokeWidthRatio: 0.16,
+      xHeightRatio: 0.82,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Compacta', 'Haettenschweiler', 'Helvetica Inserat'],
     recommendedPairings: ['Montserrat', 'Roboto', 'Open Sans']
@@ -773,7 +817,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'closed',
       avgAspect: 0.46,
-      strokeWidthRatio: 0.20
+      strokeWidthRatio: 0.20,
+      xHeightRatio: 0.8,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Impact', 'Placard Bold', 'Futura Bold Condensed'],
     recommendedPairings: ['Roboto', 'Open Sans', 'Lato']
@@ -802,7 +848,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.65,
-      strokeWidthRatio: 0.14
+      strokeWidthRatio: 0.14,
+      xHeightRatio: 0.7,
+      terminalStyle: 'rounded'
     },
     commercialAlternativesFor: ['Brush Script', 'Kaufmann', 'Snell Roundhand'],
     recommendedPairings: ['Open Sans', 'Quicksand', 'Lato']
@@ -834,7 +882,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'medium',
       aperture: 'open',
       avgAspect: 0.55,
-      strokeWidthRatio: 0.11
+      strokeWidthRatio: 0.11,
+      xHeightRatio: 0.68,
+      terminalStyle: 'diagonal'
     },
     commercialAlternativesFor: ['Bradley Hand', 'Segoe Script', 'Mistral'],
     recommendedPairings: ['Inter', 'Nunito', 'Roboto']
@@ -867,7 +917,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.68,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.75,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Syne', 'Apercu', 'Favorit'],
     recommendedPairings: ['Space Mono', 'Inter', 'Newsreader']
@@ -900,7 +952,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.76,
-      strokeWidthRatio: 0.14
+      strokeWidthRatio: 0.14,
+      xHeightRatio: 0.73,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Druk Wide', 'Monument Extended', 'Dada Grotesk'],
     recommendedPairings: ['Inter', 'Space Mono', 'Work Sans']
@@ -937,7 +991,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.66,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.72,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Futura', 'Avenir Next', 'Gilroy'],
     recommendedPairings: ['Playfair Display', 'Lora', 'Merriweather']
@@ -972,7 +1028,9 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
       xHeight: 'high',
       aperture: 'open',
       avgAspect: 0.63,
-      strokeWidthRatio: 0.12
+      strokeWidthRatio: 0.12,
+      xHeightRatio: 0.75,
+      terminalStyle: 'flat'
     },
     commercialAlternativesFor: ['Franklin Gothic', 'News Gothic', 'Trade Gothic'],
     recommendedPairings: ['EB Garamond', 'Lora', 'Space Mono']

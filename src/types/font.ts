@@ -28,8 +28,10 @@ export interface FontFamily {
     proportions: 'condensed' | 'regular' | 'wide' | 'geometric';
     xHeight: 'low' | 'medium' | 'high';
     aperture: 'open' | 'semi-closed' | 'closed';
-    avgAspect: number; // width-to-height ratio of standard letters
-    strokeWidthRatio: number; // stroke weight relative to height
+    avgAspect: number;        // width-to-height ratio of standard letters (0.40-0.80)
+    strokeWidthRatio: number; // stroke weight relative to cap-height (0.07-0.22)
+    xHeightRatio: number;     // x-height / cap-height (0.55-0.80)
+    terminalStyle: 'flat' | 'diagonal' | 'rounded' | 'ball' | 'sheared'; // stroke terminal shape
   };
   // Known commercial alternatives mapped directly
   commercialAlternativesFor?: string[];
