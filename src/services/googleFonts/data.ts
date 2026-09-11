@@ -349,6 +349,42 @@ export const VERIFIED_GOOGLE_FONTS: FontFamily[] = [
     recommendedPairings: ['Merriweather', 'Playfair Display', 'Lora']
   },
   {
+    id: 'nunito',
+    family: 'Nunito',
+    category: 'sans-serif',
+    designer: 'Vernon Adams, Cyreal',
+    variants: [
+      { weight: 200, style: 'normal' },
+      { weight: 300, style: 'normal' },
+      { weight: 400, style: 'normal' },
+      { weight: 500, style: 'normal' },
+      { weight: 600, style: 'normal' },
+      { weight: 700, style: 'normal' },
+      { weight: 800, style: 'normal' },
+      { weight: 900, style: 'normal' }
+    ],
+    subsets: ['latin', 'latin-ext', 'cyrillic', 'vietnamese'],
+    version: 'v26',
+    lastModified: '2024-03-10',
+    isGoogleFont: true,
+    googleFontsUrl: 'https://fonts.google.com/specimen/Nunito',
+    importUrl: '@import url(\'https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap\');',
+    fontFamilyCss: 'font-family: \'Nunito\', sans-serif;',
+    variable: true,
+    description: 'A well-balanced, rounded terminal sans-serif typeface family designed for display titles, logos, and friendly user interfaces.',
+    typographicMetrics: {
+      serif: 'none',
+      contrast: 'none',
+      proportions: 'geometric',
+      xHeight: 'medium',
+      aperture: 'open',
+      avgAspect: 0.65,
+      strokeWidthRatio: 0.12
+    },
+    commercialAlternativesFor: ['Gotham Rounded', 'Proxima Soft', 'Arial Rounded'],
+    recommendedPairings: ['Lora', 'Playfair Display', 'Merriweather']
+  },
+  {
     id: 'oswald',
     family: 'Oswald',
     category: 'sans-serif',

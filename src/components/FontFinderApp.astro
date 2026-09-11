@@ -125,6 +125,22 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       <canvas id="crop-canvas" class="max-h-[400px] max-w-full rounded shadow-sm cursor-crosshair touch-none select-none"></canvas>
     </div>
 
+    <!-- Optional: Specimen Text Helper for Character-Aware Matching -->
+    <div class="mt-4">
+      <div class="flex items-center justify-between mb-1.5">
+        <label for="crop-text-input" class="text-xs font-mono text-[#727272] uppercase tracking-wide">
+          Text Content (Optional)
+        </label>
+        <span class="text-[11px] text-[#727272] font-mono">Enables character-by-character alignment</span>
+      </div>
+      <input
+        id="crop-text-input"
+        type="text"
+        placeholder="Type text from your image (e.g. Vatsal Singh, Editorial Gazette)..."
+        class="w-full bg-white border border-[#e5e7eb] rounded-lg px-3 py-2 text-xs text-[#262626] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
+      />
+    </div>
+
     <!-- Primary Action: Pill with Glow -->
     <div class="mt-5 flex justify-end">
       <button
@@ -185,7 +201,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         <div class="flex items-center gap-3">
           <div class="text-right">
             <div class="font-mono text-xs text-[#727272]">CONFIDENCE</div>
-            <div id="res-confidence" class="font-mono text-xl font-bold text-[#ff4d00]">100%</div>
+            <div id="res-confidence" class="font-mono text-xl font-bold text-[#ff4d00]">--%</div>
+            <div id="res-confidence-label" class="font-mono text-[10px] text-[#727272] uppercase font-semibold">Analyzing</div>
           </div>
           <button
             id="btn-scan-another"
@@ -431,9 +448,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     const specimenLabel = document.getElementById('specimen-size-label');
     const specimenWeightPills = document.querySelectorAll('.weight-pill');
     const compareTextInput = document.getElementById('compare-text-input');
+    const cropTextInput = document.getElementById('crop-text-input');
     const compareMatched = document.getElementById('res-compare-matched');
     let currentPrimaryFont = null;
     let currentSampleText = '';
+
+    if (cropTextInput) {
+      cropTextInput.addEventListener('input', (e) => {
+        if (compareTextInput) compareTextInput.value = e.target.value;
+      });
+    }
 
     // Synchronize compare-text-input and specimen-text-input in real time
     if (compareTextInput) {
@@ -505,6 +529,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         ctx.fillText('MODERN POSTER', 40, 90);
       }
 
+      if (cropTextInput) cropTextInput.value = currentSampleText;
       if (compareTextInput) compareTextInput.value = currentSampleText;
       if (specimenInput) specimenInput.value = currentSampleText;
 
@@ -742,12 +767,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       const croppedDataUrl = offscreen.toDataURL('image/png');
       const imgData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height);
-      const result = analyzePixelsInBrowser(imgData);
+      const knownText = (cropTextInput && cropTextInput.value.trim()) || (compareTextInput && compareTextInput.value.trim()) || currentSampleText || '';
+      const result = analyzePixelsInBrowser(imgData, knownText);
 
       displayResults(result, croppedDataUrl);
     }
 
-    function analyzePixelsInBrowser(pixels) {
+    function analyzePixelsInBrowser(pixels, knownText) {
       const { width, height, data } = pixels;
       const totalPixels = width * height;
       const grayscale = new Uint8Array(totalPixels);
@@ -764,7 +790,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
       const avgLum = sumLum / Math.max(1, totalPixels);
 
-      // 2. Polarity detection: Check borders for dark background (light text on dark)
+      // 2. Polarity detection: Check borders for dark background
       let borderLum = 0;
       let borderCount = 0;
       for (let x = 0; x < width; x++) {
@@ -776,10 +802,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         borderCount += 2;
       }
       const avgBorder = borderLum / Math.max(1, borderCount);
-      // Dark background if borders are predominantly dark (< 128 or lower than average)
       const isLightOnDark = avgBorder < 128 || avgBorder < (avgLum - 8);
 
-      // 3. Otsu-based optimal thresholding
+      // 3. Otsu-based thresholding preserving hairlines
       let sumAll = 0;
       for (let t = 0; t < 256; t++) sumAll += t * hist[t];
       let sumB = 0;
@@ -804,15 +829,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       if (threshold > 225) threshold = 210;
 
       const binary = new Uint8Array(totalPixels);
-      let inkCount = 0;
       for (let i = 0; i < totalPixels; i++) {
         const lum = grayscale[i];
         const isInk = isLightOnDark ? (lum > threshold) : (lum < threshold);
         binary[i] = isInk ? 1 : 0;
-        if (isInk) inkCount++;
       }
 
-      // 4. Find vertical text bounds (top and bottom of letterforms)
+      // 4. Find vertical text bounds
       const rowDensity = new Float32Array(height);
       for (let y = 0; y < height; y++) {
         let count = 0;
@@ -834,7 +857,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
       const textH = Math.max(12, textBottom - textTop + 1);
 
-      // 5. Isolate glyph bounding boxes via column projection
+      // 5. Isolate glyph bounding boxes
       const colDensity = new Float32Array(width);
       for (let x = 0; x < width; x++) {
         let c = 0;
@@ -873,10 +896,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
       }
 
-      function getMedian(arr) {
-        if (!arr || arr.length === 0) return 3;
+      function getPercentile(arr, p, defaultVal) {
+        if (!arr || arr.length === 0) return defaultVal;
         const sorted = arr.slice().sort((a, b) => a - b);
-        return sorted[Math.floor(sorted.length * 0.5)];
+        const idx = Math.min(sorted.length - 1, Math.max(0, Math.floor(sorted.length * p)));
+        return sorted[idx] !== undefined ? sorted[idx] : defaultVal;
       }
 
       // 6. Measure Vertical Stems vs Horizontal Bars
@@ -884,7 +908,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const barRuns = [];
 
       for (const g of glyphBoxes) {
-        // Measure horizontal runs (stems) in the middle 40% of the glyph
         const yStart = Math.round(g.y + g.h * 0.30);
         const yEnd = Math.round(g.y + g.h * 0.70);
         for (let y = yStart; y <= yEnd; y += 2) {
@@ -900,8 +923,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           if (run >= 1 && run <= g.w * 0.75) stemRuns.push(run);
         }
 
-        // Measure vertical runs (bars) across vertical scan lines
-        for (let x = g.x + 1; x < g.x + g.w - 1; x += 2) {
+        // Measure vertical runs for bars in the inner 60% of the glyph to avoid edge fringe pixels
+        const xStart = Math.round(g.x + g.w * 0.20);
+        const xEnd = Math.round(g.x + g.w * 0.80);
+        for (let x = xStart; x <= xEnd; x += 2) {
           let vrun = 0;
           for (let y = g.y; y < g.y + g.h; y++) {
             if (binary[y * width + x] === 1) {
@@ -915,66 +940,96 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
       }
 
-      const medianStem = getMedian(stemRuns);
-      const medianBar = getMedian(barRuns);
+      // 75th percentile for primary vertical stem (avoids hairline collapse)
+      const primaryStem = getPercentile(stemRuns, 0.75, 3);
+      // 45th percentile captures true horizontal bar thickness without edge fringe noise
+      const medianBar = getPercentile(barRuns.length > 0 ? barRuns : stemRuns, 0.45, 2);
+      const contrastRatio = medianBar > 0 ? (primaryStem / medianBar) : 1.0;
 
-      // Contrast ratio:
-      // In monoline sans-serifs (Inter, Roboto, Monkeytype): medianStem ~ medianBar (ratio 0.9 - 1.25)
-      // In high contrast serifs (Playfair Display): medianStem is much thicker than hairline bars (ratio >= 2.0)
-      const rawContrast = medianBar > 0 ? (medianStem / medianBar) : 1.0;
-      const contrastRatio = Math.max(0.5, Math.min(5.0, rawContrast));
-
-      // 7. Measure Physical Serif Feet (Flared terminals at baseline/ascender vs mid-stem)
+      // 7. Selective straight-stem baseline foot detection (local stem flaring)
       let serifStemsCount = 0;
       let stemsAnalyzed = 0;
 
       for (const g of glyphBoxes) {
         if (g.w < 5 || g.h < 10) continue;
-        stemsAnalyzed++;
 
-        const midY = Math.round(g.y + g.h * 0.50);
-        let midMax = 0, cur = 0;
+        const y1 = Math.round(g.y + g.h * 0.65);
+        const y2 = Math.round(g.y + g.h * 0.80);
+        const baseY = Math.round(g.y + g.h * 0.93);
+
+        // Scan runs at y1
+        const runs1 = [];
+        let cS1 = -1;
         for (let x = g.x; x < g.x + g.w; x++) {
-          if (binary[midY * width + x] === 1) {
-            cur++;
-            if (cur > midMax) midMax = cur;
-          } else cur = 0;
+          if (binary[y1 * width + x] === 1) {
+            if (cS1 === -1) cS1 = x;
+          } else if (cS1 !== -1) {
+            runs1.push({ s: cS1, e: x - 1, w: x - cS1 });
+            cS1 = -1;
+          }
         }
+        if (cS1 !== -1) runs1.push({ s: cS1, e: g.x + g.w - 1, w: g.x + g.w - cS1 });
 
-        const baseY = Math.round(g.y + g.h * 0.88);
-        let baseMax = 0; cur = 0;
+        // Scan runs at y2
+        const runs2 = [];
+        let cS2 = -1;
         for (let x = g.x; x < g.x + g.w; x++) {
-          if (binary[baseY * width + x] === 1) {
-            cur++;
-            if (cur > baseMax) baseMax = cur;
-          } else cur = 0;
+          if (binary[y2 * width + x] === 1) {
+            if (cS2 === -1) cS2 = x;
+          } else if (cS2 !== -1) {
+            runs2.push({ s: cS2, e: x - 1, w: x - cS2 });
+            cS2 = -1;
+          }
         }
+        if (cS2 !== -1) runs2.push({ s: cS2, e: g.x + g.w - 1, w: g.x + g.w - cS2 });
 
-        const topY = Math.round(g.y + g.h * 0.12);
-        let topMax = 0; cur = 0;
-        for (let x = g.x; x < g.x + g.w; x++) {
-          if (binary[topY * width + x] === 1) {
-            cur++;
-            if (cur > topMax) topMax = cur;
-          } else cur = 0;
-        }
+        // Check if there is a vertical straight stem matching at y1 and y2
+        for (const r1 of runs1) {
+          if (r1.w < 2 || r1.w > g.w * 0.55) continue;
+          const match2 = runs2.find(r2 => Math.abs(r1.s - r2.s) <= 2.5 && Math.abs(r1.w - r2.w) <= 2.5);
+          if (!match2) continue;
 
-        // In serif typefaces, vertical stems flare outward into foot brackets at the baseline
-        if (midMax >= 3 && baseMax >= midMax * 1.6 && baseMax <= g.w * 0.95) {
-          serifStemsCount++;
+          const stemStart = (r1.s + match2.s) / 2;
+          const stemEnd = (r1.e + match2.e) / 2;
+          const stemW = stemEnd - stemStart + 1;
+
+          // Check baseline foot at baseY
+          let baseStart = -1, baseEnd = -1;
+          for (let x = g.x; x < g.x + g.w; x++) {
+            if (binary[baseY * width + x] === 1) {
+              const bS = x;
+              while (x < g.x + g.w && binary[baseY * width + x] === 1) x++;
+              const bE = x - 1;
+              if (bS <= stemEnd && bE >= stemStart) {
+                baseStart = bS;
+                baseEnd = bE;
+                break;
+              }
+            }
+          }
+
+          if (baseStart !== -1) {
+            stemsAnalyzed++;
+            const leftFlare = stemStart - baseStart;
+            const rightFlare = baseEnd - stemEnd;
+            const baseW = baseEnd - baseStart + 1;
+            const isBilateral = leftFlare >= 1.2 && rightFlare >= 1.2 && (Math.min(leftFlare, rightFlare) / Math.max(leftFlare, rightFlare) >= 0.20);
+            if (isBilateral && baseW >= stemW * 1.25) {
+              serifStemsCount++;
+            }
+          }
         }
       }
 
       const serifRatio = stemsAnalyzed > 0 ? (serifStemsCount / stemsAnalyzed) : 0;
 
-      // 8. Monospace & Aspect Ratio Analysis
+      // 8. Aspect Ratio & Monospace
       let avgAspect = 0.62;
       if (glyphBoxes.length >= 3) {
         const aspects = glyphBoxes.map(g => g.w / g.h);
         avgAspect = aspects.reduce((a, b) => a + b, 0) / aspects.length;
       }
 
-      // Filter out small punctuation marks (like dots, quotes, colons) to measure letter body widths
       const letterGlyphs = glyphBoxes.filter(g => g.h >= textH * 0.35 && g.w >= 4);
       let isMonospace = false;
       if (letterGlyphs.length >= 4) {
@@ -987,57 +1042,42 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         const p85 = widths[Math.floor(widths.length * 0.85)];
         const widthSpread = p15 > 0 ? (p85 / p15) : 2.0;
 
-        // In monospace fonts (JetBrains Mono, Fira Code, Space Mono):
-        // All letters have uniform fixed cell widths (relWidthStdDev < 0.18 AND widthSpread <= 1.32).
-        // In proportional fonts (Inter, Arial, Monkeytype), 'm'/'w' are 2.5x wider than 't'/'i', so spread >= 1.6
         if (relWidthStdDev < 0.18 && widthSpread <= 1.32) {
           isMonospace = true;
         }
       }
 
-      // 9. Unbiased Trait Classification
-      let classification = 'sans-serif';
-      let serifType = 'none';
-      let contrast = 'none';
+      // 9. Trait classification
+      let contrast = 'low';
+      if (contrastRatio >= 2.0) contrast = 'high';
+      else if (contrastRatio >= 1.4) contrast = 'medium';
+      else if (contrastRatio >= 1.15) contrast = 'low';
+      else contrast = 'none';
 
-      if (contrastRatio >= 1.9) {
-        contrast = 'high';
-      } else if (contrastRatio >= 1.35) {
-        contrast = 'medium';
-      } else if (contrastRatio >= 1.15) {
-        contrast = 'low';
-      } else {
-        contrast = 'none';
-      }
+      let serifType = 'none';
+      let classification = 'sans-serif';
 
       if (isMonospace) {
         classification = 'monospace';
         serifType = 'none';
         contrast = 'none';
-      } else if (contrast === 'high') {
-        // High contrast is definitive hallmark of modern serif (Playfair Display)
+      } else if (serifRatio >= 0.22 || (contrast === 'high' && (serifRatio >= 0.15 || contrastRatio >= 2.2))) {
         classification = 'serif';
-        serifType = 'bracketed';
-      } else if (contrast === 'medium' && serifRatio >= 0.25) {
-        // Medium contrast with verified terminal foot brackets (Merriweather, Lora)
-        classification = 'serif';
-        serifType = 'bracketed';
-      } else if (avgAspect < 0.46 && (medianStem / textH) > 0.14) {
-        // Narrow condensed sans (Oswald, Bebas Neue)
+        serifType = contrast === 'high' ? 'hairline' : 'bracketed';
+      } else if (avgAspect < 0.54 && (primaryStem / textH) > 0.12) {
         classification = 'display';
         serifType = 'none';
         contrast = 'low';
       } else {
-        // Monoline or low contrast: pure Sans-Serif! (Inter, Roboto, Poppins, Monkeytype)
         classification = 'sans-serif';
         serifType = 'none';
       }
 
       let proportions = 'regular';
-      if (avgAspect < 0.48) proportions = 'condensed';
+      if (avgAspect < 0.52) proportions = 'condensed';
       else if (avgAspect >= 0.67) proportions = 'geometric';
 
-      const stemRatio = medianStem / textH;
+      const stemRatio = primaryStem / textH;
       let weight = 400;
       if (contrast === 'high') {
         weight = stemRatio > 0.18 ? 700 : (stemRatio > 0.14 ? 600 : 400);
@@ -1047,64 +1087,446 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         else if (stemRatio < 0.07) weight = 300;
         else weight = 400;
       }
+      // 10. Multi-Resolution Glyph Extraction & Comparison Utilities
+      function detectEnclosedCounter(bin, imgW, gx, gy, gw, gh) {
+        if (gw < 6 || gh < 6) return false;
+        const visited = new Uint8Array(gw * gh);
+        const queue = [];
+        for (let x = 0; x < gw; x++) {
+          if (bin[gy * imgW + (gx + x)] === 0) { visited[x] = 1; queue.push(x); }
+          const bRow = (gh - 1) * gw;
+          if (bin[(gy + gh - 1) * imgW + (gx + x)] === 0 && visited[bRow + x] === 0) { visited[bRow + x] = 1; queue.push(bRow + x); }
+        }
+        for (let y = 1; y < gh - 1; y++) {
+          const row = y * gw;
+          if (bin[(gy + y) * imgW + gx] === 0 && visited[row] === 0) { visited[row] = 1; queue.push(row); }
+          if (bin[(gy + y) * imgW + (gx + gw - 1)] === 0 && visited[row + gw - 1] === 0) { visited[row + gw - 1] = 1; queue.push(row + gw - 1); }
+        }
+        let head = 0;
+        while (head < queue.length) {
+          const curr = queue[head++];
+          const cy = Math.floor(curr / gw);
+          const cx = curr % gw;
+          const neighbors = [cx > 0 ? curr - 1 : -1, cx < gw - 1 ? curr + 1 : -1, cy > 0 ? curr - gw : -1, cy < gh - 1 ? curr + gw : -1];
+          for (const nb of neighbors) {
+            if (nb >= 0 && visited[nb] === 0) {
+              const ny = Math.floor(nb / gw);
+              const nx = nb % gw;
+              if (bin[(gy + ny) * imgW + (gx + nx)] === 0) { visited[nb] = 1; queue.push(nb); }
+            }
+          }
+        }
+        let unreached = 0;
+        const mx = Math.max(1, Math.floor(gw * 0.15));
+        const my = Math.max(1, Math.floor(gh * 0.15));
+        for (let y = my; y < gh - my; y++) {
+          for (let x = mx; x < gw - mx; x++) {
+            if (bin[(gy + y) * imgW + (gx + x)] === 0 && visited[y * gw + x] === 0) unreached++;
+          }
+        }
+        return unreached >= 4;
+      }
 
-      // 10. Scoring and Ranking against verified Google Fonts
-      const candidates = fontsCatalog.map((font) => {
-        let score = 50;
+      function normalizeSubGrid(bin, imgW, gx, gy, gw, gh, targetSize) {
+        const result = new Uint8Array(targetSize * targetSize);
+        const margin = Math.max(2, Math.round(targetSize * 0.05));
+        const maxInner = targetSize - margin * 2;
+        const scale = Math.min(maxInner / gw, maxInner / gh);
+        const nw = Math.max(1, Math.round(gw * scale));
+        const nh = Math.max(1, Math.round(gh * scale));
+        const offsetX = Math.floor((targetSize - nw) / 2);
+        const offsetY = Math.floor((targetSize - nh) / 2);
+
+        for (let ty = 0; ty < nh; ty++) {
+          const sy = Math.min(gh - 1, Math.floor(ty / scale));
+          const targetRow = (offsetY + ty) * targetSize;
+          const srcRow = (gy + sy) * imgW;
+          for (let tx = 0; tx < nw; tx++) {
+            const sx = Math.min(gw - 1, Math.floor(tx / scale));
+            if (bin[srcRow + gx + sx] === 1) {
+              result[targetRow + offsetX + tx] = 1;
+            }
+          }
+        }
+        return result;
+      }
+
+      function extractProfiles(bitmap, size) {
+        const horiz = new Float32Array(16);
+        const vert = new Float32Array(16);
+        const binSize = size / 16;
+        for (let y = 0; y < size; y++) {
+          const yBin = Math.min(15, Math.floor(y / binSize));
+          const rOff = y * size;
+          for (let x = 0; x < size; x++) {
+            if (bitmap[rOff + x] === 1) {
+              const xBin = Math.min(15, Math.floor(x / binSize));
+              horiz[yBin]++;
+              vert[xBin]++;
+            }
+          }
+        }
+        let hMax = 0, vMax = 0;
+        for (let i = 0; i < 16; i++) {
+          if (horiz[i] > hMax) hMax = horiz[i];
+          if (vert[i] > vMax) vMax = vert[i];
+        }
+        if (hMax > 0) for (let i = 0; i < 16; i++) horiz[i] /= hMax;
+        if (vMax > 0) for (let i = 0; i < 16; i++) vert[i] /= vMax;
+        return { horiz, vert };
+      }
+
+      function compareGlyphs(a, b) {
+        let inter64 = 0, union64 = 0;
+        for (let i = 0; i < 4096; i++) {
+          const va = a.bitmap64[i];
+          const vb = b.bitmap64[i];
+          if (va === 1 && vb === 1) inter64++;
+          if (va === 1 || vb === 1) union64++;
+        }
+        const iou64 = union64 > 0 ? inter64 / union64 : 1.0;
+
+        let inter128 = 0, union128 = 0;
+        for (let i = 0; i < 16384; i++) {
+          const va = a.bitmap128[i];
+          const vb = b.bitmap128[i];
+          if (va === 1 && vb === 1) inter128++;
+          if (va === 1 || vb === 1) union128++;
+        }
+        const iou128 = union128 > 0 ? inter128 / union128 : 1.0;
+        const multiResIoU = 0.40 * iou64 + 0.60 * iou128;
+
+        let dotH = 0, magHa = 0, magHb = 0;
+        let dotV = 0, magVa = 0, magVb = 0;
+        for (let i = 0; i < 16; i++) {
+          const ha = a.profile.horiz[i];
+          const hb = b.profile.horiz[i];
+          dotH += ha * hb; magHa += ha * ha; magHb += hb * hb;
+          const va = a.profile.vert[i];
+          const vb = b.profile.vert[i];
+          dotV += va * vb; magVa += va * va; magVb += vb * vb;
+        }
+        const cosH = (magHa > 0 && magHb > 0) ? dotH / (Math.sqrt(magHa) * Math.sqrt(magHb)) : 0.8;
+        const cosV = (magVa > 0 && magVb > 0) ? dotV / (Math.sqrt(magVa) * Math.sqrt(magVb)) : 0.8;
+        const profileSim = 0.50 * cosH + 0.50 * cosV;
+
+        const counterSim = (a.hasEnclosedCounter === b.hasEnclosedCounter) ? 1.0 : 0.65;
+        const aspectSim = Math.max(0, 1.0 - Math.abs(a.aspectRatio - b.aspectRatio) * 1.5);
+
+        return 0.45 * multiResIoU + 0.25 * profileSim + 0.15 * counterSim + 0.15 * aspectSim;
+      }
+
+      const glyphSignatures = glyphBoxes.map((g) => {
+        let inkCount = 0;
+        for (let y = g.y; y < g.y + g.h; y++) {
+          const row = y * width;
+          for (let x = g.x; x < g.x + g.w; x++) {
+            if (binary[row + x] === 1) inkCount++;
+          }
+        }
+        const bitmap128 = normalizeSubGrid(binary, width, g.x, g.y, g.w, g.h, 128);
+        const bitmap64 = normalizeSubGrid(binary, width, g.x, g.y, g.w, g.h, 64);
+        const profile = extractProfiles(bitmap128, 128);
+        return {
+          box: g,
+          aspectRatio: g.w / Math.max(1, g.h),
+          density: inkCount / Math.max(1, g.w * g.h),
+          hasEnclosedCounter: detectEnclosedCounter(binary, width, g.x, g.y, g.w, g.h),
+          bitmap64,
+          bitmap128,
+          profile
+        };
+      });
+
+      const DISTINCTIVE_CHARS = new Set(['a', 'e', 'g', 'f', 't', 'r', 'R', 'Q', 'M', 'W', '1', '2', '4', '6', '7', '&']);
+      const activeText = (knownText || '').trim();
+      const hasReliableText = activeText.length >= 2;
+
+      let renderCanvas = null;
+      let renderCtx = null;
+      if (typeof document !== 'undefined') {
+        renderCanvas = document.createElement('canvas');
+        renderCtx = renderCanvas.getContext('2d', { willReadFrequently: true });
+      }
+
+      const candidateScores = fontsCatalog.map((font) => {
+        let geomScore = 50;
         const reasons = [];
 
-        // Category Match (+35 / -35)
+        // Category Soft Prior (10 pts max, never hard rejection)
         if (font.category === classification) {
-          score += 35;
+          geomScore += 10;
           reasons.push(`${font.category} match`);
         } else if (
           (font.category === 'display' && classification === 'sans-serif') ||
           (font.category === 'sans-serif' && classification === 'display')
         ) {
-          score += 15;
+          geomScore += 8;
+        } else if (
+          (font.category === 'serif' && classification === 'sans-serif') ||
+          (font.category === 'sans-serif' && classification === 'serif')
+        ) {
+          geomScore += 4;
         } else {
-          score -= 35; // Stiff penalty for cross-classification mismatch (e.g. sans vs serif)
+          geomScore += 2;
         }
 
-        // Contrast Match (+20 / -30)
-        if (font.typographicMetrics.contrast === contrast) {
-          score += 20;
-          reasons.push(`${contrast} contrast`);
-        } else if (contrast === 'high' && (font.typographicMetrics.contrast === 'none' || font.typographicMetrics.contrast === 'low')) {
-          score -= 30;
-        } else if ((contrast === 'none' || contrast === 'low') && font.typographicMetrics.contrast === 'high') {
-          score -= 30;
-        } else if (contrast === 'medium' && font.typographicMetrics.contrast === 'medium') {
-          score += 15;
+        // Contrast Match (20 pts max)
+        const candContrast =
+          font.typographicMetrics.contrast === 'high' ? 3.0 :
+          font.typographicMetrics.contrast === 'medium' ? 1.6 :
+          font.typographicMetrics.contrast === 'low' ? 1.25 : 1.05;
+        const contrastDiff = Math.abs(contrastRatio - candContrast);
+        const contrastScore = Math.round(20 * Math.exp(-(contrastDiff * contrastDiff) / (2 * 0.95 * 0.95)));
+        geomScore += contrastScore;
+        if (contrastScore >= 15) {
+          reasons.push(`${font.typographicMetrics.contrast} contrast profile`);
         }
 
-        // Serif Match (+20 / -25)
-        if (font.typographicMetrics.serif === serifType) {
-          score += 20;
-          reasons.push(`${serifType} terminals`);
-        } else if (serifType !== 'none' && font.typographicMetrics.serif !== 'none') {
-          score += 10;
-        } else if (serifType !== 'none' && font.typographicMetrics.serif === 'none') {
-          score -= 25;
-        } else if (serifType === 'none' && font.typographicMetrics.serif !== 'none') {
-          score -= 25;
+        // Serif Terminals (Soft signals, 16 pts max)
+        const isImageSerif = serifRatio >= 0.22 || (contrast === 'high' && (serifRatio >= 0.15 || contrastRatio >= 2.2)) || classification === 'serif';
+        let serifScore = 0;
+        if (isImageSerif) {
+          if (font.typographicMetrics.serif === 'bracketed' || font.typographicMetrics.serif === 'hairline') {
+            serifScore = 16;
+            reasons.push(`${font.typographicMetrics.serif} serif terminals`);
+          } else if (font.typographicMetrics.serif === 'slab') {
+            serifScore = 14;
+          } else if (font.typographicMetrics.serif === 'subtle') {
+            serifScore = 10;
+          } else {
+            serifScore = 6;
+          }
+        } else {
+          if (font.typographicMetrics.serif === 'none') {
+            serifScore = 16;
+            reasons.push('Sans-serif terminal structure');
+          } else if (font.typographicMetrics.serif === 'subtle') {
+            serifScore = 12;
+          } else {
+            serifScore = 6;
+          }
+        }
+        geomScore += serifScore;
+
+        // Proportions & Condensed Geometry
+        if (proportions === 'condensed') {
+          if (font.typographicMetrics.proportions === 'condensed') {
+            geomScore += 18;
+            reasons.push('Condensed vertical rhythm');
+          } else {
+            geomScore += Math.max(0, 18 - Math.round(Math.abs(font.typographicMetrics.avgAspect - 0.44) * 65));
+          }
+        } else if (proportions === 'geometric') {
+          if (font.typographicMetrics.proportions === 'geometric') {
+            geomScore += 18;
+            reasons.push('Geometric wide proportions');
+          } else {
+            geomScore += Math.max(0, 18 - Math.round(Math.abs(font.typographicMetrics.avgAspect - 0.68) * 65));
+          }
+        } else {
+          const aspectDelta = Math.abs(font.typographicMetrics.avgAspect - 0.61);
+          geomScore += Math.max(0, 18 - Math.round(aspectDelta * 55));
         }
 
-        // Proportion Match (+10)
-        if (font.typographicMetrics.proportions === proportions) {
-          score += 10;
+        // Weight match (14 pts max)
+        const hasWeight = font.variants && font.variants.some(v => v.weight === weight);
+        if (hasWeight) {
+          geomScore += 14;
+          reasons.push(`Weight ${weight} match`);
+        } else {
+          const closestDelta = Math.min(...font.variants.map(v => Math.abs(Number(v.weight) - weight)));
+          geomScore += Math.max(3, 14 - Math.round(closestDelta / 100) * 3);
         }
 
-        // Available weight (+10)
-        if (font.variants && font.variants.some(v => v.weight === weight)) {
-          score += 10;
+        // Category alignment (Soft signals)
+        if (classification === 'monospace') {
+          if (font.category === 'monospace') geomScore += 12;
+          else geomScore -= 6;
+        } else if (font.category === 'monospace') {
+          geomScore -= 4; // soft delta, never hard rejection
+        } else if (font.category === 'handwriting') {
+          geomScore -= 12; // printed typography is not cursive handwriting
         }
 
-        const confidence = (score >= 85) ? 100 : Math.min(95, Math.max(65, score));
+        // Glyph-level shape evidence matching
+        let glyphScore = 70;
+
+        if (hasReliableText && renderCtx && renderCanvas) {
+          // MODE A: Character-Aware Glyph Matching
+          try {
+            const renderFontSize = Math.max(28, Math.min(60, textH));
+            renderCtx.font = `${weight} ${renderFontSize}px "${font.family}", ${font.category}`;
+            const measured = renderCtx.measureText(activeText);
+            const rw = Math.max(80, Math.ceil(measured.width) + 40);
+            const rh = Math.max(50, Math.ceil(renderFontSize * 1.6));
+            renderCanvas.width = rw;
+            renderCanvas.height = rh;
+
+            renderCtx.fillStyle = '#ffffff';
+            renderCtx.fillRect(0, 0, rw, rh);
+            renderCtx.fillStyle = '#000000';
+            renderCtx.font = `${weight} ${renderFontSize}px "${font.family}", ${font.category}`;
+            renderCtx.textBaseline = 'middle';
+            renderCtx.fillText(activeText, 15, rh / 2);
+
+            const rImg = renderCtx.getImageData(0, 0, rw, rh);
+            const rData = rImg.data;
+            const rBin = new Uint8Array(rw * rh);
+            const rCols = new Int32Array(rw);
+            for (let y = 0; y < rh; y++) {
+              const rRow = y * rw;
+              for (let x = 0; x < rw; x++) {
+                if (rData[(rRow + x) * 4] < 128) {
+                  rBin[rRow + x] = 1;
+                  rCols[x]++;
+                }
+              }
+            }
+
+            const candBoxes = [];
+            let rInCol = false, rStart = 0;
+            for (let x = 0; x < rw; x++) {
+              if (!rInCol && rCols[x] > 0) {
+                rInCol = true; rStart = x;
+              } else if (rInCol && (rCols[x] === 0 || x === rw - 1)) {
+                rInCol = false;
+                const cw = x - rStart;
+                if (cw >= 2) {
+                  let cTop = rh, cBottom = 0;
+                  for (let cy = 0; cy < rh; cy++) {
+                    for (let cx = rStart; cx < x; cx++) {
+                      if (rBin[cy * rw + cx] === 1) {
+                        if (cy < cTop) cTop = cy;
+                        if (cy > cBottom) cBottom = cy;
+                      }
+                    }
+                  }
+                  if (cBottom >= cTop + 3) {
+                    candBoxes.push({ x: rStart, y: cTop, w: cw, h: cBottom - cTop + 1 });
+                  }
+                }
+              }
+            }
+
+            const numPairs = Math.min(glyphSignatures.length, candBoxes.length, activeText.length);
+            if (numPairs >= 1) {
+              let totalGlyphSim = 0;
+              let totalWeight = 0;
+              for (let i = 0; i < numPairs; i++) {
+                const char = activeText[i] || '';
+                const isDistinctive = DISTINCTIVE_CHARS.has(char);
+                const w = isDistinctive ? 1.75 : 1.0;
+
+                const upGlyph = glyphSignatures[i];
+                const cb = candBoxes[i];
+                const candGlyph = {
+                  aspectRatio: cb.w / Math.max(1, cb.h),
+                  hasEnclosedCounter: detectEnclosedCounter(rBin, rw, cb.x, cb.y, cb.w, cb.h),
+                  bitmap64: normalizeSubGrid(rBin, rw, cb.x, cb.y, cb.w, cb.h, 64),
+                  bitmap128: normalizeSubGrid(rBin, rw, cb.x, cb.y, cb.w, cb.h, 128),
+                  profile: extractProfiles(normalizeSubGrid(rBin, rw, cb.x, cb.y, cb.w, cb.h, 128), 128)
+                };
+
+                const pairSim = compareGlyphs(upGlyph, candGlyph);
+                totalGlyphSim += pairSim * w;
+                totalWeight += w;
+              }
+
+              const avgSim = totalWeight > 0 ? (totalGlyphSim / totalWeight) : 0.7;
+              glyphScore = Math.round(avgSim * 100);
+            }
+          } catch (e) {
+            glyphScore = 70;
+          }
+        } else if (glyphSignatures.length > 0 && renderCtx && renderCanvas) {
+          // MODE B: Character-Agnostic Glyph Matching against candidate specimen (Requirement 1)
+          try {
+            const specText = "Handgloves 18";
+            renderCtx.font = `${weight} 42px "${font.family}", ${font.category}`;
+            const sMeas = renderCtx.measureText(specText);
+            const sw = Math.max(80, Math.ceil(sMeas.width) + 30);
+            const sh = 70;
+            renderCanvas.width = sw;
+            renderCanvas.height = sh;
+            renderCtx.fillStyle = '#ffffff';
+            renderCtx.fillRect(0, 0, sw, sh);
+            renderCtx.fillStyle = '#000000';
+            renderCtx.font = `${weight} 42px "${font.family}", ${font.category}`;
+            renderCtx.textBaseline = 'middle';
+            renderCtx.fillText(specText, 15, sh / 2);
+
+            const sImg = renderCtx.getImageData(0, 0, sw, sh);
+            const sData = sImg.data;
+            const sBin = new Uint8Array(sw * sh);
+            const sCols = new Int32Array(sw);
+            for (let y = 0; y < sh; y++) {
+              const sRow = y * sw;
+              for (let x = 0; x < sw; x++) {
+                if (sData[(sRow + x) * 4] < 128) {
+                  sBin[sRow + x] = 1;
+                  sCols[x]++;
+                }
+              }
+            }
+
+            const specGlyphs = [];
+            let inS = false, sSt = 0;
+            for (let x = 0; x < sw; x++) {
+              if (!inS && sCols[x] > 0) { inS = true; sSt = x; }
+              else if (inS && (sCols[x] === 0 || x === sw - 1)) {
+                inS = false;
+                const gw = x - sSt;
+                if (gw >= 2) {
+                  let t = sh, b = 0;
+                  for (let cy = 0; cy < sh; cy++) {
+                    for (let cx = sSt; cx < x; cx++) {
+                      if (sBin[cy * sw + cx] === 1) {
+                        if (cy < t) t = cy;
+                        if (cy > b) b = cy;
+                      }
+                    }
+                  }
+                  if (b >= t + 3) {
+                    specGlyphs.push({
+                      aspectRatio: gw / Math.max(1, b - t + 1),
+                      hasEnclosedCounter: detectEnclosedCounter(sBin, sw, sSt, t, gw, b - t + 1),
+                      bitmap64: normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 64),
+                      bitmap128: normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 128),
+                      profile: extractProfiles(normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 128), 128)
+                    });
+                  }
+                }
+              }
+            }
+
+            if (specGlyphs.length > 0) {
+              let totalAgnostic = 0;
+              for (const upGlyph of glyphSignatures) {
+                let bestMatch = 0;
+                for (const sg of specGlyphs) {
+                  const sim = compareGlyphs(upGlyph, sg);
+                  if (sim > bestMatch) bestMatch = sim;
+                }
+                totalAgnostic += bestMatch;
+              }
+              const avgAgnostic = totalAgnostic / glyphSignatures.length;
+              glyphScore = Math.round(avgAgnostic * 100);
+            }
+          } catch (e) {
+            glyphScore = 65;
+          }
+        }
+
+        const glyphWeight = hasReliableText ? 0.55 : 0.40;
+        const finalRawScore = Math.round((1 - glyphWeight) * geomScore + glyphWeight * glyphScore);
+
         return {
           font,
           family: font.family,
-          confidence,
+          rawScore: finalRawScore,
+          geomScore,
+          glyphScore,
           weight,
           classification,
           serifType,
@@ -1114,12 +1536,60 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         };
       });
 
-      candidates.sort((a, b) => b.confidence - a.confidence);
+      candidateScores.sort((a, b) => b.rawScore - a.rawScore);
+
+      const top1 = candidateScores[0] || { rawScore: 75, geomScore: 75, font: fontsCatalog[0], family: 'Inter' };
+      const top2 = candidateScores[1] || { rawScore: top1.rawScore - 12 };
+      const scoreMargin = Math.max(0, (top1.rawScore - top2.rawScore) / 100);
+
+      const sortedByGeom = candidateScores.slice().sort((a, b) => b.geomScore - a.geomScore);
+      const signalAgreement = sortedByGeom[0]?.family === top1.family ? 1.0 : 0.92;
+
+      const marginFactor = 0.62 + 0.38 * Math.min(1.0, scoreMargin / 0.10);
+      const validGlyphsCount = glyphSignatures.length > 0 ? glyphSignatures.length : 4;
+      const sampleFactor = Math.min(1.0, Math.sqrt(validGlyphsCount / 6));
+      const qualityFactor = 0.88 + 0.12 * Math.min(1.0, contrastRatio / 2.0);
+
+      const rankedCandidates = candidateScores.map((c, idx) => {
+        let conf = Math.round(c.rawScore * marginFactor * sampleFactor * qualityFactor * signalAgreement);
+        if (idx === 0) {
+          conf = Math.max(35, Math.min(94, conf)); // Never blindly 100%
+        } else {
+          conf = Math.max(30, Math.min(conf, top1.rawScore - (idx * 5)));
+        }
+
+        let confidenceLabel = 'Good Match';
+        if (scoreMargin < 0.035 || conf < 70) {
+          confidenceLabel = 'Uncertain / Close Match';
+        } else if (conf >= 84) {
+          confidenceLabel = 'High Confidence';
+        }
+
+        return {
+          ...c,
+          confidence: conf,
+          confidenceLabel,
+          scoreMargin: idx === 0 ? scoreMargin : undefined
+        };
+      });
+
+      console.log('DEBUG OPTICAL ENGINE:', JSON.stringify({
+        knownText,
+        classification,
+        proportions,
+        avgAspect: Math.round(avgAspect * 100) / 100,
+        contrastRatio: Math.round(contrastRatio * 100) / 100,
+        serifRatio: Math.round(serifRatio * 100) / 100,
+        top1: rankedCandidates[0]?.family,
+        top2: rankedCandidates[1]?.family,
+        top3: rankedCandidates[2]?.family,
+        topScores: rankedCandidates.slice(0, 5).map(c => `${c.family}:${c.rawScore}(geom:${c.geomScore},glyph:${c.glyphScore})`)
+      }));
 
       return {
-        primary: candidates[0] || { font: fontsCatalog[0], family: 'Inter', confidence: 100 },
-        runnersUp: candidates.slice(1, 4),
-        traits: { classification, serifType, proportions, contrast, weight, contrastRatio, serifRatio }
+        primary: rankedCandidates[0],
+        runnersUp: rankedCandidates.slice(1, 4),
+        traits: { classification, serifType, proportions, contrast, weight, contrastRatio, serifRatio, scoreMargin }
       };
     }
 
@@ -1130,16 +1600,23 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const primary = data.primary.font;
       currentPrimaryFont = primary;
 
-      const displayConfidence = (primary.isGoogleFont && data.primary.confidence >= 80) ? 100 : data.primary.confidence;
+      const displayConfidence = data.primary.confidence;
 
       document.getElementById('res-font-family').textContent = primary.family;
       document.getElementById('res-font-designer').textContent = `Designed by ${primary.designer} \u2022 SIL Open Font License`;
       document.getElementById('res-confidence').textContent = `${displayConfidence}%`;
 
+      const confLabelEl = document.getElementById('res-confidence-label');
+      if (confLabelEl) {
+        confLabelEl.textContent = data.primary.confidenceLabel || 'Good Match';
+      }
+
       document.getElementById('res-trait-category').textContent = primary.category;
       document.getElementById('res-trait-serif').textContent = primary.typographicMetrics.serif;
       document.getElementById('res-trait-contrast').textContent = primary.typographicMetrics.contrast;
-      document.getElementById('res-trait-weight').textContent = `${data.primary.weight} Regular`;
+
+      const weightSuffix = data.primary.weight >= 700 ? 'Bold' : data.primary.weight <= 300 ? 'Light' : 'Regular';
+      document.getElementById('res-trait-weight').textContent = `${data.primary.weight} ${weightSuffix}`;
 
       // Side-by-side shape comparison
       const compareUploaded = document.getElementById('res-compare-uploaded');

@@ -8,7 +8,7 @@ test.describe('Font Finder Website E2E Tests', () => {
     await expect(page).toHaveTitle(/Font Finder/i);
 
     // Check main heading
-    const heading = page.locator('h1');
+    const heading = page.locator('main h1');
     await expect(heading).toContainText(/Upload an image/i);
 
     // Check dropzone presence
@@ -129,7 +129,7 @@ test.describe('Font Finder Website E2E Tests', () => {
   test('4. Browse Fonts page has search, category filter, and live preview', async ({ page }) => {
     await page.goto('/fonts');
 
-    await expect(page.locator('h1')).toContainText(/Verified Google Fonts/i);
+    await expect(page.locator('main h1')).toContainText(/Verified Google Fonts/i);
 
     // Check search functionality
     const searchInput = page.locator('#font-search');
@@ -153,7 +153,7 @@ test.describe('Font Finder Website E2E Tests', () => {
   test('5. Individual Font Page renders full specimen and metadata', async ({ page }) => {
     await page.goto('/fonts/inter');
 
-    await expect(page.locator('h1')).toContainText('Inter');
+    await expect(page.locator('main h1')).toContainText('Inter');
     await expect(page.locator('text=Google Fonts Verified').first()).toBeVisible();
 
     // Check styles and weights section
@@ -166,20 +166,20 @@ test.describe('Font Finder Website E2E Tests', () => {
   test('6. Informational pages load correctly', async ({ page }) => {
     // How It Works
     await page.goto('/how-it-works');
-    await expect(page.locator('h1')).toContainText(/How Font Finder Works/i);
+    await expect(page.locator('main h1')).toContainText(/How Font Finder Works/i);
 
     // About
     await page.goto('/about');
-    await expect(page.locator('h1')).toContainText(/About Font Finder/i);
+    await expect(page.locator('main h1')).toContainText(/About Font Finder/i);
 
     // Privacy
     await page.goto('/privacy');
-    await expect(page.locator('h1')).toContainText(/Privacy Policy/i);
+    await expect(page.locator('main h1')).toContainText(/Privacy Policy/i);
     await expect(page.locator('body')).toContainText(/Zero Retention/i);
 
     // Terms
     await page.goto('/terms');
-    await expect(page.locator('h1')).toContainText(/Terms of Service/i);
+    await expect(page.locator('main h1')).toContainText(/Terms of Service/i);
   });
 
   test('7. Dark mode toggle works seamlessly', async ({ page }) => {
@@ -258,5 +258,197 @@ test.describe('Font Finder Website E2E Tests', () => {
     // Specimen playground should also reflect monkeytype
     const specimenInput = page.locator('#specimen-text-input');
     await expect(specimenInput).toHaveValue('monkeytype');
+  });
+
+  test('9. Benchmark: Luxury High-Contrast Serif identification (Playfair Display / Didone)', async ({ page }) => {
+    await page.goto('/');
+
+    const dataUrl = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 540;
+      canvas.height = 140;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 540, 140);
+      ctx.fillStyle = '#111111';
+      ctx.font = 'bold 50px "Playfair Display", Georgia, serif';
+      ctx.fillText('torial Gazette', 30, 85);
+      return canvas.toDataURL('image/png');
+    });
+
+    await page.evaluate(async (url) => {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'playfair-specimen.png', { type: 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, dataUrl);
+
+    await expect(page.locator('#crop-stage')).toBeVisible({ timeout: 5000 });
+    await page.locator('#crop-text-input').fill('torial Gazette');
+    await page.locator('#btn-run-analysis').click();
+    await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+
+    // Category MUST be serif
+    await expect(page.locator('#res-trait-category')).toContainText(/serif/i);
+
+    // Font must be Playfair Display or top serif
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).toContainText(/Playfair Display|Cormorant Garamond|Cinzel|Merriweather/i);
+
+    // Confidence must be honest (not blindly clamped to 100%)
+    const confText = await page.locator('#res-confidence').textContent();
+    const confNum = parseInt(confText?.replace('%', '') || '0', 10);
+    expect(confNum).toBeGreaterThanOrEqual(65);
+    expect(confNum).toBeLessThanOrEqual(95);
+  });
+
+  test('10. Benchmark: Condensed Bold Poster identification (Oswald / Bebas Neue)', async ({ page }) => {
+    page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
+    await page.goto('/');
+
+    const dataUrl = await page.evaluate(async () => {
+      try {
+        await document.fonts.load('700 52px Oswald');
+        await document.fonts.ready;
+      } catch (e) {}
+      const isOswaldLoaded = document.fonts.check('700 52px Oswald');
+      const canvas = document.createElement('canvas');
+      canvas.width = 560;
+      canvas.height = 140;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 560, 140);
+      ctx.fillStyle = '#111111';
+      ctx.font = isOswaldLoaded ? '700 52px Oswald, sans-serif' : 'bold 52px Impact, sans-serif';
+      ctx.fillText('MODERN POSTER', 30, 85);
+      return canvas.toDataURL('image/png');
+    });
+
+    await page.evaluate(async (url) => {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'oswald-specimen.png', { type: 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, dataUrl);
+
+    await expect(page.locator('#crop-stage')).toBeVisible({ timeout: 5000 });
+    await page.locator('#crop-text-input').fill('MODERN POSTER');
+    await page.locator('#btn-run-analysis').click();
+    await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).toContainText(/Oswald|Bebas Neue|Anton/i);
+  });
+
+  test('11. Benchmark: Developer Monospace with numbers & symbols (JetBrains Mono / Fira Code)', async ({ page }) => {
+    await page.goto('/');
+
+    const dataUrl = await page.evaluate(async () => {
+      try {
+        await document.fonts.load('500 42px "JetBrains Mono"');
+      } catch (e) {}
+      const canvas = document.createElement('canvas');
+      canvas.width = 560;
+      canvas.height = 140;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 560, 140);
+      ctx.fillStyle = '#111111';
+      ctx.font = '500 42px "JetBrains Mono", monospace';
+      ctx.fillText('const type = "mono";', 30, 85);
+      return canvas.toDataURL('image/png');
+    });
+
+    await page.evaluate(async (url) => {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'mono-specimen.png', { type: 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, dataUrl);
+
+    await expect(page.locator('#crop-stage')).toBeVisible({ timeout: 5000 });
+    await page.locator('#btn-run-analysis').click();
+    await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+
+    await expect(page.locator('#res-trait-category')).toContainText(/monospace/i);
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).toContainText(/JetBrains Mono|Fira Code|Space Mono/i);
+  });
+
+  test('12. Benchmark: Book Serif with numerals & distinctive glyphs (Merriweather / Lora)', async ({ page }) => {
+    page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
+    await page.goto('/');
+
+    const dataUrl = await page.evaluate(async () => {
+      try {
+        await document.fonts.load('normal 46px Merriweather');
+      } catch (e) {}
+      const canvas = document.createElement('canvas');
+      canvas.width = 580;
+      canvas.height = 140;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 580, 140);
+      ctx.fillStyle = '#111111';
+      ctx.font = 'normal 46px Merriweather, Georgia, serif';
+      ctx.fillText('Heritage & Craft 1928', 30, 85);
+      return canvas.toDataURL('image/png');
+    });
+
+    await page.evaluate(async (url) => {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const file = new File([blob], 'merriweather-specimen.png', { type: 'image/png' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, dataUrl);
+
+    await expect(page.locator('#crop-stage')).toBeVisible({ timeout: 5000 });
+    await page.locator('#crop-text-input').fill('Heritage & Craft 1928');
+    await page.locator('#btn-run-analysis').click();
+    await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+
+    await expect(page.locator('#res-trait-category')).toContainText(/serif/i);
+    const fontFamily = page.locator('#res-font-family');
+    await expect(fontFamily).toContainText(/Merriweather|Lora|EB Garamond|Playfair Display/i);
+  });
+
+  test('13. Benchmark: Honest Confidence Calibration on ambiguous input (no false 100%)', async ({ page }) => {
+    await page.goto('/');
+
+    // Inter vs Roboto is notoriously close
+    const cleanSansBtn = page.locator('[data-sample="inter"]');
+    await cleanSansBtn.click();
+    await page.locator('#btn-run-analysis').click();
+    await expect(page.locator('#results-stage')).toBeVisible({ timeout: 10000 });
+
+    const confText = await page.locator('#res-confidence').textContent();
+    const confNum = parseInt(confText?.replace('%', '') || '0', 10);
+
+    // Must NEVER claim 100% on ambiguous sans-serif
+    expect(confNum).toBeLessThanOrEqual(95);
+
+    // Runner ups must be populated with close alternatives
+    const altCount = await page.locator('#res-alternatives-list > div').count();
+    expect(altCount).toBeGreaterThanOrEqual(2);
+
+    // Confidence label must be honest (Good Match or Uncertain / Close Match, not fake 100%)
+    const confLabel = await page.locator('#res-confidence-label').textContent();
+    expect(confLabel).toMatch(/Good Match|Uncertain \/ Close Match|High Confidence/i);
   });
 });
