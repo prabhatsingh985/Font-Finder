@@ -3,7 +3,6 @@
 > Modern, minimalist, production-ready website to identify fonts from screenshots and images using pure optical letterform analysis and verified Google Fonts.
 
 ![Google Fonts Verified](https://img.shields.io/badge/Google_Fonts-100%25_Verified-10b981?style=flat-square)
-![Tests](https://img.shields.io/badge/Playwright_E2E-7%2F7_Passing-blue?style=flat-square)
 ![Privacy](https://img.shields.io/badge/Privacy-Zero_Image_Storage-emerald?style=flat-square)
 ![Framework](https://img.shields.io/badge/Framework-Astro_5-orange?style=flat-square)
 ![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS-38bdf8?style=flat-square)
@@ -19,7 +18,6 @@
 - **Interactive Live Specimen Tester**: Real-time editable specimen text, font size slider (14px–72px), weight switcher (300, 400, 600, 700), and dynamic Google Fonts webfont injection.
 - **One-Click CSS Generation**: Instant copy-ready HTML `@import` tags and `font-family` CSS declarations with visual feedback and clipboard fallbacks.
 - **Dark & Light Mode**: Clean, minimalist UI inspired by Linear, Fontshare, and Typewolf with `localStorage` theme persistence.
-- **Comprehensive E2E Testing**: Automated Playwright test suite covering all critical user flows, optical matching, specimen preview, and responsive navigation.
 
 ---
 
@@ -28,7 +26,6 @@
 - **Framework**: [Astro 5](https://astro.build/) (Static Site Generation)
 - **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) + Custom CSS Design System
 - **Language**: TypeScript (Strict Mode)
-- **Testing**: [Playwright](https://playwright.dev/) End-to-End Test Runner
 - **Fonts Registry**: Google Fonts API & Curated Open-Source Metadata Catalog
 
 ---
@@ -51,15 +48,6 @@ npm install
 npm run dev
 ```
 Open `http://localhost:4321/` in your browser.
-
----
-
-## 🧪 Running Tests
-
-Run the full Playwright end-to-end test suite:
-```bash
-npx playwright test
-```
 
 ---
 

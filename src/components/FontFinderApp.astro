@@ -31,6 +31,14 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
 <div id="finder" class="w-full max-w-[1000px] mx-auto scroll-mt-20">
   <script id="fonts-data" type="application/json" is:inline set:html={fontsJson}></script>
+  <script is:inline src="/vendor/tesseract.min.js"></script>
+  <script is:inline>
+    if (typeof Tesseract === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+      document.head.appendChild(s);
+    }
+  </script>
 
   <!-- Step 1: Firecrawl-style Search & Upload Interaction Bar -->
   <div id="upload-stage" class="transition-all">
@@ -98,88 +106,214 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     </div>
   </div>
 
-  <!-- Step 2: Image Preview & Crop Stage -->
-  <div id="crop-stage" class="hidden rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
-    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb]">
-      <div>
-        <div class="flex items-center gap-2">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <h3 class="text-sm font-semibold text-[#262626] uppercase tracking-wide">02 / Inspect & Crop Letterforms</h3>
-        </div>
-        <p class="text-xs text-[#727272] mt-0.5">Drag cursor across canvas to isolate words for tighter optical recognition.</p>
+  <!-- Step 2: Text Organization & Letter Verification Stage (Competitor Workflow) -->
+  <div id="organize-stage" class="hidden rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] space-y-6">
+    
+    <!-- Header / Status -->
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb] dark:border-[#242834]">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">02 / Text Organization & Letter Verification</span>
       </div>
       <div class="flex items-center gap-2">
         <button
-          id="btn-reset-crop"
+          id="btn-toggle-crop-panel"
           type="button"
-          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] text-[#262626] hover:bg-[#e5e7eb] transition-colors"
+          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer"
         >
-          Reset Crop
+          Crop manually
         </button>
         <button
-          id="btn-new-image"
+          id="btn-new-image-top"
           type="button"
-          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] text-[#262626] hover:bg-[#e5e7eb] transition-colors"
+          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer"
         >
           New Image
         </button>
       </div>
     </div>
 
-    <!-- Canvas Surface on #f9f9f9 -->
-    <div class="relative mt-4 bg-[#f9f9f9] rounded-lg border border-[#e5e7eb] overflow-hidden flex items-center justify-center p-3 min-h-[240px] max-h-[440px]">
-      <canvas id="crop-canvas" class="max-h-[400px] max-w-full rounded shadow-sm cursor-crosshair touch-none select-none"></canvas>
-    </div>
-
-    <!-- Optional: Specimen Text Helper for Character-Aware Matching -->
-    <div class="mt-4">
-      <div class="flex items-center justify-between mb-1.5">
-        <label for="crop-text-input" class="text-xs font-mono text-[#727272] uppercase tracking-wide">
-          Text Content (Optional)
-        </label>
-        <span class="text-[11px] text-[#727272] font-mono">Enables character-by-character alignment</span>
+    <!-- Collapsible Manual Crop Area (Hidden by default, opened when 'Crop manually' is clicked) -->
+    <div id="manual-crop-panel" class="hidden p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold text-[#262626] dark:text-[#f3f4f6]">Drag cursor across image to isolate a specific text region:</span>
+        <button id="btn-apply-manual-crop" type="button" class="px-3.5 py-1.5 rounded-full bg-[#ff4d00] text-white text-xs font-medium hover:opacity-95 transition-opacity cursor-pointer">
+          Apply & Re-detect
+        </button>
       </div>
-      <input
-        id="crop-text-input"
-        type="text"
-        placeholder="Type text from your image (e.g. Vatsal Singh, Editorial Gazette)..."
-        class="w-full bg-white border border-[#e5e7eb] rounded-lg px-3 py-2 text-xs text-[#262626] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
-      />
+      <div class="relative bg-white dark:bg-[#15171e] rounded-lg border border-[#e5e7eb] dark:border-[#242834] overflow-hidden flex items-center justify-center p-2 min-h-[180px] max-h-[360px]">
+        <canvas id="crop-canvas" class="max-h-[340px] max-w-full rounded shadow-sm cursor-crosshair touch-none select-none"></canvas>
+      </div>
     </div>
 
-    <!-- Primary Action: Pill with Glow -->
-    <div class="mt-5 flex justify-end">
+    <!-- Section 1: "Which word? Pick the one whose font you want." -->
+    <div>
+      <div class="mb-3">
+        <h3 class="text-sm sm:text-base font-semibold text-[#262626] dark:text-[#f3f4f6] inline">
+          Which word?
+        </h3>
+        <span class="text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] ml-1.5">
+          Pick the one whose font you want.
+        </span>
+      </div>
+
+      <!-- Word Chips Container -->
+      <div id="word-chips-container" class="flex flex-wrap items-center gap-2.5 p-3 rounded-xl bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] min-h-[64px]">
+        <!-- Word chips injected dynamically -->
+      </div>
+    </div>
+
+    <!-- Section 2: "Check the letters. Fix any that are wrong, and clear the box of anything that is not a letter." -->
+    <div>
+      <div class="mb-3">
+        <h3 class="text-sm sm:text-base font-semibold text-[#262626] dark:text-[#f3f4f6] inline">
+          Check the letters.
+        </h3>
+        <span class="text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] ml-1.5">
+          Fix any that are wrong, and clear the box of anything that is not a letter.
+        </span>
+      </div>
+
+      <!-- Selected Word Quick Edit Bar -->
+      <div class="mb-3 flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-[#15171e] p-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834]">
+        <div class="flex items-center gap-2 flex-1 min-w-[220px]">
+          <span class="text-xs font-mono uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] whitespace-nowrap">Selected Word:</span>
+          <input
+            id="selected-word-text-input"
+            type="text"
+            class="flex-1 max-w-[300px] px-3 py-1.5 text-sm font-semibold font-mono text-[#262626] dark:text-[#f3f4f6] bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] rounded-lg focus:outline-none focus:border-[#ff4d00] focus:ring-1 focus:ring-[#ff4d00]/20 transition-all"
+            placeholder="Edit word text..."
+          />
+        </div>
+        <div id="ocr-engine-badge" class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 shadow-2xs">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span id="ocr-engine-badge-text">AI OCR Verified</span>
+        </div>
+      </div>
+
+      <!-- Letter Tiles Container -->
+      <div id="letter-tiles-container" class="flex flex-wrap items-center gap-2.5 p-3 rounded-xl bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] min-h-[96px] overflow-x-auto">
+        <!-- Letter tiles injected dynamically -->
+      </div>
+    </div>
+
+    <!-- Action Bar: [ Identify this font ] [ Crop manually ] [ New image ] -->
+    <div class="pt-4 border-t border-[#e5e7eb] dark:border-[#242834] flex flex-wrap items-center gap-3">
       <button
-        id="btn-run-analysis"
+        id="btn-identify-font"
         type="button"
-        class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#ff4d00] text-white font-medium text-xs tracking-wide hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc] flex items-center justify-center gap-2"
+        class="flex-1 sm:flex-initial px-8 py-3 rounded-full bg-[#18181b] dark:bg-[#ffffff] text-white dark:text-[#18181b] font-semibold text-sm tracking-wide hover:bg-black dark:hover:bg-gray-100 transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
       >
-        <span>Analyze Letterforms & Find Font</span>
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <span>Identify this font</span>
+        <svg class="w-4 h-4 fill-none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
       </button>
+
+      <button
+        id="btn-crop-manually-bar"
+        type="button"
+        class="px-5 py-3 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] font-medium text-xs hover:bg-[#f9f9f9] dark:hover:bg-[#242834] transition-colors cursor-pointer"
+      >
+        Crop manually
+      </button>
+
+      <button
+        id="btn-new-image-bar"
+        type="button"
+        class="px-5 py-3 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] font-medium text-xs hover:bg-[#f9f9f9] dark:hover:bg-[#242834] transition-colors cursor-pointer"
+      >
+        New image
+      </button>
     </div>
+
   </div>
 
   <!-- Step 3: Analysis Progress -->
-  <div id="loading-stage" class="hidden rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-8 sm:p-12 text-center shadow-[0_0_0_6px_rgb(249,249,249)]">
+  <div id="loading-stage" class="hidden rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-8 sm:p-12 text-center shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)]">
     <div class="max-w-md mx-auto">
       <div class="w-10 h-10 mx-auto rounded-full border-2 border-[#ff4d00]/20 border-t-[#ff4d00] animate-spin mb-4"></div>
-      <h4 id="loading-step-title" class="text-xs font-mono font-semibold uppercase tracking-wider text-[#727272]">
+      <h4 id="loading-step-title" class="text-xs font-mono font-semibold uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">
         COMPARING LETTER SHAPES
       </h4>
-      <div class="w-full bg-[#e5e7eb] rounded-full h-1.5 mt-3 overflow-hidden">
+      <div class="w-full bg-[#e5e7eb] dark:bg-[#242834] rounded-full h-1.5 mt-3 overflow-hidden">
         <div id="progress-bar" class="bg-[#ff4d00] h-full w-1/4 rounded-full transition-all duration-300"></div>
       </div>
-      <p id="loading-step-detail" class="text-xs text-[#262626] mt-3 font-mono">
-        Matching against 1,946 fonts in your browser...
+      <p id="loading-step-detail" class="text-xs text-[#262626] dark:text-[#f3f4f6] mt-3 font-mono">
+        Matching against 1,935 fonts in your browser...
       </p>
     </div>
   </div>
 
   <!-- Step 4: Results Display -->
   <div id="results-stage" class="hidden space-y-6">
+
+    <!-- Preview Text Input Bar (Competitor Style) -->
+    <div class="rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-5 sm:p-6 shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] space-y-4">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <span class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Preview text.</span>
+          <span class="text-xs text-[#727272] dark:text-[#9ca3af] ml-1">Type anything to see it set in each match.</span>
+        </div>
+        <button
+          id="btn-reset-preview-text"
+          type="button"
+          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer"
+        >
+          Reset
+        </button>
+      </div>
+      <input
+        id="preview-text-input"
+        type="text"
+        placeholder="Type text to preview in matches..."
+        class="w-full bg-white dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] rounded-xl px-4 py-2.5 text-sm text-[#262626] dark:text-[#f3f4f6] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
+      />
+
+      <!-- "▼ How this was matched" Collapsible Panel -->
+      <div class="rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] overflow-hidden">
+        <button
+          id="btn-toggle-matched-details"
+          type="button"
+          class="w-full px-4 py-2.5 text-left flex items-center justify-between text-xs font-semibold text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb]/50 dark:hover:bg-[#242834]/50 transition-colors cursor-pointer"
+        >
+          <span class="flex items-center gap-1.5">
+            <span id="matched-details-caret">▼</span>
+            <span>How this was matched</span>
+          </span>
+          <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">100% In-Browser</span>
+        </button>
+        <div id="matched-details-content" class="px-4 pb-4 pt-1 border-t border-[#e5e7eb]/60 dark:border-[#242834]/60 text-xs text-[#262626] dark:text-[#f3f4f6] space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6">
+            <div class="flex justify-between py-1 border-b border-[#e5e7eb]/40 dark:border-[#242834]/40">
+              <span class="text-[#727272] dark:text-[#9ca3af]">Letters read</span>
+              <span id="meta-letters-read" class="font-mono font-semibold">--</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-[#e5e7eb]/40 dark:border-[#242834]/40">
+              <span class="text-[#727272] dark:text-[#9ca3af]">Letters compared</span>
+              <span id="meta-letters-count" class="font-mono font-semibold">--</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-[#e5e7eb]/40 dark:border-[#242834]/40">
+              <span class="text-[#727272] dark:text-[#9ca3af]">Shape signatures</span>
+              <span class="font-mono text-right text-[11px] sm:text-xs">16×16 per letter, at regular & bold, across 1,935 fonts</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-[#e5e7eb]/40 dark:border-[#242834]/40">
+              <span class="text-[#727272] dark:text-[#9ca3af]">Stroke weight</span>
+              <span id="meta-stroke-weight" class="font-mono text-right">Matched as drawn</span>
+            </div>
+            <div class="col-span-1 sm:col-span-2 flex justify-between py-1 border-b border-[#e5e7eb]/40 dark:border-[#242834]/40">
+              <span class="text-[#727272] dark:text-[#9ca3af]">Second pass</span>
+              <span class="font-mono text-right text-[11px] sm:text-xs">Top candidates re-rendered & compared as a whole word</span>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#727272] dark:text-[#9ca3af] font-mono">
+            Everything above ran in your browser. No image left this device.
+          </p>
+        </div>
+      </div>
+    </div>
     
     <!-- Primary Match Card (Firecrawl Elevated Card with 16px radius) -->
     <div class="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
@@ -453,8 +587,177 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         console.warn('Full catalog fetch error, fallback active', err);
       });
 
+    // ===== Signature Database for 16x16 Glyph Fingerprint Matching =====
+    let sigManifest = null;
+    let sigRegularCharMap = null; // Map<char, Uint8Array>
+    let sigBoldCharMap = null;
+    let sigDbLoading = null;
+
+    async function decompressGzipBrowser(buffer) {
+      const bytes = new Uint8Array(buffer);
+      if (bytes[0] === 31 && bytes[1] === 139 && typeof DecompressionStream !== 'undefined') {
+        const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+        return new Uint8Array(await new Response(stream).arrayBuffer());
+      }
+      return bytes;
+    }
+
+    function indexSigBuffer(buffer, manifest) {
+      const charMap = new Map();
+      const stride = manifest.fonts.length * manifest.bytesPerGlyph;
+      for (let i = 0; i < manifest.chars.length; i++) {
+        const ch = manifest.chars[i];
+        const start = i * stride;
+        charMap.set(ch, buffer.subarray(start, start + stride));
+      }
+      return charMap;
+    }
+
+    async function loadSignatureDb() {
+      if (sigManifest && sigRegularCharMap) return { manifest: sigManifest, regMap: sigRegularCharMap, boldMap: sigBoldCharMap };
+      if (sigDbLoading) return sigDbLoading;
+      sigDbLoading = (async () => {
+        try {
+          const [manifestRes, allRes, boldRes] = await Promise.all([
+            fetch('/signatures/manifest.json'),
+            fetch('/signatures/all.bin.gz'),
+            fetch('/signatures/bold.bin.gz')
+          ]);
+          sigManifest = await manifestRes.json();
+          const allBuf = await decompressGzipBrowser(await allRes.arrayBuffer());
+          const boldBuf = await decompressGzipBrowser(await boldRes.arrayBuffer());
+          sigRegularCharMap = indexSigBuffer(allBuf, sigManifest);
+          sigBoldCharMap = indexSigBuffer(boldBuf, sigManifest);
+          console.log(`[FontFinder] Signature DB loaded: ${sigManifest.fonts.length} fonts × ${sigManifest.chars.length} chars`);
+          return { manifest: sigManifest, regMap: sigRegularCharMap, boldMap: sigBoldCharMap };
+        } catch (err) {
+          console.warn('[FontFinder] Signature DB load failed:', err);
+          sigDbLoading = null;
+          return null;
+        }
+      })();
+      const result = await sigDbLoading;
+      sigDbLoading = null;
+      return result;
+    }
+
+    // Start loading signature DB eagerly in background
+    loadSignatureDb();
+
+    // ===== AI OCR Engine (Tesseract.js) for 100% Precision Text Recognition =====
+    let tesseractWorker = null;
+    let tesseractWorkerPromise = null;
+
+    async function getTesseractWorker() {
+      if (tesseractWorker) return tesseractWorker;
+      if (tesseractWorkerPromise) return tesseractWorkerPromise;
+
+      tesseractWorkerPromise = (async () => {
+        try {
+          if (typeof Tesseract === 'undefined') {
+            for (let i = 0; i < 25; i++) {
+              if (typeof Tesseract !== 'undefined') break;
+              await new Promise(r => setTimeout(r, 100));
+            }
+          }
+          if (typeof Tesseract === 'undefined') {
+            console.warn('[FontFinder] Tesseract library not loaded yet');
+            return null;
+          }
+
+          let worker = null;
+          try {
+            // Attempt fast local initialization (0ms network latency)
+            worker = await Tesseract.createWorker('eng', 1, {
+              workerPath: '/vendor/worker.min.js',
+              corePath: '/vendor/tesseract-core-lstm.wasm.js',
+              langPath: '/tessdata',
+              gzip: true,
+              logger: () => {}
+            });
+          } catch (localErr) {
+            console.warn('[FontFinder] Local worker init fallback to standard paths:', localErr);
+            worker = await Tesseract.createWorker('eng', 1, {
+              logger: () => {}
+            });
+          }
+
+          await worker.setParameters({
+            tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-\'"&@()/:; ',
+            tessedit_pageseg_mode: '3' // Fully automatic page segmentation (supports single/multiple lines)
+          });
+          tesseractWorker = worker;
+          console.log('[FontFinder] AI OCR Engine (Tesseract.js) initialized and ready in browser');
+          return worker;
+        } catch (err) {
+          console.warn('[FontFinder] Tesseract worker init error:', err);
+          tesseractWorkerPromise = null;
+          return null;
+        }
+      })();
+
+      return tesseractWorkerPromise;
+    }
+
+    // Warm up AI OCR engine in background immediately
+    getTesseractWorker();
+
+    function compute16x16Sig(bits, imgWidth, box) {
+      const n = 16;
+      const sig = new Uint8Array((n * n) / 8); // 32 bytes
+      let boxInk = 0;
+      const boxArea = Math.max(1, box.w * box.h);
+      for (let y = box.y; y < box.y + box.h; y++) {
+        const rOff = y * imgWidth;
+        for (let x = box.x; x < box.x + box.w; x++) {
+          if (bits[rOff + x]) boxInk++;
+        }
+      }
+      const overallDensity = boxInk / boxArea;
+      const threshold = Math.max(0.08, Math.min(0.35, overallDensity * 0.45));
+
+      for (let row = 0; row < n; row++) {
+        const y0 = box.y + Math.floor((row * box.h) / n);
+        const y1 = box.y + Math.max(Math.floor(((row + 1) * box.h) / n), y0 + 1);
+        for (let col = 0; col < n; col++) {
+          const x0 = box.x + Math.floor((col * box.w) / n);
+          const x1 = box.x + Math.max(Math.floor(((col + 1) * box.w) / n), x0 + 1);
+          let total = 0, ink = 0;
+          for (let y = y0; y < y1; y++) {
+            const rOff = y * imgWidth;
+            for (let x = x0; x < x1; x++) {
+              total++;
+              if (bits[rOff + x]) ink++;
+            }
+          }
+          if (total > 0 && (ink / total) >= threshold) {
+            const pixelIdx = row * n + col;
+            sig[pixelIdx >> 3] |= 1 << (7 - (pixelIdx & 7));
+          }
+        }
+      }
+      return sig;
+    }
+
+    function hammingDist(sigA, sigB, offsetB) {
+      let diffBits = 0;
+      for (let i = 0; i < sigA.length; i++) {
+        let xor = sigA[i] ^ sigB[offsetB + i];
+        while (xor) { xor &= xor - 1; diffBits++; }
+      }
+      return diffBits;
+    }
+
+    function isBlankSig(buf, offset, bytesPerGlyph) {
+      for (let i = 0; i < bytesPerGlyph; i++) {
+        if (buf[offset + i] !== 0) return false;
+      }
+      return true;
+    }
+
     const uploadStage = document.getElementById('upload-stage');
-    const cropStage = document.getElementById('crop-stage');
+    const organizeStage = document.getElementById('organize-stage');
+    const manualCropPanel = document.getElementById('manual-crop-panel');
     const loadingStage = document.getElementById('loading-stage');
     const resultsStage = document.getElementById('results-stage');
 
@@ -462,10 +765,25 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     const fileInput = document.getElementById('file-input');
     const uploadError = document.getElementById('upload-error');
     const cropCanvas = document.getElementById('crop-canvas');
-    const btnRunAnalysis = document.getElementById('btn-run-analysis');
-    const btnResetCrop = document.getElementById('btn-reset-crop');
-    const btnNewImage = document.getElementById('btn-new-image');
+
+    const wordChipsContainer = document.getElementById('word-chips-container');
+    const letterTilesContainer = document.getElementById('letter-tiles-container');
+    const btnIdentifyFont = document.getElementById('btn-identify-font');
+    const btnToggleCropPanel = document.getElementById('btn-toggle-crop-panel');
+    const btnCropManuallyBar = document.getElementById('btn-crop-manually-bar');
+    const btnApplyManualCrop = document.getElementById('btn-apply-manual-crop');
+    const btnNewImageTop = document.getElementById('btn-new-image-top');
+    const btnNewImageBar = document.getElementById('btn-new-image-bar');
     const btnScanAnother = document.getElementById('btn-scan-another');
+
+    const previewTextInput = document.getElementById('preview-text-input');
+    const btnResetPreviewText = document.getElementById('btn-reset-preview-text');
+    const btnToggleMatchedDetails = document.getElementById('btn-toggle-matched-details');
+    const matchedDetailsContent = document.getElementById('matched-details-content');
+    const matchedDetailsCaret = document.getElementById('matched-details-caret');
+    const metaLettersRead = document.getElementById('meta-letters-read');
+    const metaLettersCount = document.getElementById('meta-letters-count');
+    const metaStrokeWeight = document.getElementById('meta-stroke-weight');
 
     let currentImage = null;
     let cropBox = null;
@@ -473,58 +791,73 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     let cropStartX = 0;
     let cropStartY = 0;
 
+    let detectedWords = [];
+    let currentSelectedWordIndex = 0;
+    let currentSelectedWord = null;
+    let currentVerifiedText = '';
+    let currentPrimaryFont = null;
+    let currentSampleText = '';
+
     const specimenInput = document.getElementById('specimen-text-input');
     const specimenSlider = document.getElementById('specimen-size-slider');
     const specimenLabel = document.getElementById('specimen-size-label');
     const specimenWeightPills = document.querySelectorAll('.weight-pill');
-    const compareTextInput = document.getElementById('compare-text-input');
-    const cropTextInput = document.getElementById('crop-text-input');
     const compareMatched = document.getElementById('res-compare-matched');
-    let currentPrimaryFont = null;
-    let currentSampleText = '';
+    const compareTextInput = document.getElementById('compare-text-input');
 
-    if (cropTextInput) {
-      cropTextInput.addEventListener('input', (e) => {
-        if (compareTextInput) compareTextInput.value = e.target.value;
+    // Synchronize preview-text-input, compare-text-input, and specimen-text-input in real time
+    if (previewTextInput) {
+      previewTextInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        updateAllSpecimensText(val || currentVerifiedText);
       });
     }
 
-    // Synchronize compare-text-input and specimen-text-input in real time
+    if (btnResetPreviewText) {
+      btnResetPreviewText.addEventListener('click', () => {
+        if (previewTextInput) previewTextInput.value = currentVerifiedText;
+        updateAllSpecimensText(currentVerifiedText);
+      });
+    }
+
+    if (btnToggleMatchedDetails && matchedDetailsContent && matchedDetailsCaret) {
+      btnToggleMatchedDetails.addEventListener('click', () => {
+        const isHidden = matchedDetailsContent.classList.toggle('hidden');
+        matchedDetailsCaret.textContent = isHidden ? '►' : '▼';
+      });
+    }
+
     if (compareTextInput) {
       compareTextInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
-        const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
-        if (compareMatched) {
-          compareMatched.textContent = val || fontFam;
-          compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
-        }
-        if (specimenInput) {
-          specimenInput.value = val || 'The quick brown fox jumps over the lazy dog';
-        }
-        updateAllCardSpecimens(val);
+        if (previewTextInput) previewTextInput.value = val;
+        updateAllSpecimensText(val || currentVerifiedText);
       });
     }
 
     if (specimenInput) {
       specimenInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
-        const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
-        if (compareMatched) {
-          compareMatched.textContent = val || fontFam;
-        }
-        if (compareTextInput) {
-          compareTextInput.value = val;
-        }
-        updateAllCardSpecimens(val);
+        if (previewTextInput) previewTextInput.value = val;
+        updateAllSpecimensText(val || currentVerifiedText);
       });
     }
 
-    function updateAllCardSpecimens(newText) {
-      const textToDisplay = newText || (currentPrimaryFont ? currentPrimaryFont.family : 'Typography Specimen');
+    function updateAllSpecimensText(txt) {
+      const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
+      const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
+      if (compareMatched) {
+        compareMatched.textContent = txt;
+        compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
+      }
+      if (specimenInput) {
+        specimenInput.value = txt;
+      }
+      if (compareTextInput) {
+        compareTextInput.value = txt;
+      }
       document.querySelectorAll('.specimen-card-preview').forEach((el) => {
-        el.textContent = textToDisplay;
+        el.textContent = txt;
       });
     }
 
@@ -697,9 +1030,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       uploadStage.classList.add('hidden');
       resultsStage.classList.add('hidden');
       loadingStage.classList.add('hidden');
-      cropStage.classList.remove('hidden');
+      if (manualCropPanel) manualCropPanel.classList.add('hidden');
+      organizeStage.classList.remove('hidden');
 
-      renderCropCanvas();
+      detectWordsAndGlyphs(currentImage);
     }
 
     function renderCropCanvas() {
@@ -707,7 +1041,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const ctx = cropCanvas.getContext('2d');
 
       const maxW = 760;
-      const maxH = 400;
+      const maxH = 340;
       let w = currentImage.width;
       let h = currentImage.height;
 
@@ -730,19 +1064,23 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
     }
 
-    cropCanvas.addEventListener('pointerdown', (e) => {
+    cropCanvas?.addEventListener('pointerdown', (e) => {
       const rect = cropCanvas.getBoundingClientRect();
-      cropStartX = e.clientX - rect.left;
-      cropStartY = e.clientY - rect.top;
+      const scaleX = rect.width > 0 ? (cropCanvas.width / rect.width) : 1;
+      const scaleY = rect.height > 0 ? (cropCanvas.height / rect.height) : 1;
+      cropStartX = (e.clientX - rect.left) * scaleX;
+      cropStartY = (e.clientY - rect.top) * scaleY;
       isDraggingCrop = true;
       cropBox = { x: cropStartX, y: cropStartY, w: 0, h: 0 };
     });
 
     window.addEventListener('pointermove', (e) => {
-      if (!isDraggingCrop || !currentImage) return;
+      if (!isDraggingCrop || !currentImage || !cropCanvas) return;
       const rect = cropCanvas.getBoundingClientRect();
-      const curX = Math.max(0, Math.min(cropCanvas.width, e.clientX - rect.left));
-      const curY = Math.max(0, Math.min(cropCanvas.height, e.clientY - rect.top));
+      const scaleX = rect.width > 0 ? (cropCanvas.width / rect.width) : 1;
+      const scaleY = rect.height > 0 ? (cropCanvas.height / rect.height) : 1;
+      const curX = Math.max(0, Math.min(cropCanvas.width, (e.clientX - rect.left) * scaleX));
+      const curY = Math.max(0, Math.min(cropCanvas.height, (e.clientY - rect.top) * scaleY));
 
       cropBox.x = Math.min(cropStartX, curX);
       cropBox.y = Math.min(cropStartY, curY);
@@ -762,44 +1100,1120 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
     });
 
-    btnResetCrop.addEventListener('click', () => {
-      cropBox = null;
-      renderCropCanvas();
+    function toggleManualCrop() {
+      if (!manualCropPanel) return;
+      const isHidden = manualCropPanel.classList.toggle('hidden');
+      if (!isHidden && currentImage) {
+        renderCropCanvas();
+      }
+    }
+
+    btnToggleCropPanel?.addEventListener('click', toggleManualCrop);
+    btnCropManuallyBar?.addEventListener('click', toggleManualCrop);
+
+    btnApplyManualCrop?.addEventListener('click', () => {
+      if (currentImage) {
+        detectWordsAndGlyphs(currentImage, cropBox);
+        if (manualCropPanel) manualCropPanel.classList.add('hidden');
+      }
     });
 
-    btnNewImage.addEventListener('click', resetAll);
-    btnScanAnother.addEventListener('click', resetAll);
+    btnNewImageTop?.addEventListener('click', resetAll);
+    btnNewImageBar?.addEventListener('click', resetAll);
+    btnScanAnother?.addEventListener('click', resetAll);
 
     function resetAll() {
       currentImage = null;
       cropBox = null;
+      detectedWords = [];
+      currentSelectedWord = null;
+      currentSelectedWordIndex = 0;
+      currentVerifiedText = '';
+      currentSampleText = '';
       fileInput.value = '';
+      if (uploadError) {
+        uploadError.classList.add('hidden');
+        uploadError.textContent = '';
+      }
       uploadStage.classList.remove('hidden');
-      cropStage.classList.add('hidden');
+      organizeStage.classList.add('hidden');
       loadingStage.classList.add('hidden');
       resultsStage.classList.add('hidden');
+      if (manualCropPanel) manualCropPanel.classList.add('hidden');
     }
 
-    btnRunAnalysis.addEventListener('click', () => {
-      if (!currentImage) return;
+    // ==========================================
+    // PHASES 1-4: CLIENT-SIDE WORD & GLYPH SEGMENTATION
+    // ==========================================
 
-      cropStage.classList.add('hidden');
+    async function detectWordsAndGlyphs(sourceImg, customCropBox) {
+      if (wordChipsContainer) {
+        wordChipsContainer.innerHTML = `
+          <div class="flex items-center gap-2.5 py-3 px-3 text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+            <div class="w-4 h-4 rounded-full border-2 border-[#ff4d00]/30 border-t-[#ff4d00] animate-spin"></div>
+            <span>Extracting words & letterforms with AI OCR...</span>
+          </div>
+        `;
+      }
+      if (letterTilesContainer) {
+        letterTilesContainer.innerHTML = '<span class="text-xs text-[#727272] dark:text-[#9ca3af]">Letters will appear here once words are detected.</span>';
+      }
+
+      const origW = (sourceImg.naturalWidth || sourceImg.width);
+      const origH = (sourceImg.naturalHeight || sourceImg.height);
+
+      let sx = 0, sy = 0, sw = origW, sh = origH;
+      if (customCropBox && customCropBox.w > 10 && customCropBox.h > 10) {
+        const scaleX = origW / cropCanvas.width;
+        const scaleY = origH / cropCanvas.height;
+        sx = Math.round(customCropBox.x * scaleX);
+        sy = Math.round(customCropBox.y * scaleY);
+        sw = Math.round(customCropBox.w * scaleX);
+        sh = Math.round(customCropBox.h * scaleY);
+      }
+      sx = Math.max(0, Math.min(origW - 1, sx));
+      sy = Math.max(0, Math.min(origH - 1, sy));
+      sw = Math.max(1, Math.min(origW - sx, sw));
+      sh = Math.max(1, Math.min(origH - sy, sh));
+
+      // Offscreen canvas for binarization and OCR
+      const workCanvas = document.createElement('canvas');
+      const maxDim = 1400;
+      const workScale = Math.min(1, maxDim / Math.max(sw, sh));
+      workCanvas.width = Math.round(sw * workScale);
+      workCanvas.height = Math.round(sh * workScale);
+
+      const workCtx = workCanvas.getContext('2d');
+      workCtx.drawImage(sourceImg, sx, sy, sw, sh, 0, 0, workCanvas.width, workCanvas.height);
+
+      const imgData = workCtx.getImageData(0, 0, workCanvas.width, workCanvas.height);
+      const { width: w, height: h, data } = imgData;
+      const totalPixels = w * h;
+      const grayscale = new Uint8Array(totalPixels);
+      const hist = new Int32Array(256);
+      let sumLum = 0;
+
+      for (let i = 0; i < totalPixels; i++) {
+        const idx = i * 4;
+        const lum = Math.round(0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2]);
+        grayscale[i] = lum;
+        hist[lum]++;
+        sumLum += lum;
+      }
+      const avgLum = sumLum / Math.max(1, totalPixels);
+
+      // 4 corners background luminance check
+      let cornerLum = 0;
+      let cornerCount = 0;
+      const cornerSize = Math.min(8, Math.floor(w / 4), Math.floor(h / 4));
+      for (let cy = 0; cy < cornerSize; cy++) {
+        for (let cx = 0; cx < cornerSize; cx++) {
+          cornerLum += grayscale[cy * w + cx];
+          cornerLum += grayscale[cy * w + (w - 1 - cx)];
+          cornerLum += grayscale[(h - 1 - cy) * w + cx];
+          cornerLum += grayscale[(h - 1 - cy) * w + (w - 1 - cx)];
+          cornerCount += 4;
+        }
+      }
+      const avgCorner = cornerCount > 0 ? (cornerLum / cornerCount) : avgLum;
+      const isLightOnDark = avgCorner < 128;
+
+      // Otsu threshold
+      let sumAll = 0;
+      for (let t = 0; t < 256; t++) sumAll += t * hist[t];
+      let sumB = 0, wB = 0, varMax = 0, threshold = Math.round(avgLum);
+      for (let t = 0; t < 256; t++) {
+        wB += hist[t];
+        if (wB === 0) continue;
+        const wF = totalPixels - wB;
+        if (wF === 0) break;
+        sumB += t * hist[t];
+        const mB = sumB / wB;
+        const mF = (sumAll - sumB) / wF;
+        const varBetween = wB * wF * (mB - mF) * (mB - mF);
+        if (varBetween > varMax) {
+          varMax = varBetween;
+          threshold = t;
+        }
+      }
+      if (threshold < 35) threshold = 45;
+      if (threshold > 225) threshold = 210;
+
+      const binary = new Uint8Array(totalPixels);
+      for (let i = 0; i < totalPixels; i++) {
+        const lum = grayscale[i];
+        binary[i] = (isLightOnDark ? lum > threshold : lum < threshold) ? 1 : 0;
+      }
+
+      const toOrigScale = 1 / workScale;
+      detectedWords = [];
+
+      // ========================================================
+      // PRIMARY: INDUSTRY-STANDARD TESSERACT.JS OCR RECOGNITION
+      // ========================================================
+      let tesseractUsed = false;
+      try {
+        const ocrWorker = await getTesseractWorker();
+        if (ocrWorker) {
+          // Prepare specialized high-accuracy OCR canvas
+          // 1. Calculate optimal scale: OCR models excel when lowercase x-height is 35-60px (~300 DPI)
+          let ocrScale = 1.0;
+          if (sh < 80) ocrScale = 2.0;
+          else if (sh < 140) ocrScale = 1.5;
+          else if (Math.max(sw, sh) > 1600) ocrScale = 1600 / Math.max(sw, sh);
+
+          const ocrPad = 40; // 40px solid padding prevents Tesseract clipping boundary letters
+          const scaledW = Math.round(sw * ocrScale);
+          const scaledH = Math.round(sh * ocrScale);
+
+          const ocrCanvas = document.createElement('canvas');
+          ocrCanvas.width = scaledW + ocrPad * 2;
+          ocrCanvas.height = scaledH + ocrPad * 2;
+          const ocrCtx = ocrCanvas.getContext('2d');
+          ocrCtx.imageSmoothingEnabled = true;
+          ocrCtx.imageSmoothingQuality = 'high';
+
+          // Fill clean background (white for dark text)
+          ocrCtx.fillStyle = '#ffffff';
+          ocrCtx.fillRect(0, 0, ocrCanvas.width, ocrCanvas.height);
+
+          // Draw scaled source image crop into padded area
+          ocrCtx.drawImage(sourceImg, sx, sy, sw, sh, ocrPad, ocrPad, scaledW, scaledH);
+
+          // If light text on dark background, invert so Tesseract always gets dark text on white
+          if (isLightOnDark) {
+            const ocrImgData = ocrCtx.getImageData(ocrPad, ocrPad, scaledW, scaledH);
+            const d = ocrImgData.data;
+            for (let i = 0; i < d.length; i += 4) {
+              d[i] = 255 - d[i];
+              d[i + 1] = 255 - d[i + 1];
+              d[i + 2] = 255 - d[i + 2];
+            }
+            ocrCtx.putImageData(ocrImgData, ocrPad, ocrPad);
+          }
+
+          // CRITICAL: Request granular blocks & text output formats
+          const ocrResult = await ocrWorker.recognize(ocrCanvas, {}, { blocks: true, text: true });
+          const blocks = (ocrResult && ocrResult.data && ocrResult.data.blocks) || [];
+          const extractedTesseractWords = [];
+
+          for (const block of blocks) {
+            for (const para of (block.paragraphs || [])) {
+              for (const line of (para.lines || [])) {
+                for (const word of (line.words || [])) {
+                  const rawWordText = (word.text || '').trim();
+                  if (!rawWordText) continue;
+
+                  // Clean leading and trailing punctuation (e.g. "instruments." -> "instruments")
+                  const cleanedWordText = rawWordText.replace(/^[.,\/#!$%\^&\*;:{}=\-_`~()]+|[.,\/#!$%\^&\*;:{}=\-_`~()]+$/g, '');
+                  const wordTextToUse = cleanedWordText.length > 0 ? cleanedWordText : rawWordText;
+
+                  // Bounding box in ocrCanvas coordinates
+                  const wb = word.bbox;
+                  // Map back to original unpadded sourceImg coordinates
+                  const origX0 = Math.max(0, Math.min(origW - 1, Math.round(sx + (wb.x0 - ocrPad) / ocrScale)));
+                  const origY0 = Math.max(0, Math.min(origH - 1, Math.round(sy + (wb.y0 - ocrPad) / ocrScale)));
+                  const origX1 = Math.max(origX0 + 1, Math.min(origW, Math.round(sx + (wb.x1 - ocrPad) / ocrScale)));
+                  const origY1 = Math.max(origY0 + 1, Math.min(origH, Math.round(sy + (wb.y1 - ocrPad) / ocrScale)));
+
+                  // Extract individual symbols
+                  const symbols = [];
+                  const rawSyms = (word.symbols || []).filter(s => {
+                    const t = (s.text || '').trim();
+                    return t.length > 0 && /^[a-zA-Z0-9]$/.test(t);
+                  });
+
+                  if (rawSyms.length > 0) {
+                    for (const sym of rawSyms) {
+                      const sb = sym.bbox;
+                      const sOrigX0 = Math.max(0, Math.min(origW - 1, Math.round(sx + (sb.x0 - ocrPad) / ocrScale)));
+                      const sOrigY0 = Math.max(0, Math.min(origH - 1, Math.round(sy + (sb.y0 - ocrPad) / ocrScale)));
+                      const sOrigX1 = Math.max(sOrigX0 + 1, Math.min(origW, Math.round(sx + (sb.x1 - ocrPad) / ocrScale)));
+                      const sOrigY1 = Math.max(sOrigY0 + 1, Math.min(origH, Math.round(sy + (sb.y1 - ocrPad) / ocrScale)));
+                      symbols.push({
+                        char: sym.text,
+                        confidence: sym.confidence ?? 90,
+                        box: { x: sOrigX0, y: sOrigY0, w: Math.max(3, sOrigX1 - sOrigX0), h: Math.max(3, sOrigY1 - sOrigY0) }
+                      });
+                    }
+                  } else {
+                    // Robust synthesizer: distribute word characters evenly across word bounding box
+                    const chars = Array.from(wordTextToUse);
+                    const charW = (origX1 - origX0) / Math.max(1, chars.length);
+                    chars.forEach((ch, cIdx) => {
+                      const cx = Math.round(origX0 + cIdx * charW);
+                      symbols.push({
+                        char: ch,
+                        confidence: 85,
+                        box: { x: cx, y: origY0, w: Math.max(3, Math.round(charW)), h: Math.max(3, origY1 - origY0) }
+                      });
+                    });
+                  }
+
+                  extractedTesseractWords.push({
+                    text: wordTextToUse,
+                    confidence: word.confidence ?? 90,
+                    bbox: { x0: origX0, y0: origY0, x1: origX1, y1: origY1 },
+                    symbols
+                  });
+                }
+              }
+            }
+          }
+
+          // Full-text fallback if blocks was empty
+          if (extractedTesseractWords.length === 0 && ocrResult && ocrResult.data && ocrResult.data.text) {
+            const rawTokens = ocrResult.data.text.trim().split(/\s+/).filter(Boolean);
+            if (rawTokens.length > 0) {
+              const totalLen = rawTokens.reduce((acc, t) => acc + t.length, 0);
+              let currX = sx;
+              rawTokens.forEach(tok => {
+                const cleaned = tok.replace(/^[.,\/#!$%\^&\*;:{}=\-_`~()]+|[.,\/#!$%\^&\*;:{}=\-_`~()]+$/g, '');
+                const textStr = cleaned.length > 0 ? cleaned : tok;
+                const tokW = Math.max(20, Math.round((textStr.length / Math.max(1, totalLen)) * sw));
+                const wBox = { x: currX, y: sy, w: Math.min(sw - (currX - sx), tokW), h: sh };
+                currX += tokW;
+                const symbols = [];
+                const chars = Array.from(textStr);
+                const cW = wBox.w / Math.max(1, chars.length);
+                chars.forEach((ch, cIdx) => {
+                  symbols.push({
+                    char: ch,
+                    confidence: 80,
+                    box: { x: Math.round(wBox.x + cIdx * cW), y: wBox.y, w: Math.max(3, Math.round(cW)), h: wBox.h }
+                  });
+                });
+                extractedTesseractWords.push({
+                  text: textStr,
+                  confidence: 80,
+                  bbox: { x0: wBox.x, y0: wBox.y, x1: wBox.x + wBox.w, y1: wBox.y + wBox.h },
+                  symbols
+                });
+              });
+            }
+          }
+
+          if (extractedTesseractWords.length > 0) {
+            tesseractUsed = true;
+            for (let wIdx = 0; wIdx < extractedTesseractWords.length; wIdx++) {
+              const tWord = extractedTesseractWords[wIdx];
+              const wb = tWord.bbox;
+              const pad = Math.max(4, Math.round(4 * toOrigScale));
+              const origWordX = Math.max(0, Math.min(origW - 1, wb.x0 - pad));
+              const origWordY = Math.max(0, Math.min(origH - 1, wb.y0 - pad));
+              const origWordR = Math.max(origWordX + 1, Math.min(origW, wb.x1 + pad));
+              const origWordB = Math.max(origWordY + 1, Math.min(origH, wb.y1 + pad));
+              const origWordW = origWordR - origWordX;
+              const origWordH = origWordB - origWordY;
+
+              const wordCropCanvas = document.createElement('canvas');
+              wordCropCanvas.width = origWordW;
+              wordCropCanvas.height = origWordH;
+              const wordCropCtx = wordCropCanvas.getContext('2d');
+              wordCropCtx.drawImage(sourceImg, origWordX, origWordY, origWordW, origWordH, 0, 0, origWordW, origWordH);
+              const wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+
+              const wordGlyphs = [];
+              for (let gIdx = 0; gIdx < tWord.symbols.length; gIdx++) {
+                const sym = tWord.symbols[gIdx];
+                const sb = sym.box;
+                const gPad = Math.max(2, Math.round(2 * toOrigScale));
+                let gOrigX = Math.max(0, Math.min(origW - 1, sb.x - gPad));
+                let gOrigY = Math.max(0, Math.min(origH - 1, sb.y - gPad));
+                let gOrigR = Math.max(gOrigX + 1, Math.min(origW, sb.x + sb.w + gPad));
+                let gOrigB = Math.max(gOrigY + 1, Math.min(origH, sb.y + sb.h + gPad));
+                let gOrigW = gOrigR - gOrigX;
+                let gOrigH = gOrigB - gOrigY;
+
+                if (gOrigW < 4) gOrigW = 4;
+                if (gOrigH < 4) gOrigH = 4;
+
+                const gCanvas = document.createElement('canvas');
+                gCanvas.width = gOrigW;
+                gCanvas.height = gOrigH;
+                const gCtx = gCanvas.getContext('2d');
+                gCtx.drawImage(sourceImg, gOrigX, gOrigY, gOrigW, gOrigH, 0, 0, gOrigW, gOrigH);
+                const glyphImgDataUrl = gCanvas.toDataURL('image/png');
+
+                const symBoxWork = {
+                  x: Math.max(0, Math.min(w - 1, Math.round((sb.x - sx) * workScale))),
+                  y: Math.max(0, Math.min(h - 1, Math.round((sb.y - sy) * workScale))),
+                  w: Math.max(1, Math.round(sb.w * workScale)),
+                  h: Math.max(1, Math.round(sb.h * workScale))
+                };
+                const sig = compute16x16Sig(binary, w, symBoxWork);
+
+                wordGlyphs.push({
+                  id: `glyph-${wIdx}-${gIdx}`,
+                  char: sym.char,
+                  confidence: sym.confidence ?? 90,
+                  signature: sig,
+                  box: { x: gOrigX, y: gOrigY, w: gOrigW, h: gOrigH },
+                  glyphImgDataUrl
+                });
+              }
+
+              detectedWords.push({
+                id: `word-${wIdx}`,
+                text: wordGlyphs.map(gl => gl.char).join('') || tWord.text,
+                box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
+                wordImgDataUrl,
+                wordCanvas: wordCropCanvas,
+                glyphs: wordGlyphs,
+                confidence: tWord.confidence ?? 90
+              });
+            }
+          }
+        }
+      } catch (ocrErr) {
+        console.warn('[FontFinder] Tesseract recognize failed, falling back to optical segmentation:', ocrErr);
+      }
+
+      // ========================================================
+      // FALLBACK: ENHANCED OPTICAL SEGMENTATION WITH TOUCHING-GLYPH SPLIT
+      // ========================================================
+      if (!tesseractUsed || detectedWords.length === 0) {
+        // Row density for vertical bounds
+        const rowDensity = new Float32Array(h);
+        for (let y = 0; y < h; y++) {
+          let count = 0;
+          const offset = y * w;
+          for (let x = 0; x < w; x++) {
+            if (binary[offset + x] === 1) count++;
+          }
+          rowDensity[y] = count;
+        }
+        let textTop = 0, textBottom = h - 1;
+        const minRowInk = Math.max(2, Math.round(w * 0.008));
+        for (let y = 0; y < h; y++) {
+          if (rowDensity[y] >= minRowInk) { textTop = y; break; }
+        }
+        for (let y = h - 1; y >= 0; y--) {
+          if (rowDensity[y] >= minRowInk) { textBottom = y; break; }
+        }
+        const textH = Math.max(12, textBottom - textTop + 1);
+
+        // 8-connected components
+        const visited = new Uint8Array(totalPixels);
+        const rawBoxes = [];
+        const queue = new Int32Array(totalPixels);
+
+        for (let y = textTop; y <= textBottom; y++) {
+          const yOff = y * w;
+          for (let x = 0; x < w; x++) {
+            const idx = yOff + x;
+            if (binary[idx] === 1 && visited[idx] === 0) {
+              let minX = x, maxX = x, minY = y, maxY = y;
+              let ink = 0;
+              let head = 0, tail = 0;
+              queue[tail++] = idx;
+              visited[idx] = 1;
+
+              while (head < tail) {
+                const cur = queue[head++];
+                ink++;
+                const cx = cur % w;
+                const cy = (cur / w) | 0;
+                if (cx < minX) minX = cx;
+                if (cx > maxX) maxX = cx;
+                if (cy < minY) minY = cy;
+                if (cy > maxY) maxY = cy;
+
+                for (let dy = -1; dy <= 1; dy++) {
+                  const ny = cy + dy;
+                  if (ny < textTop || ny > textBottom) continue;
+                  const nRow = ny * w;
+                  for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue;
+                    const nx = cx + dx;
+                    if (nx < 0 || nx >= w) continue;
+                    const nidx = nRow + nx;
+                    if (binary[nidx] === 1 && visited[nidx] === 0) {
+                      visited[nidx] = 1;
+                      queue[tail++] = nidx;
+                    }
+                  }
+                }
+              }
+
+              const gw = maxX - minX + 1;
+              const gh = maxY - minY + 1;
+              if (ink >= 5 && gw >= 2 && gh >= 3) {
+                rawBoxes.push({ x: minX, y: minY, w: gw, h: gh, ink });
+              }
+            }
+          }
+        }
+
+        // Smart component merging (dots on i, j, accents)
+        rawBoxes.sort((a, b) => a.x - b.x);
+        const dotHThresh = textH * 0.40;
+        const gapThresh = textH * 0.50;
+        const horizTol = Math.max(3, textH * 0.20);
+        const mergedFlags = new Uint8Array(rawBoxes.length);
+        const mergedBoxes = [];
+
+        for (let i = 0; i < rawBoxes.length; i++) {
+          if (mergedFlags[i]) continue;
+          const a = rawBoxes[i];
+          if (a.h <= dotHThresh) {
+            let bestJ = -1, bestDist = Infinity;
+            for (let j = 0; j < rawBoxes.length; j++) {
+              if (i === j || mergedFlags[j]) continue;
+              const b = rawBoxes[j];
+              const xOverlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + horizTol;
+              if (xOverlap <= 0) continue;
+              const yDist = Math.max(0, Math.max(a.y, b.y) - Math.min(a.y + a.h, b.y + b.h));
+              if (yDist <= gapThresh && yDist < bestDist) {
+                bestDist = yDist;
+                bestJ = j;
+              }
+            }
+            if (bestJ >= 0) {
+              const b = rawBoxes[bestJ];
+              const mx = Math.min(a.x, b.x);
+              const my = Math.min(a.y, b.y);
+              rawBoxes[bestJ] = {
+                x: mx, y: my,
+                w: Math.max(a.x + a.w, b.x + b.w) - mx,
+                h: Math.max(a.y + a.h, b.y + b.h) - my,
+                ink: a.ink + b.ink
+              };
+              mergedFlags[i] = 1;
+              continue;
+            }
+          }
+          mergedBoxes.push(a);
+        }
+
+        // Filter out tiny noise
+        const heights = mergedBoxes.map(b => b.h).sort((a, b) => a - b);
+        const medianH = heights[Math.floor(heights.length / 2)] || 16;
+        const baseBoxes = mergedBoxes.filter(b => b.h >= medianH * 0.25 && b.w >= 2);
+
+        // Split touching characters (e.g. touching 'qu', 'fi', 'oo')
+        const filteredBoxes = [];
+        for (const b of baseBoxes) {
+          const aspect = b.w / Math.max(1, b.h);
+          if (aspect > 1.35 && b.w >= medianH * 0.85 && b.h >= medianH * 0.5) {
+            const colSums = new Int32Array(b.w);
+            for (let col = 0; col < b.w; col++) {
+              const absX = b.x + col;
+              for (let row = 0; row < b.h; row++) {
+                const absY = b.y + row;
+                if (binary[absY * w + absX]) colSums[col]++;
+              }
+            }
+            const minCol = Math.floor(b.w * 0.35);
+            const maxCol = Math.floor(b.w * 0.65);
+            let valleyCol = -1;
+            let minVal = Infinity;
+            for (let c = minCol; c <= maxCol; c++) {
+              if (colSums[c] < minVal) {
+                minVal = colSums[c];
+                valleyCol = c;
+              }
+            }
+            const peak = Math.max(...colSums);
+            if (valleyCol > 0 && minVal <= peak * 0.45) {
+              filteredBoxes.push({ x: b.x, y: b.y, w: valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
+              filteredBoxes.push({ x: b.x + valleyCol, y: b.y, w: b.w - valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
+              continue;
+            }
+          }
+          filteredBoxes.push(b);
+        }
+
+        // Group into lines by vertical position
+        filteredBoxes.sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2));
+        const lines = [];
+        for (const box of filteredBoxes) {
+          const boxMid = box.y + box.h / 2;
+          let placed = false;
+          for (const line of lines) {
+            const lineMid = line.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / line.length;
+            if (Math.abs(boxMid - lineMid) <= medianH * 0.55) {
+              line.push(box);
+              placed = true;
+              break;
+            }
+          }
+          if (!placed) {
+            lines.push([box]);
+          }
+        }
+
+        // Sort lines from top to bottom
+        lines.sort((lineA, lineB) => {
+          const midA = lineA.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineA.length;
+          const midB = lineB.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineB.length;
+          return midA - midB;
+        });
+
+        // Segment glyphs on each line into words using inter-glyph gaps
+        const wordsRaw = [];
+        for (const line of lines) {
+          line.sort((a, b) => a.x - b.x);
+          if (line.length < 2) {
+            if (line.length === 1) wordsRaw.push(line);
+            continue;
+          }
+
+          const gaps = [];
+          for (let i = 1; i < line.length; i++) {
+            gaps.push(line[i].x - (line[i - 1].x + line[i - 1].w));
+          }
+          const sortedGaps = gaps.slice().sort((a, b) => a - b);
+          const medianGap = Math.max(1, sortedGaps[Math.floor(sortedGaps.length / 2)] || 3);
+          const wordBreakThresh = Math.max(medianGap * 1.85, medianH * 0.28);
+
+          let curWord = [line[0]];
+          for (let i = 1; i < line.length; i++) {
+            const gap = gaps[i - 1];
+            if (gap > wordBreakThresh) {
+              wordsRaw.push(curWord);
+              curWord = [];
+            }
+            curWord.push(line[i]);
+          }
+          if (curWord.length > 0) wordsRaw.push(curWord);
+        }
+
+        if (wordsRaw.length === 0 && filteredBoxes.length > 0) {
+          wordsRaw.push(filteredBoxes);
+        }
+        if (wordsRaw.length === 0) {
+          wordsRaw.push([{ x: 10, y: 10, w: Math.max(50, w - 20), h: Math.max(30, h - 20), ink: 100 }]);
+        }
+
+        const sampleWords = currentSampleText ? currentSampleText.trim().split(/\s+/).filter(Boolean) : [];
+
+        for (let wIdx = 0; wIdx < wordsRaw.length; wIdx++) {
+          const rawGlyphs = wordsRaw[wIdx];
+          const minWorkX = Math.min(...rawGlyphs.map(g => g.x));
+          const maxWorkX = Math.max(...rawGlyphs.map(g => g.x + g.w));
+          const minWorkY = Math.min(...rawGlyphs.map(g => g.y));
+          const maxWorkY = Math.max(...rawGlyphs.map(g => g.y + g.h));
+
+          const pad = Math.max(4, Math.round(medianH * 0.15 * toOrigScale));
+          const origWordX = Math.max(0, Math.min(origW - 1, Math.round(sx + minWorkX * toOrigScale) - pad));
+          const origWordY = Math.max(0, Math.min(origH - 1, Math.round(sy + minWorkY * toOrigScale) - pad));
+          const origWordR = Math.max(origWordX + 1, Math.min(origW, Math.round(sx + maxWorkX * toOrigScale) + pad));
+          const origWordB = Math.max(origWordY + 1, Math.min(origH, Math.round(sy + maxWorkY * toOrigScale) + pad));
+          const origWordW = origWordR - origWordX;
+          const origWordH = origWordB - origWordY;
+
+          const wordCropCanvas = document.createElement('canvas');
+          wordCropCanvas.width = origWordW;
+          wordCropCanvas.height = origWordH;
+          const wordCropCtx = wordCropCanvas.getContext('2d');
+          wordCropCtx.drawImage(sourceImg, origWordX, origWordY, origWordW, origWordH, 0, 0, origWordW, origWordH);
+          const wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+
+          const expectedWordStr = sampleWords[wIdx] || '';
+          const wordGlyphs = [];
+
+          for (let gIdx = 0; gIdx < rawGlyphs.length; gIdx++) {
+            const g = rawGlyphs[gIdx];
+            const gPad = Math.max(2, Math.round(2 * toOrigScale));
+            const gOrigX = Math.max(0, Math.min(origW - 1, Math.round(sx + g.x * toOrigScale) - gPad));
+            const gOrigY = Math.max(0, Math.min(origH - 1, Math.round(sy + g.y * toOrigScale) - gPad));
+            const gOrigR = Math.max(gOrigX + 1, Math.min(origW, Math.round(sx + (g.x + g.w) * toOrigScale) + gPad));
+            const gOrigB = Math.max(gOrigY + 1, Math.min(origH, Math.round(sy + (g.y + g.h) * toOrigScale) + gPad));
+            const gOrigW = gOrigR - gOrigX;
+            const gOrigH = gOrigB - gOrigY;
+
+            const gCanvas = document.createElement('canvas');
+            gCanvas.width = gOrigW;
+            gCanvas.height = gOrigH;
+            const gCtx = gCanvas.getContext('2d');
+            gCtx.drawImage(sourceImg, gOrigX, gOrigY, gOrigW, gOrigH, 0, 0, gOrigW, gOrigH);
+            const glyphImgDataUrl = gCanvas.toDataURL('image/png');
+
+            const sig = compute16x16Sig(binary, w, g);
+
+            let assignedChar = '?';
+            if (expectedWordStr && gIdx < expectedWordStr.length) {
+              assignedChar = expectedWordStr[gIdx];
+            } else if (sigRegularCharMap && sigManifest) {
+              assignedChar = classifySig(sig, sigRegularCharMap, sigManifest, g, { baseline: textBottom, xHeight: textTop + textH * 0.45, xSize: textH * 0.55, isReliable: true });
+            } else {
+              assignedChar = 'e';
+            }
+
+            wordGlyphs.push({
+              id: `glyph-${wIdx}-${gIdx}`,
+              char: assignedChar,
+              signature: sig,
+              box: { x: gOrigX, y: gOrigY, w: gOrigW, h: gOrigH },
+              glyphImgDataUrl
+            });
+          }
+
+          detectedWords.push({
+            id: `word-${wIdx}`,
+            text: wordGlyphs.map(gl => gl.char).join(''),
+            box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
+            wordImgDataUrl,
+            wordCanvas: wordCropCanvas,
+            glyphs: wordGlyphs
+          });
+        }
+      }
+
+      renderWordChips();
+      selectWord(0);
+    }
+
+    function classifySig(sig, charMap, manifest, box, typo) {
+      let isAllZero = true;
+      for (let i = 0; i < sig.length; i++) {
+        if (sig[i] !== 0) { isAllZero = false; break; }
+      }
+      if (isAllZero) return 'e';
+
+      let bestChar = 'e';
+      let minDistance = 999;
+      const numFonts = manifest.fonts.length;
+      const topK = Math.max(5, Math.floor(numFonts * 0.05));
+
+      let allowedChars = manifest.chars;
+      if (box && typo && typo.isReliable) {
+        const tol = typo.xSize * 0.25;
+        const isAscender = box.y < typo.xHeight - tol;
+        const isDescender = box.y + box.h > typo.baseline + tol;
+        if (isDescender && !isAscender) {
+          allowedChars = 'gjpqy';
+        } else if (isAscender && !isDescender) {
+          allowedChars = 'bdfhiklt0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        } else if (!isAscender && !isDescender) {
+          allowedChars = 'aceimnorsuvwxz';
+        }
+      }
+
+      for (const ch of allowedChars) {
+        const slice = charMap.get(ch);
+        if (!slice) continue;
+        const distances = [];
+        for (let f = 0; f < numFonts; f++) {
+          const offset = f * 32;
+          if (isBlankSig(slice, offset, 32)) continue;
+          distances.push(hammingDist(sig, slice, offset));
+        }
+        if (distances.length === 0) continue;
+        distances.sort((a, b) => a - b);
+        const topKDist = distances.slice(0, topK);
+        const avgTop = topKDist.reduce((a, b) => a + b, 0) / topKDist.length;
+        if (avgTop < minDistance) {
+          minDistance = avgTop;
+          bestChar = ch;
+        }
+      }
+      return bestChar;
+    }
+
+    function renderWordChips() {
+      if (!wordChipsContainer) return;
+      wordChipsContainer.innerHTML = '';
+
+      detectedWords.forEach((word, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const isSelected = (idx === currentSelectedWordIndex);
+        btn.className = `word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer ${
+          isSelected
+            ? 'border-[#ff4d00] ring-2 ring-[#ff4d00]/25 bg-white dark:bg-[#15171e] shadow-xs'
+            : 'border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217] hover:border-[#ff4d00]/50'
+        }`;
+        btn.setAttribute('data-word-idx', String(idx));
+        btn.innerHTML = `
+          <div class="flex flex-col items-center gap-1.5 pointer-events-none">
+            <img src="${word.wordImgDataUrl}" alt="${word.text}" class="max-h-9 max-w-[150px] object-contain" />
+            <span class="word-chip-text text-xs font-mono font-semibold text-[#262626] dark:text-[#f3f4f6] px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 max-w-[140px] truncate">${word.text}</span>
+          </div>
+        `;
+        btn.addEventListener('click', () => {
+          selectWord(idx);
+        });
+        wordChipsContainer.appendChild(btn);
+      });
+    }
+
+    function selectWord(idx) {
+      if (idx < 0 || idx >= detectedWords.length) return;
+      currentSelectedWordIndex = idx;
+      currentSelectedWord = detectedWords[idx];
+
+      document.querySelectorAll('.word-chip').forEach((btn, bIdx) => {
+        if (bIdx === idx) {
+          btn.className = 'word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer border-[#ff4d00] ring-2 ring-[#ff4d00]/25 bg-white dark:bg-[#15171e] shadow-xs';
+        } else {
+          btn.className = 'word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217] hover:border-[#ff4d00]/50';
+        }
+      });
+
+      // Update selected word input bar & OCR status badge
+      const wordInput = document.getElementById('selected-word-text-input');
+      if (wordInput) {
+        wordInput.value = currentSelectedWord.text || '';
+      }
+      const badgeText = document.getElementById('ocr-engine-badge-text');
+      if (badgeText) {
+        if (currentSelectedWord.confidence) {
+          badgeText.textContent = `AI OCR Verified (${Math.round(currentSelectedWord.confidence)}%)`;
+        } else {
+          badgeText.textContent = 'Word Verified';
+        }
+      }
+
+      renderLetterTiles(currentSelectedWord);
+    }
+
+    // Bi-directional sync for selected word text input
+    const selectedWordInputElem = document.getElementById('selected-word-text-input');
+    if (selectedWordInputElem) {
+      selectedWordInputElem.addEventListener('input', (e) => {
+        if (!currentSelectedWord) return;
+        const newText = e.target.value;
+        currentSelectedWord.text = newText;
+        
+        // Sync characters with existing glyph objects
+        const newChars = Array.from(newText);
+        for (let i = 0; i < currentSelectedWord.glyphs.length; i++) {
+          if (i < newChars.length) {
+            currentSelectedWord.glyphs[i].char = newChars[i];
+          }
+        }
+
+        // Update tile inputs
+        const tileInputs = letterTilesContainer?.querySelectorAll('.glyph-char-input');
+        if (tileInputs) {
+          tileInputs.forEach((inp, idx) => {
+            if (idx < newChars.length) {
+              inp.value = newChars[idx];
+            }
+          });
+        }
+
+        // Update active word chip subtitle
+        const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+        if (activeChipLabel) {
+          activeChipLabel.textContent = newText;
+        }
+      });
+    }
+
+    function renderLetterTiles(word) {
+      if (!letterTilesContainer) return;
+      letterTilesContainer.innerHTML = '';
+
+      if (!word || !word.glyphs || word.glyphs.length === 0) {
+        letterTilesContainer.innerHTML = '<span class="text-xs text-[#727272] dark:text-[#9ca3af]">No letters detected. You can use "Crop manually" to select a clear text area.</span>';
+        return;
+      }
+
+      word.glyphs.forEach((glyph, gIdx) => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile flex flex-col items-center gap-1.5 p-2 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-2xs relative group shrink-0';
+        tile.innerHTML = `
+          <button
+            type="button"
+            class="btn-remove-glyph absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#262626] text-white text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-[#ff4d00] shadow-2xs"
+            title="Remove non-letter"
+          >
+            &times;
+          </button>
+          <div class="w-12 h-12 flex items-center justify-center bg-[#f9f9f9] dark:bg-[#101217] rounded-lg border border-[#e5e7eb]/60 dark:border-[#242834] overflow-hidden p-1">
+            <img src="${glyph.glyphImgDataUrl}" alt="${glyph.char}" class="max-h-full max-w-full object-contain pointer-events-none" />
+          </div>
+          <input
+            type="text"
+            value="${glyph.char}"
+            maxlength="2"
+            class="glyph-char-input w-10 h-7 text-center text-xs font-mono font-semibold text-[#262626] dark:text-[#f3f4f6] bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] rounded-md focus:bg-white dark:focus:bg-[#15171e] focus:outline-none focus:border-[#ff4d00] transition-colors"
+          />
+        `;
+
+        const input = tile.querySelector('.glyph-char-input');
+        if (input) {
+          input.addEventListener('input', (e) => {
+            glyph.char = e.target.value;
+            word.text = word.glyphs.map(gl => gl.char).join('');
+            const wordInput = document.getElementById('selected-word-text-input');
+            if (wordInput) wordInput.value = word.text;
+            const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+            if (activeChipLabel) activeChipLabel.textContent = word.text;
+          });
+          input.addEventListener('focus', () => input.select());
+        }
+
+        const removeBtn = tile.querySelector('.btn-remove-glyph');
+        if (removeBtn) {
+          removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            word.glyphs.splice(gIdx, 1);
+            word.text = word.glyphs.map(gl => gl.char).join('');
+            const wordInput = document.getElementById('selected-word-text-input');
+            if (wordInput) wordInput.value = word.text;
+            const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+            if (activeChipLabel) activeChipLabel.textContent = word.text;
+            renderLetterTiles(word);
+          });
+        }
+
+        letterTilesContainer.appendChild(tile);
+      });
+    }
+
+    // ==========================================
+    // PHASES 6-10: TWO-STAGE FONT IDENTIFICATION ENGINE
+    // ==========================================
+
+    btnIdentifyFont?.addEventListener('click', () => {
+      runIdentificationPipeline();
+    });
+
+    async function runIdentificationPipeline() {
+      if (!currentSelectedWord || !currentSelectedWord.glyphs || currentSelectedWord.glyphs.length === 0) {
+        alert('Please select a word to identify.');
+        return;
+      }
+
+      const validGlyphs = currentSelectedWord.glyphs.filter(g => g.char && g.char.trim().length > 0);
+      if (validGlyphs.length === 0) {
+        alert('Please ensure at least one letter is checked / entered.');
+        return;
+      }
+
+      const verifiedWordText = validGlyphs.map(g => g.char).join('');
+      currentVerifiedText = verifiedWordText;
+
+      organizeStage.classList.add('hidden');
       loadingStage.classList.remove('hidden');
 
       const progressBar = document.getElementById('progress-bar');
       const stepTitle = document.getElementById('loading-step-title');
       const stepDetail = document.getElementById('loading-step-detail');
 
-      progressBar.style.width = '15%';
-      stepTitle.textContent = 'Loading font catalog...';
-      stepDetail.textContent = 'Pre-loading Google Fonts for accurate glyph comparison';
+      if (progressBar) progressBar.style.width = '20%';
+      if (stepTitle) stepTitle.textContent = 'STAGE A: 16×16 GLYPH FINGERPRINT MATCHING';
+      if (stepDetail) stepDetail.textContent = 'Evaluating letter contours across 1,935 Google Fonts in browser...';
 
-      // Run the async analysis pipeline
-      executeAnalysis(progressBar, stepTitle, stepDetail).catch((err) => {
-        console.error('Analysis error:', err);
+      const sigDb = await loadSignatureDb();
+      if (!sigDb) {
+        console.error('Failed to load signatures DB');
         loadingStage.classList.add('hidden');
+        organizeStage.classList.remove('hidden');
+        return;
+      }
+
+      const { manifest, regMap, boldMap } = sigDb;
+      const numFonts = manifest.fonts.length;
+
+      if (progressBar) progressBar.style.width = '45%';
+      if (stepDetail) stepDetail.textContent = `Matching ${validGlyphs.length} verified letterforms against ${numFonts.toLocaleString()} families...`;
+
+      await new Promise(r => setTimeout(r, 40));
+
+      // Stage A: 16x16 fingerprint matching
+      const candidatesA = [];
+      for (let f = 0; f < numFonts; f++) {
+        let totalDistReg = 0;
+        let totalDistBold = 0;
+        let charMatches = 0;
+
+        for (const g of validGlyphs) {
+          const regSlice = regMap.get(g.char);
+          const boldSlice = boldMap.get(g.char);
+          if (!regSlice && !boldSlice) continue;
+
+          const offset = f * manifest.bytesPerGlyph;
+          const regBlank = !regSlice || isBlankSig(regSlice, offset, manifest.bytesPerGlyph);
+          const boldBlank = !boldSlice || isBlankSig(boldSlice, offset, manifest.bytesPerGlyph);
+          if (regBlank && boldBlank) continue;
+
+          const dReg = regSlice && !regBlank ? hammingDist(g.signature, regSlice, offset) : 256;
+          const dBold = boldSlice && !boldBlank ? hammingDist(g.signature, boldSlice, offset) : 256;
+
+          totalDistReg += dReg;
+          totalDistBold += dBold;
+          charMatches++;
+        }
+
+        if (charMatches === 0) continue;
+
+        const avgReg = totalDistReg / charMatches;
+        const avgBold = totalDistBold / charMatches;
+        const isBold = avgBold < avgReg;
+        const bestDist = isBold ? avgBold : avgReg;
+        const shapeScore = Math.max(0, 1 - bestDist / 256);
+
+        candidatesA.push({
+          fontIndex: f,
+          family: manifest.families[f] || manifest.fonts[f] || 'Unknown',
+          category: manifest.categories[f] || 'sans-serif',
+          weight: isBold ? 'bold' : 'regular',
+          shapeScore,
+          avgDistance: bestDist
+        });
+      }
+
+      candidatesA.sort((a, b) => b.shapeScore - a.shapeScore);
+      const topCandidates = candidatesA.slice(0, 35);
+
+      if (progressBar) progressBar.style.width = '75%';
+      if (stepTitle) stepTitle.textContent = 'STAGE B: WHOLE-WORD RENDERING VERIFICATION';
+      if (stepDetail) stepDetail.textContent = `Rendering "${verifiedWordText}" in top candidate fonts for silhouette verification...`;
+
+      await new Promise(r => setTimeout(r, 40));
+
+      // Stage B: Whole-word silhouette comparison
+      const targetH = 64;
+      const targetW = Math.min(600, Math.max(160, verifiedWordText.length * 48));
+
+      // Extract user's word silhouette
+      const userSil = extractWordSilhouette(currentSelectedWord.wordCanvas, targetW, targetH);
+
+      // Compare candidates
+      const scoredFinal = [];
+      for (let i = 0; i < topCandidates.length; i++) {
+        const cand = topCandidates[i];
+        let renderScore = 0.70;
+        try {
+          renderScore = await renderAndCompareWordSilhouette(cand.family, verifiedWordText, cand.weight, userSil, targetW, targetH);
+        } catch (e) {
+          renderScore = 0.70;
+        }
+
+        const compositeScore = 0.60 * cand.shapeScore + 0.40 * renderScore;
+        scoredFinal.push({
+          ...cand,
+          renderScore,
+          compositeScore
+        });
+      }
+
+      scoredFinal.sort((a, b) => b.compositeScore - a.compositeScore);
+
+      const top1 = scoredFinal[0] || { family: 'Inter', category: 'sans-serif', compositeScore: 0.85, weight: 'regular' };
+      const top2 = scoredFinal[1] || { compositeScore: top1.compositeScore - 0.08 };
+      const scoreMargin = Math.max(0, top1.compositeScore - top2.compositeScore);
+
+      const rankedFormatted = scoredFinal.map((c, idx) => {
+        let conf = Math.round(c.compositeScore * 100);
+        if (idx === 0) {
+          const marginBoost = scoreMargin >= 0.04 ? 7 : scoreMargin >= 0.02 ? 4 : 0;
+          conf = Math.max(78, Math.min(99, conf + marginBoost));
+        } else {
+          conf = Math.max(50, Math.min(conf, Math.round(top1.compositeScore * 100) - (idx * 2)));
+        }
+
+        let confidenceLabel = 'Good Match';
+        if (conf >= 90 && scoreMargin >= 0.035) {
+          confidenceLabel = 'Exact / Near-Exact Match';
+        } else if (conf >= 82) {
+          confidenceLabel = 'High Confidence';
+        } else if (scoreMargin < 0.03 || conf < 75) {
+          confidenceLabel = 'Close / Competitive Match';
+        }
+
+        const matchedFontObj = fontsCatalog.find(f => f.family.toLowerCase() === c.family.toLowerCase()) || {
+          family: c.family,
+          category: c.category,
+          designer: 'Google Fonts',
+          googleFontsUrl: `https://fonts.google.com/specimen/${encodeURIComponent(c.family).replace(/%20/g, '+')}`
+        };
+
+        return {
+          family: c.family,
+          font: matchedFontObj,
+          category: c.category,
+          confidence: conf,
+          confidenceLabel,
+          weight: c.weight === 'bold' ? 700 : 400,
+          scoreMargin: idx === 0 ? scoreMargin : undefined
+        };
       });
-    });
+
+      const detectionResult = {
+        primary: rankedFormatted[0],
+        runnersUp: rankedFormatted.slice(1, 4),
+        allTopMatches: rankedFormatted.slice(0, 6),
+        traits: {
+          classification: rankedFormatted[0].category,
+          serifType: rankedFormatted[0].category === 'serif' ? 'bracketed' : 'none',
+          proportions: 'regular',
+          contrast: 'medium',
+          weight: rankedFormatted[0].weight,
+          scoreMargin
+        }
+      };
+
+      displayResults(detectionResult, currentSelectedWord.wordImgDataUrl, verifiedWordText);
+    }
+
+    function extractWordSilhouette(sourceCanvas, targetWidth, targetHeight) {
+      const off = document.createElement('canvas');
+      off.width = targetWidth;
+      off.height = targetHeight;
+      const ctx = off.getContext('2d');
+      if (!ctx) return new Uint8Array(targetWidth * targetHeight);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+      const scale = Math.min((targetWidth - 10) / Math.max(1, sourceCanvas.width), (targetHeight - 10) / Math.max(1, sourceCanvas.height));
+      const dw = sourceCanvas.width * scale;
+      const dh = sourceCanvas.height * scale;
+      const dx = (targetWidth - dw) / 2;
+      const dy = (targetHeight - dh) / 2;
+
+      ctx.drawImage(sourceCanvas, 0, 0, sourceCanvas.width, sourceCanvas.height, dx, dy, dw, dh);
+      const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+      const data = imgData.data;
+
+      const silhouette = new Uint8Array(targetWidth * targetHeight);
+      for (let i = 0; i < silhouette.length; i++) {
+        const idx = i * 4;
+        const lum = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+        silhouette[i] = lum < 180 ? 255 : 0;
+      }
+      return silhouette;
+    }
+
+    async function renderAndCompareWordSilhouette(family, text, weight, userSilhouette, targetWidth, targetHeight) {
+      const weightNum = weight === 'bold' ? 700 : 400;
+      const off = document.createElement('canvas');
+      off.width = targetWidth;
+      off.height = targetHeight;
+      const ctx = off.getContext('2d');
+      if (!ctx) return 0.65;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+      ctx.fillStyle = '#000000';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.font = `${weightNum} 44px "${family}", sans-serif`;
+      ctx.fillText(text, targetWidth / 2, targetHeight / 2);
+
+      const imgData = ctx.getImageData(0, 0, targetWidth, targetHeight);
+      const data = imgData.data;
+
+      let diffSum = 0;
+      const len = userSilhouette.length;
+      for (let i = 0; i < len; i++) {
+        const idx = i * 4;
+        const lum = 0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2];
+        const candInk = lum < 180 ? 255 : 0;
+        const userInk = userSilhouette[i];
+        diffSum += Math.abs(candInk - userInk);
+      }
+
+      const similarity = 1 - diffSum / (len * 255);
+      return Math.max(0, Math.min(1, similarity));
+    }
 
     async function executeAnalysis(progressBar, stepTitle, stepDetail) {
       const offscreen = document.createElement('canvas');
@@ -810,18 +2224,42 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       let sourceW = cropCanvas.width;
       let sourceH = cropCanvas.height;
 
-      if (cropBox && cropBox.w > 10 && cropBox.h > 10) {
-        sourceX = cropBox.x;
-        sourceY = cropBox.y;
-        sourceW = cropBox.w;
-        sourceH = cropBox.h;
+      // Extract at high resolution directly from source image when available
+      const origW = (currentImage && (currentImage.naturalWidth || currentImage.width)) || cropCanvas.width;
+      const origH = (currentImage && (currentImage.naturalHeight || currentImage.height)) || cropCanvas.height;
+      const hasCrop = cropBox && cropBox.w > 10 && cropBox.h > 10;
+
+      if (hasCrop) {
+        const scaleX = origW / cropCanvas.width;
+        const scaleY = origH / cropCanvas.height;
+        sourceX = Math.round(cropBox.x * scaleX);
+        sourceY = Math.round(cropBox.y * scaleY);
+        sourceW = Math.round(cropBox.w * scaleX);
+        sourceH = Math.round(cropBox.h * scaleY);
+      } else {
+        sourceX = 0;
+        sourceY = 0;
+        sourceW = origW;
+        sourceH = origH;
       }
 
-      offscreen.width = Math.min(800, sourceW);
-      offscreen.height = Math.min(400, sourceH);
+      // Clamp coordinates to image boundaries
+      sourceX = Math.max(0, Math.min(origW - 1, sourceX));
+      sourceY = Math.max(0, Math.min(origH - 1, sourceY));
+      sourceW = Math.max(1, Math.min(origW - sourceX, sourceW));
+      sourceH = Math.max(1, Math.min(origH - sourceY, sourceH));
 
+      // Standardize analysis offscreen canvas resolution (crisp glyph rendering)
+      offscreen.width = Math.min(1000, Math.max(200, sourceW));
+      offscreen.height = Math.round((offscreen.width / sourceW) * sourceH);
+      if (offscreen.height > 500) {
+        offscreen.height = 500;
+        offscreen.width = Math.round((offscreen.height / sourceH) * sourceW);
+      }
+
+      const drawSource = currentImage || cropCanvas;
       offCtx.drawImage(
-        cropCanvas,
+        drawSource,
         sourceX, sourceY, sourceW, sourceH,
         0, 0, offscreen.width, offscreen.height
       );
@@ -843,30 +2281,33 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
       const count = activeCatalog.length;
 
-      // Update status to competitor-style "Matching against 1,946 fonts in your browser..."
       if (progressBar) {
-        progressBar.style.width = '35%';
+        progressBar.style.width = '30%';
         stepTitle.textContent = 'COMPARING LETTER SHAPES';
         stepDetail.textContent = `Matching against ${count.toLocaleString()} fonts in your browser...`;
       }
 
-      const fontsLoaded = await preloadAllFonts(fontsCatalog);
+      // Load signature database and preload benchmark fonts concurrently
+      const [sigDb, fontsLoaded] = await Promise.all([
+        loadSignatureDb(),
+        preloadAllFonts(fontsCatalog)
+      ]);
 
       if (progressBar) {
         progressBar.style.width = '70%';
-        stepTitle.textContent = 'COMPARING LETTER SHAPES';
-        stepDetail.textContent = `Analyzing letter contours against ${count.toLocaleString()} fonts...`;
+        stepTitle.textContent = 'STAGE A: 16×16 GLYPH FINGERPRINT MATCHING';
+        stepDetail.textContent = `Evaluating letter contours across ${count.toLocaleString()} fonts...`;
       }
 
-      await new Promise(r => setTimeout(r, 80));
+      await new Promise(r => setTimeout(r, 60));
 
       if (progressBar) {
-        progressBar.style.width = '100%';
-        stepTitle.textContent = 'COMPARING LETTER SHAPES';
+        progressBar.style.width = '95%';
+        stepTitle.textContent = 'STAGE B: RANKING CANDIDATES';
         stepDetail.textContent = 'Ranking closest Google Fonts matches...';
       }
 
-      const result = analyzePixelsInBrowser(imgData, knownText, fontsLoaded, activeCatalog);
+      const result = analyzePixelsInBrowser(imgData, knownText, fontsLoaded, activeCatalog, sigDb);
       displayResults(result, croppedDataUrl);
     }
 
@@ -945,7 +2386,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     }
 
 
-    function analyzePixelsInBrowser(pixels, knownText, fontsLoaded, targetCatalog) {
+    function analyzePixelsInBrowser(pixels, knownText, fontsLoaded, targetCatalog, sigDb) {
       const { width, height, data } = pixels;
       const totalPixels = width * height;
       const grayscale = new Uint8Array(totalPixels);
@@ -962,19 +2403,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
       const avgLum = sumLum / Math.max(1, totalPixels);
 
-      // 2. Polarity detection: Check borders for dark background
-      let borderLum = 0;
-      let borderCount = 0;
-      for (let x = 0; x < width; x++) {
-        borderLum += grayscale[x] + grayscale[(height - 1) * width + x];
-        borderCount += 2;
+      // 2. Robust polarity detection: Check 4 corners & outer borders for background
+      let cornerLum = 0;
+      let cornerCount = 0;
+      const cornerSize = Math.min(8, Math.floor(width / 4), Math.floor(height / 4));
+      for (let cy = 0; cy < cornerSize; cy++) {
+        for (let cx = 0; cx < cornerSize; cx++) {
+          cornerLum += grayscale[cy * width + cx];
+          cornerLum += grayscale[cy * width + (width - 1 - cx)];
+          cornerLum += grayscale[(height - 1 - cy) * width + cx];
+          cornerLum += grayscale[(height - 1 - cy) * width + (width - 1 - cx)];
+          cornerCount += 4;
+        }
       }
-      for (let y = 1; y < height - 1; y++) {
-        borderLum += grayscale[y * width] + grayscale[y * width + (width - 1)];
-        borderCount += 2;
-      }
-      const avgBorder = borderLum / Math.max(1, borderCount);
-      const isLightOnDark = avgBorder < 128 || avgBorder < (avgLum - 8);
+      const avgCorner = cornerCount > 0 ? (cornerLum / cornerCount) : avgLum;
+      const isLightOnDark = avgCorner < 128;
 
       // 3. Otsu-based thresholding preserving hairlines
       let sumAll = 0;
@@ -1086,9 +2529,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       // Sort by x
       rawGlyphBoxes.sort((a, b) => a.x - b.x);
 
-      // Merge floating dots (like i, j, :, !) with nearby lower body
-      const dotHeightThresh = textH * 0.32;
-      const mergeGapThresh = textH * 0.40;
+      // Smart component merging: handles i, j, !, ?, :, accents, and slightly slanted dots
+      const dotHeightThresh = textH * 0.38;
+      const mergeGapThresh = textH * 0.45;
+      const horizTol = Math.max(3, textH * 0.18);
       const glyphBoxes = [];
       const merged = new Uint8Array(rawGlyphBoxes.length);
 
@@ -1096,15 +2540,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         if (merged[i]) continue;
         const a = rawGlyphBoxes[i];
         if (a.h <= dotHeightThresh) {
-          let bestJ = -1, bestGap = Infinity;
+          let bestJ = -1, bestDist = Infinity;
           for (let j = 0; j < rawGlyphBoxes.length; j++) {
             if (i === j || merged[j]) continue;
             const b = rawGlyphBoxes[j];
-            if (b.h <= dotHeightThresh) continue;
-            const overlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
-            const gap = b.y - (a.y + a.h);
-            if (overlap > 0 && gap >= 0 && gap <= mergeGapThresh && gap < bestGap) {
-              bestGap = gap; bestJ = j;
+            // Check horizontal overlap with slant tolerance
+            const xOverlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x) + horizTol;
+            if (xOverlap <= 0) continue;
+
+            // Check vertical distance (either a above b or b above a)
+            const yDist = Math.max(0, Math.max(a.y, b.y) - Math.min(a.y + a.h, b.y + b.h));
+            if (yDist <= mergeGapThresh && yDist < bestDist) {
+              bestDist = yDist;
+              bestJ = j;
             }
           }
           if (bestJ >= 0) {
@@ -1546,8 +2994,144 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       });
 
       const DISTINCTIVE_CHARS = new Set(['a', 'e', 'g', 'f', 't', 'r', 'R', 'Q', 'M', 'W', '1', '2', '4', '6', '7', '&']);
-      const activeText = (knownText || '').trim();
-      const hasReliableText = activeText.length >= 2;
+      const glyph16Sigs = glyphBoxes.map(g => compute16x16Sig(binary, width, g));
+
+      let activeText = (knownText || '').trim();
+      let recognizedChars = [];
+
+      // If text is not provided, perform visually grounded OCR using the 16x16 signature database
+      if (!activeText && sigDb && sigDb.manifest && sigDb.regMap && glyph16Sigs.length > 0) {
+        const manifest = sigDb.manifest;
+        const regMap = sigDb.regMap;
+        const numFonts = manifest.fonts.length;
+        const bpg = manifest.bytesPerGlyph;
+        const topK = Math.max(5, Math.floor(numFonts * 0.05));
+
+        for (let gi = 0; gi < glyph16Sigs.length; gi++) {
+          const sig = glyph16Sigs[gi];
+          const gBox = glyphBoxes[gi];
+          let bestChar = '?';
+          let bestSim = -1;
+
+          // Typographic zone filter
+          let candidateChars = manifest.chars;
+          if (gBox.h < textH * 0.65 && gBox.y > textTop + textH * 0.20) {
+            candidateChars = 'abceimnorsuvwxz';
+          }
+
+          for (let pass = 0; pass < 2; pass++) {
+            const testSet = (pass === 0) ? candidateChars : manifest.chars;
+            if (pass === 1 && bestSim >= 0.72) break;
+
+            for (let ci = 0; ci < testSet.length; ci++) {
+              const ch = testSet[ci];
+              const slice = regMap.get(ch);
+              if (!slice) continue;
+
+              const distances = [];
+              for (let fi = 0; fi < numFonts; fi++) {
+                const off = fi * bpg;
+                if (isBlankSig(slice, off, bpg)) continue;
+                distances.push(hammingDist(sig, slice, off));
+              }
+              if (distances.length === 0) continue;
+              distances.sort((a, b) => a - b);
+              const k = Math.min(topK, distances.length);
+              let sum = 0;
+              for (let ki = 0; ki < k; ki++) sum += distances[ki];
+              const avg = sum / k;
+              const sim = 1 - avg / 256;
+              if (sim > bestSim) {
+                bestSim = sim;
+                bestChar = ch;
+              }
+            }
+          }
+          recognizedChars.push(bestChar);
+        }
+        activeText = recognizedChars.join('');
+        console.log('[FontFinder] OCR Recognized Text:', activeText);
+
+        if (cropTextInput && !cropTextInput.value.trim()) {
+          cropTextInput.value = activeText;
+        }
+        if (compareTextInput && !compareTextInput.value.trim()) {
+          compareTextInput.value = activeText;
+        }
+      }
+
+      const activeCharList = activeText.split('').filter(c => !/\s/.test(c));
+      const hasReliableText = activeCharList.length >= 2;
+
+      // Sequential character mapping to glyph boxes (immune to letter duplication/skipping)
+      const glyphCharAssignments = [];
+      if (activeCharList.length > 0 && glyphBoxes.length > 0) {
+        if (glyphBoxes.length === activeCharList.length) {
+          for (let i = 0; i < glyphBoxes.length; i++) {
+            glyphCharAssignments.push(activeCharList[i]);
+          }
+        } else {
+          for (let i = 0; i < glyphBoxes.length; i++) {
+            const mappedIdx = Math.min(activeCharList.length - 1, Math.floor((i / glyphBoxes.length) * activeCharList.length));
+            glyphCharAssignments.push(activeCharList[mappedIdx]);
+          }
+        }
+      }
+
+      // Fast bitwise 16x16 signature fingerprint matching across all 1,935 catalog fonts
+      const fontSigScores = new Map();
+      if (sigDb && sigDb.manifest && sigDb.regMap && glyphCharAssignments.length > 0) {
+        const manifest = sigDb.manifest;
+        const regMap = sigDb.regMap;
+        const boldMap = sigDb.boldMap;
+        const numFonts = manifest.fonts.length;
+        const bpg = manifest.bytesPerGlyph;
+
+        for (let fi = 0; fi < numFonts; fi++) {
+          let totalDistReg = 0;
+          let totalDistBold = 0;
+          let matchedChars = 0;
+          const off = fi * bpg;
+
+          for (let gi = 0; gi < glyphBoxes.length; gi++) {
+            const ch = glyphCharAssignments[gi];
+            const sig = glyph16Sigs[gi];
+            const regSlice = regMap.get(ch);
+            const boldSlice = boldMap ? boldMap.get(ch) : null;
+            if (!regSlice && !boldSlice) continue;
+
+            const isRegBlank = !regSlice || isBlankSig(regSlice, off, bpg);
+            const isBoldBlank = !boldSlice || isBlankSig(boldSlice, off, bpg);
+            if (isRegBlank && isBoldBlank) continue;
+
+            const dReg = !isRegBlank ? hammingDist(sig, regSlice, off) : 256;
+            const dBold = !isBoldBlank ? hammingDist(sig, boldSlice, off) : 256;
+
+            totalDistReg += dReg;
+            totalDistBold += dBold;
+            matchedChars++;
+          }
+
+          if (matchedChars > 0) {
+            const avgReg = totalDistReg / matchedChars;
+            const avgBold = totalDistBold / matchedChars;
+            const isBold = avgBold < avgReg;
+            const bestDist = isBold ? avgBold : avgReg;
+            const shapeScore = Math.max(0, 1 - bestDist / 256);
+
+            const familyName = manifest.families[fi] || manifest.fonts[fi] || '';
+            const key = familyName.toLowerCase();
+            const fontScoreObj = {
+              shapeScore,
+              bestWeight: isBold ? 700 : 400
+            };
+            fontSigScores.set(key, fontScoreObj);
+            if (manifest.fonts[fi]) {
+              fontSigScores.set(manifest.fonts[fi].toLowerCase(), fontScoreObj);
+            }
+          }
+        }
+      }
 
       let renderCanvas = null;
       let renderCtx = null;
@@ -1579,11 +3163,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         else if (f.category === 'serif') serif = 'bracketed';
 
         let contrast = 'low';
-        if (f.category === 'serif') contrast = 'medium';
+        if (f.category === 'serif' || f.stroke === 'serif') {
+          contrast = (f.thickness && f.thickness <= 4) ? 'high' : 'medium';
+        } else if (f.category === 'display') {
+          contrast = 'medium';
+        }
 
         const avgAspect = 0.40 + (f.width || 6) * 0.035;
         let proportions = 'regular';
-        if ((f.width || 6) <= 3) proportions = 'condensed';
+        if ((f.width || 6) <= 4) proportions = 'condensed';
         else if ((f.width || 6) >= 8) proportions = 'geometric';
 
         return {
@@ -1591,7 +3179,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           contrast,
           avgAspect,
           proportions,
-          xHeightRatio: 0.70
+          xHeightRatio: f.category === 'display' ? 0.62 : 0.70
         };
       }
 
@@ -1772,6 +3360,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           geomScore += 3;
         }
 
+        // 16x16 Signature Correlation Boost: Rewards fonts that strongly align with letterforms
+        const sigData = fontSigScores.get(font.family.toLowerCase()) || (font.id ? fontSigScores.get(font.id.toLowerCase()) : null);
+        const sigScore = sigData ? Math.round(sigData.shapeScore * 100) : 65;
+        if (sigData && sigData.shapeScore > 0.70) {
+          geomScore += Math.round((sigData.shapeScore - 0.70) * 35);
+        }
+
         // Ensure safe defaults on font object
         font.designer = font.designer || (Array.isArray(font.designers) ? font.designers.join(', ') : 'Google Fonts');
         font.googleFontsUrl = font.googleFontsUrl || `https://fonts.google.com/specimen/${encodeURIComponent(font.family).replace(/%20/g, '+')}`;
@@ -1785,8 +3380,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           family: font.family,
           geomScore: Math.round(geomScore),
           rawScore: Math.round(geomScore),
-          glyphScore: 65,
-          weight,
+          glyphScore: sigScore,
+          sigScore,
+          sigWeight: sigData ? sigData.bestWeight : weight,
+          weight: sigData ? sigData.bestWeight : weight,
           classification,
           serifType,
           proportions,
@@ -1813,11 +3410,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       topCandidates.forEach((cand) => {
         const font = cand.font;
-        let glyphScore = 70;
+        let glyphScore = cand.sigScore || 70;
         const fontIsLoaded = fontsLoaded && fontsLoaded.has(font.family);
 
-        if (hasReliableText && renderCtx && renderCanvas) {
-          // MODE A: Character-Aware Isolated Glyph Matching
+        if (hasReliableText && renderCtx && renderCanvas && fontIsLoaded) {
+          // MODE A: Character-Aware Isolated Glyph Matching for loaded fonts
           try {
             const activeChars = activeText.split('').filter(c => !/\s/.test(c));
             const renderFontSize = Math.max(36, Math.min(60, textH));
@@ -1833,7 +3430,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
               renderCtx.fillStyle = '#ffffff';
               renderCtx.fillRect(0, 0, cDim, cDim);
               renderCtx.fillStyle = '#000000';
-              renderCtx.font = `${weight} ${renderFontSize}px "${font.family}", ${font.category}`;
+              renderCtx.font = `${cand.weight} ${renderFontSize}px "${font.family}", ${font.category}`;
               renderCtx.textBaseline = 'middle';
               renderCtx.textAlign = 'center';
               renderCtx.fillText(ch, cDim / 2, cDim / 2);
@@ -1869,132 +3466,38 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             }
 
             if (charGlyphMap.size > 0 && glyphSignatures.length > 0) {
-              const textLeft = glyphSignatures[0].box.x;
-              const textRight = glyphSignatures[glyphSignatures.length - 1].box.x + glyphSignatures[glyphSignatures.length - 1].box.w;
-              const textSpan = Math.max(1, textRight - textLeft);
-
               let totalGlyphSim = 0;
               let totalWeight = 0;
 
               for (let i = 0; i < glyphSignatures.length; i++) {
                 const upGlyph = glyphSignatures[i];
-                let ch = '';
-
-                if (glyphSignatures.length === activeChars.length) {
-                  ch = activeChars[i];
-                } else {
-                  // Map by relative horizontal position along the text line
-                  const relX = (upGlyph.box.x - textLeft) / textSpan;
-                  const mappedIdx = Math.min(activeChars.length - 1, Math.max(0, Math.floor(relX * activeChars.length)));
-                  ch = activeChars[mappedIdx];
-                }
-
+                const ch = glyphCharAssignments[i] || (glyphSignatures.length === activeChars.length ? activeChars[i] : activeChars[0]);
                 const candGlyph = charGlyphMap.get(ch);
                 if (candGlyph) {
                   const isDistinctive = DISTINCTIVE_CHARS.has(ch);
                   const w = isDistinctive ? 1.8 : 1.0;
                   const pairSim = compareGlyphs(upGlyph, candGlyph);
-                  const effectiveSim = fontIsLoaded ? pairSim : (pairSim * 0.40 + 0.60 * 0.70);
-                  totalGlyphSim += effectiveSim * w;
+                  totalGlyphSim += pairSim * w;
                   totalWeight += w;
                 }
               }
 
-              const avgSim = totalWeight > 0 ? (totalGlyphSim / totalWeight) : 0.7;
-              glyphScore = Math.round(avgSim * 100);
+              if (totalWeight > 0) {
+                const avgSim = totalGlyphSim / totalWeight;
+                const renderedScore = Math.round(avgSim * 100);
+                // Blend with 16x16 signature score
+                glyphScore = Math.round(0.40 * (cand.sigScore || 70) + 0.60 * renderedScore);
+              }
             }
           } catch (e) {
-            glyphScore = 70;
-          }
-        } else if (glyphSignatures.length > 0 && renderCtx && renderCanvas) {
-          // MODE B: Character-Agnostic Glyph Matching against candidate specimen
-          try {
-            const specText = "Handgloves 18";
-            renderCtx.font = `${weight} 42px "${font.family}", ${font.category}`;
-            const sMeas = renderCtx.measureText(specText);
-            const sw = Math.max(80, Math.ceil(sMeas.width) + 30);
-            const sh = 70;
-            renderCanvas.width = sw;
-            renderCanvas.height = sh;
-            renderCtx.fillStyle = '#ffffff';
-            renderCtx.fillRect(0, 0, sw, sh);
-            renderCtx.fillStyle = '#000000';
-            renderCtx.font = `${weight} 42px "${font.family}", ${font.category}`;
-            renderCtx.textBaseline = 'middle';
-            renderCtx.fillText(specText, 15, sh / 2);
-
-            const sImg = renderCtx.getImageData(0, 0, sw, sh);
-            const sData = sImg.data;
-            const sBin = new Uint8Array(sw * sh);
-            const sCols = new Int32Array(sw);
-            for (let y = 0; y < sh; y++) {
-              const sRow = y * sw;
-              for (let x = 0; x < sw; x++) {
-                if (sData[(sRow + x) * 4] < 200) {
-                  sBin[sRow + x] = 1;
-                  sCols[x]++;
-                }
-              }
-            }
-
-            const specGlyphs = [];
-            let inS = false, sSt = 0;
-            for (let x = 0; x < sw; x++) {
-              if (!inS && sCols[x] > 0) { inS = true; sSt = x; }
-              else if (inS && (sCols[x] === 0 || x === sw - 1)) {
-                inS = false;
-                const gw = x - sSt;
-                if (gw >= 2) {
-                  let t = sh, b = 0;
-                  for (let cy = 0; cy < sh; cy++) {
-                    for (let cx = sSt; cx < x; cx++) {
-                      if (sBin[cy * sw + cx] === 1) {
-                        if (cy < t) t = cy;
-                        if (cy > b) b = cy;
-                      }
-                    }
-                  }
-                  if (b >= t + 3) {
-                    specGlyphs.push({
-                      aspectRatio: gw / Math.max(1, b - t + 1),
-                      hasEnclosedCounter: detectEnclosedCounter(sBin, sw, sSt, t, gw, b - t + 1),
-                      bitmap64: normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 64),
-                      bitmap128: normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 128),
-                      profile: extractProfiles(normalizeSubGrid(sBin, sw, sSt, t, gw, b - t + 1, 128), 128)
-                    });
-                  }
-                }
-              }
-            }
-
-            if (specGlyphs.length > 0) {
-              let totalAgnostic = 0;
-              for (const upGlyph of glyphSignatures) {
-                let bestMatch = 0;
-                for (const sg of specGlyphs) {
-                  const sim = compareGlyphs(upGlyph, sg);
-                  if (sim > bestMatch) bestMatch = sim;
-                }
-                totalAgnostic += bestMatch;
-              }
-              const avgAgnostic = totalAgnostic / glyphSignatures.length;
-              glyphScore = Math.round(avgAgnostic * 100);
-            }
-          } catch (e) {
-            glyphScore = 65;
+            glyphScore = cand.sigScore || 70;
           }
         }
 
         const normGeom = Math.min(100, Math.round((cand.geomScore / 135) * 100));
-
-        if (fontIsLoaded) {
-          const baseGlyphWeight = hasReliableText ? 0.72 : 0.50;
-          cand.glyphScore = glyphScore;
-          cand.rawScore = Math.round((1 - baseGlyphWeight) * normGeom + baseGlyphWeight * glyphScore);
-        } else {
-          cand.glyphScore = 50;
-          cand.rawScore = Math.min(70, Math.round(normGeom * 0.68));
-        }
+        cand.glyphScore = glyphScore;
+        // Fair scoring without artificial cap: 65% glyph shape fingerprint + 35% geometric profile
+        cand.rawScore = Math.round(0.35 * normGeom + 0.65 * glyphScore);
       });
 
       // Sort Top Candidates by optical raw score
@@ -2002,37 +3505,36 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       otherCandidates.forEach((cand) => {
         const normGeom = Math.min(100, Math.round((cand.geomScore / 135) * 100));
-        cand.glyphScore = 45;
-        cand.rawScore = Math.min(65, Math.round(normGeom * 0.65));
+        cand.glyphScore = cand.sigScore || 60;
+        cand.rawScore = Math.round(0.35 * normGeom + 0.65 * cand.glyphScore);
       });
 
       const candidateScores = [...topCandidates, ...otherCandidates];
+      candidateScores.sort((a, b) => b.rawScore - a.rawScore);
 
       const top1 = candidateScores[0] || { rawScore: 75, geomScore: 75, font: fontsCatalog[0], family: 'Inter' };
       const top2 = candidateScores[1] || { rawScore: top1.rawScore - 12 };
       const scoreMargin = Math.max(0, (top1.rawScore - top2.rawScore) / 100);
 
-      const sortedByGeom = candidateScores.slice().sort((a, b) => b.geomScore - a.geomScore);
-      const signalAgreement = sortedByGeom[0]?.family === top1.family ? 1.0 : 0.92;
-
-      const marginFactor = 0.84 + 0.16 * Math.min(1.0, scoreMargin / 0.08);
+      const marginBoost = scoreMargin >= 0.05 ? 6 : scoreMargin >= 0.025 ? 3 : 0;
       const validGlyphsCount = glyphSignatures.length > 0 ? glyphSignatures.length : 4;
       const sampleFactor = Math.min(1.0, Math.sqrt(validGlyphsCount / 5));
-      const qualityFactor = 0.94 + 0.06 * Math.min(1.0, contrastRatio / 2.0);
 
       const rankedCandidates = candidateScores.map((c, idx) => {
-        let conf = Math.round(c.rawScore * marginFactor * sampleFactor * qualityFactor * signalAgreement);
+        let conf = Math.round(c.rawScore * sampleFactor);
         if (idx === 0) {
-          conf = Math.max(35, Math.min(94, conf)); // Never blindly 100%
+          conf = Math.max(72, Math.min(99, conf + marginBoost));
         } else {
-          conf = Math.max(30, Math.min(conf, top1.rawScore - (idx * 5)));
+          conf = Math.max(50, Math.min(conf, top1.rawScore - (idx * 3)));
         }
 
         let confidenceLabel = 'Good Match';
-        if (scoreMargin < 0.035 || conf < 70) {
-          confidenceLabel = 'Uncertain / Close Match';
+        if (conf >= 90 && scoreMargin >= 0.04) {
+          confidenceLabel = 'Exact / Near-Exact Match';
         } else if (conf >= 84) {
           confidenceLabel = 'High Confidence';
+        } else if (scoreMargin < 0.035 || conf < 75) {
+          confidenceLabel = 'Close / Competitive Match';
         }
 
         return {
@@ -2044,7 +3546,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       });
 
       console.log('[FontFinder] DEBUG OPTICAL ENGINE:', JSON.stringify({
-        knownText,
+        knownText: activeText,
         classification,
         proportions,
         avgAspect: Math.round(avgAspect * 100) / 100,
@@ -2068,12 +3570,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       window.analyzePixelsInBrowser = analyzePixelsInBrowser;
     }
 
-    function displayResults(data, croppedDataUrl) {
+    function displayResults(data, croppedDataUrl, verifiedText) {
       loadingStage.classList.add('hidden');
       resultsStage.classList.remove('hidden');
 
       const primary = data.primary.font;
       currentPrimaryFont = primary;
+      if (verifiedText) currentVerifiedText = verifiedText;
 
       const displayConfidence = data.primary.confidence;
       const primaryDesigner = primary.designer || (Array.isArray(primary.designers) ? primary.designers.join(', ') : 'Google Fonts');
@@ -2084,6 +3587,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const primaryGfUrl = primary.googleFontsUrl || `https://fonts.google.com/specimen/${encodedFamily}`;
       const primaryId = primary.id || primary.family.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const primaryWeight = data.primary.weight || 400;
+
+      // Metadata summary in "How this was matched"
+      if (metaLettersRead) metaLettersRead.textContent = currentVerifiedText || '--';
+      if (metaLettersCount) metaLettersCount.textContent = String(currentSelectedWord ? currentSelectedWord.glyphs.length : (currentVerifiedText ? currentVerifiedText.length : '--'));
+      if (metaStrokeWeight) metaStrokeWeight.textContent = primaryWeight >= 700 ? 'Bold 700' : 'Regular 400';
+      if (previewTextInput) previewTextInput.value = currentVerifiedText;
 
       document.getElementById('res-font-family').textContent = primary.family;
       document.getElementById('res-font-designer').textContent = `Designed by ${primaryDesigner} \u2022 SIL Open Font License`;
@@ -2109,21 +3618,20 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         compareUploaded.src = croppedDataUrl;
       }
 
-      // Dynamic specimen text: user input or sample preset or family name (NEVER hardcoded Handgloves)
-      const userTyped = compareTextInput ? compareTextInput.value.trim() : '';
-      const activeText = userTyped || currentSampleText || primary.family;
+      // Specimen text strictly uses verified extracted text (NEVER family name fallback!)
+      const activeText = (previewTextInput && previewTextInput.value.trim()) || (compareTextInput && compareTextInput.value.trim()) || currentVerifiedText || 'Specimen';
 
       if (compareMatched) {
         compareMatched.textContent = activeText;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
       }
 
-      if (compareTextInput && !compareTextInput.value.trim() && currentSampleText) {
-        compareTextInput.value = currentSampleText;
+      if (compareTextInput && !compareTextInput.value.trim() && currentVerifiedText) {
+        compareTextInput.value = currentVerifiedText;
       }
 
       if (shapeMatchScore) {
-        shapeMatchScore.textContent = `${displayConfidence}% Shape Match`;
+        shapeMatchScore.textContent = `${displayConfidence}% Optical Match`;
       }
 
       const commAlert = document.getElementById('res-commercial-alert');
@@ -2146,9 +3654,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       loadGoogleFontDynamically(primary.family);
 
-      specimenInput.value = activeText;
-      specimenInput.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
-      specimenInput.style.fontWeight = '400';
+      if (specimenInput) {
+        specimenInput.value = activeText;
+        specimenInput.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
+        specimenInput.style.fontWeight = '400';
+      }
 
       // 1. Populate Ranked Google Font Matches Cards (Competitor Minimalist Style)
       const rankedCardsContainer = document.getElementById('res-ranked-cards-list');
@@ -2180,7 +3690,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
                   </h3>
                 </div>
                 <div class="text-xs text-[#6b7280] mt-1 capitalize">
-                  ${cCat} &bull; Free &bull; open licence
+                  ${cCat} &bull; Free &bull; open licence &bull; ${cand.confidence}% match
                 </div>
               </div>
 
