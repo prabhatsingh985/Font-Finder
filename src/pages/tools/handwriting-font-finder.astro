@@ -342,12 +342,6 @@ const handwritingDatabase = [
   }
 ];
 
-const scriptSamples = [
-  { id: 'caveat', label: 'Casual Script (Caveat)', sampleKey: 'caveat' },
-  { id: 'pacifico', label: 'Brush Calligraphy (Pacifico)', sampleKey: 'pacifico' },
-  { id: 'greatvibes', label: 'Royal Cursive (Great Vibes)', sampleKey: 'greatvibes' }
-];
-
 const categories = ['All', 'Casual Handwriting', 'Elegant Calligraphy', 'Brush Script', 'Monoline Signature'];
 const handwritingJson = JSON.stringify(handwritingDatabase);
 ---
@@ -625,8 +619,6 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
           dropzoneTitle="Drop handwriting sample, signature, or calligraphy"
           dropzoneSubtitle="Ligature-preserving optical engine &bull; 100% private in-browser detection"
           buttonText="Select Handwriting Image"
-          samplesTitle="Test Handwriting Samples:"
-          samples={scriptSamples}
         />
       </div>
 

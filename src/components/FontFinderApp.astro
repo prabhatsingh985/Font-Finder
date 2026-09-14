@@ -5,8 +5,6 @@ interface Props {
   dropzoneTitle?: string;
   dropzoneSubtitle?: string;
   buttonText?: string;
-  samplesTitle?: string;
-  samples?: Array<{ id: string; label: string; sampleKey: string }>;
   accept?: string;
   wordmarkInputPlaceholder?: string;
 }
@@ -15,13 +13,6 @@ const {
   dropzoneTitle = 'Drop an image or paste screenshot (⌘V)',
   dropzoneSubtitle = 'Supports PNG, JPG, WebP • 100% private in-browser detection',
   buttonText = 'Select Image File',
-  samplesTitle = 'Quick Test Samples:',
-  samples = [
-    { id: 'inter', label: 'Clean Sans (Inter)', sampleKey: 'inter' },
-    { id: 'playfair', label: 'Luxury Serif (Playfair)', sampleKey: 'playfair' },
-    { id: 'jetbrains', label: 'Dev Mono (JetBrains)', sampleKey: 'jetbrains' },
-    { id: 'oswald', label: 'Bold Poster (Oswald)', sampleKey: 'oswald' }
-  ],
   accept = 'image/png, image/jpeg, image/jpg, image/webp',
   wordmarkInputPlaceholder = ''
 } = Astro.props;
@@ -81,25 +72,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         </div>
       </div>
 
-      <!-- Sample Specimen Action Chips -->
-      <div class="mt-8 pt-6 border-t border-[#e5e7eb] dark:border-[#242834]">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span class="font-mono text-[11px] text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">
-            {samplesTitle}
-          </span>
-          <div class="flex flex-wrap items-center gap-2">
-            {samples.map((s) => (
-              <button
-                type="button"
-                data-sample={s.sampleKey}
-                class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] hover:border-[#727272]/30 text-[#262626] dark:text-[#f3f4f6] transition-colors cursor-pointer"
-              >
-                <span class="text-[#ff4d00] mr-1">&bull;</span> {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+
 
       <!-- Upload Error -->
       <div id="upload-error" class="hidden mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-xs text-red-600 font-medium text-center"></div>

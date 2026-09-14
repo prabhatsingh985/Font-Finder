@@ -1,13 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../../components/FontFinderApp.astro';
-
-const screenshotSamples = [
-  { id: 'inter', label: 'Web UI (Inter)', sampleKey: 'inter' },
-  { id: 'jetbrains', label: 'IDE Code (JetBrains Mono)', sampleKey: 'jetbrains' },
-  { id: 'playfair', label: 'Editorial Magazine (Playfair)', sampleKey: 'playfair' },
-  { id: 'oswald', label: 'Headline Banner (Oswald)', sampleKey: 'oswald' }
-];
 ---
 
 <BaseLayout
@@ -63,8 +56,6 @@ const screenshotSamples = [
           dropzoneTitle="Paste screen capture (⌘V / Ctrl+V) or drop file"
           dropzoneSubtitle="Optimized for Mac & Windows snips &bull; HiDPI 2x Retina supported &bull; 100% private"
           buttonText="Select Screenshot File"
-          samplesTitle="Try Sample Screen Captures:"
-          samples={screenshotSamples}
           accept="image/png, image/jpeg, image/jpg, image/webp"
         />
       </div>
