@@ -1073,9 +1073,8 @@ export class OpticalFontEngine {
     const candidatesA: ScoredCandidateA[] = [];
 
     for (let f = 0; f < numFonts; f++) {
-      let totalDistReg = 0;
-      let totalDistBold = 0;
-      let charMatches = 0;
+      let totalDistReg = 0, countReg = 0;
+      let totalDistBold = 0, countBold = 0;
 
       for (const g of activeGlyphs) {
         const regSlice = regMap.get(g.char);
@@ -1086,27 +1085,23 @@ export class OpticalFontEngine {
         const regBlank = !regSlice || FontSignatureService.isBlankGlyph(regSlice, offset, manifest.bytesPerGlyph);
         const boldBlank = !boldSlice || FontSignatureService.isBlankGlyph(boldSlice, offset, manifest.bytesPerGlyph);
 
-        if (regBlank && boldBlank) continue;
-
-        const dReg = regSlice && !regBlank
-          ? FontSignatureService.hammingDistance(g.signature, regSlice, offset)
-          : 256;
-        const dBold = boldSlice && !boldBlank
-          ? FontSignatureService.hammingDistance(g.signature, boldSlice, offset)
-          : 256;
-
-        totalDistReg += dReg;
-        totalDistBold += dBold;
-        charMatches++;
+        if (regSlice && !regBlank) {
+          totalDistReg += FontSignatureService.hammingDistance(g.signature, regSlice, offset);
+          countReg++;
+        }
+        if (boldSlice && !boldBlank) {
+          totalDistBold += FontSignatureService.hammingDistance(g.signature, boldSlice, offset);
+          countBold++;
+        }
       }
 
-      if (charMatches === 0) continue;
+      const scoreReg = countReg > 0 ? Math.max(0, 1 - (totalDistReg / countReg) / 256) : -1;
+      const scoreBold = countBold > 0 ? Math.max(0, 1 - (totalDistBold / countBold) / 256) : -1;
+      if (scoreReg < 0 && scoreBold < 0) continue;
 
-      const avgReg = totalDistReg / charMatches;
-      const avgBold = totalDistBold / charMatches;
-      const isBold = avgBold < avgReg;
-      const bestAvgDist = isBold ? avgBold : avgReg;
-      const shapeScore = Math.max(0, 1 - bestAvgDist / 256);
+      const isBold = scoreBold > scoreReg;
+      const shapeScore = isBold ? scoreBold : scoreReg;
+      const bestAvgDist = (1 - shapeScore) * 256;
 
       candidatesA.push({
         index: f,
@@ -1120,7 +1115,7 @@ export class OpticalFontEngine {
 
     // Sort by shapeScore descending
     candidatesA.sort((a, b) => b.shapeScore - a.shapeScore);
-    const topCandidatesA = candidatesA.slice(0, 35);
+    const topCandidatesA = candidatesA.slice(0, 40);
 
     // Stage B: Whole-Word Rendering Silhouette Verification
     onProgress?.(65, 'STAGE B: WHOLE-WORD RENDERING VERIFICATION', `Rendering word silhouette "${verifiedWordText}" across leading candidate fonts...`);
@@ -1167,17 +1162,30 @@ export class OpticalFontEngine {
         }
       }
 
-      const compositeScore = userWordSilhouette
-        ? 0.45 * cand.shapeScore + 0.55 * renderScore
-        : cand.shapeScore;
-
       finalCandidates.push({
         family: cand.family,
         category: cand.category,
         weight: cand.bestWeight,
         shapeScore: cand.shapeScore,
         renderScore,
-        compositeScore
+        compositeScore: cand.shapeScore
+      });
+    }
+
+    // Min-Max Normalization across candidates
+    if (finalCandidates.length > 0 && userWordSilhouette) {
+      const minRender = Math.min(...finalCandidates.map(c => c.renderScore));
+      const maxRender = Math.max(...finalCandidates.map(c => c.renderScore));
+      const rangeRender = Math.max(maxRender - minRender, 1e-9);
+
+      const minShape = Math.min(...finalCandidates.map(c => c.shapeScore));
+      const maxShape = Math.max(...finalCandidates.map(c => c.shapeScore));
+      const rangeShape = Math.max(maxShape - minShape, 1e-9);
+
+      finalCandidates.forEach(c => {
+        const normR = (c.renderScore - minRender) / rangeRender;
+        const normS = (c.shapeScore - minShape) / rangeShape;
+        c.compositeScore = 0.50 * normS + 0.50 * normR;
       });
     }
 
@@ -1186,14 +1194,16 @@ export class OpticalFontEngine {
     onProgress?.(90, 'CALCULATING TYPOGRAPHIC CALIBRATION', 'Calibrating confidence scores and preparing visual specimens...');
 
     const topScore = finalCandidates[0]?.compositeScore ?? 0.8;
-    const secondScore = finalCandidates[1]?.compositeScore ?? 0.75;
-    const scoreMargin = Math.max(0, topScore - secondScore);
+    const medianScore = finalCandidates[Math.floor(finalCandidates.length / 2)]?.compositeScore ?? 0.5;
+    const denom = Math.max(topScore - medianScore, 1e-6);
+    const scoreMargin = Math.max(0, topScore - (finalCandidates[1]?.compositeScore ?? 0.7));
 
     const formattedCandidates: FontMatchCandidate[] = finalCandidates.map((c, idx) => {
-      const rawPct = Math.round(c.compositeScore * 100);
-      let calibratedPct = Math.max(68, Math.min(98, rawPct));
-      if (idx === 0 && scoreMargin > 0.05) {
-        calibratedPct = Math.max(88, Math.min(99, calibratedPct + 4));
+      let calibratedPct = Math.max(0, Math.min(100, Math.round(((c.compositeScore - medianScore) / denom) * 100)));
+      if (idx === 0) {
+        calibratedPct = Math.max(88, Math.min(99, calibratedPct));
+      } else {
+        calibratedPct = Math.max(35, Math.min(calibratedPct, 96 - (idx * 2)));
       }
 
       let confidenceLabel = 'Good Match';
