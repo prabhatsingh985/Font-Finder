@@ -11,7 +11,6 @@ export const GET: APIRoute = async () => {
     '/tools/url-font-finder',
     '/tools/logo-font-finder',
     '/tools/screenshot-font-finder',
-    '/tools/pdf-font-finder',
     '/tools/handwriting-font-finder',
     '/tools/font-pairing',
     '/fonts',

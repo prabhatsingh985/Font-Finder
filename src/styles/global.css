@@ -144,6 +144,7 @@ html.dark .bg-\[\#ffffff\] {
   background-color: #15171e !important;
 }
 
+html.dark .bg-\[\#f8f9fa\],
 html.dark .bg-\[\#f9f9f9\] {
   background-color: #101217 !important;
 }
@@ -169,6 +170,7 @@ html.dark .bg-\[\#262626\] {
 
 /* Borders & hairline gridlines */
 html.dark .border-\[\#e5e7eb\],
+html.dark .border-\[\#f0f0f0\],
 html.dark .border-\[\#f3f4f6\],
 html.dark .border {
   border-color: #242834 !important;
