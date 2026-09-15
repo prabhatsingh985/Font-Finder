@@ -11,199 +11,182 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
   title="Font Finder — Developer-First Image Font Identifier & Google Fonts Verification"
   description="Identify any font from screenshots with optical precision. Technical letterform analysis verified against authentic Google Fonts with production CSS blueprints."
 >
-  <!-- Hero Section with Graph Paper Hairline Pattern -->
-  <section class="relative pt-10 pb-14 sm:pt-16 sm:pb-20 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb]">
-    <div class="max-w-[1200px] mx-auto text-center">
-      
-      <!-- Pill Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono text-xs text-[#727272] mb-5 shadow-sm">
+  <!-- Hero Section with Minimal Grid Paper Texture -->
+  <section class="relative pt-10 pb-12 sm:pt-14 sm:pb-16 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#202430] overflow-hidden">
+    <div class="max-w-[1200px] mx-auto text-center relative z-10">
+      <!-- Minimal Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#131620] border border-[#e5e7eb] dark:border-[#222533] font-mono text-[11px] text-[#6b7280] dark:text-[#9ca3af] mb-4 shadow-2xs">
         <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
-        <span>OPTICAL SCANNER &bull; VERIFIED GOOGLE FONTS</span>
+        <span class="font-medium text-[#111827] dark:text-[#f3f4f6]">Google Fonts Optical Matcher</span>
       </div>
 
-      <!-- Display Heading: Suisse 52-60px, weight 500, with single Orange highlight -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-medium tracking-[-0.26px] text-[#262626] leading-[1.1] max-w-3xl mx-auto">
-        Upload an image. <br class="hidden sm:inline" />
-        <span class="text-[#ff4d00]">Find the font</span> in seconds.
+      <!-- Dynamic Heading with Live Real-Font Morphing -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6] leading-[1.12] max-w-3xl mx-auto">
+        Identify fonts in <br class="hidden sm:inline" />
+        <span class="inline-flex items-center justify-center min-w-[220px] sm:min-w-[320px] text-[#ff4d00] transition-all duration-300 select-none" id="morphing-font-word" style="font-family: 'Playfair Display', serif; font-style: italic;">
+          Playfair Display
+        </span>
       </h1>
 
-      <p class="mt-3.5 text-base sm:text-lg text-[#727272] max-w-xl mx-auto leading-relaxed">
-        Drop any screenshot to identify typography letterforms and get matching free Google Fonts with ready-to-use CSS.
+      <p class="mt-3 text-sm sm:text-base text-[#6b7280] dark:text-[#9ca3af] max-w-lg mx-auto leading-relaxed font-normal">
+        Drop any screenshot to recognize letterforms and get verified Google Fonts alternatives.
       </p>
 
-      <!-- 3 Quick Point-to-Point Value Chips -->
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-[#262626]">
-        <span class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-xs flex items-center gap-1.5">
-          <span class="text-[#ff4d00] font-bold">&check;</span> 100% Free & Open-Source
-        </span>
-        <span class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-xs flex items-center gap-1.5">
-          <span class="text-[#ff4d00] font-bold">&check;</span> Zero Server Uploads
-        </span>
-        <span class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-xs flex items-center gap-1.5">
-          <span class="text-[#ff4d00] font-bold">&check;</span> Instant CSS Code
+      <!-- Live CSS snippet tag -->
+      <div class="mt-3 flex items-center justify-center">
+        <span class="px-3 py-1 rounded-md bg-white dark:bg-[#131620] border border-[#e5e7eb] dark:border-[#222533] font-mono text-[11px] text-[#6b7280] dark:text-[#9ca3af] transition-all shadow-2xs" id="morphing-font-css">
+          font-family: 'Playfair Display', serif;
         </span>
       </div>
     </div>
 
     <!-- Core Font Finder Tool -->
-    <div class="mt-8 sm:mt-12">
+    <div class="mt-7 sm:mt-9 relative z-10">
       <FontFinderApp />
     </div>
   </section>
 
-  <!-- Section 01: Three-step Point-to-Point Workflow -->
-  <section class="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6">
-    <!-- Numbered Section Header -->
-    <div class="flex items-center gap-2 mb-2">
-      <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-      <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / HOW IT WORKS</span>
-    </div>
-    <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626] mb-8">
-      Simple 3-step font detection
-    </h2>
+  <!-- Live Font Cycler Script -->
+  <script is:inline>
+    (function () {
+      const fonts = [
+        { name: 'Playfair Display', style: "font-family: 'Playfair Display', serif; font-style: italic;", css: "font-family: 'Playfair Display', serif;" },
+        { name: 'JetBrains Mono', style: "font-family: 'JetBrains Mono', monospace; font-weight: 500;", css: "font-family: 'JetBrains Mono', monospace;" },
+        { name: 'Bebas Neue', style: "font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px;", css: "font-family: 'Bebas Neue', cursive;" },
+        { name: 'Syne', style: "font-family: 'Syne', sans-serif; font-weight: 700;", css: "font-family: 'Syne', sans-serif;" },
+        { name: 'Cinzel', style: "font-family: 'Cinzel', serif; font-weight: 600;", css: "font-family: 'Cinzel', serif;" },
+        { name: 'Inter', style: "font-family: 'Inter', sans-serif; font-weight: 600;", css: "font-family: 'Inter', sans-serif;" }
+      ];
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      let idx = 0;
+      const wordEl = document.getElementById('morphing-font-word');
+      const cssEl = document.getElementById('morphing-font-css');
+
+      if (wordEl && cssEl) {
+        setInterval(() => {
+          idx = (idx + 1) % fonts.length;
+          const f = fonts[idx];
+          
+          wordEl.style.opacity = '0';
+          wordEl.style.transform = 'translateY(4px)';
+          
+          setTimeout(() => {
+            wordEl.textContent = f.name;
+            wordEl.setAttribute('style', f.style);
+            cssEl.textContent = f.css;
+            
+            wordEl.style.opacity = '1';
+            wordEl.style.transform = 'translateY(0)';
+            wordEl.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+          }, 150);
+        }, 2500);
+      }
+    })();
+  </script>
+
+  <!-- Section: Three-step Workflow -->
+  <section class="py-14 sm:py-18 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-1.5">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">HOW IT WORKS</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6]">
+        Three-step recognition pipeline
+      </h2>
+      <p class="text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1">From bitmap image to production-ready open-source typography.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
       <!-- Step 1 -->
-      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-6 text-left flex flex-col">
-        <div class="flex items-center justify-between mb-4">
-          <span class="font-mono text-xs text-[#ff4d00] font-semibold bg-[#ff4d00]/10 px-2.5 py-1 rounded-full border border-[#ff4d00]/20">Step 01</span>
-          <div class="w-8 h-8 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#262626]">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-            </svg>
-          </div>
+      <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-5 sm:p-6 text-left flex flex-col justify-between hover:border-[#ff4d00]/30 transition-colors shadow-2xs">
+        <div>
+          <span class="font-mono text-[11px] text-[#ff4d00] font-medium bg-[#ff4d00]/10 px-2 py-0.5 rounded border border-[#ff4d00]/20">Step 1</span>
+          <h3 class="font-medium text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6] mt-3">Upload or Paste</h3>
+          <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1.5 leading-relaxed">
+            Drop an image or paste with <kbd class="font-mono text-[10px] bg-[#f3f4f6] dark:bg-[#181a24] border border-[#e5e7eb] dark:border-[#262938] px-1 py-0.5 rounded">⌘V</kbd>. Crop around the wordmark to isolate glyph contours.
+          </p>
         </div>
-        <h3 class="font-medium text-base text-[#262626]">1. Upload or Paste</h3>
-        <ul class="mt-3 space-y-2 text-xs text-[#727272]">
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Drop image or paste directly (<kbd class="font-mono text-[10px] bg-white border border-[#e5e7eb] px-1 py-0.5 rounded">⌘V</kbd>)</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Supports PNG, JPG, and WebP</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Crop text box for maximum accuracy</span>
-          </li>
-        </ul>
       </div>
 
       <!-- Step 2 -->
-      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-6 text-left flex flex-col">
-        <div class="flex items-center justify-between mb-4">
-          <span class="font-mono text-xs text-[#ff4d00] font-semibold bg-[#ff4d00]/10 px-2.5 py-1 rounded-full border border-[#ff4d00]/20">Step 02</span>
-          <div class="w-8 h-8 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#262626]">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-            </svg>
-          </div>
+      <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-5 sm:p-6 text-left flex flex-col justify-between hover:border-[#ff4d00]/30 transition-colors shadow-2xs">
+        <div>
+          <span class="font-mono text-[11px] text-[#ff4d00] font-medium bg-[#ff4d00]/10 px-2 py-0.5 rounded border border-[#ff4d00]/20">Step 2</span>
+          <h3 class="font-medium text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6] mt-3">Optical Scan</h3>
+          <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1.5 leading-relaxed">
+            Measures contrast, aspect ratio, and serif geometries locally in WebGL. Zero server uploads.
+          </p>
         </div>
-        <h3 class="font-medium text-base text-[#262626]">2. Optical Trait Scan</h3>
-        <ul class="mt-3 space-y-2 text-xs text-[#727272]">
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Measures serifs, stem width & proportions</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>100% in-browser private execution</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Zero images uploaded or stored on servers</span>
-          </li>
-        </ul>
       </div>
 
       <!-- Step 3 -->
-      <div class="rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] p-6 text-left flex flex-col">
-        <div class="flex items-center justify-between mb-4">
-          <span class="font-mono text-xs text-[#ff4d00] font-semibold bg-[#ff4d00]/10 px-2.5 py-1 rounded-full border border-[#ff4d00]/20">Step 03</span>
-          <div class="w-8 h-8 rounded-full bg-white border border-[#e5e7eb] flex items-center justify-center text-[#262626]">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
+      <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-5 sm:p-6 text-left flex flex-col justify-between hover:border-[#ff4d00]/30 transition-colors shadow-2xs">
+        <div>
+          <span class="font-mono text-[11px] text-[#ff4d00] font-medium bg-[#ff4d00]/10 px-2 py-0.5 rounded border border-[#ff4d00]/20">Step 3</span>
+          <h3 class="font-medium text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6] mt-3">Export Code</h3>
+          <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1.5 leading-relaxed">
+            Get verified Google Fonts alternatives with tested <code class="font-mono text-[11px] text-[#ff4d00]">@import</code> and <code class="font-mono text-[11px] text-[#ff4d00]">font-family</code> CSS rules.
+          </p>
         </div>
-        <h3 class="font-medium text-base text-[#262626]">3. Free Font & Code</h3>
-        <ul class="mt-3 space-y-2 text-xs text-[#727272]">
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Verified Google Fonts matches</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>Live specimen tester with custom text</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-[#ff4d00] font-bold">&bull;</span>
-            <span>1-click copy @import & font-family CSS</span>
-          </li>
-        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Section 02: Direct Advantages & Code Window -->
-  <section class="py-16 sm:py-20 border-t border-[#e5e7eb] bg-[#f9f9f9]">
+  <!-- Section: Engine Specifications -->
+  <section class="py-14 sm:py-18 border-t border-[#e5e7eb] dark:border-[#202430] bg-[#fafafa] dark:bg-[#0e1017]">
     <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
       
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div>
-          <!-- Numbered Section Header with 2px Orange Vertical Accent -->
-          <div class="border-l-2 border-[#ff4d00] pl-3 mb-3">
-            <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">02 / WHY FONT FINDER</span>
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+            <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">ENGINE SPECIFICATIONS</span>
           </div>
-          <h2 class="text-2xl sm:text-4xl font-medium tracking-tight text-[#262626]">
-            Direct matches. Free fonts. <br />
-            <span class="text-[#ff4d00]">Zero paywalls.</span>
+          <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6]">
+            Open-source matches. <br />
+            <span class="text-[#ff4d00]">Production ready.</span>
           </h2>
-          <p class="text-sm text-[#727272] mt-3 leading-relaxed">
-            Commercial font identifiers recommend expensive $300 commercial licenses. Font Finder connects you to 100% free open-source Google Fonts ready for production.
+          <p class="text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] mt-2.5 leading-relaxed">
+            Avoid commercial license traps. Font Finder maps bitmap letterforms to authentic, free-to-use Google Fonts alternatives.
           </p>
 
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs text-[#262626]">
-            <div class="p-3 rounded-lg bg-white border border-[#e5e7eb]">
-              <div class="text-[#ff4d00] font-semibold text-[13px] mb-1">01. 100% Free Fonts</div>
-              <p class="text-[#727272] font-sans text-xs">SIL Open Font License for unrestricted commercial use.</p>
+          <div class="mt-5 space-y-2 font-mono text-xs text-[#111827] dark:text-[#f3f4f6]">
+            <div class="p-3 rounded-lg bg-white dark:bg-[#131620] border border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
+              <span class="text-[#6b7280] dark:text-[#9ca3af]">Licensing Model</span>
+              <span class="text-[#ff4d00] font-medium">100% Free SIL Open Font License</span>
             </div>
-            <div class="p-3 rounded-lg bg-white border border-[#e5e7eb]">
-              <div class="text-[#ff4d00] font-semibold text-[13px] mb-1">02. Verified CDN Links</div>
-              <p class="text-[#727272] font-sans text-xs">Direct links to official Google Fonts files & stylesheets.</p>
+            <div class="p-3 rounded-lg bg-white dark:bg-[#131620] border border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
+              <span class="text-[#6b7280] dark:text-[#9ca3af]">Processing Architecture</span>
+              <span class="text-[#111827] dark:text-[#f3f4f6] font-medium">100% Client-Side WebGL / Canvas</span>
             </div>
-            <div class="p-3 rounded-lg bg-white border border-[#e5e7eb]">
-              <div class="text-[#ff4d00] font-semibold text-[13px] mb-1">03. Private Execution</div>
-              <p class="text-[#727272] font-sans text-xs">Runs inside your browser — zero files sent to servers.</p>
-            </div>
-            <div class="p-3 rounded-lg bg-white border border-[#e5e7eb]">
-              <div class="text-[#ff4d00] font-semibold text-[13px] mb-1">04. One-Click CSS</div>
-              <p class="text-[#727272] font-sans text-xs">Copy ready-to-use @import and font-family rules instantly.</p>
+            <div class="p-3 rounded-lg bg-white dark:bg-[#131620] border border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
+              <span class="text-[#6b7280] dark:text-[#9ca3af]">CDN Integration</span>
+              <span class="text-[#111827] dark:text-[#f3f4f6] font-medium">Direct Google Fonts Embeds</span>
             </div>
           </div>
         </div>
 
-        <!-- Realistic Firecrawl Code Window -->
-        <div class="rounded-lg border border-[#e5e7eb] bg-[#ffffff] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
-          <div class="h-10 px-4 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+        <!-- Clean Code Box -->
+        <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] overflow-hidden shadow-xs">
+          <div class="h-9 px-3 bg-[#f3f4f6] dark:bg-[#141722] border-b border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <span class="font-mono text-xs text-[#727272] ml-2">detectionResult.json</span>
+              <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+              <span class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af] ml-2">specimenPayload.json</span>
             </div>
-            <span class="font-mono text-[11px] text-[#727272]">JSON Output</span>
+            <span class="font-mono text-[10px] text-[#6b7280] dark:text-[#9ca3af]">JSON Output</span>
           </div>
-          <pre class="p-5 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>&#123;
-  <span class="text-[#ff4d00]">"matched_font"</span>: <span class="text-[#616161]">"Inter"</span>,
-  <span class="text-[#ff4d00]">"category"</span>: <span class="text-[#616161]">"sans-serif"</span>,
-  <span class="text-[#ff4d00]">"confidence"</span>: <span class="text-[#262626]">"94%"</span>,
+          <pre class="p-4 font-mono text-xs text-[#111827] dark:text-[#f3f4f6] overflow-x-auto leading-relaxed"><code>&#123;
+  <span class="text-[#ff4d00]">"matched_font"</span>: <span class="text-[#4b5563] dark:text-[#cbd5e1]">"Inter"</span>,
+  <span class="text-[#ff4d00]">"category"</span>: <span class="text-[#4b5563] dark:text-[#cbd5e1]">"sans-serif"</span>,
+  <span class="text-[#ff4d00]">"confidence"</span>: <span class="text-[#111827] dark:text-[#f3f4f6]">"94%"</span>,
   <span class="text-[#ff4d00]">"isGoogleFontsVerified"</span>: <span class="text-[#ff4d00]">true</span>,
-  <span class="text-[#ff4d00]">"license"</span>: <span class="text-[#616161]">"SIL Open Font License (Free)"</span>,
+  <span class="text-[#ff4d00]">"license"</span>: <span class="text-[#4b5563] dark:text-[#cbd5e1]">"SIL Open Font License"</span>,
   <span class="text-[#ff4d00]">"css"</span>: &#123;
-    <span class="text-[#ff4d00]">"import"</span>: <span class="text-[#616161]">"@import url('https://fonts.googleapis.com/...');"</span>,
-    <span class="text-[#ff4d00]">"fontFamily"</span>: <span class="text-[#616161]">"font-family: 'Inter', sans-serif;"</span>
+    <span class="text-[#ff4d00]">"import"</span>: <span class="text-[#4b5563] dark:text-[#cbd5e1]">"@import url('https://fonts.googleapis.com/...');"</span>,
+    <span class="text-[#ff4d00]">"fontFamily"</span>: <span class="text-[#4b5563] dark:text-[#cbd5e1]">"font-family: 'Inter', sans-serif;"</span>
   &#125;
 &#125;</code></pre>
         </div>
@@ -212,80 +195,80 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
     </div>
   </section>
 
-  <!-- Section 03: Verified Typefaces Catalog -->
-  <section class="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6">
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+  <!-- Section: Popular Typefaces Catalog -->
+  <section class="py-14 sm:py-18 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
       <div>
         <div class="flex items-center gap-2 mb-1.5">
           <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">03 / VERIFIED REPOSITORY</span>
+          <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">VERIFIED REPOSITORY</span>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626]">
+        <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6]">
           Popular open-source typefaces
         </h2>
-        <p class="text-xs text-[#727272] mt-1">Ready to browse, test, and copy for your projects.</p>
+        <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1">Ready to browse, test, and copy for your projects.</p>
       </div>
       <a
         href="/fonts"
-        class="font-mono text-xs font-semibold text-[#ff4d00] hover:underline inline-flex items-center gap-1"
+        class="font-mono text-xs font-medium text-[#ff4d00] hover:underline inline-flex items-center gap-1"
       >
         <span>View all verified fonts</span> &rarr;
       </a>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {featuredFonts.map((font) => <FontCard font={font} />)}
     </div>
   </section>
 
-  <!-- Section 04: Direct FAQ Section -->
-  <section class="py-16 sm:py-20 border-t border-[#e5e7eb] bg-[#f9f9f9]">
+  <!-- Section: Frequently Asked Questions -->
+  <section class="py-14 sm:py-18 border-t border-[#e5e7eb] dark:border-[#202430] bg-[#fafafa] dark:bg-[#0e1017]">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <div class="flex items-center gap-2 mb-2 justify-center">
+      <div class="flex items-center gap-2 mb-1.5 justify-center">
         <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">04 / FAQ</span>
+        <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">FAQ</span>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626] text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6] text-center mb-6">
         Frequently Asked Questions
       </h2>
 
-      <div class="divide-y divide-[#e5e7eb] border-y border-[#e5e7eb] bg-white rounded-xl shadow-sm px-6">
+      <div class="divide-y divide-[#e5e7eb] dark:divide-[#222533] border-y border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] rounded-xl shadow-2xs px-5 sm:px-6">
         <details class="group py-3.5">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-xs sm:text-sm font-medium text-[#111827] dark:text-[#f3f4f6] list-none">
             <span>Is Font Finder completely free?</span>
             <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2 text-xs text-[#727272] leading-relaxed">
+          <p class="mt-2 text-xs text-[#6b7280] dark:text-[#9ca3af] leading-relaxed">
             Yes, 100% free with unlimited scans. No credit card, subscription, or account required. All fonts found are free for personal and commercial use under the SIL Open Font License.
           </p>
         </details>
 
         <details class="group py-3.5">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-xs sm:text-sm font-medium text-[#111827] dark:text-[#f3f4f6] list-none">
             <span>Are my uploaded images or screenshots saved?</span>
             <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2 text-xs text-[#727272] leading-relaxed">
+          <p class="mt-2 text-xs text-[#6b7280] dark:text-[#9ca3af] leading-relaxed">
             No. Uploaded images are processed entirely inside your browser's memory using HTML5 canvas. No files ever leave your device or get saved to any server.
           </p>
         </details>
 
         <details class="group py-3.5">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-xs sm:text-sm font-medium text-[#111827] dark:text-[#f3f4f6] list-none">
             <span>How does Google Fonts verification work?</span>
             <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2 text-xs text-[#727272] leading-relaxed">
+          <p class="mt-2 text-xs text-[#6b7280] dark:text-[#9ca3af] leading-relaxed">
             Every match is verified against authentic Google Fonts database entries. You get the official font family name, direct Google Fonts page URL, and tested CSS embed codes.
           </p>
         </details>
 
         <details class="group py-3.5">
-          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-[#262626] list-none">
+          <summary class="flex items-center justify-between cursor-pointer text-xs sm:text-sm font-medium text-[#111827] dark:text-[#f3f4f6] list-none">
             <span>Can I identify commercial fonts like Helvetica or Futura?</span>
             <span class="text-xs font-mono text-[#ff4d00] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
-          <p class="mt-2 text-xs text-[#727272] leading-relaxed">
+          <p class="mt-2 text-xs text-[#6b7280] dark:text-[#9ca3af] leading-relaxed">
             Yes. If an image uses a paid commercial font, Font Finder matches its letterform traits to the closest 100% free Google Fonts alternative (e.g. Inter for Helvetica, Montserrat for Futura).
           </p>
         </details>
@@ -293,19 +276,19 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
     </div>
   </section>
 
-  <!-- Final CTA: Firecrawl Pill treatment -->
-  <section class="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-    <div class="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-8 sm:p-12 shadow-[0_0_0_6px_rgb(249,249,249)]">
-      <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-[#262626]">
+  <!-- Final CTA: Clean Minimal Studio Prompt -->
+  <section class="py-14 sm:py-18 max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+    <div class="rounded-2xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-8 sm:p-10 shadow-xs">
+      <h2 class="text-xl sm:text-2xl font-medium tracking-tight text-[#111827] dark:text-[#f3f4f6]">
         Ready to identify a font?
       </h2>
-      <p class="mt-2 text-sm text-[#727272] max-w-md mx-auto">
+      <p class="mt-1.5 text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] max-w-md mx-auto">
         Drop an image above or test with sample fonts to get instant CSS.
       </p>
-      <div class="mt-6">
+      <div class="mt-5">
         <a
           href="#finder"
-          class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#ff4d00] text-white font-medium text-xs tracking-wide hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#111827] hover:bg-[#262626] dark:bg-[#ff4d00] dark:hover:bg-[#e04400] text-white font-medium text-xs tracking-wide transition-colors shadow-2xs"
         >
           Identify Font Now &uarr;
         </a>

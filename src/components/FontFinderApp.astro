@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  dropzoneTitle = 'Drop an image or paste screenshot (⌘V)',
+  dropzoneTitle = 'Drop an image or paste screenshot',
   dropzoneSubtitle = 'Supports PNG, JPG, WebP • 100% private in-browser detection',
   buttonText = 'Select Image File',
   samplesTitle = 'Quick Test Samples:',
@@ -32,12 +32,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 <div id="finder" class="w-full max-w-[1000px] mx-auto scroll-mt-20">
   <script id="fonts-data" type="application/json" is:inline set:html={fontsJson}></script>
 
-  <!-- Step 1: Firecrawl-style Search & Upload Interaction Bar -->
-  <div id="upload-stage" class="transition-all">
-    <!-- Elevated Dropzone Card -->
+  <!-- Step 1: Search & Upload Interaction Stage -->
+  <div id="upload-stage" class="transition-all relative">
+    <!-- Elevated Minimal Dropzone Card -->
     <div
       id="dropzone"
-      class="relative rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-8 sm:p-10 shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] hover:border-[#ff4d00]/40 transition-all cursor-pointer group"
+      class="relative rounded-2xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-8 sm:p-12 hover:border-[#ff4d00]/50 transition-all duration-200 cursor-pointer group text-center shadow-xs"
     >
       <input
         type="file"
@@ -47,115 +47,154 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       />
 
       <!-- Center Content -->
-      <div class="text-center max-w-md mx-auto">
-        <!-- Orange Flame Signal Icon -->
-        <div class="mx-auto w-12 h-12 rounded-full bg-[#ff4d00]/10 border border-[#ff4d00]/20 flex items-center justify-center text-[#ff4d00] mb-4 group-hover:scale-105 transition-transform">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M12 2c-.8 2.2-2.8 4.2-4.5 6-2 2.2-3.5 4.8-3.5 7.8 0 4.4 3.6 8.2 8 8.2s8-3.8 8-8.2c0-2.5-1-4.8-2.6-6.7-1.5-1.8-3.4-3.5-4.4-5.3-.3-.6-.7-1.3-1-1.8zM12 20c-2.8 0-5-2.2-5-5 0-1.8 1-3.3 2.1-4.7 1.1-1.3 2.2-2.7 2.9-4.3.7 1.5 1.8 2.9 2.9 4.3 1.1 1.4 2.1 2.9 2.1 4.7 0 2.8-2.2 5-5 5z"/>
+      <div class="max-w-md mx-auto relative z-10">
+        <!-- Minimal Clean Upload Icon -->
+        <div class="w-11 h-11 rounded-xl bg-[#f3f4f6] dark:bg-[#181a24] border border-[#e5e7eb] dark:border-[#262938] text-[#111827] dark:text-[#ff4d00] flex items-center justify-center mx-auto mb-3.5 group-hover:scale-105 group-hover:border-[#ff4d00]/40 transition-all">
+          <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
         </div>
 
-        <h3 class="text-lg font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight">
-          {dropzoneTitle}
+        <h3 class="text-lg sm:text-xl font-semibold text-[#111827] dark:text-[#ffffff] tracking-tight">
+          Drop an image or paste screenshot
         </h3>
-        <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1.5">
-          {dropzoneSubtitle}
+
+        <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1.5 font-normal">
+          Supports PNG, JPG, WebP &bull; 100% private in-browser analysis
         </p>
 
-        <!-- Pill Action Button inside Dropzone -->
-        <div class="mt-5">
-          <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-xs font-medium hover:bg-[#ff4d00] transition-colors shadow-sm">
-            <span>{buttonText}</span>
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        <!-- Official Clean Button -->
+        <div class="mt-5 flex justify-center">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#111827] dark:bg-[#ff4d00] text-white text-xs sm:text-sm font-medium hover:bg-[#262626] dark:hover:bg-[#e04400] transition-colors shadow-2xs">
+            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
             </svg>
+            <span>{buttonText}</span>
           </span>
         </div>
       </div>
 
-      <!-- Sample Specimen Action Chips -->
-      <div class="mt-8 pt-6 border-t border-[#e5e7eb] dark:border-[#242834]">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span class="font-mono text-[11px] text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">
-            {samplesTitle}
-          </span>
-          <div class="flex flex-wrap items-center gap-2">
-            {samples.map((s) => (
+      <!-- Minimal Sample Typeface Presets -->
+      <div class="mt-8 pt-6 border-t border-[#e5e7eb] dark:border-[#222533] relative z-10">
+        <div class="text-center mb-3">
+          <span class="text-xs font-mono text-[#6b7280] dark:text-[#9ca3af]">Or test with a sample typeface:</span>
+        </div>
+
+        <!-- 4 Clean Official Specimen Tiles -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {samples.map((s) => {
+            const match = s.label.match(/^(.*?)\s*\((.*?)\)$/);
+            const category = match ? match[1].trim() : '';
+            const fontName = match ? match[2].trim() : s.label;
+
+            let glyph = 'Aa';
+            let glyphStyle = "font-family: 'Inter', sans-serif;";
+            let typeLabel = "Sans-Serif";
+
+            if (s.sampleKey.includes('playfair') || s.sampleKey.includes('serif')) {
+              glyph = 'Ag';
+              glyphStyle = "font-family: 'Playfair Display', serif; font-style: italic;";
+              typeLabel = "Serif";
+            } else if (s.sampleKey.includes('jetbrains') || s.sampleKey.includes('mono')) {
+              glyph = '{ ; }';
+              glyphStyle = "font-family: 'JetBrains Mono', monospace;";
+              typeLabel = "Monospace";
+            } else if (s.sampleKey.includes('oswald') || s.sampleKey.includes('poster')) {
+              glyph = 'Aa';
+              glyphStyle = "font-family: 'Oswald', sans-serif; font-weight: 600;";
+              typeLabel = "Display";
+            } else if (s.sampleKey.includes('script') || s.sampleKey.includes('hand') || s.sampleKey.includes('caveat')) {
+              glyph = 'Ink';
+              glyphStyle = "font-family: 'Caveat', cursive;";
+              typeLabel = "Script";
+            }
+
+            return (
               <button
                 type="button"
                 data-sample={s.sampleKey}
-                class="sample-btn font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] hover:border-[#727272]/30 text-[#262626] dark:text-[#f3f4f6] transition-colors cursor-pointer"
+                class="sample-btn p-3 rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-[#f9fafb] dark:bg-[#141722] hover:bg-white dark:hover:bg-[#1a1d2b] hover:border-[#ff4d00]/40 hover:shadow-xs transition-all cursor-pointer text-left flex flex-col justify-between group/sample"
               >
-                <span class="text-[#ff4d00] mr-1">&bull;</span> {s.label}
+                <div class="h-11 flex items-center justify-center text-2xl text-[#111827] dark:text-[#ffffff] group-hover/sample:text-[#ff4d00] transition-colors" style={glyphStyle}>
+                  {glyph}
+                </div>
+                <div class="pt-2 border-t border-[#e5e7eb]/60 dark:border-[#222533] flex items-baseline justify-between gap-1 mt-1">
+                  <span class="font-medium text-xs text-[#111827] dark:text-[#f3f4f6] truncate">
+                    {fontName}
+                  </span>
+                  <span class="text-[10px] font-mono text-[#6b7280] dark:text-[#9ca3af] shrink-0">
+                    {typeLabel}
+                  </span>
+                </div>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
       <!-- Upload Error -->
-      <div id="upload-error" class="hidden mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-xs text-red-600 font-medium text-center"></div>
+      <div id="upload-error" class="hidden mt-4 p-3 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-xs text-red-600 dark:text-red-400 font-medium text-center"></div>
     </div>
   </div>
 
   <!-- Step 2: Image Preview & Crop Stage -->
-  <div id="crop-stage" class="hidden rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
-    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb]">
+  <div id="crop-stage" class="hidden rounded-2xl border border-[#e5e7eb] dark:border-[#282d3c] bg-white/90 dark:bg-[#12141c]/90 backdrop-blur-xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb] dark:border-[#282d3c]">
       <div>
         <div class="flex items-center gap-2">
           <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <h3 class="text-sm font-semibold text-[#262626] uppercase tracking-wide">02 / Inspect & Crop Letterforms</h3>
+          <h3 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6] uppercase tracking-wide">02 / Inspect & Crop Letterforms</h3>
         </div>
-        <p class="text-xs text-[#727272] mt-0.5">Drag cursor across canvas to isolate words for tighter optical recognition.</p>
+        <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-0.5">Drag cursor across canvas to isolate words for tighter optical recognition.</p>
       </div>
       <div class="flex items-center gap-2">
         <button
           id="btn-reset-crop"
           type="button"
-          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] text-[#262626] hover:bg-[#e5e7eb] transition-colors"
+          class="font-mono text-xs px-3.5 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#282d3c] bg-[#f9f9f9] dark:bg-[#181b24] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#222634] transition-colors cursor-pointer"
         >
           Reset Crop
         </button>
         <button
           id="btn-new-image"
           type="button"
-          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] text-[#262626] hover:bg-[#e5e7eb] transition-colors"
+          class="font-mono text-xs px-3.5 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#282d3c] bg-[#f9f9f9] dark:bg-[#181b24] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#222634] transition-colors cursor-pointer"
         >
           New Image
         </button>
       </div>
     </div>
 
-    <!-- Canvas Surface on #f9f9f9 -->
-    <div class="relative mt-4 bg-[#f9f9f9] rounded-lg border border-[#e5e7eb] overflow-hidden flex items-center justify-center p-3 min-h-[240px] max-h-[440px]">
+    <!-- Canvas Surface on #f9f9f9 / dark:bg-[#0d0e12] -->
+    <div class="relative mt-4 bg-[#f9f9f9] dark:bg-[#0d0e12] rounded-xl border border-[#e5e7eb] dark:border-[#282d3c] overflow-hidden flex items-center justify-center p-3 min-h-[240px] max-h-[440px]">
       <canvas id="crop-canvas" class="max-h-[400px] max-w-full rounded shadow-sm cursor-crosshair touch-none select-none"></canvas>
     </div>
 
     <!-- Optional: Specimen Text Helper for Character-Aware Matching -->
     <div class="mt-4">
       <div class="flex items-center justify-between mb-1.5">
-        <label for="crop-text-input" class="text-xs font-mono text-[#727272] uppercase tracking-wide">
+        <label for="crop-text-input" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] uppercase tracking-wide">
           Text Content (Optional)
         </label>
-        <span class="text-[11px] text-[#727272] font-mono">Enables character-by-character alignment</span>
+        <span class="text-[11px] text-[#727272] dark:text-[#9ca3af] font-mono">Enables character-by-character alignment</span>
       </div>
       <input
         id="crop-text-input"
         type="text"
         placeholder="Type text from your image (e.g. Vatsal Singh, Editorial Gazette)..."
-        class="w-full bg-white border border-[#e5e7eb] rounded-lg px-3 py-2 text-xs text-[#262626] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
+        class="w-full bg-white dark:bg-[#181b24] border border-[#e5e7eb] dark:border-[#282d3c] rounded-lg px-3 py-2 text-xs text-[#262626] dark:text-[#f3f4f6] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
       />
     </div>
 
-    <!-- Primary Action: Pill with Glow -->
+    <!-- Primary Action -->
     <div class="mt-5 flex justify-end">
       <button
         id="btn-run-analysis"
         type="button"
-        class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#ff4d00] text-white font-medium text-xs tracking-wide hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc] flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#262626] dark:bg-[#ff4d00] text-white font-medium text-xs sm:text-sm tracking-wide hover:bg-[#111827] dark:hover:bg-[#e04400] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
       >
         <span>Analyze Letterforms & Find Font</span>
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
       </button>
@@ -163,16 +202,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
   </div>
 
   <!-- Step 3: Analysis Progress -->
-  <div id="loading-stage" class="hidden rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-8 sm:p-12 text-center shadow-[0_0_0_6px_rgb(249,249,249)]">
+  <div id="loading-stage" class="hidden rounded-2xl border border-[#e5e7eb] dark:border-[#282d3c] bg-white/90 dark:bg-[#12141c]/90 backdrop-blur-xl p-8 sm:p-12 text-center shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
     <div class="max-w-md mx-auto">
-      <div class="w-10 h-10 mx-auto rounded-full border-2 border-[#ff4d00]/20 border-t-[#ff4d00] animate-spin mb-4"></div>
-      <h4 id="loading-step-title" class="text-xs font-mono font-semibold uppercase tracking-wider text-[#727272]">
+      <div class="w-12 h-12 mx-auto rounded-full border-2 border-[#ff4d00]/20 border-t-[#ff4d00] animate-spin mb-4 shadow-[0_0_16px_rgba(255,77,0,0.3)]"></div>
+      <h4 id="loading-step-title" class="text-xs font-mono font-semibold uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">
         COMPARING LETTER SHAPES
       </h4>
-      <div class="w-full bg-[#e5e7eb] rounded-full h-1.5 mt-3 overflow-hidden">
+      <div class="w-full bg-[#e5e7eb] dark:bg-[#242834] rounded-full h-1.5 mt-3 overflow-hidden">
         <div id="progress-bar" class="bg-[#ff4d00] h-full w-1/4 rounded-full transition-all duration-300"></div>
       </div>
-      <p id="loading-step-detail" class="text-xs text-[#262626] mt-3 font-mono">
+      <p id="loading-step-detail" class="text-xs text-[#262626] dark:text-[#f3f4f6] mt-3 font-mono">
         Matching against 1,946 fonts in your browser...
       </p>
     </div>
@@ -181,38 +220,38 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
   <!-- Step 4: Results Display -->
   <div id="results-stage" class="hidden space-y-6">
     
-    <!-- Primary Match Card (Firecrawl Elevated Card with 16px radius) -->
-    <div class="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
-      <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e5e7eb]">
+    <!-- Primary Match Card -->
+    <div class="rounded-2xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-6 sm:p-8 shadow-xs">
+      <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e5e7eb] dark:border-[#222533]">
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">01 / DETECTED FAMILY</span>
+            <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">MATCHED TYPEFACE</span>
             <span
               id="res-verified-badge"
-              class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#f9f9f9] text-[#262626] border border-[#e5e7eb]"
+              class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-0.5 rounded-full bg-[#f9fafb] dark:bg-[#181b26] text-[#111827] dark:text-[#f3f4f6] border border-[#e5e7eb] dark:border-[#262938]"
             >
-              <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
               <span>Google Fonts Verified</span>
             </span>
           </div>
-          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#262626] mt-2">
+          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] dark:text-[#ffffff] mt-2">
             Inter
           </h2>
-          <p id="res-font-designer" class="text-xs text-[#727272] mt-1">
+          <p id="res-font-designer" class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1">
             Designed by Rasmus Andersson &bull; SIL Open Font License
           </p>
         </div>
 
         <div class="flex items-center gap-3">
           <div class="text-right">
-            <div class="font-mono text-xs text-[#727272]">CONFIDENCE</div>
+            <div class="font-mono text-[11px] text-[#6b7280] dark:text-[#9ca3af]">CONFIDENCE</div>
             <div id="res-confidence" class="font-mono text-xl font-bold text-[#ff4d00]">--%</div>
-            <div id="res-confidence-label" class="font-mono text-[10px] text-[#727272] uppercase font-semibold">Analyzing</div>
+            <div id="res-confidence-label" class="font-mono text-[10px] text-[#6b7280] dark:text-[#9ca3af] uppercase font-semibold">Analyzing</div>
           </div>
           <button
             id="btn-scan-another"
             type="button"
-            class="px-3.5 py-2 rounded-full border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#e5e7eb] text-xs font-medium text-[#262626] transition-colors"
+            class="px-3 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-[#262938] bg-[#f9fafb] dark:bg-[#161924] hover:bg-[#f3f4f6] dark:hover:bg-[#1e2230] text-xs font-medium text-[#111827] dark:text-[#f3f4f6] transition-colors cursor-pointer shadow-2xs"
           >
             Scan Another
           </button>
@@ -220,176 +259,365 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
 
       <!-- Commercial Alternative Notice -->
-      <div id="res-commercial-alert" class="hidden mt-4 p-3 rounded-lg bg-[#f9f9f9] border border-[#e5e7eb] text-xs text-[#616161]">
-        <span class="font-semibold text-[#262626]">Commercial Stand-in:</span>
+      <div id="res-commercial-alert" class="hidden mt-4 p-3 rounded-lg bg-[#f9fafb] dark:bg-[#151722] border border-[#e5e7eb] dark:border-[#222533] text-xs text-[#4b5563] dark:text-[#9ca3af]">
+        <span class="font-medium text-[#111827] dark:text-[#f3f4f6]">Commercial Stand-in:</span>
         <span id="res-commercial-text">Matches style of Helvetica. Free verified Google Fonts alternative is Inter.</span>
       </div>
 
-      <!-- Typographic Feature Tags (Pill shaped) -->
-      <div class="mt-6 flex flex-wrap gap-2 text-xs">
-        <div class="px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono">
-          <span class="text-[#727272]">Category:</span>
-          <span id="res-trait-category" class="font-semibold text-[#262626] ml-1">Sans-Serif</span>
+      <!-- Typographic Feature Tags -->
+      <div class="mt-5 flex flex-wrap gap-2 text-xs">
+        <div class="px-2.5 py-1 rounded-lg bg-[#f9fafb] dark:bg-[#161924] border border-[#e5e7eb] dark:border-[#262938] font-mono">
+          <span class="text-[#6b7280] dark:text-[#9ca3af]">Category:</span>
+          <span id="res-trait-category" class="font-medium text-[#111827] dark:text-[#f3f4f6] ml-1">Sans-Serif</span>
         </div>
-        <div class="px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono">
-          <span class="text-[#727272]">Serifs:</span>
-          <span id="res-trait-serif" class="font-semibold text-[#262626] ml-1">None</span>
+        <div class="px-2.5 py-1 rounded-lg bg-[#f9fafb] dark:bg-[#161924] border border-[#e5e7eb] dark:border-[#262938] font-mono">
+          <span class="text-[#6b7280] dark:text-[#9ca3af]">Serifs:</span>
+          <span id="res-trait-serif" class="font-medium text-[#111827] dark:text-[#f3f4f6] ml-1">None</span>
         </div>
-        <div class="px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono">
-          <span class="text-[#727272]">Contrast:</span>
-          <span id="res-trait-contrast" class="font-semibold text-[#262626] ml-1">Low</span>
+        <div class="px-2.5 py-1 rounded-lg bg-[#f9fafb] dark:bg-[#161924] border border-[#e5e7eb] dark:border-[#262938] font-mono">
+          <span class="text-[#6b7280] dark:text-[#9ca3af]">Contrast:</span>
+          <span id="res-trait-contrast" class="font-medium text-[#111827] dark:text-[#f3f4f6] ml-1">Low</span>
         </div>
-        <div class="px-3 py-1 rounded-full bg-[#f9f9f9] border border-[#e5e7eb] font-mono">
-          <span class="text-[#727272]">Estimated Weight:</span>
-          <span id="res-trait-weight" class="font-semibold text-[#262626] ml-1">400 Regular</span>
+        <div class="px-2.5 py-1 rounded-lg bg-[#f9fafb] dark:bg-[#161924] border border-[#e5e7eb] dark:border-[#262938] font-mono">
+          <span class="text-[#6b7280] dark:text-[#9ca3af]">Estimated Weight:</span>
+          <span id="res-trait-weight" class="font-medium text-[#111827] dark:text-[#f3f4f6] ml-1">400 Regular</span>
         </div>
       </div>
 
-      <!-- Side-by-Side Visual Shape Verification (Uploaded vs Matched Specimen) -->
-      <div class="mt-6 rounded-xl border border-[#e5e7eb] bg-[#f9f9f9] p-4 sm:p-5">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e5e7eb]">
+      <!-- Typographic Shape Verification & Comparator -->
+      <div class="mt-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#12141c] p-4 sm:p-6 shadow-xs">
+        <!-- Header with Title, Mode Switcher & Tools -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb] dark:border-[#242834]">
           <div>
-            <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">
-              Visual Shape Verification
-            </span>
-            <p class="text-xs text-[#727272] mt-0.5">Type or edit text to preview matching letterforms side-by-side.</p>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">
+                Visual Shape Verification
+              </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                1:1 Optical Match
+              </span>
+            </div>
+            <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-0.5">Wipe, overlay, or inspect scanned bitmap letterforms directly against matched vector font.</p>
           </div>
-          <span class="font-mono text-[11px] text-[#ff4d00] font-semibold flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
-            <span id="res-shape-match-score">Optical Shape Match</span>
-          </span>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <!-- Comparator View Mode Switcher Pills -->
+            <div class="inline-flex p-0.5 rounded-lg bg-[#f3f4f6] dark:bg-[#1c1f2a] border border-[#e5e7eb] dark:border-[#262b3a] text-xs font-mono">
+              <button
+                type="button"
+                id="mode-btn-split"
+                class="comparator-mode-btn px-3 py-1 rounded-md font-medium transition-all bg-[#ff4d00] text-white shadow-2xs cursor-pointer"
+                data-mode="split"
+              >
+                Split Lens
+              </button>
+              <button
+                type="button"
+                id="mode-btn-ghost"
+                class="comparator-mode-btn px-3 py-1 rounded-md text-[#727272] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white transition-all cursor-pointer"
+                data-mode="ghost"
+              >
+                X-Ray Ghost
+              </button>
+              <button
+                type="button"
+                id="mode-btn-side"
+                class="comparator-mode-btn px-3 py-1 rounded-md text-[#727272] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white transition-all cursor-pointer"
+                data-mode="side"
+              >
+                Side-by-Side
+              </button>
+            </div>
+
+            <!-- Optical Tool: Invert Negative (harmonizes bright white scan glare in dark mode) -->
+            <button
+              type="button"
+              id="btn-toggle-invert"
+              title="Invert scanned image negative"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-[#e5e7eb] dark:border-[#262b3a] bg-white dark:bg-[#1c1f2a] hover:bg-[#f3f4f6] dark:hover:bg-[#222736] text-xs font-mono text-[#374151] dark:text-[#cbd5e1] transition-all cursor-pointer shadow-2xs"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="9" stroke-width="2" />
+                <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+              </svg>
+              <span>Invert Negative</span>
+            </button>
+
+            <!-- Optical Tool: Hairline Guidelines Toggle -->
+            <button
+              type="button"
+              id="btn-toggle-guides"
+              title="Toggle cap-height and baseline rules"
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-[#e5e7eb] dark:border-[#262b3a] bg-white dark:bg-[#1c1f2a] hover:bg-[#f3f4f6] dark:hover:bg-[#222736] text-xs font-mono text-[#374151] dark:text-[#cbd5e1] transition-all cursor-pointer shadow-2xs"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+              <span>Guides</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Interactive Specimen Text Input Bar -->
-        <div class="mt-3.5">
-          <input
-            id="compare-text-input"
-            type="text"
-            placeholder="Type text from your image (e.g. monkeytype, logo text)..."
-            class="w-full bg-white border border-[#e5e7eb] rounded-lg px-3 py-2 text-xs text-[#262626] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs"
-          />
+        <!-- Interactive Specimen Text Bar with Quick Pangram Chips -->
+        <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="relative flex-1">
+            <input
+              id="compare-text-input"
+              type="text"
+              placeholder="Type specimen characters to align (e.g. typography, logo)..."
+              class="w-full bg-white dark:bg-[#171922] border border-[#e5e7eb] dark:border-[#242834] rounded-lg px-3 py-2 text-xs text-[#111827] dark:text-[#f3f4f6] font-mono focus:outline-none focus:border-[#ff4d00] shadow-xs placeholder-[#9ca3af]"
+            />
+          </div>
+          <!-- Quick Specimen Character Presets -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 shrink-0 text-[11px] font-mono">
+            <span class="text-[#727272] dark:text-[#6b7280] text-[10px] uppercase font-medium hidden md:inline">Presets:</span>
+            <button type="button" class="specimen-preset-chip px-2.5 py-1 rounded-md border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#181b26] hover:border-[#ff4d00] text-[#374151] dark:text-[#cbd5e1] cursor-pointer" data-text="Typography">Typography</button>
+            <button type="button" class="specimen-preset-chip px-2.5 py-1 rounded-md border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#181b26] hover:border-[#ff4d00] text-[#374151] dark:text-[#cbd5e1] cursor-pointer" data-text="Ag Qx & 8">Ag Qx & 8</button>
+            <button type="button" class="specimen-preset-chip px-2.5 py-1 rounded-md border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#181b26] hover:border-[#ff4d00] text-[#374151] dark:text-[#cbd5e1] cursor-pointer" data-text="Fox 123">Fox 123</button>
+          </div>
         </div>
 
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-          <div class="p-3 bg-white rounded-lg border border-[#e5e7eb] text-center shadow-xs">
-            <span class="font-mono text-[10px] text-[#727272] uppercase block mb-2">Your Uploaded Image</span>
-            <div class="flex items-center justify-center min-h-[64px] max-h-[90px] overflow-hidden">
-              <img id="res-compare-uploaded" class="max-h-[70px] max-w-full object-contain rounded" alt="Your cropped text specimen" />
+        <!-- STAGE A: Split Wipe Lens View (Active by default) -->
+        <div id="view-split-lens" class="mt-4 relative rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#151722] overflow-hidden p-6 select-none shadow-xs">
+          <!-- Split Container -->
+          <div class="relative w-full h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+            <!-- Guidelines Overlay (Toggleable) -->
+            <div id="split-guidelines" class="pointer-events-none absolute inset-0 z-20 transition-opacity">
+              <div class="absolute inset-x-0 top-[28%] border-b border-dashed border-sky-400/40 flex justify-between text-[8px] font-mono text-sky-400 px-3"><span>Cap-Height</span></div>
+              <div class="absolute inset-x-0 top-[48%] border-b border-dotted border-amber-400/35 flex justify-between text-[8px] font-mono text-amber-400 px-3"><span>x-Height</span></div>
+              <div class="absolute inset-x-0 bottom-[26%] border-b border-[#ff4d00]/50 flex justify-between text-[8px] font-mono text-[#ff4d00] px-3"><span>Baseline</span></div>
+            </div>
+
+            <!-- Uploaded Image (Underneath) -->
+            <div id="split-img-wrapper" class="absolute inset-0 flex items-center justify-center p-4 transition-all">
+              <img id="res-compare-uploaded" class="max-h-[95px] max-w-full object-contain rounded transition-all" alt="Uploaded text crop" />
+            </div>
+
+            <!-- Matched Font Layer (Clipped by wipe slider) -->
+            <div id="split-vector-layer" class="absolute inset-0 flex items-center justify-center p-4 bg-white/95 dark:bg-[#151722]/95" style="clip-path: inset(0 0 0 50%);">
+              <div id="split-vector-text" class="text-3xl sm:text-5xl font-medium text-[#111827] dark:text-[#ffffff] tracking-normal text-center break-words select-none">
+                Typography Specimen
+              </div>
+            </div>
+
+            <!-- Draggable Wipe Divider Bar -->
+            <div id="split-divider-bar" class="pointer-events-none absolute inset-y-0 w-[2px] bg-[#ff4d00] z-30 shadow-[0_0_8px_#ff4d00]" style="left: 50%;">
+              <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#ff4d00] text-white flex items-center justify-center shadow-md text-[9px] font-bold">
+                ◫
+              </div>
             </div>
           </div>
-          <div class="p-3 bg-white rounded-lg border border-[#e5e7eb] text-center shadow-xs">
-            <span class="font-mono text-[10px] text-[#727272] uppercase block mb-2">Matched Google Font Specimen</span>
-            <div id="res-compare-matched" class="flex items-center justify-center min-h-[64px] text-2xl sm:text-3xl text-[#262626] font-medium overflow-hidden px-2 text-center break-all">
+
+          <!-- Bottom Wipe Controller Slider -->
+          <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between gap-4">
+            <span class="text-[10px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">
+              ◄ Uploaded Crop
+            </span>
+            <div class="flex-1 max-w-xs flex items-center gap-2">
+              <input
+                id="wipe-range-slider"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                class="w-full accent-[#ff4d00] cursor-ew-resize"
+              />
+            </div>
+            <span class="text-[10px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">
+              Matched Vector ►
+            </span>
+          </div>
+        </div>
+
+        <!-- STAGE B: X-Ray Ghost Overlay View -->
+        <div id="view-ghost-lens" class="hidden mt-4 relative rounded-xl border border-[#e5e7eb] dark:border-[#282d3c] bg-white dark:bg-[#151722] overflow-hidden p-6 select-none shadow-xs">
+          <div class="relative w-full h-36 sm:h-44 flex items-center justify-center overflow-hidden">
+            <!-- Uploaded Image Base -->
+            <div id="ghost-img-wrapper" class="absolute inset-0 flex items-center justify-center p-4">
+              <img id="res-compare-ghost-uploaded" class="max-h-[95px] max-w-full object-contain rounded opacity-80 transition-all" alt="Ghost base" />
+            </div>
+            <!-- Overlaid Live Vector Font -->
+            <div id="ghost-vector-layer" class="relative z-10 text-3xl sm:text-5xl font-medium text-[#ff4d00] tracking-normal text-center break-words" style="opacity: 0.7;">
+              Typography Specimen
+            </div>
+          </div>
+          <!-- Ghost Opacity Slider -->
+          <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between gap-4">
+            <span class="text-[10px] font-mono text-[#727272] dark:text-[#9ca3af]">GHOST OPACITY</span>
+            <div class="flex-1 max-w-xs flex items-center gap-3">
+              <input
+                id="ghost-opacity-slider"
+                type="range"
+                min="10"
+                max="100"
+                value="70"
+                class="w-full accent-[#ff4d00] cursor-pointer"
+              />
+              <span id="ghost-opacity-val" class="font-mono text-xs text-[#111827] dark:text-[#f3f4f6] w-9">70%</span>
+            </div>
+            <span id="res-shape-match-score" class="font-mono text-xs text-[#ff4d00] font-semibold">Optical Shape Match</span>
+          </div>
+        </div>
+
+        <!-- STAGE C: Side-by-Side Dual View -->
+        <div id="view-side-lens" class="hidden mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+          <div class="p-4 bg-white dark:bg-[#151722] rounded-xl border border-[#e5e7eb] dark:border-[#282d3c] text-center shadow-xs relative overflow-hidden">
+            <div class="flex items-center justify-between mb-3 text-[10px] font-mono text-[#727272] dark:text-[#9ca3af]">
+              <span class="uppercase font-semibold">01 / Uploaded Bitmap</span>
+              <span class="px-1.5 py-0.5 rounded bg-[#f3f4f6] dark:bg-[#181b26] border border-[#e5e7eb] dark:border-[#282d3c]">Source</span>
+            </div>
+            <div id="side-img-wrapper" class="flex items-center justify-center min-h-[75px] max-h-[100px] overflow-hidden p-2">
+              <img id="res-compare-side-uploaded" class="max-h-[85px] max-w-full object-contain rounded transition-all" alt="Source bitmap specimen" />
+            </div>
+          </div>
+
+          <div class="p-4 bg-white dark:bg-[#151722] rounded-xl border border-[#e5e7eb] dark:border-[#282d3c] text-center shadow-xs relative overflow-hidden">
+            <div class="flex items-center justify-between mb-3 text-[10px] font-mono text-[#727272] dark:text-[#9ca3af]">
+              <span class="uppercase font-semibold">02 / Matched Google Font</span>
+              <span class="px-1.5 py-0.5 rounded bg-[#ff4d00]/10 text-[#ff4d00] border border-[#ff4d00]/20 font-semibold">Vector</span>
+            </div>
+            <div id="res-compare-matched" class="flex items-center justify-center min-h-[75px] text-2xl sm:text-3xl text-[#111827] dark:text-[#ffffff] font-medium overflow-hidden px-2 text-center break-all">
               Typography Specimen
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Ranked Google Font Matches (Competitor Minimalist Style) -->
+      <!-- Ranked Google Font Matches -->
       <div class="mt-8">
-        <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb] mb-4">
-          <span class="font-mono text-xs uppercase tracking-wider text-[#727272] flex items-center gap-1.5">
+        <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb] dark:border-[#222533] mb-4">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af] flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
-            <span>RANKED GOOGLE FONT MATCHES</span>
+            <span>Ranked Font Matches</span>
           </span>
-          <span class="text-xs text-[#727272] font-mono">
+          <span class="text-xs text-[#6b7280] dark:text-[#9ca3af] font-mono">
             Live preview rendered with Google Fonts
           </span>
         </div>
         <div id="res-ranked-cards-list" class="space-y-4"></div>
       </div>
 
-      <div class="mt-8 rounded-xl border border-[#e5e7eb] bg-[#f9f9f9] p-5 sm:p-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb]">
-          <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">
-            02 / LIVE SPECIMEN TESTER
-          </span>
+      <!-- Live Specimen Sandbox -->
+      <div class="mt-8 rounded-2xl border border-[#e5e7eb] dark:border-[#222533] bg-[#fafafa] dark:bg-[#11131b] p-5 sm:p-7 shadow-xs">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#e5e7eb] dark:border-[#222533]">
           <div class="flex items-center gap-2">
-            <span class="font-mono text-xs text-[#727272]">Size:</span>
-            <input
-              id="specimen-size-slider"
-              type="range"
-              min="14"
-              max="72"
-              value="28"
-              class="w-24 sm:w-32 accent-[#ff4d00] cursor-pointer"
-            />
-            <span id="specimen-size-label" class="font-mono text-xs text-[#262626] w-8">28px</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+            <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">
+              Live Specimen Sandbox
+            </span>
+          </div>
+
+          <!-- Interactive Sliders: Font Size & Letter Spacing -->
+          <div class="flex items-center gap-4 flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af]">Size:</span>
+              <input
+                id="specimen-size-slider"
+                type="range"
+                min="14"
+                max="96"
+                value="36"
+                class="w-24 sm:w-28 accent-[#ff4d00] cursor-pointer"
+              />
+              <span id="specimen-size-label" class="font-mono text-xs text-[#111827] dark:text-[#f3f4f6] w-9">36px</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af]">Tracking:</span>
+              <input
+                id="specimen-tracking-slider"
+                type="range"
+                min="-2"
+                max="10"
+                value="0"
+                class="w-20 sm:w-24 accent-[#ff4d00] cursor-pointer"
+              />
+              <span id="specimen-tracking-label" class="font-mono text-xs text-[#111827] dark:text-[#f3f4f6] w-7">0px</span>
+            </div>
           </div>
         </div>
 
-        <div class="mt-4">
+        <!-- Interactive Specimen Editable Text Area -->
+        <div class="my-5 p-4 rounded-xl bg-white dark:bg-[#151722] border border-[#e5e7eb] dark:border-[#222533] shadow-2xs">
           <input
             id="specimen-text-input"
             type="text"
             value="The quick brown fox jumps over the lazy dog"
-            class="w-full bg-transparent border-0 text-[#262626] focus:ring-0 focus:outline-none placeholder-[#c7c7c7] transition-all"
-            style="font-size: 28px; line-height: 1.2;"
+            class="w-full bg-transparent border-0 text-[#111827] dark:text-[#ffffff] focus:ring-0 focus:outline-none placeholder-[#9ca3af] transition-all"
+            style="font-size: 36px; line-height: 1.2;"
             spellcheck="false"
           />
         </div>
 
-        <!-- Weight Pills -->
-        <div id="specimen-weight-pills" class="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-[#e5e7eb]">
-          <button type="button" data-weight="300" class="weight-pill px-3 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] bg-white text-[#727272] hover:text-[#262626]">Light 300</button>
-          <button type="button" data-weight="400" class="weight-pill px-3 py-1 rounded-full text-xs font-mono border border-[#262626] bg-[#262626] text-white font-medium">Regular 400</button>
-          <button type="button" data-weight="600" class="weight-pill px-3 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] bg-white text-[#727272] hover:text-[#262626]">SemiBold 600</button>
-          <button type="button" data-weight="700" class="weight-pill px-3 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] bg-white text-[#727272] hover:text-[#262626]">Bold 700</button>
+        <!-- Quick Pangram Presets & Transform Chips -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#e5e7eb] dark:border-[#222533]">
+          <div class="flex items-center gap-1.5 flex-wrap text-xs font-mono">
+            <span class="text-[10px] uppercase text-[#6b7280] dark:text-[#6b7280] font-semibold">Pangrams:</span>
+            <button type="button" class="specimen-text-preset px-2 py-0.5 rounded bg-white dark:bg-[#181b26] border border-[#e5e7eb] dark:border-[#262938] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] cursor-pointer text-[11px]" data-text="The quick brown fox jumps over the lazy dog">Fox</button>
+            <button type="button" class="specimen-text-preset px-2 py-0.5 rounded bg-white dark:bg-[#181b26] border border-[#e5e7eb] dark:border-[#262938] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] cursor-pointer text-[11px]" data-text="Sphinx of black quartz, judge my vow">Sphinx</button>
+            <button type="button" class="specimen-text-preset px-2 py-0.5 rounded bg-white dark:bg-[#181b26] border border-[#e5e7eb] dark:border-[#262938] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] cursor-pointer text-[11px]" data-text="ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz">A-Z</button>
+            <button type="button" class="specimen-text-preset px-2 py-0.5 rounded bg-white dark:bg-[#181b26] border border-[#e5e7eb] dark:border-[#262938] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] cursor-pointer text-[11px]" data-text="0123456789 & @ # $ % ! ? / \ ( )">123 & Symbols</button>
+          </div>
+
+          <!-- Weight Pills -->
+          <div id="specimen-weight-pills" class="flex flex-wrap gap-1.5">
+            <button type="button" data-weight="300" class="weight-pill px-2.5 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] dark:border-[#262938] bg-white dark:bg-[#181b26] text-[#6b7280] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white cursor-pointer">300 Light</button>
+            <button type="button" data-weight="400" class="weight-pill px-2.5 py-1 rounded-full text-xs font-mono border border-[#111827] bg-[#111827] dark:bg-[#ff4d00] dark:border-[#ff4d00] text-white font-medium cursor-pointer">400 Regular</button>
+            <button type="button" data-weight="600" class="weight-pill px-2.5 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] dark:border-[#262938] bg-white dark:bg-[#181b26] text-[#6b7280] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white cursor-pointer">600 SemiBold</button>
+            <button type="button" data-weight="700" class="weight-pill px-2.5 py-1 rounded-full text-xs font-mono border border-[#e5e7eb] dark:border-[#262938] bg-white dark:bg-[#181b26] text-[#6b7280] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white cursor-pointer">700 Bold</button>
+          </div>
         </div>
       </div>
 
-      <!-- Firecrawl Code Windows: 8px radius, traffic light dots, Geist Mono -->
+      <!-- Production CSS Blueprint -->
       <div class="mt-8 space-y-4">
-        <span class="font-mono text-xs uppercase tracking-wider text-[#727272] block">
-          03 / PRODUCTION CSS BLUEPRINT
+        <span class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af] block">
+          Production CSS Blueprints
         </span>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Code Window 1: @import -->
-          <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
-            <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+          <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-[#fafafa] dark:bg-[#0e1017] overflow-hidden shadow-xs">
+            <div class="h-9 px-3 bg-[#f3f4f6] dark:bg-[#141722] border-b border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <span class="font-mono text-xs text-[#727272] ml-2">google-fonts.css</span>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <span class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af] ml-2">google-fonts.css</span>
               </div>
               <button
                 id="btn-copy-import"
                 type="button"
-                class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
+                class="copy-btn font-mono text-xs px-2.5 py-1 rounded-md bg-white dark:bg-[#1f2330] border border-[#e5e7eb] dark:border-[#2b3042] text-[#111827] dark:text-[#f3f4f6] hover:bg-[#f3f4f6] dark:hover:bg-[#282d3e] transition-colors cursor-pointer shadow-2xs"
               >
                 Copy
               </button>
             </div>
-            <pre id="code-import" class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');</code></pre>
+            <pre id="code-import" class="p-4 font-mono text-xs text-[#111827] dark:text-[#e5e7eb] bg-transparent overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');</code></pre>
           </div>
 
           <!-- Code Window 2: font-family -->
-          <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
-            <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+          <div class="rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-[#fafafa] dark:bg-[#0e1017] overflow-hidden shadow-xs">
+            <div class="h-9 px-3 bg-[#f3f4f6] dark:bg-[#141722] border-b border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-                <span class="font-mono text-xs text-[#727272] ml-2">style.css</span>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#d1d5db] dark:bg-[#374151]"></div>
+                <span class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af] ml-2">style.css</span>
               </div>
               <button
                 id="btn-copy-family"
                 type="button"
-                class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
+                class="copy-btn font-mono text-xs px-2.5 py-1 rounded-md bg-white dark:bg-[#1f2330] border border-[#e5e7eb] dark:border-[#2b3042] text-[#111827] dark:text-[#f3f4f6] hover:bg-[#f3f4f6] dark:hover:bg-[#282d3e] transition-colors cursor-pointer shadow-2xs"
               >
                 Copy
               </button>
             </div>
-            <pre id="code-family" class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>font-family: 'Inter', sans-serif;</code></pre>
+            <pre id="code-family" class="p-4 font-mono text-xs text-[#111827] dark:text-[#e5e7eb] bg-transparent overflow-x-auto leading-relaxed"><code>font-family: 'Inter', sans-serif;</code></pre>
           </div>
         </div>
       </div>
 
       <!-- Links & CTAs -->
-      <div class="mt-6 pt-6 border-t border-[#e5e7eb] flex flex-wrap items-center justify-between gap-4">
+      <div class="mt-6 pt-6 border-t border-[#e5e7eb] dark:border-[#222533] flex flex-wrap items-center justify-between gap-4">
         <a
           id="link-google-fonts"
           href="https://fonts.google.com/specimen/Inter"
@@ -406,7 +634,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         <a
           id="link-font-page"
           href="/fonts/inter"
-          class="font-mono text-xs text-[#727272] hover:text-[#262626] transition-colors"
+          class="font-mono text-xs text-[#6b7280] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white transition-colors"
         >
           Inspect Specimen Details &rarr;
         </a>
@@ -415,11 +643,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     </div>
 
     <!-- Alternatives Card -->
-    <div class="rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
+    <div class="rounded-2xl border border-[#e5e7eb] dark:border-[#222533] bg-white dark:bg-[#11131b] p-6 sm:p-8 shadow-xs">
       <div class="flex items-center gap-2 mb-4">
         <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <h3 class="font-mono text-xs uppercase tracking-wider text-[#727272]">
-          04 / CLOSEST VERIFIED ALTERNATIVES
+        <h3 class="font-mono text-xs uppercase tracking-wider text-[#6b7280] dark:text-[#9ca3af]">
+          Closest Verified Alternatives
         </h3>
       </div>
       <div id="res-alternatives-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
@@ -489,37 +717,72 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       });
     }
 
-    // Synchronize compare-text-input and specimen-text-input in real time
+    // Synchronize compare-text-input, split lens, ghost layer, and specimen-text-input in real time
+    function syncAllSpecimenTexts(val) {
+      const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
+      const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
+      const textToDisplay = val || fontFam;
+
+      if (compareMatched) {
+        compareMatched.textContent = textToDisplay;
+        compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
+      }
+      const splitText = document.getElementById('split-vector-text');
+      if (splitText) {
+        splitText.textContent = textToDisplay;
+        splitText.style.fontFamily = `'${fontFam}', ${fontCat}`;
+      }
+      const ghostText = document.getElementById('ghost-vector-layer');
+      if (ghostText) {
+        ghostText.textContent = textToDisplay;
+        ghostText.style.fontFamily = `'${fontFam}', ${fontCat}`;
+      }
+      updateAllCardSpecimens(val);
+    }
+
     if (compareTextInput) {
       compareTextInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
-        const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
-        if (compareMatched) {
-          compareMatched.textContent = val || fontFam;
-          compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
-        }
         if (specimenInput) {
           specimenInput.value = val || 'The quick brown fox jumps over the lazy dog';
         }
-        updateAllCardSpecimens(val);
+        syncAllSpecimenTexts(val);
       });
     }
 
     if (specimenInput) {
       specimenInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
-        const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
-        if (compareMatched) {
-          compareMatched.textContent = val || fontFam;
-        }
         if (compareTextInput) {
           compareTextInput.value = val;
         }
-        updateAllCardSpecimens(val);
+        syncAllSpecimenTexts(val);
       });
     }
+
+    // Quick Specimen Presets chips in Comparator
+    document.querySelectorAll('.specimen-preset-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const text = chip.getAttribute('data-text');
+        if (text) {
+          if (compareTextInput) compareTextInput.value = text;
+          if (specimenInput) specimenInput.value = text;
+          syncAllSpecimenTexts(text);
+        }
+      });
+    });
+
+    // Quick Pangram text presets in Live Tester
+    document.querySelectorAll('.specimen-text-preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-text');
+        if (text) {
+          if (specimenInput) specimenInput.value = text;
+          if (compareTextInput) compareTextInput.value = text;
+          syncAllSpecimenTexts(text);
+        }
+      });
+    });
 
     function updateAllCardSpecimens(newText) {
       const textToDisplay = newText || (currentPrimaryFont ? currentPrimaryFont.family : 'Typography Specimen');
@@ -2101,12 +2364,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const weightSuffix = primaryWeight >= 700 ? 'Bold' : primaryWeight <= 300 ? 'Light' : 'Regular';
       document.getElementById('res-trait-weight').textContent = `${primaryWeight} ${weightSuffix}`;
 
-      // Side-by-side shape comparison
+      // Side-by-side & Forensic Optical Comparator shape comparison
       const compareUploaded = document.getElementById('res-compare-uploaded');
+      const compareGhostUploaded = document.getElementById('res-compare-ghost-uploaded');
+      const compareSideUploaded = document.getElementById('res-compare-side-uploaded');
       const compareMatched = document.getElementById('res-compare-matched');
+      const splitVectorText = document.getElementById('split-vector-text');
+      const ghostVectorLayer = document.getElementById('ghost-vector-layer');
       const shapeMatchScore = document.getElementById('res-shape-match-score');
-      if (compareUploaded && croppedDataUrl) {
-        compareUploaded.src = croppedDataUrl;
+
+      if (croppedDataUrl) {
+        if (compareUploaded) compareUploaded.src = croppedDataUrl;
+        if (compareGhostUploaded) compareGhostUploaded.src = croppedDataUrl;
+        if (compareSideUploaded) compareSideUploaded.src = croppedDataUrl;
       }
 
       // Dynamic specimen text: user input or sample preset or family name (NEVER hardcoded Handgloves)
@@ -2116,6 +2386,14 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       if (compareMatched) {
         compareMatched.textContent = activeText;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
+      }
+      if (splitVectorText) {
+        splitVectorText.textContent = activeText;
+        splitVectorText.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
+      }
+      if (ghostVectorLayer) {
+        ghostVectorLayer.textContent = activeText;
+        ghostVectorLayer.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
       }
 
       if (compareTextInput && !compareTextInput.value.trim() && currentSampleText) {
@@ -2160,7 +2438,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         topMatches.slice(0, 6).forEach((cand, idx) => {
           const card = document.createElement('div');
           const isBest = (idx === 0);
-          card.className = `rounded-xl border ${isBest ? 'border-[#e5e7eb] shadow-[0_2px_12px_rgba(0,0,0,0.04)] bg-white' : 'border-[#e5e7eb] bg-white'} p-5 sm:p-6 transition-all hover:border-[#d1d5db]`;
+          card.className = `rounded-xl border ${isBest ? 'border-[#ff4d00]/40 shadow-sm' : 'border-[#e5e7eb] dark:border-[#242834]'} bg-white dark:bg-[#15171e] p-5 sm:p-6 transition-all hover:border-[#ff4d00]/50`;
 
           const cFam = cand.family;
           const cCat = cand.font.category || 'sans-serif';
@@ -2174,26 +2452,26 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             <div class="flex items-start justify-between gap-4">
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  ${isBest ? `<span class="bg-[#000000] text-white text-[11px] font-semibold px-2 py-0.5 rounded">Best match</span>` : ''}
-                  <h3 class="text-lg sm:text-xl font-bold text-[#111827] tracking-tight">
+                  ${isBest ? `<span class="bg-[#ff4d00] text-white text-[11px] font-semibold px-2 py-0.5 rounded">Best match</span>` : ''}
+                  <h3 class="text-lg sm:text-xl font-bold text-[#111827] dark:text-[#f3f4f6] tracking-tight">
                     ${cFam}
                   </h3>
                 </div>
-                <div class="text-xs text-[#6b7280] mt-1 capitalize">
-                  ${cCat} &bull; Free &bull; open licence
+                <div class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1 capitalize">
+                  ${cCat} &bull; Free &bull; Open Licence
                 </div>
               </div>
 
               <div class="text-right shrink-0">
-                <div class="text-base font-bold text-[#111827]">#${idx + 1}</div>
-                <div class="text-[11px] text-[#9ca3af] -mt-1 font-medium">closest</div>
+                <div class="text-base font-bold text-[#111827] dark:text-[#f3f4f6]">#${idx + 1}</div>
+                <div class="text-[11px] text-[#9ca3af] dark:text-[#727272] -mt-1 font-medium">closest</div>
               </div>
             </div>
 
             <!-- Live Specimen Preview Box -->
-            <div class="my-4 p-5 rounded-xl bg-[#f8f9fa] border border-[#f0f0f0] min-h-[76px] flex items-center overflow-hidden">
+            <div class="my-4 p-5 rounded-xl bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] min-h-[76px] flex items-center overflow-hidden transition-colors">
               <div
-                class="specimen-card-preview text-2xl sm:text-3xl text-[#111827] leading-snug break-words w-full"
+                class="specimen-card-preview text-2xl sm:text-3xl text-[#111827] dark:text-[#f3f4f6] leading-snug break-words w-full"
                 style="font-family: '${cFam}', ${cCat};"
               >
                 ${activeText}
@@ -2201,19 +2479,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             </div>
 
             <!-- Minimalist Action Buttons -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
               <a
                 href="${cGfUrl}"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-[#e5e7eb] bg-white hover:bg-[#f9fafb] text-xs font-medium text-[#374151] transition-colors shadow-2xs"
+                class="inline-flex items-center px-3.5 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217] hover:bg-[#f9fafb] dark:hover:bg-[#1a1d26] text-xs font-medium text-[#374151] dark:text-[#cbd5e1] transition-colors shadow-2xs"
               >
                 View on Google Fonts
               </a>
 
               <button
                 type="button"
-                class="btn-copy-card-css inline-flex items-center px-3.5 py-1.5 rounded-lg border border-[#e5e7eb] bg-white hover:bg-[#f9fafb] text-xs font-medium text-[#374151] transition-colors shadow-2xs cursor-pointer"
+                class="btn-copy-card-css inline-flex items-center px-3.5 py-1.5 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217] hover:bg-[#f9fafb] dark:hover:bg-[#1a1d26] text-xs font-medium text-[#374151] dark:text-[#cbd5e1] transition-colors shadow-2xs cursor-pointer"
               >
                 Copy CSS
               </button>
@@ -2263,18 +2541,18 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         altContainer.innerHTML = '';
         data.runnersUp.forEach((alt) => {
           const div = document.createElement('div');
-          div.className = 'p-4 rounded-xl border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-[#ffffff] hover:border-[#ff4d00]/30 transition-all cursor-pointer text-left';
+          div.className = 'p-4 rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-[#fafafa] dark:bg-[#141722] hover:bg-white dark:hover:bg-[#1a1d2b] hover:border-[#ff4d00]/40 transition-all cursor-pointer text-left shadow-2xs';
           const altId = alt.font.id || alt.font.family.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           const altDesc = alt.font.description || `${alt.font.family} is a free open-source font.`;
           div.innerHTML = `
             <div class="flex items-center justify-between">
-              <span class="font-semibold text-sm text-[#262626]">${alt.font.family}</span>
-              <span class="font-mono text-xs text-[#ff4d00]">${alt.confidence}%</span>
+              <span class="font-medium text-xs sm:text-sm text-[#111827] dark:text-[#f3f4f6]">${alt.font.family}</span>
+              <span class="font-mono text-xs text-[#ff4d00] font-semibold">${alt.confidence}%</span>
             </div>
-            <p class="text-xs text-[#727272] mt-1 line-clamp-1">${altDesc}</p>
-            <div class="mt-3 flex items-center justify-between font-mono text-[11px] text-[#727272]">
+            <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-1 line-clamp-1">${altDesc}</p>
+            <div class="mt-3 flex items-center justify-between font-mono text-[11px] text-[#6b7280] dark:text-[#9ca3af]">
               <span class="capitalize">${alt.font.category || 'sans-serif'}</span>
-              <span class="font-medium text-[#262626]">View Specimen &rarr;</span>
+              <span class="font-medium text-[#111827] dark:text-[#f3f4f6]">View Specimen &rarr;</span>
             </div>
           `;
           div.addEventListener('click', () => {
@@ -2320,17 +2598,103 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       specimenInput.style.fontSize = `${val}px`;
     });
 
+    // Forensic Optical Comparator Controls
+    const modeBtns = document.querySelectorAll('.comparator-mode-btn');
+    const viewSplit = document.getElementById('view-split-lens');
+    const viewGhost = document.getElementById('view-ghost-lens');
+    const viewSide = document.getElementById('view-side-lens');
+
+    modeBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        modeBtns.forEach(b => {
+          b.classList.remove('bg-[#ff4d00]', 'text-white', 'shadow-xs', 'font-medium');
+          b.classList.add('text-[#727272]', 'dark:text-[#9ca3af]');
+        });
+        btn.classList.add('bg-[#ff4d00]', 'text-white', 'shadow-xs', 'font-medium');
+        btn.classList.remove('text-[#727272]', 'dark:text-[#9ca3af]');
+
+        const mode = btn.getAttribute('data-mode');
+        if (viewSplit) viewSplit.classList.toggle('hidden', mode !== 'split');
+        if (viewGhost) viewGhost.classList.toggle('hidden', mode !== 'ghost');
+        if (viewSide) viewSide.classList.toggle('hidden', mode !== 'side');
+      });
+    });
+
+    // Wipe Split Slider
+    const wipeSlider = document.getElementById('wipe-range-slider');
+    const splitLayer = document.getElementById('split-vector-layer');
+    const splitDivider = document.getElementById('split-divider-bar');
+    if (wipeSlider && splitLayer && splitDivider) {
+      wipeSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        splitLayer.style.clipPath = `inset(0 0 0 ${val}%)`;
+        splitDivider.style.left = `${val}%`;
+      });
+    }
+
+    // Ghost Opacity Slider
+    const ghostSlider = document.getElementById('ghost-opacity-slider');
+    const ghostLayer = document.getElementById('ghost-vector-layer');
+    const ghostValLabel = document.getElementById('ghost-opacity-val');
+    if (ghostSlider && ghostLayer && ghostValLabel) {
+      ghostSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        ghostLayer.style.opacity = (val / 100);
+        ghostValLabel.textContent = `${val}%`;
+      });
+    }
+
+    // Invert Negative Button
+    const btnInvert = document.getElementById('btn-toggle-invert');
+    let isInverted = false;
+    if (btnInvert) {
+      btnInvert.addEventListener('click', () => {
+        isInverted = !isInverted;
+        const filterVal = isInverted ? 'invert(1) hue-rotate(180deg) contrast(1.1) brightness(0.95)' : 'none';
+        ['res-compare-uploaded', 'res-compare-ghost-uploaded', 'res-compare-side-uploaded'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.filter = filterVal;
+        });
+        btnInvert.classList.toggle('bg-[#ff4d00]/15', isInverted);
+        btnInvert.classList.toggle('border-[#ff4d00]', isInverted);
+        btnInvert.classList.toggle('text-[#ff4d00]', isInverted);
+      });
+    }
+
+    // Hairline Guidelines Toggle
+    const btnGuides = document.getElementById('btn-toggle-guides');
+    const splitGuides = document.getElementById('split-guidelines');
+    let guidesVisible = true;
+    if (btnGuides && splitGuides) {
+      btnGuides.addEventListener('click', () => {
+        guidesVisible = !guidesVisible;
+        splitGuides.classList.toggle('opacity-0', !guidesVisible);
+        btnGuides.classList.toggle('opacity-50', !guidesVisible);
+      });
+    }
+
+    // Specimen Tracking / Letter-spacing Slider
+    const trackingSlider = document.getElementById('specimen-tracking-slider');
+    const trackingLabel = document.getElementById('specimen-tracking-label');
+    if (trackingSlider && trackingLabel && specimenInput) {
+      trackingSlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        trackingLabel.textContent = `${val}px`;
+        specimenInput.style.letterSpacing = `${val}px`;
+      });
+    }
+
     specimenWeightPills.forEach((pill) => {
       pill.addEventListener('click', () => {
         specimenWeightPills.forEach((p) => {
-          p.classList.remove('bg-[#262626]', 'text-white', 'border-[#262626]');
-          p.classList.add('bg-white', 'text-[#727272]', 'border-[#e5e7eb]');
+          p.classList.remove('bg-[#262626]', 'text-white', 'border-[#262626]', 'dark:bg-[#ff4d00]', 'dark:border-[#ff4d00]');
+          p.classList.add('bg-white', 'dark:bg-[#181b26]', 'text-[#727272]', 'dark:text-[#9ca3af]', 'border-[#e5e7eb]', 'dark:border-[#282d3c]');
         });
-        pill.classList.remove('bg-white', 'text-[#727272]', 'border-[#e5e7eb]');
-        pill.classList.add('bg-[#262626]', 'text-white', 'border-[#262626]');
+        pill.classList.remove('bg-white', 'dark:bg-[#181b26]', 'text-[#727272]', 'dark:text-[#9ca3af]', 'border-[#e5e7eb]', 'dark:border-[#282d3c]');
+        pill.classList.add('bg-[#262626]', 'dark:bg-[#ff4d00]', 'text-white', 'border-[#262626]', 'dark:border-[#ff4d00]');
 
         const weight = pill.getAttribute('data-weight');
-        specimenInput.style.fontWeight = weight;
+        if (specimenInput) specimenInput.style.fontWeight = weight;
       });
     });
 
