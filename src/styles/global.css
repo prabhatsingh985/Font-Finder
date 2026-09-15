@@ -51,37 +51,99 @@
   background-size: 24px 24px;
 }
 
-/* Firecrawl Pill button with outer glow */
+/* Dynamic Scanner & Ambient HUD Elements */
+@keyframes laser-sweep {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.65;
+  }
+  90% {
+    opacity: 0.65;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-laser-sweep {
+  animation: laser-sweep 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-subtle 4.5s ease-in-out infinite 1.5s;
+}
+
+@keyframes scanner-sweep-down {
+  0% {
+    top: -5%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+.animate-scanner-down {
+  animation: scanner-sweep-down 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Minimal, official button styles */
 .btn-ember-pill {
   background-color: #ff4d00;
   color: #ffffff;
   font-family: var(--font-suisse);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.01em;
   padding: 8px 18px;
   border-radius: 999px;
-  transition: box-shadow 0.2s ease, opacity 0.15s ease;
-  box-shadow: 0 0 0 0 transparent;
+  transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
 }
 .btn-ember-pill:hover {
-  box-shadow: 0 0 0 6px #fcddcc;
-  opacity: 0.95;
+  opacity: 0.92;
+  background-color: #e04400;
+}
+.btn-ember-pill:active {
+  transform: scale(0.99);
 }
 
 /* Ghost nav button */
 .btn-ghost-nav {
-  color: #262626;
+  color: #374151;
   font-family: var(--font-suisse);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 999px;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 .btn-ghost-nav:hover {
-  background-color: #f9f9f9;
-  color: #ff4d00;
+  background-color: #f3f4f6;
+  color: #111827;
 }
 
 /* Code window chrome */
@@ -158,8 +220,28 @@ html.dark .bg-\[\#f3f4f6\] {
   color: #cbd5e1 !important;
 }
 
+html.dark .bg-\[\#f8f9fa\],
+html.dark .bg-\[\#f8f9fb\],
+html.dark .bg-\[\#f0f0f0\],
+html.dark .bg-\[\#fcfcfc\] {
+  background-color: #101217 !important;
+  color: #f3f4f6 !important;
+}
+
+html.dark .border-\[\#f0f0f0\] {
+  border-color: #242834 !important;
+}
+
 html.dark .bg-white\/95 {
   background-color: rgba(13, 14, 18, 0.92) !important;
+}
+
+html.dark .bg-white\/80 {
+  background-color: rgba(13, 14, 18, 0.80) !important;
+}
+
+html.dark .bg-white\/60 {
+  background-color: rgba(13, 14, 18, 0.60) !important;
 }
 
 html.dark .bg-\[\#262626\] {
@@ -285,7 +367,7 @@ html.dark select option {
 
 /* Mobile navbar */
 html.dark header .md\:hidden {
-  background-color: #101217 !important;
+  background-color: rgba(16, 18, 23, 0.60) !important;
   border-color: #242834 !important;
 }
 
