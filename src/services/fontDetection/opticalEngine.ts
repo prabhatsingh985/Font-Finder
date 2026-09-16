@@ -9,8 +9,11 @@ import type {
   GlyphSignature
 } from '../../types/font';
 import { VERIFIED_GOOGLE_FONTS } from '../googleFonts/data';
-import { GoogleFontsService } from '../googleFonts/service';
 import { FontSignatureService } from './fontSignatures';
+import { SignedDistanceFieldEngine } from './sdfEngine';
+import { GlyphSegmentationEngine } from './glyphSegmenter';
+import { TypographicEmbeddingEngine } from './typographicEmbedding';
+import { ConsensusEngine, type GlyphMatchRecord } from './consensusEngine';
 
 export interface ImagePixelData {
   width: number;
@@ -1117,8 +1120,8 @@ export class OpticalFontEngine {
     candidatesA.sort((a, b) => b.shapeScore - a.shapeScore);
     const topCandidatesA = candidatesA.slice(0, 40);
 
-    // Stage B: Whole-Word Rendering Silhouette Verification
-    onProgress?.(65, 'STAGE B: WHOLE-WORD RENDERING VERIFICATION', `Rendering word silhouette "${verifiedWordText}" across leading candidate fonts...`);
+    // Stage B: Anchor Glyph Signed Distance Field (SDF) Chamfer Matching & Multi-Glyph Consensus
+    onProgress?.(65, 'STAGE B: ANCHOR GLYPH SIGNED DISTANCE FIELD (SDF) MATCHING', `Evaluating high-entropy anchor letterforms against leading candidate fonts...`);
 
     interface FinalRankedCandidate {
       family: string;
@@ -1127,6 +1130,7 @@ export class OpticalFontEngine {
       shapeScore: number;
       renderScore: number;
       compositeScore: number;
+      sdfSimilarity?: number;
     }
 
     const finalCandidates: FinalRankedCandidate[] = [];
@@ -1144,12 +1148,57 @@ export class OpticalFontEngine {
       }
     }
 
-    for (const cand of topCandidatesA) {
-      let renderScore = cand.shapeScore;
+    // Prepare Anchor Glyphs and compute their Canonical Signed Distance Fields (SDF)
+    const anchorChars = GlyphSegmentationEngine.selectTopAnchorChars(activeGlyphs.map(g => g.char), 4);
+    const userAnchorSdfs = new Map<string, Float32Array>();
 
+    for (const ch of anchorChars) {
+      const g = activeGlyphs.find(glyph => glyph.char === ch);
+      if (!g) continue;
+
+      if (input.wordImageCanvas && g.box && g.box.w > 2 && g.box.h > 2) {
+        const glyphCanvas = GlyphSegmentationEngine.createCanonicalGlyphCanvas(input.wordImageCanvas, g.box, 64);
+        const sdf = SignedDistanceFieldEngine.extractCanvasSDF(glyphCanvas, 64);
+        userAnchorSdfs.set(ch, sdf);
+      } else if (g.signature && g.signature.length === 32) {
+        // Unpack 256 bits into 16x16 mask and compute SDF
+        const mask16 = new Uint8Array(256);
+        for (let b = 0; b < 256; b++) {
+          const byteIdx = Math.floor(b / 8);
+          const bitIdx = b % 8;
+          mask16[b] = ((g.signature[byteIdx]! >> (7 - bitIdx)) & 1) ? 1 : 0;
+        }
+        const sdf = SignedDistanceFieldEngine.computeSDF(mask16, 16, 16, 4.0);
+        userAnchorSdfs.set(ch, sdf);
+      }
+    }
+
+    for (const cand of topCandidatesA) {
+      let wordSilhouetteScore = cand.shapeScore;
+      let sdfConsensusScore = cand.shapeScore;
+
+      // 1. Evaluate Anchor Glyphs using Signed Distance Fields (In-browser)
+      if (userAnchorSdfs.size > 0 && typeof document !== 'undefined') {
+        const glyphMatches: GlyphMatchRecord[] = [];
+        const weightNum = cand.bestWeight === 'bold' ? 700 : 400;
+
+        for (const [ch, userSdf] of userAnchorSdfs.entries()) {
+          const candSdf = SignedDistanceFieldEngine.renderCandidateGlyphSDF(cand.family, ch, weightNum, userSdf.length === 256 ? 16 : 64);
+          if (candSdf) {
+            const { distance, similarity } = SignedDistanceFieldEngine.compareSDF(userSdf, candSdf);
+            glyphMatches.push({ char: ch, distance, similarity });
+          }
+        }
+
+        if (glyphMatches.length > 0) {
+          sdfConsensusScore = ConsensusEngine.calculateConsensus(glyphMatches);
+        }
+      }
+
+      // 2. Evaluate Whole-Word Silhouette if canvas available
       if (canRenderCanvas && userWordSilhouette) {
         try {
-          renderScore = await this.renderAndCompareCandidateWord(
+          wordSilhouetteScore = await this.renderAndCompareCandidateWord(
             cand.family,
             verifiedWordText,
             cand.bestWeight,
@@ -1158,9 +1207,14 @@ export class OpticalFontEngine {
             renderHeight
           );
         } catch {
-          renderScore = cand.shapeScore;
+          wordSilhouetteScore = cand.shapeScore;
         }
       }
+
+      // Combine SDF Consensus (70%) with Macro Word Silhouette (30%)
+      const renderScore = (userAnchorSdfs.size > 0 && canRenderCanvas && userWordSilhouette)
+        ? (0.70 * sdfConsensusScore + 0.30 * wordSilhouetteScore)
+        : (userAnchorSdfs.size > 0 ? sdfConsensusScore : wordSilhouetteScore);
 
       finalCandidates.push({
         family: cand.family,
@@ -1168,7 +1222,8 @@ export class OpticalFontEngine {
         weight: cand.bestWeight,
         shapeScore: cand.shapeScore,
         renderScore,
-        compositeScore: cand.shapeScore
+        compositeScore: cand.shapeScore,
+        sdfSimilarity: sdfConsensusScore
       });
     }
 
@@ -1255,7 +1310,9 @@ export class OpticalFontEngine {
         c.weight === 'bold' ? 'Matched bold stroke weight' : 'Matched regular stroke weight',
         `Category alignment: ${c.category}`
       ];
-      if (c.renderScore > 0.75) {
+      if (c.sdfSimilarity && c.sdfSimilarity > 0.65) {
+        reasons.unshift(`Signed Distance Field (SDF) chamfer correlation (${Math.round(c.sdfSimilarity * 100)}%)`);
+      } else if (c.renderScore > 0.75) {
         reasons.unshift(`Whole-word silhouette match (${Math.round(c.renderScore * 100)}%)`);
       }
 
@@ -1278,10 +1335,14 @@ export class OpticalFontEngine {
     const secondary = formattedCandidates.slice(1, 10);
     const processingTimeMs = Math.round(performance.now() - startTime);
 
+    const commercialTwin = ConsensusEngine.resolveCommercialTwin(primary.family) ||
+                           ConsensusEngine.resolveCommercialTwin(verifiedWordText);
+    const commercialDetected = primary.font.commercialAlternativesFor?.[0] || commercialTwin?.twin;
+
     return {
       primaryMatch: primary,
       candidates: secondary,
-      commercialFontDetected: primary.font.commercialAlternativesFor?.[0],
+      commercialFontDetected: commercialDetected,
       suggestedFreeAlternatives: secondary.slice(0, 3),
       typographyTraits: {
         classification: primary.font.category,

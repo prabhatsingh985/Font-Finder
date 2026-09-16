@@ -20,3 +20,7 @@ export class FontDetectionService {
 export * from './opticalEngine';
 export * from './ocrEngine';
 export * from './fontSignatures';
+export * from './sdfEngine';
+export * from './glyphSegmenter';
+export * from './typographicEmbedding';
+export * from './consensusEngine';

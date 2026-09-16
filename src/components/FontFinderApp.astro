@@ -3264,6 +3264,44 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         return { horiz, vert };
       }
 
+      function computeChamferDistance64(bA, bB) {
+        const INF = 1e5;
+        const dA = new Float32Array(4096);
+        const dB = new Float32Array(4096);
+        for (let i = 0; i < 4096; i++) {
+          dA[i] = bA[i] === 1 ? 0 : INF;
+          dB[i] = bB[i] === 1 ? 0 : INF;
+        }
+        for (let y = 0; y < 64; y++) {
+          const row = y * 64;
+          for (let x = 1; x < 64; x++) {
+            if (dA[row + x] > dA[row + x - 1] + 1) dA[row + x] = dA[row + x - 1] + 1;
+            if (dB[row + x] > dB[row + x - 1] + 1) dB[row + x] = dB[row + x - 1] + 1;
+          }
+          for (let x = 62; x >= 0; x--) {
+            if (dA[row + x] > dA[row + x + 1] + 1) dA[row + x] = dA[row + x + 1] + 1;
+            if (dB[row + x] > dB[row + x + 1] + 1) dB[row + x] = dB[row + x + 1] + 1;
+          }
+        }
+        for (let x = 0; x < 64; x++) {
+          for (let y = 1; y < 64; y++) {
+            if (dA[y * 64 + x] > dA[(y - 1) * 64 + x] + 1) dA[y * 64 + x] = dA[(y - 1) * 64 + x] + 1;
+            if (dB[y * 64 + x] > dB[(y - 1) * 64 + x] + 1) dB[y * 64 + x] = dB[(y - 1) * 64 + x] + 1;
+          }
+          for (let y = 62; y >= 0; y--) {
+            if (dA[y * 64 + x] > dA[(y + 1) * 64 + x] + 1) dA[y * 64 + x] = dA[(y + 1) * 64 + x] + 1;
+            if (dB[y * 64 + x] > dB[(y + 1) * 64 + x] + 1) dB[y * 64 + x] = dB[(y + 1) * 64 + x] + 1;
+          }
+        }
+        let chamferSum = 0, count = 0;
+        for (let i = 0; i < 4096; i++) {
+          if (bA[i] === 1) { chamferSum += Math.min(16, dB[i]); count++; }
+          if (bB[i] === 1) { chamferSum += Math.min(16, dA[i]); count++; }
+        }
+        const avgChamfer = count > 0 ? chamferSum / count : 16;
+        return Math.max(0, 1.0 - (avgChamfer / 8.0));
+      }
+
       function compareGlyphs(a, b) {
         let inter64 = 0, union64 = 0;
         for (let i = 0; i < 4096; i++) {
@@ -3284,6 +3322,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         const iou128 = union128 > 0 ? inter128 / union128 : 1.0;
         const multiResIoU = 0.40 * iou64 + 0.60 * iou128;
 
+        const chamferSim = computeChamferDistance64(a.bitmap64, b.bitmap64);
+
         let dotH = 0, magHa = 0, magHb = 0;
         let dotV = 0, magVa = 0, magVb = 0;
         for (let i = 0; i < 16; i++) {
@@ -3301,7 +3341,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         const counterSim = (a.hasEnclosedCounter === b.hasEnclosedCounter) ? 1.0 : 0.65;
         const aspectSim = Math.max(0, 1.0 - Math.abs(a.aspectRatio - b.aspectRatio) * 1.5);
 
-        return 0.45 * multiResIoU + 0.25 * profileSim + 0.15 * counterSim + 0.15 * aspectSim;
+        return 0.40 * chamferSim + 0.25 * multiResIoU + 0.15 * profileSim + 0.10 * counterSim + 0.10 * aspectSim;
       }
 
       const glyphSignatures = glyphBoxes.map((g) => {
