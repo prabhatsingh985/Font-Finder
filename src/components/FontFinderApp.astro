@@ -86,7 +86,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e5e7eb] dark:border-[#242834]">
       <div class="flex items-center gap-2">
         <div class="w-2 h-2 rounded-full bg-[#ff4d00]"></div>
-        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">02 / Text Organization & Letter Verification</span>
+        <span class="font-mono text-xs font-semibold uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">02 / Text Verification</span>
       </div>
       <div class="flex items-center gap-2">
         <button
@@ -119,56 +119,71 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
     </div>
 
-    <!-- Section 1: "Which word? Pick the one whose font you want." -->
-    <div>
-      <div class="mb-3">
-        <h3 class="text-sm sm:text-base font-semibold text-[#262626] dark:text-[#f3f4f6] inline">
-          Which word?
-        </h3>
-        <span class="text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] ml-1.5">
-          Pick the one whose font you want.
-        </span>
+    <!-- Unified Section: Detected Sentence Region Preview & Text Verification -->
+    <div class="space-y-5">
+      <!-- Sentence Crop Preview Box -->
+      <div id="stage2-sentence-preview-card" class="rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] p-4 flex flex-col items-center justify-center min-h-[90px] overflow-hidden transition-all">
+        <div class="w-full flex items-center justify-between mb-2.5">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">Detected Text Region:</span>
+          <span id="stage2-preview-badge" class="text-[10px] font-mono text-[#ff4d00] bg-[#ff4d00]/10 px-2.5 py-0.5 rounded-full font-semibold border border-[#ff4d00]/20">Full Sentence Crop</span>
+        </div>
+        <div class="w-full flex items-center justify-center bg-white dark:bg-[#15171e] rounded-lg border border-[#e5e7eb]/80 dark:border-[#242834]/80 p-3 min-h-[70px]">
+          <img id="stage2-sentence-preview-img" src="" alt="Detected Text Crop" class="max-h-[120px] max-w-full object-contain rounded shadow-2xs" />
+        </div>
       </div>
 
-      <!-- Word Chips Container -->
-      <div id="word-chips-container" class="flex flex-wrap items-center gap-2.5 p-3 rounded-xl bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] min-h-[64px]">
-        <!-- Word chips injected dynamically -->
-      </div>
-    </div>
+      <!-- Text Verification & Direct Edit -->
+      <div class="space-y-2">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-sm sm:text-base font-semibold text-[#262626] dark:text-[#f3f4f6] inline">
+              Verify detected text.
+            </h3>
+            <span class="text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] ml-1.5">
+              Fix any typos or characters before identifying.
+            </span>
+          </div>
+          <div id="ocr-engine-badge" class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 shadow-2xs shrink-0">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="ocr-engine-badge-text">AI OCR Verified</span>
+          </div>
+        </div>
 
-    <!-- Section 2: "Check the letters. Fix any that are wrong, and clear the box of anything that is not a letter." -->
-    <div>
-      <div class="mb-3">
-        <h3 class="text-sm sm:text-base font-semibold text-[#262626] dark:text-[#f3f4f6] inline">
-          Check the letters.
-        </h3>
-        <span class="text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] ml-1.5">
-          Fix any that are wrong, and clear the box of anything that is not a letter.
-        </span>
-      </div>
-
-      <!-- Selected Word Quick Edit Bar -->
-      <div class="mb-3 flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-[#15171e] p-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="flex items-center gap-2 flex-1 min-w-[220px]">
-          <span class="text-xs font-mono uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] whitespace-nowrap">Selected Word:</span>
+        <!-- Full Sentence Text Input -->
+        <div class="relative flex items-center">
           <input
             id="selected-word-text-input"
             type="text"
-            class="flex-1 max-w-[300px] px-3 py-1.5 text-sm font-semibold font-mono text-[#262626] dark:text-[#f3f4f6] bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] rounded-lg focus:outline-none focus:border-[#ff4d00] focus:ring-1 focus:ring-[#ff4d00]/20 transition-all"
-            placeholder="Edit word text..."
+            class="w-full px-4 py-3 text-sm sm:text-base font-semibold font-mono text-[#262626] dark:text-[#f3f4f6] bg-white dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] rounded-xl focus:outline-none focus:border-[#ff4d00] focus:ring-2 focus:ring-[#ff4d00]/20 transition-all shadow-xs"
+            placeholder="Verify or edit text..."
           />
-        </div>
-        <div id="ocr-engine-badge" class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 shadow-2xs">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-          <span id="ocr-engine-badge-text">AI OCR Verified</span>
         </div>
       </div>
 
-      <!-- Letter Tiles Container -->
-      <div id="letter-tiles-container" class="flex flex-wrap items-center gap-2.5 p-3 rounded-xl bg-[#f9f9f9] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] min-h-[96px] overflow-x-auto">
-        <!-- Letter tiles injected dynamically -->
+      <!-- Progressive Disclosure: Advanced Word & Glyph Inspection (Collapsed by default) -->
+      <div class="pt-1">
+        <button
+          id="btn-toggle-advanced-inspection"
+          type="button"
+          class="font-mono text-xs text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors flex items-center gap-1.5 cursor-pointer select-none"
+        >
+          <span id="advanced-inspection-caret" class="text-[10px]">►</span>
+          <span>Advanced: Inspect individual words & letters</span>
+        </button>
+
+        <!-- Collapsible content (hidden by default) -->
+        <div id="advanced-inspection-panel" class="hidden mt-3 space-y-4 p-4 rounded-xl border border-[#e5e7eb]/80 dark:border-[#242834]/80 bg-[#f9f9f9]/50 dark:bg-[#101217]/50">
+          <div>
+            <span class="text-xs font-semibold text-[#262626] dark:text-[#f3f4f6]">Word Segments (Click to isolate a specific word):</span>
+            <div id="word-chips-container" class="mt-2 flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] min-h-[50px]"></div>
+          </div>
+          <div>
+            <span class="text-xs font-semibold text-[#262626] dark:text-[#f3f4f6]">Letter Glyphs (Fix individual characters or clear non-letters):</span>
+            <div id="letter-tiles-container" class="mt-2 flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] min-h-[70px] overflow-x-auto"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -223,25 +238,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
   <!-- Step 4: Results Display -->
   <div id="results-stage" class="hidden space-y-6">
 
-    <!-- Quick Sentence Word Switcher (Allows re-identifying any word again & again) -->
-    <div id="results-sentence-bar" class="rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#15171e] p-5 sm:p-6 shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] space-y-3">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-          <span class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Sentence Words</span>
-          <span class="text-xs text-[#727272] dark:text-[#9ca3af]">(Click any word below to re-identify its font instantly)</span>
-        </div>
-        <button
-          id="btn-scroll-to-organize"
-          type="button"
-          class="font-mono text-xs font-semibold text-[#ff4d00] hover:underline flex items-center gap-1 cursor-pointer"
-        >
-          <span>&uarr; Edit Letters & Details</span>
-        </button>
-      </div>
-      <div id="results-sentence-chips" class="flex flex-wrap items-center gap-2 pt-1">
-        <!-- Injected dynamically -->
-      </div>
+    <!-- Hidden container to satisfy internal script references without visual clutter -->
+    <div id="results-sentence-bar" class="hidden">
+      <div id="results-sentence-chips"></div>
     </div>
 
     <!-- Preview Text Input Bar (Competitor Style) -->
@@ -251,13 +250,22 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           <span class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Preview text.</span>
           <span class="text-xs text-[#727272] dark:text-[#9ca3af] ml-1">Type anything to see it set in each match.</span>
         </div>
-        <button
-          id="btn-reset-preview-text"
-          type="button"
-          class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer"
-        >
-          Reset
-        </button>
+        <div class="flex items-center gap-2">
+          <button
+            id="btn-scroll-to-organize"
+            type="button"
+            class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#ff4d00] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer font-semibold flex items-center gap-1"
+          >
+            <span>&uarr; Edit Text</span>
+          </button>
+          <button
+            id="btn-reset-preview-text"
+            type="button"
+            class="font-mono text-xs px-3 py-1.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] hover:bg-[#e5e7eb] dark:hover:bg-[#242834] transition-colors cursor-pointer"
+          >
+            Reset
+          </button>
+        </div>
       </div>
       <input
         id="preview-text-input"
@@ -1083,6 +1091,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     const btnNewImageBar = document.getElementById('btn-new-image-bar');
     const btnScanAnother = document.getElementById('btn-scan-another');
 
+    const stage2SentencePreviewImg = document.getElementById('stage2-sentence-preview-img');
+    const stage2PreviewBadge = document.getElementById('stage2-preview-badge');
+    const btnToggleAdvancedInspection = document.getElementById('btn-toggle-advanced-inspection');
+    const advancedInspectionPanel = document.getElementById('advanced-inspection-panel');
+    const advancedInspectionCaret = document.getElementById('advanced-inspection-caret');
+
     const previewTextInput = document.getElementById('preview-text-input');
     const cropTextInput = previewTextInput;
     const btnResetPreviewText = document.getElementById('btn-reset-preview-text');
@@ -1423,6 +1437,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     btnToggleCropPanel?.addEventListener('click', toggleManualCrop);
     btnCropManuallyBar?.addEventListener('click', toggleManualCrop);
 
+    if (btnToggleAdvancedInspection && advancedInspectionPanel) {
+      btnToggleAdvancedInspection.addEventListener('click', () => {
+        const isHidden = advancedInspectionPanel.classList.toggle('hidden');
+        if (advancedInspectionCaret) {
+          advancedInspectionCaret.textContent = isHidden ? '►' : '▼';
+        }
+      });
+    }
+
     btnApplyManualCrop?.addEventListener('click', () => {
       if (currentImage) {
         sentenceImgDataUrl = '';
@@ -1449,6 +1472,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       currentVerifiedText = '';
       currentSampleText = '';
       currentWorkBinaryMask = null;
+      if (advancedInspectionPanel) advancedInspectionPanel.classList.add('hidden');
+      if (advancedInspectionCaret) advancedInspectionCaret.textContent = '►';
+      if (stage2SentencePreviewImg) stage2SentencePreviewImg.src = '';
       fileInput.value = '';
       if (uploadError) {
         uploadError.classList.add('hidden');
@@ -2162,10 +2188,31 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       if (!wordChipsContainer) return;
       wordChipsContainer.innerHTML = '';
 
+      if (detectedWords.length > 1) {
+        const isSentenceActive = (currentTargetMode === 'sentence');
+        const sBtn = document.createElement('button');
+        sBtn.type = 'button';
+        sBtn.className = `word-chip px-3.5 py-2 rounded-xl border transition-all flex items-center justify-center cursor-pointer ${
+          isSentenceActive
+            ? 'border-[#ff4d00] ring-2 ring-[#ff4d00]/25 bg-white dark:bg-[#15171e] shadow-xs'
+            : 'border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217] hover:border-[#ff4d00]/50'
+        }`;
+        sBtn.innerHTML = `
+          <div class="flex items-center gap-1.5 pointer-events-none py-1">
+            <span class="w-2 h-2 rounded-full ${isSentenceActive ? 'bg-[#ff4d00]' : 'bg-[#727272]'}"></span>
+            <span class="text-xs font-mono font-semibold text-[#262626] dark:text-[#f3f4f6]">Entire Sentence (All)</span>
+          </div>
+        `;
+        sBtn.addEventListener('click', () => {
+          selectTarget('sentence');
+        });
+        wordChipsContainer.appendChild(sBtn);
+      }
+
       detectedWords.forEach((word, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        const isSelected = (idx === currentSelectedWordIndex);
+        const isSelected = (currentTargetMode === 'word' && idx === currentSelectedWordIndex);
         btn.className = `word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer ${
           isSelected
             ? 'border-[#ff4d00] ring-2 ring-[#ff4d00]/25 bg-white dark:bg-[#15171e] shadow-xs'
@@ -2186,60 +2233,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     }
 
     function renderResultsSentenceBar() {
+      // Intentionally hidden: Entire Sentence font result is the single, direct primary result.
       const sentenceBar = document.getElementById('results-sentence-bar');
-      const chipsContainer = document.getElementById('results-sentence-chips');
-      if (!chipsContainer) return;
-      if (!detectedWords || detectedWords.length === 0) {
-        if (sentenceBar) sentenceBar.classList.add('hidden');
-        return;
-      }
-      if (sentenceBar) sentenceBar.classList.remove('hidden');
-      chipsContainer.innerHTML = '';
-
-      // 1. Master "Entire Sentence" Chip (when multiple words detected)
-      if (detectedWords.length > 1) {
-        const isSentenceActive = (currentTargetMode === 'sentence');
-        const sBtn = document.createElement('button');
-        sBtn.type = 'button';
-        sBtn.className = `group flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
-          isSentenceActive
-            ? 'bg-[#ff4d00] text-white shadow-xs font-semibold ring-2 ring-[#ff4d00]/30'
-            : 'bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] border border-[#e5e7eb] dark:border-[#242834] hover:border-[#ff4d00]/50 hover:bg-[#f3f4f6] dark:hover:bg-[#1f232b]'
-        }`;
-        sBtn.innerHTML = `
-          <span class="inline-block w-2 h-2 rounded-full ${isSentenceActive ? 'bg-white' : 'bg-[#ff4d00]'}"></span>
-          <span class="tracking-tight font-semibold">Entire Sentence</span>
-          ${isSentenceActive ? '<span class="text-[10px] bg-white/25 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ml-0.5">Primary</span>' : ''}
-        `;
-        sBtn.addEventListener('click', () => {
-          selectTarget('sentence');
-        });
-        chipsContainer.appendChild(sBtn);
-      }
-
-      // 2. Individual word chips
-      detectedWords.forEach((word, idx) => {
-        const isSelected = (currentTargetMode === 'word' && idx === currentSelectedWordIndex);
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `group flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
-          isSelected
-            ? 'bg-[#ff4d00] text-white shadow-xs font-semibold ring-2 ring-[#ff4d00]/30'
-            : 'bg-[#f9f9f9] dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] border border-[#e5e7eb] dark:border-[#242834] hover:border-[#ff4d00]/50 hover:bg-[#f3f4f6] dark:hover:bg-[#1f232b]'
-        }`;
-        
-        btn.innerHTML = `
-          <span class="inline-block w-2 h-2 rounded-full ${isSelected ? 'bg-white' : 'bg-[#ff4d00]'}"></span>
-          <span class="tracking-tight">${word.text}</span>
-          ${isSelected ? '<span class="text-[10px] bg-white/25 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ml-0.5">Active</span>' : ''}
-        `;
-
-        btn.addEventListener('click', () => {
-          selectTarget('word', idx);
-        });
-
-        chipsContainer.appendChild(btn);
-      });
+      if (sentenceBar) sentenceBar.classList.add('hidden');
 
       const btnScrollOrganize = document.getElementById('btn-scroll-to-organize');
       if (btnScrollOrganize) {
@@ -2446,10 +2442,18 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           currentSelectedWord = detectedWords[0];
         }
 
-        // Visual update on organize chips (none active)
-        document.querySelectorAll('.word-chip').forEach((btn) => {
-          btn.className = 'word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217] hover:border-[#ff4d00]/50';
-        });
+        // Update Stage 02 sentence crop preview
+        if (stage2SentencePreviewImg) {
+          const sUrl = getSentenceImageDataUrl();
+          if (sUrl) stage2SentencePreviewImg.src = sUrl;
+          else if (detectedWords[0]?.wordImgDataUrl) stage2SentencePreviewImg.src = detectedWords[0].wordImgDataUrl;
+        }
+        if (stage2PreviewBadge) {
+          stage2PreviewBadge.textContent = 'Full Sentence Crop';
+        }
+
+        // Visual update on organize chips
+        renderWordChips();
 
         const wordInput = document.getElementById('selected-word-text-input');
         if (wordInput) {
@@ -2466,22 +2470,32 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             btnSpan.textContent = 'Identify Entire Sentence font';
           }
         }
-        if (detectedWords.length > 0) {
-          renderLetterTiles(detectedWords[0]);
-        }
+        
+        // Pool glyphs across all detected words for advanced inspection tray
+        const allSentenceGlyphs = [];
+        detectedWords.forEach((w) => {
+          if (w.glyphs && w.glyphs.length > 0) {
+            allSentenceGlyphs.push(...w.glyphs);
+          } else if (w.originalGlyphs && w.originalGlyphs.length > 0) {
+            allSentenceGlyphs.push(...w.originalGlyphs);
+          }
+        });
+        renderLetterTiles(null, allSentenceGlyphs);
       } else {
         currentTargetMode = 'word';
         if (idx < 0 || idx >= detectedWords.length) return;
         currentSelectedWordIndex = idx;
         currentSelectedWord = detectedWords[idx];
 
-        document.querySelectorAll('.word-chip').forEach((btn, bIdx) => {
-          if (bIdx === idx) {
-            btn.className = 'word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer border-[#ff4d00] ring-2 ring-[#ff4d00]/25 bg-white dark:bg-[#15171e] shadow-xs';
-          } else {
-            btn.className = 'word-chip px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-center cursor-pointer border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217] hover:border-[#ff4d00]/50';
-          }
-        });
+        // Update Stage 02 crop preview for single word
+        if (stage2SentencePreviewImg) {
+          stage2SentencePreviewImg.src = currentSelectedWord.wordImgDataUrl || '';
+        }
+        if (stage2PreviewBadge) {
+          stage2PreviewBadge.textContent = `Word: "${currentSelectedWord.text}"`;
+        }
+
+        renderWordChips();
 
         const wordInput = document.getElementById('selected-word-text-input');
         if (wordInput) {
@@ -2516,43 +2530,63 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       selectTarget('word', idx);
     }
 
-    // Bi-directional sync for selected word text input
+    // Bi-directional sync for selected word / sentence text input
     const selectedWordInputElem = document.getElementById('selected-word-text-input');
     if (selectedWordInputElem) {
       selectedWordInputElem.addEventListener('input', (e) => {
-        if (!currentSelectedWord) return;
         const newText = e.target.value;
-        currentSelectedWord.text = newText;
-        
-        // Sync characters with existing glyph objects
-        const newChars = Array.from(newText);
-        for (let i = 0; i < currentSelectedWord.glyphs.length; i++) {
-          if (i < newChars.length) {
-            currentSelectedWord.glyphs[i].char = newChars[i];
-          }
-        }
-
-        // Update tile inputs
-        const tileInputs = letterTilesContainer?.querySelectorAll('.glyph-char-input');
-        if (tileInputs) {
-          tileInputs.forEach((inp, idx) => {
-            if (idx < newChars.length) {
-              inp.value = newChars[idx];
+        if (currentTargetMode === 'sentence' && detectedWords.length > 1) {
+          currentVerifiedText = newText;
+          const words = newText.trim().split(/\s+/).filter(Boolean);
+          words.forEach((wStr, wIdx) => {
+            if (detectedWords[wIdx]) {
+              detectedWords[wIdx].text = wStr;
             }
           });
-        }
+          const badgeText = document.getElementById('ocr-engine-badge-text');
+          if (badgeText) {
+            const letterCount = newText.replace(/\s/g, '').length;
+            badgeText.textContent = `Full Sentence (${letterCount} letters)`;
+          }
+          if (btnIdentifyFont) {
+            const btnSpan = btnIdentifyFont.querySelector('span');
+            if (btnSpan) {
+              btnSpan.textContent = 'Identify Entire Sentence font';
+            }
+          }
+        } else if (currentSelectedWord) {
+          currentSelectedWord.text = newText;
+          
+          // Sync characters with existing glyph objects
+          const newChars = Array.from(newText);
+          for (let i = 0; i < currentSelectedWord.glyphs.length; i++) {
+            if (i < newChars.length) {
+              currentSelectedWord.glyphs[i].char = newChars[i];
+            }
+          }
 
-        // Update active word chip subtitle
-        const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
-        if (activeChipLabel) {
-          activeChipLabel.textContent = newText;
-        }
+          // Update tile inputs
+          const tileInputs = letterTilesContainer?.querySelectorAll('.glyph-char-input');
+          if (tileInputs) {
+            tileInputs.forEach((inp, idx) => {
+              if (idx < newChars.length) {
+                inp.value = newChars[idx];
+              }
+            });
+          }
 
-        // Update identify button text
-        if (btnIdentifyFont) {
-          const btnSpan = btnIdentifyFont.querySelector('span');
-          if (btnSpan) {
-            btnSpan.textContent = `Identify "${newText}" font`;
+          // Update active word chip subtitle
+          const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+          if (activeChipLabel) {
+            activeChipLabel.textContent = newText;
+          }
+
+          // Update identify button text
+          if (btnIdentifyFont) {
+            const btnSpan = btnIdentifyFont.querySelector('span');
+            if (btnSpan) {
+              btnSpan.textContent = `Identify "${newText}" font`;
+            }
           }
         }
       });
@@ -2565,16 +2599,17 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       });
     }
 
-    function renderLetterTiles(word) {
+    function renderLetterTiles(word, customGlyphs = null) {
       if (!letterTilesContainer) return;
       letterTilesContainer.innerHTML = '';
 
-      if (!word || !word.glyphs || word.glyphs.length === 0) {
+      const glyphList = customGlyphs || (word ? word.glyphs : []);
+      if (!glyphList || glyphList.length === 0) {
         letterTilesContainer.innerHTML = '<span class="text-xs text-[#727272] dark:text-[#9ca3af]">No letters detected. You can use "Crop manually" to select a clear text area.</span>';
         return;
       }
 
-      word.glyphs.forEach((glyph, gIdx) => {
+      glyphList.forEach((glyph, gIdx) => {
         const tile = document.createElement('div');
         tile.className = 'letter-tile flex flex-col items-center gap-1.5 p-2 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-2xs relative group shrink-0';
         tile.innerHTML = `
@@ -2600,18 +2635,25 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         if (input) {
           input.addEventListener('input', (e) => {
             glyph.char = e.target.value;
-            if (word.originalGlyphs && word.originalGlyphs[gIdx]) {
-              word.originalGlyphs[gIdx].char = e.target.value;
-            }
-            word.text = word.glyphs.map(gl => gl.char).join('');
-            word.originalText = word.text;
-            const wordInput = document.getElementById('selected-word-text-input');
-            if (wordInput) wordInput.value = word.text;
-            const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
-            if (activeChipLabel) activeChipLabel.textContent = word.text;
-            if (btnIdentifyFont) {
-              const btnSpan = btnIdentifyFont.querySelector('span');
-              if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
+            if (word) {
+              if (word.originalGlyphs && word.originalGlyphs[gIdx]) {
+                word.originalGlyphs[gIdx].char = e.target.value;
+              }
+              word.text = word.glyphs.map(gl => gl.char).join('');
+              word.originalText = word.text;
+              const wordInput = document.getElementById('selected-word-text-input');
+              if (wordInput) wordInput.value = word.text;
+              const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+              if (activeChipLabel) activeChipLabel.textContent = word.text;
+              if (btnIdentifyFont) {
+                const btnSpan = btnIdentifyFont.querySelector('span');
+                if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
+              }
+            } else {
+              const wordInput = document.getElementById('selected-word-text-input');
+              if (wordInput) {
+                wordInput.value = detectedWords.map(w => w.text).join(' ');
+              }
             }
           });
           input.addEventListener('focus', () => input.select());
@@ -2621,21 +2663,25 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         if (removeBtn) {
           removeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            word.glyphs.splice(gIdx, 1);
-            if (word.originalGlyphs && word.originalGlyphs.length > gIdx) {
-              word.originalGlyphs.splice(gIdx, 1);
+            glyphList.splice(gIdx, 1);
+            if (word) {
+              if (word.originalGlyphs && word.originalGlyphs.length > gIdx) {
+                word.originalGlyphs.splice(gIdx, 1);
+              }
+              word.text = word.glyphs.map(gl => gl.char).join('');
+              word.originalText = word.text;
+              const wordInput = document.getElementById('selected-word-text-input');
+              if (wordInput) wordInput.value = word.text;
+              const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
+              if (activeChipLabel) activeChipLabel.textContent = word.text;
+              if (btnIdentifyFont) {
+                const btnSpan = btnIdentifyFont.querySelector('span');
+                if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
+              }
+              renderLetterTiles(word);
+            } else {
+              renderLetterTiles(null, glyphList);
             }
-            word.text = word.glyphs.map(gl => gl.char).join('');
-            word.originalText = word.text;
-            const wordInput = document.getElementById('selected-word-text-input');
-            if (wordInput) wordInput.value = word.text;
-            const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
-            if (activeChipLabel) activeChipLabel.textContent = word.text;
-            if (btnIdentifyFont) {
-              const btnSpan = btnIdentifyFont.querySelector('span');
-              if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
-            }
-            renderLetterTiles(word);
           });
         }
 
@@ -2680,7 +2726,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           const glyphsToAdd = (w.glyphs && w.glyphs.length > 0) ? w.glyphs : (w.originalGlyphs || []);
           validGlyphs.push(...glyphsToAdd);
         }
-        verifiedWordText = detectedWords.map(w => w.text).join(' ');
+        verifiedWordText = selectedWordInputElem?.value.trim() || detectedWords.map(w => w.text).join(' ');
         currentVerifiedText = verifiedWordText;
         wordBinaryMask = currentWorkBinaryMask;
         representativeThumb = getSentenceImageDataUrl() || detectedWords[0]?.wordImgDataUrl || '';
@@ -4346,17 +4392,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         if (meta.isSentenceMode) {
           verifiedBadge.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
-            <span>Sentence Consensus (${meta.letterCount || 40}+ glyphs)</span>
+            <span>Entire Sentence Font (${meta.letterCount || 39} letters)</span>
           `;
         } else if (meta.isDistinctFont) {
           verifiedBadge.innerHTML = `
             <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
             <span>Distinct Font (${meta.wordText || 'Word'})</span>
-          `;
-        } else if (meta.parentSentenceFont) {
-          verifiedBadge.innerHTML = `
-            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-            <span>Word Inspection (${meta.letterCount} letters \u2022 Anchored by Sentence)</span>
           `;
         } else {
           verifiedBadge.innerHTML = `
@@ -4379,7 +4420,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const confLabelEl = document.getElementById('res-confidence-label');
       if (confLabelEl) {
         if (meta.isSentenceMode) {
-          confLabelEl.textContent = 'Sentence Consensus Match';
+          confLabelEl.textContent = 'Entire Sentence Match';
         } else {
           confLabelEl.textContent = data.primary.confidenceLabel || 'Good Match';
         }
