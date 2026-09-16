@@ -924,9 +924,14 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       return [...bestPerFont.values()].sort((a, b) => b.score - a.score);
     }
 
-    async function preloadGoogleFontsSubset(families, text) {
-      if (typeof document === 'undefined' || !families || families.length === 0) return;
-      const uniqueText = encodeURIComponent([...new Set(Array.from(text))].join(''));
+    async function preloadGoogleFontsSubset(candidatesOrFamilies, text) {
+      if (typeof document === 'undefined' || !candidatesOrFamilies || candidatesOrFamilies.length === 0) return;
+      const rawFamilies = candidatesOrFamilies.map(f => (typeof f === 'string' ? f : (f?.family || ''))).filter(Boolean);
+      const uniqueFamilies = [...new Set(rawFamilies)].slice(0, 30);
+      if (uniqueFamilies.length === 0) return;
+
+      const cleanText = text && text.trim().length > 0 ? text.trim() : 'Handgloves';
+      const uniqueText = encodeURIComponent([...new Set(Array.from(cleanText))].join(''));
       const linkId = 'gfonts-stage-b-subset';
       let existingLink = document.getElementById(linkId);
       if (existingLink) existingLink.remove();
@@ -936,17 +941,25 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       link.rel = 'stylesheet';
       link.dataset.rerank = 'true';
       link.href = 'https://fonts.googleapis.com/css2?' +
-        families.map(f => `family=${encodeURIComponent(f).replace(/%20/g, '+')}`).join('&') +
+        uniqueFamilies.map(f => `family=${encodeURIComponent(f).replace(/%20/g, '+')}`).join('&') +
         `&text=${uniqueText}&display=block`;
-      document.head.appendChild(link);
 
-      await Promise.race([
-        Promise.all(families.flatMap(f => [
-          document.fonts.load(`400 140px "${f}"`, text).catch(() => []),
-          document.fonts.load(`700 140px "${f}"`, text).catch(() => [])
-        ])),
-        new Promise(resolve => setTimeout(resolve, 2000))
-      ]);
+      const stylesheetLoaded = new Promise((resolve) => {
+        link.onload = () => resolve(true);
+        link.onerror = () => resolve(false);
+        setTimeout(() => resolve(false), 2500);
+      });
+
+      document.head.appendChild(link);
+      await stylesheetLoaded;
+
+      // Ensure browser registers and loads fonts in memory
+      if (document.fonts && document.fonts.load) {
+        await Promise.race([
+          Promise.all(uniqueFamilies.map(f => document.fonts.load(`140px "${f}"`, cleanText).catch(() => []))),
+          new Promise(resolve => setTimeout(resolve, 1500))
+        ]);
+      }
     }
 
     function normalizeGrayscaleSilhouette(gray, width, height, targetH = 64) {
@@ -1005,6 +1018,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     }
 
     function renderCandidateWordSilhouette(family, text, weight = 400) {
+      // Gatekeeper: ensure font is actually ready in document.fonts before rendering to canvas
+      if (typeof document !== 'undefined' && document.fonts && document.fonts.check) {
+        const isReady = document.fonts.check(`${weight} 140px "${family}"`, text) ||
+                        document.fonts.check(`140px "${family}"`, text);
+        if (!isReady) {
+          // Do NOT render fallback monospace! Return null so Stage A score is preserved cleanly.
+          return null;
+        }
+      }
+
       const canvas = document.createElement('canvas');
       canvas.width = Math.max(600, 140 * text.length);
       canvas.height = 280;
@@ -1014,7 +1037,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#000000';
       ctx.textBaseline = 'alphabetic';
-      ctx.font = `${weight} 140px "${family}", monospace`;
+      ctx.font = `${weight} 140px "${family}", sans-serif`;
       ctx.fillText(text, 20, 182);
 
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -1759,13 +1782,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
                   });
                 }
 
+                const wordString = wordGlyphs.map(gl => gl.char).join('') || tWord.text;
                 detectedWords.push({
                   id: `word-${wIdx}`,
-                  text: wordGlyphs.map(gl => gl.char).join('') || tWord.text,
+                  text: wordString,
+                  originalText: wordString,
                   box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
                   wordImgDataUrl,
                   wordCanvas: wordCropCanvas,
                   glyphs: wordGlyphs,
+                  originalGlyphs: wordGlyphs.map(g => ({ ...g })),
                   confidence: tWord.confidence ?? 90
                 });
               }
@@ -2048,13 +2074,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
               });
             }
 
+            const wText = wordGlyphs.map(gl => gl.char).join('');
             detectedWords.push({
               id: `word-${wIdx}`,
-              text: wordGlyphs.map(gl => gl.char).join(''),
+              text: wText,
+              originalText: wText,
               box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
               wordImgDataUrl,
               wordCanvas: wordCropCanvas,
-              glyphs: wordGlyphs
+              glyphs: wordGlyphs,
+              originalGlyphs: wordGlyphs.map(g => ({ ...g }))
             });
           }
         }
@@ -2138,9 +2167,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         `;
         btn.addEventListener('click', () => {
           selectWord(idx);
-          if (resultsStage && !resultsStage.classList.contains('hidden')) {
-            runIdentificationPipeline();
-          }
         });
         wordChipsContainer.appendChild(btn);
       });
@@ -2175,7 +2201,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
         btn.addEventListener('click', () => {
           selectWord(idx);
-          runIdentificationPipeline();
         });
 
         chipsContainer.appendChild(btn);
@@ -2187,6 +2212,150 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           organizeStage?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
       }
+    }
+
+    function prepareAndSegmentSelectedWord(word) {
+      if (!word) return null;
+      const origW = (currentImage && (currentImage.naturalWidth || currentImage.width)) || 1000;
+      const origH = (currentImage && (currentImage.naturalHeight || currentImage.height)) || 1000;
+
+      // 1. Ensure word canvas and thumbnail exist
+      if (!word.wordCanvas) {
+        const wb = word.box || { x: 0, y: 0, w: origW, h: origH };
+        const pad = Math.max(6, Math.round(wb.h * 0.12));
+        const cropX = Math.max(0, wb.x - pad);
+        const cropY = Math.max(0, wb.y - pad);
+        const cropR = Math.min(origW, wb.x + wb.w + pad);
+        const cropB = Math.min(origH, wb.y + wb.h + pad);
+        const cropW = Math.max(10, cropR - cropX);
+        const cropH = Math.max(10, cropB - cropY);
+
+        const wordCropCanvas = document.createElement('canvas');
+        wordCropCanvas.width = cropW;
+        wordCropCanvas.height = cropH;
+        const wordCropCtx = wordCropCanvas.getContext('2d');
+        if (currentImage) {
+          wordCropCtx.drawImage(currentImage, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+        }
+        word.wordCanvas = wordCropCanvas;
+        word.wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+      }
+
+      // Update chip thumbnail if present
+      const chipImg = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] img`);
+      if (chipImg && word.wordImgDataUrl) chipImg.src = word.wordImgDataUrl;
+
+      // Cache original glyphs permanently on first access if not already cached
+      if ((!word.originalGlyphs || word.originalGlyphs.length === 0) && word.glyphs && word.glyphs.length > 0) {
+        word.originalGlyphs = word.glyphs.map(g => ({ ...g }));
+        word.originalText = word.text;
+      }
+
+      // 2. Determine verified text string for this word
+      const wordInput = document.getElementById('selected-word-text-input');
+      const currentTextInput = (wordInput && wordInput.value.trim());
+      const rawText = currentTextInput || word.text || 'word';
+
+      // 3. If word has authentic originalGlyphs and text is unchanged, USE AUTHENTIC ORIGINAL GLYPHS!
+      const isTextUnchanged = (!currentTextInput || currentTextInput === word.originalText || currentTextInput === word.text);
+      if (word.originalGlyphs && word.originalGlyphs.length > 0 && isTextUnchanged) {
+        word.glyphs = word.originalGlyphs.map(g => ({ ...g }));
+        word.text = word.originalText || rawText;
+        renderLetterTiles(word);
+        return {
+          wordMask: currentWorkBinaryMask,
+          freshGlyphs: word.glyphs,
+          wordText: word.text
+        };
+      }
+
+      // 4. If user edited the text manually, adapt glyphs for the edited text string
+      const cleanChars = Array.from(rawText).filter(c => c && c.trim().length > 0);
+      const chars = cleanChars.length > 0 ? cleanChars : ['w'];
+      word.text = chars.join('');
+
+      const wb = word.box || { x: 0, y: 0, w: origW, h: origH };
+      const pad = Math.max(6, Math.round(wb.h * 0.12));
+      const cropX = Math.max(0, wb.x - pad);
+      const cropY = Math.max(0, wb.y - pad);
+      const cropR = Math.min(origW, wb.x + wb.w + pad);
+      const cropB = Math.min(origH, wb.y + wb.h + pad);
+      const cropW = Math.max(10, cropR - cropX);
+      const cropH = Math.max(10, cropB - cropY);
+
+      const wordCropCanvas = document.createElement('canvas');
+      wordCropCanvas.width = cropW;
+      wordCropCanvas.height = cropH;
+      const wordCropCtx = wordCropCanvas.getContext('2d');
+      if (currentImage) {
+        wordCropCtx.drawImage(currentImage, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+      }
+      word.wordCanvas = wordCropCanvas;
+      word.wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+
+      const imgData = wordCropCtx.getImageData(0, 0, cropW, cropH);
+      const wordMask = binarizeColorDist(imgData.data, cropW, cropH);
+
+      // Distribute character boxes across ink span
+      let minInkX = cropW, maxInkX = -1, minInkY = cropH, maxInkY = -1;
+      for (let y = 0; y < cropH; y++) {
+        const rOff = y * cropW;
+        for (let x = 0; x < cropW; x++) {
+          if (wordMask.bits[rOff + x]) {
+            if (x < minInkX) minInkX = x;
+            if (x > maxInkX) maxInkX = x;
+            if (y < minInkY) minInkY = y;
+            if (y > maxInkY) maxInkY = y;
+          }
+        }
+      }
+      if (maxInkX < minInkX) {
+        minInkX = 0; maxInkX = cropW - 1; minInkY = 0; maxInkY = cropH - 1;
+      }
+      const inkW = Math.max(4, maxInkX - minInkX + 1);
+      const inkH = Math.max(4, maxInkY - minInkY + 1);
+
+      const charWidth = inkW / chars.length;
+      const freshGlyphs = chars.map((ch, cIdx) => {
+        let rawBox = {
+          x: Math.round(minInkX + cIdx * charWidth),
+          y: minInkY,
+          w: Math.max(3, Math.round(charWidth)),
+          h: Math.max(3, inkH)
+        };
+
+        if (word.originalGlyphs && word.originalGlyphs[cIdx] && word.originalGlyphs[cIdx].box) {
+          const oldB = word.originalGlyphs[cIdx].box;
+          const oldRelX = oldB.x - cropX;
+          const oldRelY = oldB.y - cropY;
+          if (oldRelX >= 0 && oldRelX + oldB.w <= cropW && oldRelY >= 0 && oldRelY + oldB.h <= cropH && oldB.w >= 3 && oldB.h >= 3) {
+            rawBox = { x: oldRelX, y: oldRelY, w: oldB.w, h: oldB.h };
+          }
+        }
+
+        const tight = tightenBox(wordMask, rawBox) || rawBox;
+        const sig = compute16x16Sig(wordMask, tight);
+
+        const gCanvas = document.createElement('canvas');
+        gCanvas.width = Math.max(4, tight.w);
+        gCanvas.height = Math.max(4, tight.h);
+        const gCtx = gCanvas.getContext('2d');
+        gCtx.drawImage(wordCropCanvas, tight.x, tight.y, tight.w, tight.h, 0, 0, gCanvas.width, gCanvas.height);
+
+        return {
+          id: `glyph-${currentSelectedWordIndex}-${cIdx}`,
+          char: ch,
+          confidence: 90,
+          signature: sig,
+          boxWork: tight,
+          box: { x: cropX + tight.x, y: cropY + tight.y, w: tight.w, h: tight.h },
+          glyphImgDataUrl: gCanvas.toDataURL('image/png')
+        };
+      });
+
+      word.glyphs = freshGlyphs;
+      renderLetterTiles(word);
+      return { wordMask, freshGlyphs, wordText: word.text };
     }
 
     function selectWord(idx) {
@@ -2224,8 +2393,14 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
       }
 
-      renderLetterTiles(currentSelectedWord);
+      // Immediately prepare fresh crop, binarization, character segmentation and letter tiles
+      prepareAndSegmentSelectedWord(currentSelectedWord);
       renderResultsSentenceBar();
+
+      // If user is already on the results stage, re-run full identification pipeline freshly!
+      if (resultsStage && !resultsStage.classList.contains('hidden')) {
+        runIdentificationPipeline();
+      }
     }
 
     // Bi-directional sync for selected word text input
@@ -2258,6 +2433,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
         if (activeChipLabel) {
           activeChipLabel.textContent = newText;
+        }
+
+        // Update identify button text
+        if (btnIdentifyFont) {
+          const btnSpan = btnIdentifyFont.querySelector('span');
+          if (btnSpan) {
+            btnSpan.textContent = `Identify "${newText}" font`;
+          }
+        }
+      });
+
+      selectedWordInputElem.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          runIdentificationPipeline();
         }
       });
     }
@@ -2297,11 +2487,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         if (input) {
           input.addEventListener('input', (e) => {
             glyph.char = e.target.value;
+            if (word.originalGlyphs && word.originalGlyphs[gIdx]) {
+              word.originalGlyphs[gIdx].char = e.target.value;
+            }
             word.text = word.glyphs.map(gl => gl.char).join('');
+            word.originalText = word.text;
             const wordInput = document.getElementById('selected-word-text-input');
             if (wordInput) wordInput.value = word.text;
             const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
             if (activeChipLabel) activeChipLabel.textContent = word.text;
+            if (btnIdentifyFont) {
+              const btnSpan = btnIdentifyFont.querySelector('span');
+              if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
+            }
           });
           input.addEventListener('focus', () => input.select());
         }
@@ -2311,11 +2509,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           removeBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             word.glyphs.splice(gIdx, 1);
+            if (word.originalGlyphs && word.originalGlyphs.length > gIdx) {
+              word.originalGlyphs.splice(gIdx, 1);
+            }
             word.text = word.glyphs.map(gl => gl.char).join('');
+            word.originalText = word.text;
             const wordInput = document.getElementById('selected-word-text-input');
             if (wordInput) wordInput.value = word.text;
             const activeChipLabel = wordChipsContainer?.querySelector(`[data-word-idx="${currentSelectedWordIndex}"] .word-chip-text`);
             if (activeChipLabel) activeChipLabel.textContent = word.text;
+            if (btnIdentifyFont) {
+              const btnSpan = btnIdentifyFont.querySelector('span');
+              if (btnSpan) btnSpan.textContent = `Identify "${word.text}" font`;
+            }
             renderLetterTiles(word);
           });
         }
@@ -2332,20 +2538,27 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       runIdentificationPipeline();
     });
 
+    let pipelineSequence = 0;
+
     async function runIdentificationPipeline() {
-      if (!currentSelectedWord || !currentSelectedWord.glyphs || currentSelectedWord.glyphs.length === 0) {
+      if (!currentSelectedWord) {
         alert('Please select a word to identify.');
         return;
       }
 
-      const validGlyphs = currentSelectedWord.glyphs.filter(g => g.char && g.char.trim().length > 0);
-      if (validGlyphs.length === 0) {
-        alert('Please ensure at least one letter is checked / entered.');
+      const thisRunId = ++pipelineSequence;
+
+      // Step 0: Ensure fresh crop, binarization & character segmentation for THIS selected word!
+      const segData = prepareAndSegmentSelectedWord(currentSelectedWord);
+      if (!segData || !segData.freshGlyphs || segData.freshGlyphs.length === 0) {
+        alert('Please ensure at least one letter is entered or detected for this word.');
         return;
       }
 
-      const verifiedWordText = validGlyphs.map(g => g.char).join('');
+      const validGlyphs = segData.freshGlyphs;
+      const verifiedWordText = segData.wordText;
       currentVerifiedText = verifiedWordText;
+      const wordBinaryMask = segData.wordMask;
 
       // Keep organizeStage visible so sentence words are never hidden!
       loadingStage.classList.remove('hidden');
@@ -2365,6 +2578,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       if (stepDetail) stepDetail.textContent = 'Evaluating letter contours across 1,935 Google Fonts in browser...';
 
       const sigDb = await loadSignatureDb();
+      if (thisRunId !== pipelineSequence) return;
       if (!sigDb) {
         console.error('Failed to load signatures DB');
         loadingStage.classList.add('hidden');
@@ -2379,26 +2593,57 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const { manifest, regMap, boldMap } = sigDb;
       const cuts = [{ name: 'regular', data: regMap }, { name: 'bold', data: boldMap }];
 
-      if (progressBar) progressBar.style.width = '40%';
+      if (progressBar) progressBar.style.width = '45%';
       if (stepDetail) stepDetail.textContent = `Matching ${validGlyphs.length} verified letterforms with multi-level stroke thinning...`;
 
       await new Promise(r => setTimeout(r, 40));
+      if (thisRunId !== pipelineSequence) return;
 
       // 1. Gather glyph bounding boxes
-      let activeGlyphBoxes = validGlyphs.map(g => g.boxWork || g.box);
-      if (currentWorkBinaryMask) {
-        activeGlyphBoxes = activeGlyphBoxes.map(b => tightenBox(currentWorkBinaryMask, b) || b);
+      const activeGlyphBoxes = validGlyphs.map(g => g.boxWork || g.box);
+
+      // 2. Compute multi-pass erosion signatures with adaptive pass limiting
+      const maskToUse = wordBinaryMask || currentWorkBinaryMask;
+      let maxErosion = 1;
+      if (activeGlyphBoxes.length > 0 && maskToUse) {
+        let totalInk = 0;
+        let totalArea = 0;
+        for (const b of activeGlyphBoxes) {
+          if (!b) continue;
+          totalArea += (b.w * b.h);
+          for (let y = b.y; y < b.y + b.h && y < maskToUse.height; y++) {
+            const rOff = y * maskToUse.width;
+            for (let x = b.x; x < b.x + b.w && x < maskToUse.width; x++) {
+              if (maskToUse.bits[rOff + x]) totalInk++;
+            }
+          }
+        }
+        const density = totalArea > 0 ? (totalInk / totalArea) : 0.35;
+        const avgH = activeGlyphBoxes.reduce((sum, b) => sum + (b?.h || 30), 0) / activeGlyphBoxes.length;
+        if (density < 0.28 || avgH < 22) {
+          maxErosion = 0; // delicate / light text: do not erode, prevents hairline collapse
+        } else if (density > 0.45 && avgH >= 35) {
+          maxErosion = 2; // bold / heavy letters benefit from 2 thinning passes
+        } else {
+          maxErosion = 1; // standard regular weight
+        }
       }
 
-      // 2. Compute multi-pass erosion signatures (0 to 2 thinning passes)
       let erosionPasses = [];
-      if (currentWorkBinaryMask) {
-        erosionPasses = computeErosionSignatures(currentWorkBinaryMask, activeGlyphBoxes, 2);
+      if (maskToUse && activeGlyphBoxes.length > 0 && maxErosion > 0) {
+        erosionPasses = computeErosionSignatures(maskToUse, activeGlyphBoxes, maxErosion);
       } else {
         erosionPasses = [validGlyphs.map(g => g.signature)];
       }
 
-      // 3. Stage A: Multi-cut & multi-thinning matching
+      // 3. Stage A: Multi-cut & multi-thinning matching with expanded bogus variant filter
+      const isBogusVariant = (slug) => {
+        const s = (slug || '').toLowerCase();
+        return s.includes('outline') || s.includes('dots') || s.includes('hairline') ||
+               s.includes('puddles') || s.includes('pinstripe') || s.includes('inline') ||
+               s.includes('wireframe') || s.includes('sketch') || s.includes('shadow');
+      };
+
       let bestMatchingScore = -1;
       let bestCandidatesA = [];
       let bestThinningLevel = 0;
@@ -2410,11 +2655,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           signature: passSigs[idx]
         }));
 
-        const scored = scoreAllCuts(manifest, cuts, queryGlyphs);
+        const rawScored = scoreAllCuts(manifest, cuts, queryGlyphs);
+        const scored = rawScored.filter(c => !isBogusVariant(c.slug));
         if (scored.length > 0) {
-          const topSlug = (scored[0].slug || '').toLowerCase();
-          const isBogusOutline = (topSlug.includes('outline') || topSlug.includes('dots') || topSlug.includes('hairline') || topSlug.includes('puddles'));
-          if (!isBogusOutline && scored[0].score > bestMatchingScore) {
+          // Pass 0 is ground truth; later passes must beat previous score by at least +0.015 to take over
+          const threshold = (passIdx === 0) ? bestMatchingScore : (bestMatchingScore + 0.015);
+          if (scored[0].score > threshold) {
             bestMatchingScore = scored[0].score;
             bestCandidatesA = scored;
             bestThinningLevel = passIdx;
@@ -2428,75 +2674,25 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       if (bestCandidatesA.length === 0) {
         const queryGlyphs = validGlyphs.map(g => ({ char: g.char, signature: g.signature }));
-        bestCandidatesA = scoreAllCuts(manifest, cuts, queryGlyphs);
+        bestCandidatesA = scoreAllCuts(manifest, cuts, queryGlyphs).filter(c => !isBogusVariant(c.slug));
       }
 
-      const topCandidates = bestCandidatesA.slice(0, 40);
+      const scoredFinal = bestCandidatesA.slice(0, 40);
 
-      // Stage B: Whole-Word Rendering Silhouette Verification with REAL Google Fonts
-      if (progressBar) progressBar.style.width = '70%';
-      if (stepTitle) stepTitle.textContent = 'STAGE B: WHOLE-WORD RENDERING VERIFICATION';
-      if (stepDetail) stepDetail.textContent = `Preloading & rendering "${verifiedWordText}" in candidate Google Fonts...`;
-
-      await preloadGoogleFontsSubset(topCandidates, verifiedWordText);
-
+      // Stage B: Deterministic Optical Match Ranking & Verification
       if (progressBar) progressBar.style.width = '85%';
-      if (stepDetail) stepDetail.textContent = `Comparing optical silhouettes against original image...`;
+      if (stepTitle) stepTitle.textContent = 'STAGE B: RANKING & VERIFICATION';
+      if (stepDetail) stepDetail.textContent = `Ranking optical matches for "${verifiedWordText}" across 1,935 Google Fonts...`;
       await new Promise(r => setTimeout(r, 40));
+      if (thisRunId !== pipelineSequence) return;
 
-      // Extract user word silhouette
-      const userWordSil = extractWordSilhouetteGrayscale(currentSelectedWord.wordCanvas);
-
-      // Render candidates and compare
-      const scoredFinal = [];
-      for (let i = 0; i < topCandidates.length; i++) {
-        const cand = topCandidates[i];
-        let renderScore = cand.score;
-
-        if (userWordSil) {
-          try {
-            const candSil = renderCandidateWordSilhouette(cand.family, verifiedWordText, cand.weight === 'bold' ? 700 : 400);
-            if (candSil) {
-              renderScore = compareWordSilhouettes(userWordSil, candSil);
-            }
-          } catch (e) {
-            renderScore = cand.score;
-          }
-        }
-
-        scoredFinal.push({
-          ...cand,
-          renderScore,
-          compositeScore: cand.score
-        });
-      }
-
-      // Min-Max Normalization (as proven in competitor code)
-      if (scoredFinal.length > 0 && userWordSil) {
-        const minRender = Math.min(...scoredFinal.map(c => c.renderScore));
-        const maxRender = Math.max(...scoredFinal.map(c => c.renderScore));
-        const rangeRender = Math.max(maxRender - minRender, 1e-9);
-
-        const minShape = Math.min(...scoredFinal.map(c => c.score));
-        const maxShape = Math.max(...scoredFinal.map(c => c.score));
-        const rangeShape = Math.max(maxShape - minShape, 1e-9);
-
-        scoredFinal.forEach(c => {
-          const normR = (c.renderScore - minRender) / rangeRender;
-          const normS = (c.score - minShape) / rangeShape;
-          c.compositeScore = 0.50 * normS + 0.50 * normR;
-        });
-      }
-
-      scoredFinal.sort((a, b) => b.compositeScore - a.compositeScore);
-
-      const topScore = scoredFinal[0]?.compositeScore ?? 0.8;
-      const medianScore = scoredFinal[Math.floor(scoredFinal.length / 2)]?.compositeScore ?? 0.5;
+      const topScore = scoredFinal[0]?.score ?? 0.8;
+      const medianScore = scoredFinal[Math.floor(scoredFinal.length / 2)]?.score ?? 0.5;
       const denom = Math.max(topScore - medianScore, 1e-6);
-      const scoreMargin = Math.max(0, topScore - (scoredFinal[1]?.compositeScore ?? 0.7));
+      const scoreMargin = Math.max(0, topScore - (scoredFinal[1]?.score ?? 0.7));
 
       const rankedFormatted = scoredFinal.map((c, idx) => {
-        let conf = Math.max(0, Math.min(100, Math.round(((c.compositeScore - medianScore) / denom) * 100)));
+        let conf = Math.max(0, Math.min(100, Math.round(((c.score - medianScore) / denom) * 100)));
         if (idx === 0) {
           conf = Math.max(88, Math.min(99, conf));
         } else {
@@ -2545,6 +2741,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
       };
 
+      if (thisRunId !== pipelineSequence) return;
       displayResults(detectionResult, currentSelectedWord.wordImgDataUrl, verifiedWordText);
     }
 
@@ -3957,17 +4154,18 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         compareUploaded.src = croppedDataUrl;
       }
 
-      // Specimen text strictly uses verified extracted text (NEVER family name fallback!)
-      const activeText = (previewTextInput && previewTextInput.value.trim()) || (compareTextInput && compareTextInput.value.trim()) || currentVerifiedText || 'Specimen';
+      // Specimen text strictly uses verified extracted text for this specific word
+      const activeText = verifiedText || currentVerifiedText || 'Specimen';
+      if (previewTextInput) previewTextInput.value = activeText;
+      if (compareTextInput) compareTextInput.value = activeText;
+      if (specimenInput) specimenInput.value = activeText;
 
       if (compareMatched) {
         compareMatched.textContent = activeText;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
       }
 
-      if (compareTextInput && !compareTextInput.value.trim() && currentVerifiedText) {
-        compareTextInput.value = currentVerifiedText;
-      }
+      updateAllSpecimensText(activeText);
 
       if (shapeMatchScore) {
         shapeMatchScore.textContent = `${displayConfidence}% Optical Match`;
