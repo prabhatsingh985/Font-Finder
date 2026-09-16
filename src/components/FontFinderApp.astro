@@ -1042,6 +1042,212 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       return Math.max(0, Math.min(1, 1 - diff / (len * 255)));
     }
 
+    // =========================================================================
+    // NEXT-GEN 4-TIER OPTICAL ENGINE (SDF CHAMFER & ANCHOR GLYPH CONSENSUS)
+    // =========================================================================
+
+    const CHAR_DISCRIMINATIVE_WEIGHTS = {
+      'a': 2.4, 'e': 2.3, 'g': 2.5, 'r': 2.0, 't': 2.0, 'f': 1.9, 's': 2.1, 'c': 1.8,
+      'R': 2.4, 'Q': 2.5, 'S': 2.2, 'G': 2.3, 'C': 1.9, 'M': 2.0, 'W': 2.0, 'K': 1.9,
+      'k': 1.8, 'y': 1.8, 'x': 1.7, 'n': 1.5, 'h': 1.5, 'u': 1.4, 'd': 1.5, 'b': 1.5,
+      'p': 1.5, 'q': 1.5, 'o': 1.6, 'O': 1.6, 'B': 1.7, 'D': 1.6, 'P': 1.5, 'A': 1.8,
+      'H': 1.4, 'E': 1.5, 'F': 1.5, 'T': 1.4, 'l': 0.7, 'i': 0.7, 'I': 0.6, '1': 0.7,
+      'j': 0.8, 'J': 0.9, 'v': 1.1, 'w': 1.3, 'z': 1.4, 'Z': 1.4
+    };
+
+    function getCharTypographicWeight(ch) {
+      return CHAR_DISCRIMINATIVE_WEIGHTS[ch] || (/[A-Z]/.test(ch) ? 1.6 : 1.2);
+    }
+
+    const KNOWN_COMMERCIAL_TWINS = {
+      'helvetica': { twin: 'Inter', reason: 'Matches tall x-height, neutral apertures, and horizontal terminal cuts.' },
+      'helvetica neue': { twin: 'Inter', reason: 'Matches Swiss neo-grotesque geometry and uniform stroke widths.' },
+      'futura': { twin: 'Poppins', reason: 'Matches circular Bauhaus letterforms and sharp apex geometry.' },
+      'gotham': { twin: 'Montserrat', reason: 'Matches architectural vernacular proportions and geometric circular counters.' },
+      'proxima nova': { twin: 'Montserrat', reason: 'Matches hybrid geometric-humanist proportions.' },
+      'didot': { twin: 'Playfair Display', reason: 'Matches extreme hairline stroke contrast and Didone vertical stress.' },
+      'din': { twin: 'Oswald', reason: 'Matches condensed industrial signage rhythm and mechanical vertical stems.' },
+      'circular': { twin: 'Plus Jakarta Sans', reason: 'Matches modern tech UI geometric curves and circular loops.' },
+      'avenir': { twin: 'Nunito Sans', reason: 'Matches geometric structure blended with humanist warmth.' },
+      'garamond': { twin: 'EB Garamond', reason: 'Matches classical Renaissance calligraphic serif modulation.' }
+    };
+
+    function resolveCommercialTwin(name) {
+      if (!name) return null;
+      const clean = name.trim().toLowerCase();
+      for (const [key, match] of Object.entries(KNOWN_COMMERCIAL_TWINS)) {
+        if (clean.includes(key)) return match;
+      }
+      return null;
+    }
+
+    function distanceTransform1D(f, d, n) {
+      const v = new Int32Array(n);
+      const z = new Float32Array(n + 1);
+      let k = 0;
+      v[0] = 0;
+      z[0] = -1e8;
+      z[1] = 1e8;
+
+      for (let q = 1; q < n; q++) {
+        let s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
+        while (s <= z[k]) {
+          k--;
+          s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
+        }
+        k++;
+        v[k] = q;
+        z[k] = s;
+        z[k + 1] = 1e8;
+      }
+
+      k = 0;
+      for (let q = 0; q < n; q++) {
+        while (z[k + 1] < q) k++;
+        const dx = q - v[k];
+        d[q] = dx * dx + f[v[k]];
+      }
+    }
+
+    function euclideanDistanceTransform2D(binaryMask, width, height, targetValue) {
+      const size = width * height;
+      const d = new Float32Array(size);
+      const INF = 1e8;
+
+      for (let i = 0; i < size; i++) {
+        d[i] = binaryMask[i] === targetValue ? 0 : INF;
+      }
+
+      const colDist = new Float32Array(height);
+      const colOut = new Float32Array(height);
+      for (let x = 0; x < width; x++) {
+        for (let y = 0; y < height; y++) {
+          colDist[y] = d[y * width + x];
+        }
+        distanceTransform1D(colDist, colOut, height);
+        for (let y = 0; y < height; y++) {
+          d[y * width + x] = colOut[y];
+        }
+      }
+
+      const rowDist = new Float32Array(width);
+      const rowOut = new Float32Array(width);
+      for (let y = 0; y < height; y++) {
+        const rowOffset = y * width;
+        for (let x = 0; x < width; x++) {
+          rowDist[x] = d[rowOffset + x];
+        }
+        distanceTransform1D(rowDist, rowOut, width);
+        for (let x = 0; x < width; x++) {
+          d[rowOffset + x] = Math.sqrt(rowOut[x]);
+        }
+      }
+      return d;
+    }
+
+    function computeSDF(binaryMask, width, height, clampRadius = 16.0) {
+      const size = width * height;
+      const sdf = new Float32Array(size);
+      const distInside = euclideanDistanceTransform2D(binaryMask, width, height, 1);
+      const distOutside = euclideanDistanceTransform2D(binaryMask, width, height, 0);
+
+      const invRadius = 1.0 / Math.max(1e-4, clampRadius);
+      for (let i = 0; i < size; i++) {
+        const d = binaryMask[i] === 1 ? distInside[i] : -distOutside[i];
+        const clamped = Math.max(-clampRadius, Math.min(clampRadius, d));
+        sdf[i] = clamped * invRadius;
+      }
+      return sdf;
+    }
+
+    function compareSDF(sdfA, sdfB) {
+      const len = Math.min(sdfA.length, sdfB.length);
+      if (len === 0) return { distance: 1.0, similarity: 0 };
+
+      let diffSum = 0;
+      let weightSum = 0;
+
+      for (let i = 0; i < len; i++) {
+        const a = sdfA[i];
+        const b = sdfB[i];
+        const nearBoundary = Math.max(0, 1.0 - Math.min(Math.abs(a), Math.abs(b)));
+        const weight = 1.0 + 1.5 * nearBoundary;
+        diffSum += Math.abs(a - b) * weight;
+        weightSum += weight;
+      }
+
+      const meanWeightedDiff = diffSum / Math.max(1e-6, weightSum);
+      const similarity = Math.max(0, Math.min(1.0, Math.exp(-1.38 * meanWeightedDiff)));
+      return { distance: meanWeightedDiff, similarity };
+    }
+
+    function extractCanonicalGlyphSDF(glyphCanvas, targetSize = 64) {
+      if (!glyphCanvas) return null;
+      const off = document.createElement('canvas');
+      off.width = targetSize;
+      off.height = targetSize;
+      const ctx = off.getContext('2d');
+      if (!ctx) return null;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, targetSize, targetSize);
+
+      const padding = 6;
+      const avail = targetSize - padding * 2;
+      const scale = Math.min(avail / Math.max(1, glyphCanvas.width), avail / Math.max(1, glyphCanvas.height));
+      const dw = glyphCanvas.width * scale;
+      const dh = glyphCanvas.height * scale;
+      const dx = (targetSize - dw) / 2;
+      const dy = (targetSize - dh) / 2;
+
+      ctx.drawImage(glyphCanvas, 0, 0, glyphCanvas.width, glyphCanvas.height, dx, dy, dw, dh);
+      const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
+      const data = imgData.data;
+
+      const mask = new Uint8Array(targetSize * targetSize);
+      for (let i = 0; i < mask.length; i++) {
+        const idx = i * 4;
+        const lum = 0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2];
+        mask[i] = lum < 165 ? 1 : 0;
+      }
+      return computeSDF(mask, targetSize, targetSize, 16.0);
+    }
+
+    function renderCandidateGlyphSDF(family, char, weightNum = 400, targetSize = 64) {
+      const canvas = document.createElement('canvas');
+      canvas.width = targetSize;
+      canvas.height = targetSize;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, targetSize, targetSize);
+
+      ctx.fillStyle = '#000000';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.font = `${weightNum} 46px "${family}", sans-serif`;
+      ctx.fillText(char, targetSize / 2, targetSize / 2 + 1);
+
+      const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
+      const data = imgData.data;
+
+      const mask = new Uint8Array(targetSize * targetSize);
+      let inkCount = 0;
+      for (let i = 0; i < mask.length; i++) {
+        const idx = i * 4;
+        const lum = 0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2];
+        if (lum < 165) {
+          mask[i] = 1;
+          inkCount++;
+        } else {
+          mask[i] = 0;
+        }
+      }
+      if (inkCount === 0) return null;
+      return computeSDF(mask, targetSize, targetSize, 16.0);
+    }
+
     const uploadStage = document.getElementById('upload-stage');
     const organizeStage = document.getElementById('organize-stage');
     const manualCropPanel = document.getElementById('manual-crop-panel');
@@ -2445,46 +2651,116 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       const topCandidates = bestCandidatesA.slice(0, 40);
 
-      // Stage B: Whole-Word Rendering Silhouette Verification with REAL Google Fonts
+      // Stage B: Anchor Glyph SDF Chamfer & Whole-Word Optical Verification
       if (progressBar) progressBar.style.width = '70%';
-      if (stepTitle) stepTitle.textContent = 'STAGE B: WHOLE-WORD RENDERING VERIFICATION';
-      if (stepDetail) stepDetail.textContent = `Preloading & rendering "${verifiedWordText}" in candidate Google Fonts...`;
+      if (stepTitle) stepTitle.textContent = 'STAGE B: NEXT-GEN SDF CHAMFER & OPTICAL VERIFICATION';
+      if (stepDetail) stepDetail.textContent = `Preloading & computing continuous 64×64 SDFs for candidate Google Fonts...`;
 
       await preloadGoogleFontsSubset(topCandidates, verifiedWordText);
+      if (thisPipelineId !== currentPipelineId) return;
 
       if (progressBar) progressBar.style.width = '85%';
-      if (stepDetail) stepDetail.textContent = `Comparing optical silhouettes against original image...`;
+      if (stepDetail) stepDetail.textContent = `Matching anchor glyphs ('${verifiedWordText}') with boundary-weighted Chamfer distance...`;
       await new Promise(r => setTimeout(r, 40));
+      if (thisPipelineId !== currentPipelineId) return;
 
-      // Extract user word silhouette
+      // 1. Build canonical 64x64 SDFs for available anchor glyphs of user's selected word
+      const userAnchorSdfs = new Map();
+      const uniqueChars = Array.from(new Set(validGlyphs.map(g => g.char).filter(c => c && c.trim().length === 1)));
+      // Prioritize high-entropy anchor letters (e, a, g, R, Q, t) over straight stems (l, i)
+      uniqueChars.sort((a, b) => getCharTypographicWeight(b) - getCharTypographicWeight(a));
+      const anchorChars = uniqueChars.slice(0, 4);
+
+      for (const ch of anchorChars) {
+        const matchingGlyph = validGlyphs.find(g => g.char === ch);
+        if (matchingGlyph) {
+          let gCanvas = null;
+          if (matchingGlyph.box && currentImage) {
+            const b = matchingGlyph.box;
+            const c = document.createElement('canvas');
+            c.width = Math.max(1, b.w);
+            c.height = Math.max(1, b.h);
+            const ctx = c.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(currentImage, b.x, b.y, b.w, b.h, 0, 0, b.w, b.h);
+              gCanvas = c;
+            }
+          } else if (matchingGlyph.glyphImgDataUrl) {
+            const img = new Image();
+            img.src = matchingGlyph.glyphImgDataUrl;
+            const c = document.createElement('canvas');
+            c.width = 64;
+            c.height = 64;
+            const ctx = c.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, 64, 64);
+              gCanvas = c;
+            }
+          }
+          if (gCanvas) {
+            const sdf = extractCanonicalGlyphSDF(gCanvas, 64);
+            if (sdf) userAnchorSdfs.set(ch, sdf);
+          }
+        }
+      }
+
+      // 2. Extract user word silhouette
       const userWordSil = extractWordSilhouetteGrayscale(currentSelectedWord.wordCanvas);
 
-      // Render candidates and compare
+      // 3. Render candidates and compare with SDF Chamfer Consensus + Macro Silhouette
       const scoredFinal = [];
       for (let i = 0; i < topCandidates.length; i++) {
         const cand = topCandidates[i];
-        let renderScore = cand.score;
+        const weightNum = cand.weight === 'bold' ? 700 : 400;
+        let sdfConsensusScore = cand.score;
+        let wordSilhouetteScore = cand.score;
 
-        if (userWordSil) {
-          try {
-            const candSil = renderCandidateWordSilhouette(cand.family, verifiedWordText, cand.weight === 'bold' ? 700 : 400);
-            if (candSil) {
-              renderScore = compareWordSilhouettes(userWordSil, candSil);
+        // A. Anchor Glyph Continuous 64x64 SDF Chamfer Matching
+        if (userAnchorSdfs.size > 0) {
+          let weightedSum = 0;
+          let totalWeight = 0;
+          for (const [ch, userSdf] of userAnchorSdfs.entries()) {
+            const candSdf = renderCandidateGlyphSDF(cand.family, ch, weightNum, 64);
+            if (candSdf) {
+              const { similarity } = compareSDF(userSdf, candSdf);
+              const w = getCharTypographicWeight(ch);
+              weightedSum += similarity * w;
+              totalWeight += w;
             }
-          } catch (e) {
-            renderScore = cand.score;
+          }
+          if (totalWeight > 0) {
+            sdfConsensusScore = weightedSum / totalWeight;
           }
         }
 
+        // B. Macro Word Silhouette Matching
+        if (userWordSil) {
+          try {
+            const candSil = renderCandidateWordSilhouette(cand.family, verifiedWordText, weightNum);
+            if (candSil) {
+              wordSilhouetteScore = compareWordSilhouettes(userWordSil, candSil);
+            }
+          } catch (e) {
+            wordSilhouetteScore = cand.score;
+          }
+        }
+
+        // Combined Stage B Optical Score: 70% Anchor Glyph SDF Chamfer + 30% Macro Word Silhouette
+        const opticalScore = userAnchorSdfs.size > 0
+          ? (0.70 * sdfConsensusScore + 0.30 * wordSilhouetteScore)
+          : wordSilhouetteScore;
+
         scoredFinal.push({
           ...cand,
-          renderScore,
+          sdfConsensusScore,
+          wordSilhouetteScore,
+          renderScore: opticalScore,
           compositeScore: cand.score
         });
       }
 
-      // Min-Max Normalization (as proven in competitor code)
-      if (scoredFinal.length > 0 && userWordSil) {
+      // Min-Max Normalization across candidates
+      if (scoredFinal.length > 0) {
         const minRender = Math.min(...scoredFinal.map(c => c.renderScore));
         const maxRender = Math.max(...scoredFinal.map(c => c.renderScore));
         const rangeRender = Math.max(maxRender - minRender, 1e-9);
@@ -2496,7 +2772,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         scoredFinal.forEach(c => {
           const normR = (c.renderScore - minRender) / rangeRender;
           const normS = (c.score - minShape) / rangeShape;
-          c.compositeScore = 0.50 * normS + 0.50 * normR;
+          // 65% Stage B Continuous SDF Chamfer & Silhouette + 35% Stage A 16x16 fingerprint
+          c.compositeScore = 0.65 * normR + 0.35 * normS;
         });
       }
 
@@ -2543,10 +2820,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         };
       });
 
+      const commTwin = resolveCommercialTwin(rankedFormatted[0]?.family) || resolveCommercialTwin(verifiedWordText);
+
       const detectionResult = {
         primary: rankedFormatted[0],
         runnersUp: rankedFormatted.slice(1, 4),
         allTopMatches: rankedFormatted.slice(0, 6),
+        commercialAlternative: commTwin,
         traits: {
           classification: rankedFormatted[0].category,
           serifType: rankedFormatted[0].category === 'serif' ? 'bracketed' : 'none',
@@ -4033,8 +4313,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       const commAlert = document.getElementById('res-commercial-alert');
       const commText = document.getElementById('res-commercial-text');
-      if (primary.commercialAlternativesFor && primary.commercialAlternativesFor.length > 0) {
-        commText.textContent = `Matches style of ${primary.commercialAlternativesFor.join(', ')}. Free verified Google Fonts stand-in is ${primary.family}.`;
+      const commMatch = data.commercialAlternative || (primary.commercialAlternativesFor && primary.commercialAlternativesFor.length > 0 ? { twin: primary.commercialAlternativesFor[0], reason: `Matches style of ${primary.commercialAlternativesFor.join(', ')}.` } : null);
+      if (commMatch) {
+        commText.textContent = `Matches style of ${commMatch.twin}. Free verified Google Fonts stand-in is ${primary.family}. ${commMatch.reason || ''}`;
         commAlert.classList.remove('hidden');
       } else {
         commAlert.classList.add('hidden');
