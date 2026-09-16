@@ -943,12 +943,19 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         `&text=${uniqueText}&display=block`;
       document.head.appendChild(link);
 
+      // Await stylesheet parse before triggering document.fonts.load
+      await new Promise(resolve => {
+        link.onload = () => resolve();
+        link.onerror = () => resolve();
+        setTimeout(resolve, 800);
+      });
+
       await Promise.race([
         Promise.all(famNames.flatMap(f => [
-          document.fonts.load(`400 140px "${f}"`, text).catch(() => []),
-          document.fonts.load(`700 140px "${f}"`, text).catch(() => [])
+          document.fonts.load(`400 48px "${f}"`, text).catch(() => []),
+          document.fonts.load(`700 48px "${f}"`, text).catch(() => [])
         ])),
-        new Promise(resolve => setTimeout(resolve, 1500))
+        new Promise(resolve => setTimeout(resolve, 2000))
       ]);
     }
 
@@ -1183,6 +1190,44 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
     function extractCanonicalGlyphSDF(glyphCanvas, targetSize = 64) {
       if (!glyphCanvas) return null;
+      const gW = glyphCanvas.width;
+      const gH = glyphCanvas.height;
+      if (gW <= 0 || gH <= 0) return null;
+
+      const gCtx = glyphCanvas.getContext('2d');
+      if (!gCtx) return null;
+      const gImgData = gCtx.getImageData(0, 0, gW, gH);
+      const gData = gImgData.data;
+
+      // Determine background luminance from sample corners
+      const c1 = 0.2126 * gData[0] + 0.7152 * gData[1] + 0.0722 * gData[2];
+      const c2 = 0.2126 * gData[(gW - 1) * 4] + 0.7152 * gData[(gW - 1) * 4 + 1] + 0.0722 * gData[(gW - 1) * 4 + 2];
+      const bgLum = (c1 + c2) / 2;
+      const isDarkBg = bgLum < 128;
+
+      let minX = gW, maxX = -1, minY = gH, maxY = -1;
+      for (let y = 0; y < gH; y++) {
+        const row = y * gW;
+        for (let x = 0; x < gW; x++) {
+          const idx = (row + x) * 4;
+          const lum = 0.2126 * gData[idx] + 0.7152 * gData[idx + 1] + 0.0722 * gData[idx + 2];
+          const isInk = isDarkBg ? (lum > 140) : (lum < 165);
+          if (isInk) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+
+      if (maxX < minX || maxY < minY) {
+        minX = 0; maxX = gW - 1; minY = 0; maxY = gH - 1;
+      }
+      const inkW = maxX - minX + 1;
+      const inkH = maxY - minY + 1;
+
+      // Draw onto target canvas with canonical 48px box (8px padding on 64x64)
       const off = document.createElement('canvas');
       off.width = targetSize;
       off.height = targetSize;
@@ -1192,28 +1237,84 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, targetSize, targetSize);
 
-      const padding = 6;
-      const avail = targetSize - padding * 2;
-      const scale = Math.min(avail / Math.max(1, glyphCanvas.width), avail / Math.max(1, glyphCanvas.height));
-      const dw = glyphCanvas.width * scale;
-      const dh = glyphCanvas.height * scale;
+      const padding = 8;
+      const avail = targetSize - padding * 2; // 48px
+      const scale = Math.min(avail / Math.max(1, inkW), avail / Math.max(1, inkH));
+      const dw = inkW * scale;
+      const dh = inkH * scale;
       const dx = (targetSize - dw) / 2;
       const dy = (targetSize - dh) / 2;
 
-      ctx.drawImage(glyphCanvas, 0, 0, glyphCanvas.width, glyphCanvas.height, dx, dy, dw, dh);
+      ctx.drawImage(glyphCanvas, minX, minY, inkW, inkH, dx, dy, dw, dh);
       const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
       const data = imgData.data;
 
       const mask = new Uint8Array(targetSize * targetSize);
+      let inkCount = 0;
       for (let i = 0; i < mask.length; i++) {
         const idx = i * 4;
         const lum = 0.2126 * data[idx] + 0.7152 * data[idx + 1] + 0.0722 * data[idx + 2];
-        mask[i] = lum < 165 ? 1 : 0;
+        const isInk = isDarkBg ? (lum > 140) : (lum < 165);
+        if (isInk) {
+          mask[i] = 1;
+          inkCount++;
+        } else {
+          mask[i] = 0;
+        }
       }
+      if (inkCount === 0) return null;
       return computeSDF(mask, targetSize, targetSize, 16.0);
     }
 
     function renderCandidateGlyphSDF(family, char, weightNum = 400, targetSize = 64) {
+      // 1. Check if font is ready in document.fonts to avoid fallback to Arial
+      if (typeof document !== 'undefined' && document.fonts) {
+        const isLoaded = document.fonts.check(`16px "${family}"`);
+        if (!isLoaded) {
+          return null;
+        }
+      }
+
+      // 2. High-resolution scratch rendering
+      const scratchSize = 128;
+      const scratchCanvas = document.createElement('canvas');
+      scratchCanvas.width = scratchSize;
+      scratchCanvas.height = scratchSize;
+      const scratchCtx = scratchCanvas.getContext('2d');
+      if (!scratchCtx) return null;
+
+      scratchCtx.fillStyle = '#ffffff';
+      scratchCtx.fillRect(0, 0, scratchSize, scratchSize);
+      scratchCtx.fillStyle = '#000000';
+      scratchCtx.textBaseline = 'middle';
+      scratchCtx.textAlign = 'center';
+      scratchCtx.font = `${weightNum} 72px "${family}", sans-serif`;
+      scratchCtx.fillText(char, scratchSize / 2, scratchSize / 2);
+
+      const scratchImgData = scratchCtx.getImageData(0, 0, scratchSize, scratchSize);
+      const sData = scratchImgData.data;
+
+      // 3. Find exact ink bounding box
+      let minX = scratchSize, maxX = -1, minY = scratchSize, maxY = -1;
+      for (let y = 0; y < scratchSize; y++) {
+        const row = y * scratchSize;
+        for (let x = 0; x < scratchSize; x++) {
+          const idx = (row + x) * 4;
+          const lum = 0.2126 * sData[idx] + 0.7152 * sData[idx + 1] + 0.0722 * sData[idx + 2];
+          if (lum < 165) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+
+      if (maxX < minX || maxY < minY) return null;
+      const inkW = maxX - minX + 1;
+      const inkH = maxY - minY + 1;
+
+      // 4. Draw onto canonical 48px box (8px padding on 64x64)
       const canvas = document.createElement('canvas');
       canvas.width = targetSize;
       canvas.height = targetSize;
@@ -1223,11 +1324,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, targetSize, targetSize);
 
-      ctx.fillStyle = '#000000';
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.font = `${weightNum} 46px "${family}", sans-serif`;
-      ctx.fillText(char, targetSize / 2, targetSize / 2 + 1);
+      const padding = 8;
+      const avail = targetSize - padding * 2; // 48px
+      const scale = Math.min(avail / inkW, avail / inkH);
+      const dw = inkW * scale;
+      const dh = inkH * scale;
+      const dx = (targetSize - dw) / 2;
+      const dy = (targetSize - dh) / 2;
+
+      ctx.drawImage(scratchCanvas, minX, minY, inkW, inkH, dx, dy, dw, dh);
 
       const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
       const data = imgData.data;
@@ -1704,6 +1809,107 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }];
     }
 
+    const CHAR_ASPECT = {
+      'm': 1.55, 'w': 1.55, 'W': 1.60, 'M': 1.50,
+      'i': 0.35, 'l': 0.30, 't': 0.45, 'j': 0.35, 'I': 0.35,
+      'f': 0.45, 'r': 0.55,
+      'default': 0.85
+    };
+
+    function getExpectedAspect(char) {
+      return CHAR_ASPECT[char] || CHAR_ASPECT['default'];
+    }
+
+    function alignBoxesToWord(boxes, wordText) {
+      if (!wordText || !boxes || boxes.length === 0) return boxes.map(b => ({ char: 'e', box: b }));
+      const cleanWord = wordText.replace(/^[.,\/#!$%\^&\*;:{}=\-_`~()]+|[.,\/#!$%\^&\*;:{}=\-_`~()]+$/g, '');
+      const chars = Array.from(cleanWord || wordText);
+      const N = boxes.length;
+      const M = chars.length;
+      if (M === 0) return boxes.map(b => ({ char: 'e', box: b }));
+
+      const hArr = boxes.map(b => b.h).sort((a, b) => a - b);
+      const medianH = hArr[Math.floor(hArr.length / 2)] || 16;
+
+      const dp = Array.from({ length: M + 1 }, () => new Float64Array(N + 1).fill(Infinity));
+      const parent = Array.from({ length: M + 1 }, () => new Array(N + 1).fill(null));
+
+      dp[0][0] = 0;
+      for (let j = 1; j <= N; j++) {
+        const isPunct = boxes[j - 1].h < medianH * 0.55;
+        dp[0][j] = dp[0][j - 1] + (isPunct ? 0.1 : 1.2);
+        parent[0][j] = { i: 0, j: j - 1, action: 'skip_box', boxIdx: j - 1 };
+      }
+
+      function mergeBoxes(b1, b2) {
+        const x0 = Math.min(b1.x, b2.x);
+        const y0 = Math.min(b1.y, b2.y);
+        const x1 = Math.max(b1.x + b1.w, b2.x + b2.w);
+        const y1 = Math.max(b1.y + b1.h, b2.y + b2.h);
+        return { x: x0, y: y0, w: x1 - x0, h: y1 - y0, ink: (b1.ink || 0) + (b2.ink || 0) };
+      }
+
+      function matchCost(char, box, charIdx, boxIdx) {
+        const boxAspect = box.w / Math.max(1, box.h);
+        const expAspect = getExpectedAspect(char);
+        const aspectDiff = Math.abs(Math.log(Math.max(0.1, boxAspect) / expAspect));
+
+        const progChar = charIdx / Math.max(1, M - 1);
+        const progBox = boxIdx / Math.max(1, N - 1);
+        const progDiff = Math.abs(progChar - progBox);
+
+        let heightPenalty = 0;
+        if (box.h < medianH * 0.55) {
+          heightPenalty = 4.0;
+        }
+
+        return aspectDiff * 1.5 + progDiff * 1.0 + heightPenalty;
+      }
+
+      for (let i = 1; i <= M; i++) {
+        const char = chars[i - 1];
+        for (let j = 1; j <= N; j++) {
+          // Option 1: 1-to-1 match
+          const cost1 = dp[i - 1][j - 1] + matchCost(char, boxes[j - 1], i - 1, j - 1);
+          if (cost1 < dp[i][j]) {
+            dp[i][j] = cost1;
+            parent[i][j] = { i: i - 1, j: j - 1, action: 'match_1', char, box: boxes[j - 1] };
+          }
+
+          // Option 2: 1-to-2 match (split character like 'm' or 'd')
+          if (j >= 2) {
+            const merged = mergeBoxes(boxes[j - 2], boxes[j - 1]);
+            const cost2 = dp[i - 1][j - 2] + matchCost(char, merged, i - 1, j - 1.5) + 0.2;
+            if (cost2 < dp[i][j]) {
+              dp[i][j] = cost2;
+              parent[i][j] = { i: i - 1, j: j - 2, action: 'match_2', char, box: merged };
+            }
+          }
+
+          // Option 3: Skip box j-1 (punctuation, speckle)
+          const isTiny = boxes[j - 1].h < medianH * 0.55;
+          const skipCost = dp[i][j - 1] + (isTiny ? 0.1 : 1.2);
+          if (skipCost < dp[i][j]) {
+            dp[i][j] = skipCost;
+            parent[i][j] = { i, j: j - 1, action: 'skip_box', boxIdx: j - 1 };
+          }
+        }
+      }
+
+      const result = [];
+      let currI = M, currJ = N;
+      while (currI > 0 || currJ > 0) {
+        const p = parent[currI][currJ];
+        if (!p) break;
+        if (p.action === 'match_1' || p.action === 'match_2') {
+          result.unshift({ char: p.char, box: p.box });
+        }
+        currI = p.i;
+        currJ = p.j;
+      }
+      return result.length > 0 ? result : boxes.map((b, idx) => ({ char: chars[idx] || 'e', box: b }));
+    }
+
     async function detectWordsAndGlyphs(sourceImg, customCropBox) {
       if (wordChipsContainer) {
         wordChipsContainer.innerHTML = `
@@ -1754,10 +1960,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         const toOrigScale = 1 / workScale;
         detectedWords = [];
 
-        // ========================================================
-        // PRIMARY: INDUSTRY-STANDARD TESSERACT.JS OCR RECOGNITION
-        // ========================================================
-        let tesseractUsed = false;
+        // 1. Tesseract OCR pass to obtain clean linguistic word strings
+        let extractedTesseractWords = [];
         try {
           const ocrWorker = await Promise.race([
             getTesseractWorker(),
@@ -1765,13 +1969,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           ]);
 
           if (ocrWorker) {
-            // Prepare specialized high-accuracy OCR canvas
             let ocrScale = 1.0;
             if (sh < 80) ocrScale = 2.0;
             else if (sh < 140) ocrScale = 1.5;
             else if (Math.max(sw, sh) > 1600) ocrScale = 1600 / Math.max(sw, sh);
 
-            const ocrPad = 40; // 40px solid padding prevents Tesseract clipping boundary letters
+            const ocrPad = 40;
             const scaledW = Math.round(sw * ocrScale);
             const scaledH = Math.round(sh * ocrScale);
 
@@ -1782,14 +1985,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             ocrCtx.imageSmoothingEnabled = true;
             ocrCtx.imageSmoothingQuality = 'high';
 
-            // Fill clean background (white for dark text)
             ocrCtx.fillStyle = '#ffffff';
             ocrCtx.fillRect(0, 0, ocrCanvas.width, ocrCanvas.height);
-
-            // Draw scaled source image crop into padded area
             ocrCtx.drawImage(sourceImg, sx, sy, sw, sh, ocrPad, ocrPad, scaledW, scaledH);
 
-            // If light text on dark background, invert so Tesseract always gets dark text on white
             if (isLightOnDark) {
               const ocrImgData = ocrCtx.getImageData(ocrPad, ocrPad, scaledW, scaledH);
               const d = ocrImgData.data;
@@ -1801,80 +2000,35 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
               ocrCtx.putImageData(ocrImgData, ocrPad, ocrPad);
             }
 
-            // CRITICAL: Request granular blocks & text output formats with timeout
             const ocrResult = await Promise.race([
               ocrWorker.recognize(ocrCanvas, {}, { blocks: true, text: true }),
               new Promise((_, reject) => setTimeout(() => reject(new Error('OCR Timeout')), 8000))
             ]);
 
             const blocks = (ocrResult && ocrResult.data && ocrResult.data.blocks) || [];
-            const extractedTesseractWords = [];
-
             for (const block of blocks) {
               for (const para of (block.paragraphs || [])) {
                 for (const line of (para.lines || [])) {
                   for (const word of (line.words || [])) {
                     const rawWordText = (word.text || '').trim();
                     if (!rawWordText) continue;
-
-                    // Clean leading and trailing punctuation (e.g. "instruments." -> "instruments")
                     const cleanedWordText = rawWordText.replace(/^[.,\/#!$%\^&\*;:{}=\-_`~()]+|[.,\/#!$%\^&\*;:{}=\-_`~()]+$/g, '');
                     const wordTextToUse = cleanedWordText.length > 0 ? cleanedWordText : rawWordText;
-
-                    // Bounding box in ocrCanvas coordinates
                     const wb = word.bbox;
-                    // Map back to original unpadded sourceImg coordinates
                     const origX0 = Math.max(0, Math.min(origW - 1, Math.round(sx + (wb.x0 - ocrPad) / ocrScale)));
                     const origY0 = Math.max(0, Math.min(origH - 1, Math.round(sy + (wb.y0 - ocrPad) / ocrScale)));
                     const origX1 = Math.max(origX0 + 1, Math.min(origW, Math.round(sx + (wb.x1 - ocrPad) / ocrScale)));
                     const origY1 = Math.max(origY0 + 1, Math.min(origH, Math.round(sy + (wb.y1 - ocrPad) / ocrScale)));
-
-                    // Extract individual symbols
-                    const symbols = [];
-                    const rawSyms = (word.symbols || []).filter(s => {
-                      const t = (s.text || '').trim();
-                      return t.length > 0 && /^[a-zA-Z0-9]$/.test(t);
-                    });
-
-                    if (rawSyms.length > 0) {
-                      for (const sym of rawSyms) {
-                        const sb = sym.bbox;
-                        const sOrigX0 = Math.max(0, Math.min(origW - 1, Math.round(sx + (sb.x0 - ocrPad) / ocrScale)));
-                        const sOrigY0 = Math.max(0, Math.min(origH - 1, Math.round(sy + (sb.y0 - ocrPad) / ocrScale)));
-                        const sOrigX1 = Math.max(sOrigX0 + 1, Math.min(origW, Math.round(sx + (sb.x1 - ocrPad) / ocrScale)));
-                        const sOrigY1 = Math.max(sOrigY0 + 1, Math.min(origH, Math.round(sy + (sb.y1 - ocrPad) / ocrScale)));
-                        symbols.push({
-                          char: sym.text,
-                          confidence: sym.confidence ?? 90,
-                          box: { x: sOrigX0, y: sOrigY0, w: Math.max(3, sOrigX1 - sOrigX0), h: Math.max(3, sOrigY1 - sOrigY0) }
-                        });
-                      }
-                    } else {
-                      // Robust synthesizer: distribute word characters evenly across word bounding box
-                      const chars = Array.from(wordTextToUse);
-                      const charW = (origX1 - origX0) / Math.max(1, chars.length);
-                      chars.forEach((ch, cIdx) => {
-                        const cx = Math.round(origX0 + cIdx * charW);
-                        symbols.push({
-                          char: ch,
-                          confidence: 85,
-                          box: { x: cx, y: origY0, w: Math.max(3, Math.round(charW)), h: Math.max(3, origY1 - origY0) }
-                        });
-                      });
-                    }
-
                     extractedTesseractWords.push({
                       text: wordTextToUse,
                       confidence: word.confidence ?? 90,
-                      bbox: { x0: origX0, y0: origY0, x1: origX1, y1: origY1 },
-                      symbols
+                      bbox: { x0: origX0, y0: origY0, x1: origX1, y1: origY1 }
                     });
                   }
                 }
               }
             }
 
-            // Full-text fallback if blocks was empty
             if (extractedTesseractWords.length === 0 && ocrResult && ocrResult.data && ocrResult.data.text) {
               const rawTokens = ocrResult.data.text.trim().split(/\s+/).filter(Boolean);
               if (rawTokens.length > 0) {
@@ -1886,384 +2040,319 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
                   const tokW = Math.max(20, Math.round((textStr.length / Math.max(1, totalLen)) * sw));
                   const wBox = { x: currX, y: sy, w: Math.min(sw - (currX - sx), tokW), h: sh };
                   currX += tokW;
-                  const symbols = [];
-                  const chars = Array.from(textStr);
-                  const cW = wBox.w / Math.max(1, chars.length);
-                  chars.forEach((ch, cIdx) => {
-                    symbols.push({
-                      char: ch,
-                      confidence: 80,
-                      box: { x: Math.round(wBox.x + cIdx * cW), y: wBox.y, w: Math.max(3, Math.round(cW)), h: wBox.h }
-                    });
-                  });
                   extractedTesseractWords.push({
                     text: textStr,
                     confidence: 80,
-                    bbox: { x0: wBox.x, y0: wBox.y, x1: wBox.x + wBox.w, y1: wBox.y + wBox.h },
-                    symbols
+                    bbox: { x0: wBox.x, y0: wBox.y, x1: wBox.x + wBox.w, y1: wBox.y + wBox.h }
                   });
                 });
               }
             }
 
-            if (extractedTesseractWords.length > 0) {
-              tesseractUsed = true;
-              for (let wIdx = 0; wIdx < extractedTesseractWords.length; wIdx++) {
-                const tWord = extractedTesseractWords[wIdx];
-                const wb = tWord.bbox;
-                const pad = Math.max(4, Math.round(4 * toOrigScale));
-                const origWordX = Math.max(0, Math.min(origW - 1, wb.x0 - pad));
-                const origWordY = Math.max(0, Math.min(origH - 1, wb.y0 - pad));
-                const origWordR = Math.max(origWordX + 1, Math.min(origW, wb.x1 + pad));
-                const origWordB = Math.max(origWordY + 1, Math.min(origH, wb.y1 + pad));
-                const origWordW = origWordR - origWordX;
-                const origWordH = origWordB - origWordY;
-
-                const wordCropCanvas = document.createElement('canvas');
-                wordCropCanvas.width = origWordW;
-                wordCropCanvas.height = origWordH;
-                const wordCropCtx = wordCropCanvas.getContext('2d');
-                wordCropCtx.drawImage(sourceImg, origWordX, origWordY, origWordW, origWordH, 0, 0, origWordW, origWordH);
-                const wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
-
-                const wordGlyphs = [];
-                for (let gIdx = 0; gIdx < tWord.symbols.length; gIdx++) {
-                  const sym = tWord.symbols[gIdx];
-                  const sb = sym.box;
-                  const gPad = Math.max(2, Math.round(2 * toOrigScale));
-                  let gOrigX = Math.max(0, Math.min(origW - 1, sb.x - gPad));
-                  let gOrigY = Math.max(0, Math.min(origH - 1, sb.y - gPad));
-                  let gOrigR = Math.max(gOrigX + 1, Math.min(origW, sb.x + sb.w + gPad));
-                  let gOrigB = Math.max(gOrigY + 1, Math.min(origH, sb.y + sb.h + gPad));
-                  let gOrigW = gOrigR - gOrigX;
-                  let gOrigH = gOrigB - gOrigY;
-
-                  if (gOrigW < 4) gOrigW = 4;
-                  if (gOrigH < 4) gOrigH = 4;
-
-                  const gCanvas = document.createElement('canvas');
-                  gCanvas.width = gOrigW;
-                  gCanvas.height = gOrigH;
-                  const gCtx = gCanvas.getContext('2d');
-                  gCtx.drawImage(sourceImg, gOrigX, gOrigY, gOrigW, gOrigH, 0, 0, gOrigW, gOrigH);
-                  const glyphImgDataUrl = gCanvas.toDataURL('image/png');
-
-                  const rawSymBoxWork = {
-                    x: Math.max(0, Math.min(w - 1, Math.round((sb.x - sx) * workScale))),
-                    y: Math.max(0, Math.min(h - 1, Math.round((sb.y - sy) * workScale))),
-                    w: Math.max(1, Math.round(sb.w * workScale)),
-                    h: Math.max(1, Math.round(sb.h * workScale))
-                  };
-                  const tightenedBoxWork = tightenBox(currentWorkBinaryMask, rawSymBoxWork) || rawSymBoxWork;
-                  const sig = compute16x16Sig(currentWorkBinaryMask, tightenedBoxWork);
-
-                  wordGlyphs.push({
-                    id: `glyph-${wIdx}-${gIdx}`,
-                    char: sym.char,
-                    confidence: sym.confidence ?? 90,
-                    signature: sig,
-                    box: { x: gOrigX, y: gOrigY, w: gOrigW, h: gOrigH },
-                    boxWork: tightenedBoxWork,
-                    glyphImgDataUrl
-                  });
-                }
-
-                detectedWords.push({
-                  id: `word-${wIdx}`,
-                  text: wordGlyphs.map(gl => gl.char).join('') || tWord.text,
-                  box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
-                  wordImgDataUrl,
-                  wordCanvas: wordCropCanvas,
-                  glyphs: wordGlyphs,
-                  confidence: tWord.confidence ?? 90
-                });
-              }
+            if (ocrResult && ocrResult.data && ocrResult.data.text) {
+              currentSampleText = ocrResult.data.text.trim();
             }
           }
         } catch (ocrErr) {
-          console.warn('[FontFinder] Tesseract recognize failed, falling back to optical segmentation:', ocrErr);
+          console.warn('[FontFinder] Tesseract recognize failed, proceeding with optical segmentation:', ocrErr);
         }
 
-        // ========================================================
-        // FALLBACK: ENHANCED OPTICAL SEGMENTATION WITH TOUCHING-GLYPH SPLIT
-        // ========================================================
-        if (!tesseractUsed || detectedWords.length === 0) {
-          const totalPixels = w * h;
-          // Row density for vertical bounds
-          const rowDensity = new Float32Array(h);
-          for (let y = 0; y < h; y++) {
-            let count = 0;
-            const offset = y * w;
-            for (let x = 0; x < w; x++) {
-              if (binary[offset + x] === 1) count++;
-            }
-            rowDensity[y] = count;
+        // 2. Optical connected-component segmentation (Always runs for pixel-accurate boxes)
+        const totalPixels = w * h;
+        const rowDensity = new Float32Array(h);
+        for (let y = 0; y < h; y++) {
+          let count = 0;
+          const offset = y * w;
+          for (let x = 0; x < w; x++) {
+            if (binary[offset + x] === 1) count++;
           }
-          let textTop = 0, textBottom = h - 1;
-          const minRowInk = Math.max(2, Math.round(w * 0.008));
-          for (let y = 0; y < h; y++) {
-            if (rowDensity[y] >= minRowInk) { textTop = y; break; }
-          }
-          for (let y = h - 1; y >= 0; y--) {
-            if (rowDensity[y] >= minRowInk) { textBottom = y; break; }
-          }
-          const textH = Math.max(12, textBottom - textTop + 1);
+          rowDensity[y] = count;
+        }
+        let textTop = 0, textBottom = h - 1;
+        const minRowInk = Math.max(2, Math.round(w * 0.008));
+        for (let y = 0; y < h; y++) {
+          if (rowDensity[y] >= minRowInk) { textTop = y; break; }
+        }
+        for (let y = h - 1; y >= 0; y--) {
+          if (rowDensity[y] >= minRowInk) { textBottom = y; break; }
+        }
+        const textH = Math.max(12, textBottom - textTop + 1);
 
-          // 8-connected components
-          const visited = new Uint8Array(totalPixels);
-          const rawBoxes = [];
-          const queue = new Int32Array(totalPixels);
+        // 8-connected components
+        const visited = new Uint8Array(totalPixels);
+        const rawBoxes = [];
+        const queue = new Int32Array(totalPixels);
 
-          for (let y = textTop; y <= textBottom; y++) {
-            const yOff = y * w;
-            for (let x = 0; x < w; x++) {
-              const idx = yOff + x;
-              if (binary[idx] === 1 && visited[idx] === 0) {
-                let minX = x, maxX = x, minY = y, maxY = y;
-                let ink = 0;
-                let head = 0, tail = 0;
-                queue[tail++] = idx;
-                visited[idx] = 1;
+        for (let y = textTop; y <= textBottom; y++) {
+          const yOff = y * w;
+          for (let x = 0; x < w; x++) {
+            const idx = yOff + x;
+            if (binary[idx] === 1 && visited[idx] === 0) {
+              let minX = x, maxX = x, minY = y, maxY = y;
+              let ink = 0;
+              let head = 0, tail = 0;
+              queue[tail++] = idx;
+              visited[idx] = 1;
 
-                while (head < tail) {
-                  const cur = queue[head++];
-                  ink++;
-                  const cx = cur % w;
-                  const cy = (cur / w) | 0;
-                  if (cx < minX) minX = cx;
-                  if (cx > maxX) maxX = cx;
-                  if (cy < minY) minY = cy;
-                  if (cy > maxY) maxY = cy;
+              while (head < tail) {
+                const cur = queue[head++];
+                ink++;
+                const cx = cur % w;
+                const cy = (cur / w) | 0;
+                if (cx < minX) minX = cx;
+                if (cx > maxX) maxX = cx;
+                if (cy < minY) minY = cy;
+                if (cy > maxY) maxY = cy;
 
-                  for (let dy = -1; dy <= 1; dy++) {
-                    const ny = cy + dy;
-                    if (ny < textTop || ny > textBottom) continue;
-                    const nRow = ny * w;
-                    for (let dx = -1; dx <= 1; dx++) {
-                      if (dx === 0 && dy === 0) continue;
-                      const nx = cx + dx;
-                      if (nx < 0 || nx >= w) continue;
-                      const nidx = nRow + nx;
-                      if (binary[nidx] === 1 && visited[nidx] === 0) {
-                        visited[nidx] = 1;
-                        queue[tail++] = nidx;
-                      }
+                for (let dy = -1; dy <= 1; dy++) {
+                  const ny = cy + dy;
+                  if (ny < textTop || ny > textBottom) continue;
+                  const nRow = ny * w;
+                  for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue;
+                    const nx = cx + dx;
+                    if (nx < 0 || nx >= w) continue;
+                    const nidx = nRow + nx;
+                    if (binary[nidx] === 1 && visited[nidx] === 0) {
+                      visited[nidx] = 1;
+                      queue[tail++] = nidx;
                     }
                   }
                 }
+              }
 
-                const gw = maxX - minX + 1;
-                const gh = maxY - minY + 1;
-                if (ink >= 5 && gw >= 2 && gh >= 3) {
-                  rawBoxes.push({ x: minX, y: minY, w: gw, h: gh, ink });
-                }
+              const gw = maxX - minX + 1;
+              const gh = maxY - minY + 1;
+              if (ink >= 4 && gw >= 2 && gh >= 3) {
+                rawBoxes.push({ x: minX, y: minY, w: gw, h: gh, ink });
               }
             }
           }
+        }
 
-          // Smart component merging (dots on i, j, accents)
-          rawBoxes.sort((a, b) => a.x - b.x);
-          const dotHThresh = textH * 0.40;
-          const gapThresh = textH * 0.50;
-          const horizTol = Math.max(3, textH * 0.20);
-          const mergedFlags = new Uint8Array(rawBoxes.length);
-          const mergedBoxes = [];
-
-          for (let i = 0; i < rawBoxes.length; i++) {
-            if (mergedFlags[i]) continue;
-            let a = { ...rawBoxes[i] };
-            for (let j = i + 1; j < rawBoxes.length; j++) {
-              if (mergedFlags[j]) continue;
-              const b = rawBoxes[j];
-              if (b.x > a.x + a.w + horizTol) break;
-              const xOverlap = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
-              const isVertStacked = xOverlap >= Math.min(a.w, b.w) * 0.25;
-              const vertGap = Math.max(0, Math.max(a.y, b.y) - Math.min(a.y + a.h, b.y + b.h));
-              const oneIsSmall = a.h <= dotHThresh || b.h <= dotHThresh;
-
-              if (isVertStacked && vertGap <= gapThresh && oneIsSmall) {
-                const nx0 = Math.min(a.x, b.x);
-                const ny0 = Math.min(a.y, b.y);
-                const nx1 = Math.max(a.x + a.w, b.x + b.w);
-                const ny1 = Math.max(a.y + a.h, b.y + b.h);
-                a = { x: nx0, y: ny0, w: nx1 - nx0, h: ny1 - ny0, ink: a.ink + b.ink };
-                mergedFlags[j] = 1;
-              }
-            }
-            mergedBoxes.push(a);
-          }
-
-          // Filter out tiny noise
-          const heights = mergedBoxes.map(b => b.h).sort((a, b) => a - b);
-          const medianH = heights[Math.floor(heights.length / 2)] || 16;
-          const baseBoxes = mergedBoxes.filter(b => b.h >= medianH * 0.25 && b.w >= 2);
-
-          // Split touching characters (e.g. touching 'qu', 'fi', 'oo')
-          const filteredBoxes = [];
-          for (const b of baseBoxes) {
-            const aspect = b.w / Math.max(1, b.h);
-            if (aspect > 1.35 && b.w >= medianH * 0.85 && b.h >= medianH * 0.5) {
-              const colSums = new Int32Array(b.w);
-              for (let col = 0; col < b.w; col++) {
-                const absX = b.x + col;
-                for (let row = 0; row < b.h; row++) {
-                  const absY = b.y + row;
-                  if (binary[absY * w + absX]) colSums[col]++;
-                }
-              }
-              const minCol = Math.floor(b.w * 0.35);
-              const maxCol = Math.floor(b.w * 0.65);
-              let valleyCol = -1;
-              let minVal = Infinity;
-              for (let c = minCol; c <= maxCol; c++) {
-                if (colSums[c] < minVal) {
-                  minVal = colSums[c];
-                  valleyCol = c;
-                }
-              }
-              const peak = Math.max(...colSums);
-              if (valleyCol > 0 && minVal <= peak * 0.45) {
-                filteredBoxes.push({ x: b.x, y: b.y, w: valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
-                filteredBoxes.push({ x: b.x + valleyCol, y: b.y, w: b.w - valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
-                continue;
-              }
-            }
-            filteredBoxes.push(b);
-          }
-
-          // Group into lines by vertical position
-          filteredBoxes.sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2));
-          const lines = [];
-          for (const box of filteredBoxes) {
-            const boxMid = box.y + box.h / 2;
-            let placed = false;
-            for (const line of lines) {
-              const lineMid = line.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / line.length;
-              if (Math.abs(boxMid - lineMid) <= medianH * 0.55) {
-                line.push(box);
-                placed = true;
-                break;
-              }
-            }
-            if (!placed) {
-              lines.push([box]);
-            }
-          }
-
-          // Sort lines from top to bottom
-          lines.sort((lineA, lineB) => {
-            const midA = lineA.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineA.length;
-            const midB = lineB.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineB.length;
-            return midA - midB;
-          });
-
-          // Segment glyphs on each line into words using inter-glyph gaps
-          const wordsRaw = [];
-          for (const line of lines) {
-            line.sort((a, b) => a.x - b.x);
-            if (line.length < 2) {
-              if (line.length === 1) wordsRaw.push(line);
+        // Competitor-grade vertical overlap merging (dots on i, j, accents, split stems)
+        const mergedBoxes = [];
+        for (const b of rawBoxes.slice().sort((a, b) => a.x - b.x)) {
+          const prev = mergedBoxes[mergedBoxes.length - 1];
+          if (prev) {
+            const xOverlap = Math.min(prev.x + prev.w, b.x + b.w) - Math.max(prev.x, b.x);
+            const minW = Math.min(prev.w, b.w);
+            const yGap = Math.max(prev.y, b.y) - Math.min(prev.y + prev.h, b.y + b.h);
+            const minH = Math.min(prev.h, b.h);
+            if (xOverlap > 0 && xOverlap >= minW * 0.45 && yGap < minH * 0.50) {
+              const nx0 = Math.min(prev.x, b.x);
+              const ny0 = Math.min(prev.y, b.y);
+              prev.w = Math.max(prev.x + prev.w, b.x + b.w) - nx0;
+              prev.h = Math.max(prev.y + prev.h, b.y + b.h) - ny0;
+              prev.x = nx0;
+              prev.y = ny0;
+              prev.ink = (prev.ink || 0) + (b.ink || 0);
               continue;
             }
+          }
+          mergedBoxes.push({ ...b });
+        }
 
-            const gaps = [];
-            for (let i = 1; i < line.length; i++) {
-              gaps.push(line[i].x - (line[i - 1].x + line[i - 1].w));
-            }
-            const sortedGaps = gaps.slice().sort((a, b) => a - b);
-            const medianGap = Math.max(1, sortedGaps[Math.floor(sortedGaps.length / 2)] || 3);
-            const wordBreakThresh = Math.max(medianGap * 1.85, medianH * 0.28);
+        // Filter out tiny noise
+        const heights = mergedBoxes.map(b => b.h).sort((a, b) => a - b);
+        const medianH = heights[Math.floor(heights.length / 2)] || 16;
+        const baseBoxes = mergedBoxes.filter(b => b.h >= medianH * 0.25 && b.w >= 2);
 
-            let curWord = [line[0]];
-            for (let i = 1; i < line.length; i++) {
-              const gap = gaps[i - 1];
-              if (gap > wordBreakThresh) {
-                wordsRaw.push(curWord);
-                curWord = [];
+        // Split touching characters only if aspect is abnormally wide (aspect > 1.85)
+        const filteredBoxes = [];
+        for (const b of baseBoxes) {
+          const aspect = b.w / Math.max(1, b.h);
+          if (aspect > 1.85 && b.w >= medianH * 1.5 && b.h >= medianH * 0.5) {
+            const colSums = new Int32Array(b.w);
+            for (let col = 0; col < b.w; col++) {
+              const absX = b.x + col;
+              for (let row = 0; row < b.h; row++) {
+                const absY = b.y + row;
+                if (binary[absY * w + absX]) colSums[col]++;
               }
-              curWord.push(line[i]);
             }
-            if (curWord.length > 0) wordsRaw.push(curWord);
+            const minCol = Math.floor(b.w * 0.35);
+            const maxCol = Math.floor(b.w * 0.65);
+            let valleyCol = -1;
+            let minVal = Infinity;
+            for (let c = minCol; c <= maxCol; c++) {
+              if (colSums[c] < minVal) {
+                minVal = colSums[c];
+                valleyCol = c;
+              }
+            }
+            const peak = Math.max(...colSums);
+            if (valleyCol > 0 && minVal <= peak * 0.40) {
+              filteredBoxes.push({ x: b.x, y: b.y, w: valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
+              filteredBoxes.push({ x: b.x + valleyCol, y: b.y, w: b.w - valleyCol, h: b.h, ink: Math.floor(b.ink / 2) });
+              continue;
+            }
+          }
+          filteredBoxes.push(b);
+        }
+
+        // Group into lines by vertical center
+        filteredBoxes.sort((a, b) => (a.y + a.h / 2) - (b.y + b.h / 2));
+        const lines = [];
+        for (const box of filteredBoxes) {
+          const boxMid = box.y + box.h / 2;
+          let placed = false;
+          for (const line of lines) {
+            const lineMid = line.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / line.length;
+            if (Math.abs(boxMid - lineMid) <= medianH * 0.55) {
+              line.push(box);
+              placed = true;
+              break;
+            }
+          }
+          if (!placed) {
+            lines.push([box]);
+          }
+        }
+
+        lines.sort((lineA, lineB) => {
+          const midA = lineA.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineA.length;
+          const midB = lineB.reduce((sum, b) => sum + (b.y + b.h / 2), 0) / lineB.length;
+          return midA - midB;
+        });
+
+        // Segment glyphs on each line into words using inter-glyph gaps
+        const wordsRaw = [];
+        for (const line of lines) {
+          line.sort((a, b) => a.x - b.x);
+          if (line.length < 2) {
+            if (line.length === 1) wordsRaw.push(line);
+            continue;
           }
 
-          if (wordsRaw.length === 0 && filteredBoxes.length > 0) {
-            wordsRaw.push(filteredBoxes);
+          const gaps = [];
+          for (let i = 1; i < line.length; i++) {
+            gaps.push(line[i].x - (line[i - 1].x + line[i - 1].w));
           }
-          if (wordsRaw.length === 0) {
-            wordsRaw.push([{ x: 10, y: 10, w: Math.max(50, w - 20), h: Math.max(30, h - 20), ink: 100 }]);
+          const sortedGaps = gaps.slice().sort((a, b) => a - b);
+          const medianGap = Math.max(1, sortedGaps[Math.floor(sortedGaps.length / 2)] || 3);
+          const wordBreakThresh = Math.max(medianGap * 1.85, medianH * 0.28);
+
+          let curWord = [line[0]];
+          for (let i = 1; i < line.length; i++) {
+            const gap = gaps[i - 1];
+            if (gap > wordBreakThresh) {
+              wordsRaw.push(curWord);
+              curWord = [];
+            }
+            curWord.push(line[i]);
+          }
+          if (curWord.length > 0) wordsRaw.push(curWord);
+        }
+
+        if (wordsRaw.length === 0 && filteredBoxes.length > 0) {
+          wordsRaw.push(filteredBoxes);
+        }
+
+        const sampleWords = currentSampleText ? currentSampleText.trim().split(/\s+/).filter(Boolean) : [];
+
+        // 3. For each optical word, spatially match with OCR text and apply DP character alignment
+        for (let wIdx = 0; wIdx < wordsRaw.length; wIdx++) {
+          const rawGlyphs = wordsRaw[wIdx];
+          const minWorkX = Math.min(...rawGlyphs.map(g => g.x));
+          const maxWorkX = Math.max(...rawGlyphs.map(g => g.x + g.w));
+          const minWorkY = Math.min(...rawGlyphs.map(g => g.y));
+          const maxWorkY = Math.max(...rawGlyphs.map(g => g.y + g.h));
+
+          const pad = Math.max(4, Math.round(medianH * 0.15 * toOrigScale));
+          const origWordX = Math.max(0, Math.min(origW - 1, Math.round(sx + minWorkX * toOrigScale) - pad));
+          const origWordY = Math.max(0, Math.min(origH - 1, Math.round(sy + minWorkY * toOrigScale) - pad));
+          const origWordR = Math.max(origWordX + 1, Math.min(origW, Math.round(sx + maxWorkX * toOrigScale) + pad));
+          const origWordB = Math.max(origWordY + 1, Math.min(origH, Math.round(sy + maxWorkY * toOrigScale) + pad));
+          const origWordW = origWordR - origWordX;
+          const origWordH = origWordB - origWordY;
+
+          const wordCropCanvas = document.createElement('canvas');
+          wordCropCanvas.width = origWordW;
+          wordCropCanvas.height = origWordH;
+          const wordCropCtx = wordCropCanvas.getContext('2d');
+          wordCropCtx.drawImage(sourceImg, origWordX, origWordY, origWordW, origWordH, 0, 0, origWordW, origWordH);
+          const wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+
+          // Match with closest OCR word by center distance
+          let expectedWordStr = '';
+          if (extractedTesseractWords.length > 0) {
+            const optCenterX = origWordX + origWordW / 2;
+            const optCenterY = origWordY + origWordH / 2;
+            let bestTW = null;
+            let minDist = Infinity;
+            for (const tw of extractedTesseractWords) {
+              const twCenterX = (tw.bbox.x0 + tw.bbox.x1) / 2;
+              const twCenterY = (tw.bbox.y0 + tw.bbox.y1) / 2;
+              const d = Math.hypot(optCenterX - twCenterX, (optCenterY - twCenterY) * 2);
+              if (d < minDist) {
+                minDist = d;
+                bestTW = tw;
+              }
+            }
+            if (bestTW) expectedWordStr = bestTW.text;
+          }
+          if (!expectedWordStr && sampleWords[wIdx]) {
+            expectedWordStr = sampleWords[wIdx];
           }
 
-          const sampleWords = currentSampleText ? currentSampleText.trim().split(/\s+/).filter(Boolean) : [];
+          // DP alignment: maps characters monotonically, heals split Didone stems ('m', 'd'), ignores period/comma
+          const alignedGlyphs = expectedWordStr
+            ? alignBoxesToWord(rawGlyphs, expectedWordStr)
+            : rawGlyphs.map(g => ({ char: null, box: g }));
 
-          for (let wIdx = 0; wIdx < wordsRaw.length; wIdx++) {
-            const rawGlyphs = wordsRaw[wIdx];
-            const minWorkX = Math.min(...rawGlyphs.map(g => g.x));
-            const maxWorkX = Math.max(...rawGlyphs.map(g => g.x + g.w));
-            const minWorkY = Math.min(...rawGlyphs.map(g => g.y));
-            const maxWorkY = Math.max(...rawGlyphs.map(g => g.y + g.h));
+          const wordGlyphs = [];
+          for (let gIdx = 0; gIdx < alignedGlyphs.length; gIdx++) {
+            const item = alignedGlyphs[gIdx];
+            const g = item.box;
+            const tightenedBoxWork = tightenBox(currentWorkBinaryMask, g) || g;
 
-            const pad = Math.max(4, Math.round(medianH * 0.15 * toOrigScale));
-            const origWordX = Math.max(0, Math.min(origW - 1, Math.round(sx + minWorkX * toOrigScale) - pad));
-            const origWordY = Math.max(0, Math.min(origH - 1, Math.round(sy + minWorkY * toOrigScale) - pad));
-            const origWordR = Math.max(origWordX + 1, Math.min(origW, Math.round(sx + maxWorkX * toOrigScale) + pad));
-            const origWordB = Math.max(origWordY + 1, Math.min(origH, Math.round(sy + maxWorkY * toOrigScale) + pad));
-            const origWordW = origWordR - origWordX;
-            const origWordH = origWordB - origWordY;
+            const gPad = Math.max(2, Math.round(2 * toOrigScale));
+            const gOrigX = Math.max(0, Math.min(origW - 1, Math.round(sx + tightenedBoxWork.x * toOrigScale) - gPad));
+            const gOrigY = Math.max(0, Math.min(origH - 1, Math.round(sy + tightenedBoxWork.y * toOrigScale) - gPad));
+            const gOrigR = Math.max(gOrigX + 1, Math.min(origW, Math.round(sx + (tightenedBoxWork.x + tightenedBoxWork.w) * toOrigScale) + gPad));
+            const gOrigB = Math.max(gOrigY + 1, Math.min(origH, Math.round(sy + (tightenedBoxWork.y + tightenedBoxWork.h) * toOrigScale) + gPad));
+            const gOrigW = gOrigR - gOrigX;
+            const gOrigH = gOrigB - gOrigY;
 
-            const wordCropCanvas = document.createElement('canvas');
-            wordCropCanvas.width = origWordW;
-            wordCropCanvas.height = origWordH;
-            const wordCropCtx = wordCropCanvas.getContext('2d');
-            wordCropCtx.drawImage(sourceImg, origWordX, origWordY, origWordW, origWordH, 0, 0, origWordW, origWordH);
-            const wordImgDataUrl = wordCropCanvas.toDataURL('image/png');
+            const gCanvas = document.createElement('canvas');
+            gCanvas.width = gOrigW;
+            gCanvas.height = gOrigH;
+            const gCtx = gCanvas.getContext('2d');
+            gCtx.drawImage(sourceImg, gOrigX, gOrigY, gOrigW, gOrigH, 0, 0, gOrigW, gOrigH);
+            const glyphImgDataUrl = gCanvas.toDataURL('image/png');
 
-            const expectedWordStr = sampleWords[wIdx] || '';
-            const wordGlyphs = [];
+            const sig = compute16x16Sig(binary, w, tightenedBoxWork);
 
-            for (let gIdx = 0; gIdx < rawGlyphs.length; gIdx++) {
-              const g = rawGlyphs[gIdx];
-              const gPad = Math.max(2, Math.round(2 * toOrigScale));
-              const gOrigX = Math.max(0, Math.min(origW - 1, Math.round(sx + g.x * toOrigScale) - gPad));
-              const gOrigY = Math.max(0, Math.min(origH - 1, Math.round(sy + g.y * toOrigScale) - gPad));
-              const gOrigR = Math.max(gOrigX + 1, Math.min(origW, Math.round(sx + (g.x + g.w) * toOrigScale) + gPad));
-              const gOrigB = Math.max(gOrigY + 1, Math.min(origH, Math.round(sy + (g.y + g.h) * toOrigScale) + gPad));
-              const gOrigW = gOrigR - gOrigX;
-              const gOrigH = gOrigB - gOrigY;
-
-              const gCanvas = document.createElement('canvas');
-              gCanvas.width = gOrigW;
-              gCanvas.height = gOrigH;
-              const gCtx = gCanvas.getContext('2d');
-              gCtx.drawImage(sourceImg, gOrigX, gOrigY, gOrigW, gOrigH, 0, 0, gOrigW, gOrigH);
-              const glyphImgDataUrl = gCanvas.toDataURL('image/png');
-
-              const sig = compute16x16Sig(binary, w, g);
-
-              let assignedChar = '?';
-              if (expectedWordStr && gIdx < expectedWordStr.length) {
-                assignedChar = expectedWordStr[gIdx];
-              } else if (sigRegularCharMap && sigManifest) {
-                assignedChar = classifySig(sig, sigRegularCharMap, sigManifest, g, { baseline: textBottom, xHeight: textTop + textH * 0.45, xSize: textH * 0.55, isReliable: true });
+            let assignedChar = item.char;
+            if (!assignedChar || assignedChar === '?') {
+              if (sigRegularCharMap && sigManifest) {
+                assignedChar = classifySig(sig, sigRegularCharMap, sigManifest, tightenedBoxWork, { baseline: textBottom, xHeight: textTop + textH * 0.45, xSize: textH * 0.55, isReliable: true });
               } else {
                 assignedChar = 'e';
               }
-
-              wordGlyphs.push({
-                id: `glyph-${wIdx}-${gIdx}`,
-                char: assignedChar,
-                signature: sig,
-                box: { x: gOrigX, y: gOrigY, w: gOrigW, h: gOrigH },
-                glyphImgDataUrl
-              });
             }
 
+            wordGlyphs.push({
+              id: `glyph-${wIdx}-${gIdx}`,
+              char: assignedChar,
+              confidence: 90,
+              signature: sig,
+              box: { x: gOrigX, y: gOrigY, w: gOrigW, h: gOrigH },
+              boxWork: tightenedBoxWork,
+              glyphImgDataUrl
+            });
+          }
+
+          if (wordGlyphs.length > 0) {
             detectedWords.push({
               id: `word-${wIdx}`,
-              text: wordGlyphs.map(gl => gl.char).join(''),
+              text: wordGlyphs.map(gl => gl.char).join('') || expectedWordStr,
               box: { x: origWordX, y: origWordY, w: origWordW, h: origWordH },
               wordImgDataUrl,
               wordCanvas: wordCropCanvas,
-              glyphs: wordGlyphs
+              glyphs: wordGlyphs,
+              confidence: 90
             });
           }
         }
@@ -2649,7 +2738,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         bestCandidatesA = scoreAllCuts(manifest, cuts, queryGlyphs);
       }
 
-      const topCandidates = bestCandidatesA.slice(0, 40);
+      const topCandidates = bestCandidatesA.slice(0, 75);
 
       // Stage B: Anchor Glyph SDF Chamfer & Whole-Word Optical Verification
       if (progressBar) progressBar.style.width = '70%';
