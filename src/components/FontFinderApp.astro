@@ -926,6 +926,9 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
     async function preloadGoogleFontsSubset(families, text) {
       if (typeof document === 'undefined' || !families || families.length === 0) return;
+      const famNames = [...new Set(families.map(f => typeof f === 'string' ? f : (f.family || f.slug)).filter(Boolean))];
+      if (famNames.length === 0) return;
+
       const uniqueText = encodeURIComponent([...new Set(Array.from(text))].join(''));
       const linkId = 'gfonts-stage-b-subset';
       let existingLink = document.getElementById(linkId);
@@ -936,16 +939,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       link.rel = 'stylesheet';
       link.dataset.rerank = 'true';
       link.href = 'https://fonts.googleapis.com/css2?' +
-        families.map(f => `family=${encodeURIComponent(f).replace(/%20/g, '+')}`).join('&') +
+        famNames.map(f => `family=${encodeURIComponent(f).replace(/%20/g, '+')}:wght@400;700`).join('&') +
         `&text=${uniqueText}&display=block`;
       document.head.appendChild(link);
 
       await Promise.race([
-        Promise.all(families.flatMap(f => [
+        Promise.all(famNames.flatMap(f => [
           document.fonts.load(`400 140px "${f}"`, text).catch(() => []),
           document.fonts.load(`700 140px "${f}"`, text).catch(() => [])
         ])),
-        new Promise(resolve => setTimeout(resolve, 2000))
+        new Promise(resolve => setTimeout(resolve, 1500))
       ]);
     }
 
@@ -2138,9 +2141,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         `;
         btn.addEventListener('click', () => {
           selectWord(idx);
-          if (resultsStage && !resultsStage.classList.contains('hidden')) {
-            runIdentificationPipeline();
-          }
+          runIdentificationPipeline();
         });
         wordChipsContainer.appendChild(btn);
       });
@@ -2332,11 +2333,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       runIdentificationPipeline();
     });
 
+    let currentPipelineId = 0;
+
     async function runIdentificationPipeline() {
       if (!currentSelectedWord || !currentSelectedWord.glyphs || currentSelectedWord.glyphs.length === 0) {
         alert('Please select a word to identify.');
         return;
       }
+
+      const thisPipelineId = ++currentPipelineId;
 
       const validGlyphs = currentSelectedWord.glyphs.filter(g => g.char && g.char.trim().length > 0);
       if (validGlyphs.length === 0) {
@@ -2344,8 +2349,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         return;
       }
 
-      const verifiedWordText = validGlyphs.map(g => g.char).join('');
+      const verifiedWordText = validGlyphs.map(g => g.char).join('') || (currentSelectedWord.text || '').trim() || 'Specimen';
       currentVerifiedText = verifiedWordText;
+
+      // Immediately keep previews and inputs synchronized with the selected word
+      if (previewTextInput) previewTextInput.value = verifiedWordText;
+      if (compareTextInput) compareTextInput.value = verifiedWordText;
+      if (specimenInput) specimenInput.value = verifiedWordText;
 
       // Keep organizeStage visible so sentence words are never hidden!
       loadingStage.classList.remove('hidden');
@@ -2362,7 +2372,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       if (progressBar) progressBar.style.width = '20%';
       if (stepTitle) stepTitle.textContent = 'STAGE A: 16×16 GLYPH FINGERPRINT MATCHING';
-      if (stepDetail) stepDetail.textContent = 'Evaluating letter contours across 1,935 Google Fonts in browser...';
+      if (stepDetail) stepDetail.textContent = `Evaluating letter contours across 1,935 Google Fonts for "${verifiedWordText}"...`;
 
       const sigDb = await loadSignatureDb();
       if (!sigDb) {
@@ -2375,6 +2385,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
         return;
       }
+
+      if (thisPipelineId !== currentPipelineId) return;
 
       const { manifest, regMap, boldMap } = sigDb;
       const cuts = [{ name: 'regular', data: regMap }, { name: 'bold', data: boldMap }];
@@ -2545,6 +2557,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
       };
 
+      if (thisPipelineId !== currentPipelineId) return;
       displayResults(detectionResult, currentSelectedWord.wordImgDataUrl, verifiedWordText);
     }
 
@@ -3971,7 +3984,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       if (metaLettersRead) metaLettersRead.textContent = currentVerifiedText || '--';
       if (metaLettersCount) metaLettersCount.textContent = String(currentSelectedWord ? currentSelectedWord.glyphs.length : (currentVerifiedText ? currentVerifiedText.length : '--'));
       if (metaStrokeWeight) metaStrokeWeight.textContent = primaryWeight >= 700 ? 'Bold 700' : 'Regular 400';
+
+      // Always synchronize all preview and comparison text inputs with the newly verified word
       if (previewTextInput) previewTextInput.value = currentVerifiedText;
+      if (compareTextInput) compareTextInput.value = currentVerifiedText;
+      if (specimenInput) specimenInput.value = currentVerifiedText;
 
       document.getElementById('res-font-family').textContent = primary.family;
       document.getElementById('res-font-designer').textContent = `Designed by ${primaryDesigner} \u2022 SIL Open Font License`;
@@ -3998,15 +4015,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       }
 
       // Specimen text strictly uses verified extracted text (NEVER family name fallback!)
-      const activeText = (previewTextInput && previewTextInput.value.trim()) || (compareTextInput && compareTextInput.value.trim()) || currentVerifiedText || 'Specimen';
+      const activeText = currentVerifiedText || 'Specimen';
 
       if (compareMatched) {
         compareMatched.textContent = activeText;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
       }
 
-      if (compareTextInput && !compareTextInput.value.trim() && currentVerifiedText) {
-        compareTextInput.value = currentVerifiedText;
+      const sentenceBar = document.getElementById('results-sentence-bar');
+      if (sentenceBar) {
+        sentenceBar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
       if (shapeMatchScore) {
