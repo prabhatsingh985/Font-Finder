@@ -2,45 +2,817 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../../components/FontFinderApp.astro';
 
-const scriptSamples = [
-  { id: 'caveat', label: 'Casual Script (Caveat)', sampleKey: 'caveat' },
-  { id: 'pacifico', label: 'Brush Calligraphy (Pacifico)', sampleKey: 'pacifico' },
-  { id: 'greatvibes', label: 'Royal Cursive (Great Vibes)', sampleKey: 'greatvibes' }
+// Comprehensive Industry Cursive & Handwriting Typographic Directory (28 Google Fonts)
+const handwritingDatabase = [
+  {
+    name: 'Caveat',
+    category: 'Casual Handwriting',
+    designer: 'Pablo Impallari',
+    weights: '400, 700',
+    slant: '12° Forward Slant',
+    ligature: 'Semi-Connected',
+    stroke: 'Gel Pen / Felt Tip',
+    bestFor: 'Informal notes, friendly UI callouts, sticky annotations',
+    sampleText: 'Handwritten thoughts and daily sketches',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');\nfont-family: 'Caveat', cursive;"
+  },
+  {
+    name: 'Pacifico',
+    category: 'Brush Script',
+    designer: 'Vernon Adams',
+    weights: '400',
+    slant: '14° Upward Flow',
+    ligature: 'Fully Connected',
+    stroke: 'Bold Round Brush',
+    bestFor: 'Vintage 1950s surf branding, retro packaging, food logos',
+    sampleText: 'Endless summer coastal cafe & diner',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');\nfont-family: 'Pacifico', cursive;"
+  },
+  {
+    name: 'Great Vibes',
+    category: 'Elegant Calligraphy',
+    designer: 'Robert E. Leuschke',
+    weights: '400',
+    slant: '24° Copperplate Slant',
+    ligature: 'Fully Connected Loops',
+    stroke: 'Flexible Pointed Nib',
+    bestFor: 'Wedding invitations, luxury monograms, gala certificates',
+    sampleText: 'Save the Date for Charlotte & Alexander',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');\nfont-family: 'Great Vibes', cursive;"
+  },
+  {
+    name: 'Dancing Script',
+    category: 'Casual Handwriting',
+    designer: 'Pablo Impallari',
+    weights: '400, 700',
+    slant: 'Dynamic Variable Bounce',
+    ligature: 'Semi-Connected',
+    stroke: 'Casual Ballpoint',
+    bestFor: 'Greeting cards, joyful headlines, lifestyle blogs',
+    sampleText: 'Spontaneous celebrations & happy moments',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');\nfont-family: 'Dancing Script', cursive;"
+  },
+  {
+    name: 'Satisfy',
+    category: 'Brush Script',
+    designer: 'Sideshow',
+    weights: '400',
+    slant: '10° Gentle Tilt',
+    ligature: 'Connected Monoline',
+    stroke: 'Smooth Flow Marker',
+    bestFor: 'Artisanal coffee shops, hand-crafted labels, organic brands',
+    sampleText: 'Artisan roasted single origin espresso',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');\nfont-family: 'Satisfy', cursive;"
+  },
+  {
+    name: 'Sacramento',
+    category: 'Monoline Signature',
+    designer: 'Astigmatic',
+    weights: '400',
+    slant: '16° Refined Slant',
+    ligature: 'Delicate Loop Connections',
+    stroke: 'Ultra-Fine Monoline',
+    bestFor: 'Personal signature branding, author signatures, boutique letterheads',
+    sampleText: 'Warmest regards and personal wishes',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');\nfont-family: 'Sacramento', cursive;"
+  },
+  {
+    name: 'Kalam',
+    category: 'Casual Handwriting',
+    designer: 'Indian Type Foundry',
+    weights: '300, 400, 700',
+    slant: '8° Natural Upright',
+    ligature: 'Semi-Connected Devanagari/Latin',
+    stroke: 'Authentic Fountain Pen',
+    bestFor: 'Editorial sketchbook notes, poetry, bilingual design',
+    sampleText: 'Stories written under quiet starlit skies',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap');\nfont-family: 'Kalam', cursive;"
+  },
+  {
+    name: 'Alex Brush',
+    category: 'Elegant Calligraphy',
+    designer: 'Robert E. Leuschke',
+    weights: '400',
+    slant: '22° Formal Angle',
+    ligature: 'Flowing Connected Swashes',
+    stroke: 'Fine Chiseled Calligraphy Nib',
+    bestFor: 'High-end champagne labels, beauty packaging, diplomas',
+    sampleText: 'Exquisite evening of classical symphony',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');\nfont-family: 'Alex Brush', cursive;"
+  },
+  {
+    name: 'Yellowtail',
+    category: 'Brush Script',
+    designer: 'Astigmatic',
+    weights: '400',
+    slant: '15° Retro Angle',
+    ligature: 'Flat Brush Connected',
+    stroke: 'Signpainter Speedry Brush',
+    bestFor: 'Mid-century diner menus, craft beer labels, roadside neon',
+    sampleText: 'Classic Motor Speedway & Garage',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');\nfont-family: 'Yellowtail', cursive;"
+  },
+  {
+    name: 'Allura',
+    category: 'Elegant Calligraphy',
+    designer: 'Robert E. Leuschke',
+    weights: '400',
+    slant: '20° Fluid Script',
+    ligature: 'High-Legibility Cursive',
+    stroke: 'Soft Copperplate Pen',
+    bestFor: 'Perfume packaging, wedding vows, upscale restaurant menus',
+    sampleText: 'Romantic candlelit dinners by the Seine',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');\nfont-family: 'Allura', cursive;"
+  },
+  {
+    name: 'Shadows Into Light',
+    category: 'Casual Handwriting',
+    designer: 'Kimberly Geswein',
+    weights: '400',
+    slant: '0° Clean Upright',
+    ligature: 'Disconnected Print/Script',
+    stroke: 'Fine Tip Technical Marker',
+    bestFor: 'Teacher notes, children books, casual bullet journals',
+    sampleText: 'Remember to celebrate the little victories',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');\nfont-family: 'Shadows Into Light', cursive;"
+  },
+  {
+    name: 'Kaushan Script',
+    category: 'Brush Script',
+    designer: 'Impallari Type',
+    weights: '400',
+    slant: '18° Dynamic Thrust',
+    ligature: 'Energetic Rough Connectors',
+    stroke: 'Dry Inked Bamboo Brush',
+    bestFor: 'Organic food markets, adventure posters, athletic apparel',
+    sampleText: 'Wilderness expeditions & mountain trails',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');\nfont-family: 'Kaushan Script', cursive;"
+  },
+  {
+    name: 'Homemade Apple',
+    category: 'Monoline Signature',
+    designer: 'Font Diner',
+    weights: '400',
+    slant: '14° Natural Cursive',
+    ligature: 'Connected Everyday Cursive',
+    stroke: 'Pencil / Soft Monoline Ballpoint',
+    bestFor: 'Grandma recipe cards, archival journal entries, signatures',
+    sampleText: 'Two cups of cinnamon and fresh orchard apples',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');\nfont-family: 'Homemade Apple', cursive;"
+  },
+  {
+    name: 'Marck Script',
+    category: 'Casual Handwriting',
+    designer: 'Denis Masharov',
+    weights: '400',
+    slant: '12° Freehand Slant',
+    ligature: 'Connected Felt-Tip',
+    stroke: 'Felt Pen Nib',
+    bestFor: 'Postcards, intimate travel letters, poetry anthologies',
+    sampleText: 'Greetings from the sunlit hills of Tuscany',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');\nfont-family: 'Marck Script', cursive;"
+  },
+  {
+    name: 'Tangerine',
+    category: 'Elegant Calligraphy',
+    designer: 'Toshi Omagari',
+    weights: '400, 700',
+    slant: '26° Tall Italic Slant',
+    ligature: 'Graceful Ascender Loops',
+    stroke: 'Broad Chancery Chisel Nib',
+    bestFor: 'Classical literature headings, royal certificates, luxury stationery',
+    sampleText: 'Poetry composed in tranquil solitudes',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');\nfont-family: 'Tangerine', cursive;"
+  },
+  {
+    name: 'Italianno',
+    category: 'Elegant Calligraphy',
+    designer: 'Robert E. Leuschke',
+    weights: '400',
+    slant: '28° Dramatic Slant',
+    ligature: 'Tight Connected Cursive',
+    stroke: 'Formal Italian Nib',
+    bestFor: 'Fine winery labels, opera programs, heritage estate seals',
+    sampleText: 'Riserva Vintage Oak Aged Chianti Classico',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');\nfont-family: 'Italianno', cursive;"
+  },
+  {
+    name: 'Pinyon Script',
+    category: 'Elegant Calligraphy',
+    designer: 'Nicole Fally',
+    weights: '400',
+    slant: '22° Aristocratic Swash',
+    ligature: 'Curved Flourish Connectors',
+    stroke: 'Romantic Engraver Nib',
+    bestFor: 'Haute couture invitations, bespoke jewelry branding',
+    sampleText: 'The Duchess of Montclair Cordially Invites',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');\nfont-family: 'Pinyon Script', cursive;"
+  },
+  {
+    name: 'Reenie Beanie',
+    category: 'Monoline Signature',
+    designer: 'James Grieshaber',
+    weights: '400',
+    slant: '8° Irregular Tilt',
+    ligature: 'Loose Quick Scribble',
+    stroke: 'Ultra-thin Ballpoint Pen',
+    bestFor: 'Quick jotting, doodles, modern quirky fashion tags',
+    sampleText: 'Remember to pick up sketchbook & pencils',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');\nfont-family: 'Reenie Beanie', cursive;"
+  },
+  {
+    name: 'Patrick Hand',
+    category: 'Casual Handwriting',
+    designer: 'Patrick Neve',
+    weights: '400',
+    slant: '0° Clean Upright',
+    ligature: 'Clean Disconnected Print',
+    stroke: 'Neat Felt Marker',
+    bestFor: 'Classroom presentations, comic dialogue, instructional UI',
+    sampleText: 'Quick notes for tomorrow morning workshop',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');\nfont-family: 'Patrick Hand', cursive;"
+  },
+  {
+    name: 'Gochi Hand',
+    category: 'Casual Handwriting',
+    designer: 'Huertatipografica',
+    weights: '400',
+    slant: '4° Friendly Tilt',
+    ligature: 'Semi-Connected Teenage Hand',
+    stroke: 'Medium Tip Gel Ink',
+    bestFor: 'Youth branding, playful packaging, informal app copy',
+    sampleText: 'Fresh strawberry lemonade with mint leaves',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');\nfont-family: 'Gochi Hand', cursive;"
+  },
+  {
+    name: 'Indie Flower',
+    category: 'Casual Handwriting',
+    designer: 'Kimberly Geswein',
+    weights: '400',
+    slant: '0° Rounded Upright',
+    ligature: 'Bubbly Disconnected',
+    stroke: 'Smooth Rounded Pen',
+    bestFor: 'Craft blogs, handmade Etsy shops, cute cards',
+    sampleText: 'Handmade with love in our cozy cottage',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');\nfont-family: 'Indie Flower', cursive;"
+  },
+  {
+    name: 'Damion',
+    category: 'Brush Script',
+    designer: 'Vernon Adams',
+    weights: '400',
+    slant: '15° Casual Brush',
+    ligature: 'Fluid Connected Ligatures',
+    stroke: 'Smooth Mid-Weight Brush',
+    bestFor: 'Casual diner signboards, cocktail bar menus, athletic goods',
+    sampleText: 'Midtown Cocktail Lounge & Jazz Club',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Damion&display=swap');\nfont-family: 'Damion', cursive;"
+  },
+  {
+    name: 'Rock Salt',
+    category: 'Brush Script',
+    designer: 'Sideshow',
+    weights: '400',
+    slant: '6° Raw Jitter',
+    ligature: 'Disconnected Distressed',
+    stroke: 'Dry Felt Tip Permanent Marker',
+    bestFor: 'Rock music album covers, street apparel, graffiti accents',
+    sampleText: 'LIVE CONCERT AT THE UNDERGROUND ARENA',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');\nfont-family: 'Rock Salt', cursive;"
+  },
+  {
+    name: 'Permanent Marker',
+    category: 'Brush Script',
+    designer: 'Font Diner',
+    weights: '400',
+    slant: '4° Bold Upright',
+    ligature: 'Bold Expressive Chisel',
+    stroke: 'Thick Sharpie Chisel Tip',
+    bestFor: 'Sale banners, urgent labels, energetic YouTube thumbnails',
+    sampleText: 'LIMITED EDITION COLLECTOR ITEM',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');\nfont-family: 'Permanent Marker', cursive;"
+  },
+  {
+    name: 'Covered By Your Grace',
+    category: 'Monoline Signature',
+    designer: 'Kimberly Geswein',
+    weights: '400',
+    slant: '10° Tall Condensed',
+    ligature: 'Narrow Gestural Strokes',
+    stroke: 'Thin Fountain Pen Nib',
+    bestFor: 'Artistic signatures, minimalist book titles, personal quotes',
+    sampleText: 'Graceful journeys across quiet northern shores',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');\nfont-family: 'Covered By Your Grace', cursive;"
+  },
+  {
+    name: 'La Belle Aurore',
+    category: 'Monoline Signature',
+    designer: 'Kimberly Geswein',
+    weights: '400',
+    slant: '14° Delicate Tilt',
+    ligature: 'Open Whimsical Cursive',
+    stroke: 'Ultra-Fine Ballpoint Pen',
+    bestFor: 'French boutique branding, perfume packaging, intimate notes',
+    sampleText: 'Love letters penned in Paris during autumn',
+    css: "@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');\nfont-family: 'La Belle Aurore', cursive;"
+  },
+  {
+    name: 'Pangolin',
+    category: 'Casual Handwriting',
+    designer: 'Kevin Burke',
+    weights: '400',
+    slant: '0° Clean Handwriting',
+    ligature: 'Rounded Semi-Print',
+    stroke: 'Medium Round Tip Marker',
+    bestFor: 'Children storytelling, accessible user interface elements',
+    sampleText: 'Adventures in the secret enchanted forest',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');\nfont-family: 'Pangolin', cursive;"
+  },
+  {
+    name: 'Delius',
+    category: 'Casual Handwriting',
+    designer: 'Natalia Raices',
+    weights: '400',
+    slant: '0° Comic High-Legibility',
+    ligature: 'Clean High-Aperture Print',
+    stroke: 'Architect Technical Pen',
+    bestFor: 'Comic lettering, UI microcopy, playful wireframes',
+    sampleText: 'Designed for effortless everyday screen reading',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');\nfont-family: 'Delius', cursive;"
+  }
 ];
+
+const categories = ['All', 'Casual Handwriting', 'Elegant Calligraphy', 'Brush Script', 'Monoline Signature'];
+const handwritingJson = JSON.stringify(handwritingDatabase);
 ---
 
 <BaseLayout
-  title="Find a Handwriting or Script Font — Visual Script Typeface Identifier"
-  description="Script fonts are the hardest to identify. Upload handwritten text or calligraphic lettering to identify the closest free cursive and script Google fonts."
+  title="Handwriting & Script Font Identifier — Cursive AI Recognition Studio"
+  description="Identify handwriting, calligraphy, signatures, and cursive script typefaces. Browse 28+ Google Fonts script styles with live specimen testing and instant CSS."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] min-h-[calc(100vh-140px)]">
-    <div class="max-w-[1200px] mx-auto text-center">
-      <!-- Breadcrumb & Tag -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Script & Handwriting</span>
+  <!-- Preconnect and batch-load Google Fonts for preview -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Pacifico&family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Satisfy&family=Sacramento&family=Kalam:wght@400;700&family=Alex+Brush&family=Yellowtail&family=Allura&family=Shadows+Into+Light&family=Kaushan+Script&family=Homemade+Apple&family=Marck+Script&family=Tangerine:wght@400;700&family=Italianno&family=Pinyon+Script&family=Reenie+Beanie&family=Patrick+Hand&family=Gochi+Hand&family=Indie+Flower&family=Damion&family=Rock+Salt&family=Permanent+Marker&family=Covered+By+Your+Grace&family=La+Belle+Aurore&family=Pangolin&family=Delius&display=swap"
+  />
+
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+    <div class="max-w-[1200px] mx-auto">
+      
+      <!-- Top Breadcrumb & Badge -->
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
+          <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
+          <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
+          <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Cursive & Handwriting AI</span>
+        </div>
       </div>
 
-      <!-- Centered Minimalist Hero -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
-        Find a handwriting or script font
-      </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-lg mx-auto">
-        Upload handwritten notes, signatures, or calligraphy to match against cursive and script Google Fonts.
-      </p>
+      <!-- Hero Header -->
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+          Find a handwriting or script font
+        </h1>
+        <p class="mt-3.5 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-xl mx-auto">
+          Cursive ligatures and handwritten strokes break standard OCR. Search our calligraphic intelligence catalog or scan an image using our stroke-preserving optical matcher.
+        </p>
+      </div>
 
-      <!-- Specific Handwriting Scanner Tool -->
-      <div class="mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+      <!-- Mode Switcher Tabs -->
+      <div class="mt-8 flex justify-center">
+        <div class="inline-flex p-1 rounded-2xl bg-[#f3f4f6] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] shadow-xs">
+          <button
+            type="button"
+            id="tab-catalog-btn"
+            class="px-5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all cursor-pointer bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs border border-[#e5e7eb] dark:border-[#2e3446]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#ff4d00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+              <span>Script Catalog & Live Studio (28)</span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            id="tab-scanner-btn"
+            class="px-5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all cursor-pointer text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6]"
+          >
+            <span class="inline-flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#727272]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Scan Handwriting Image</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 1: SCRIPT CATALOG & INTERACTIVE LIVE STUDIO -->
+      <div id="tab-catalog-content" class="mt-8">
+        <!-- Interactive Controls Bar -->
+        <div class="p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+            
+            <!-- Search by Font Name or Use Case -->
+            <div class="lg:col-span-4 relative">
+              <input
+                id="script-search-input"
+                type="text"
+                placeholder="Search by font or style (e.g. Caveat, Wedding, Signature)..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs font-mono text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] transition-all"
+              />
+              <svg class="w-4 h-4 text-[#727272] dark:text-[#9ca3af] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            <!-- Custom Specimen Text Live Input -->
+            <div class="lg:col-span-5 relative">
+              <input
+                id="custom-specimen-input"
+                type="text"
+                placeholder="Type custom text to preview live across all script fonts..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] transition-all"
+              />
+              <svg class="w-4 h-4 text-[#ff4d00] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </div>
+
+            <!-- Font Size Adjuster -->
+            <div class="lg:col-span-3 flex items-center justify-end gap-3 font-mono text-xs text-[#727272] dark:text-[#9ca3af]">
+              <span>Size:</span>
+              <input
+                id="font-size-slider"
+                type="range"
+                min="22"
+                max="56"
+                value="34"
+                class="w-28 accent-[#ff4d00] cursor-pointer"
+              />
+              <span id="font-size-val" class="w-8 text-right font-medium text-[#262626] dark:text-[#f3f4f6]">34px</span>
+            </div>
+          </div>
+
+          <!-- Quick Text Presets & Style Filters -->
+          <div class="mt-5 pt-4 border-t border-[#f3f4f6] dark:border-[#242834] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            
+            <!-- Category Chips -->
+            <div class="flex flex-wrap items-center gap-1.5" id="category-filters">
+              {categories.map((cat, idx) => (
+                <button
+                  type="button"
+                  data-category={cat}
+                  class={`script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer ${
+                    idx === 0
+                      ? 'bg-[#262626] dark:bg-[#242834] text-white border-transparent'
+                      : 'bg-white dark:bg-[#101217] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <!-- Preset Samples -->
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+              <span class="hidden sm:inline">Presets:</span>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Save the Date &bull; October 14">Save the Date</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Warmest regards & best wishes">Signature</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Artisan Coffee & Bakery">Artisan</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="The quick brown fox jumps over the lazy dog">Pangram</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Counter & Status Bar -->
+        <div class="mt-6 flex items-center justify-between px-1 text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+          <span>Showing <strong id="script-count" class="text-[#ff4d00] font-semibold">28</strong> script typefaces</span>
+          <span class="inline-flex items-center gap-1.5 text-[11px]">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            100% Free Google Fonts &bull; SIL Open Font License
+          </span>
+        </div>
+
+        <!-- Script Fonts Grid -->
+        <div id="script-cards-grid" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
+          {handwritingDatabase.map((item) => (
+            <div
+              class="script-card p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] hover:border-[#ff4d00]/40 dark:hover:border-[#ff4d00]/50 transition-all flex flex-col justify-between group shadow-xs"
+              data-name={item.name.toLowerCase()}
+              data-category={item.category}
+              data-default-sample={item.sampleText}
+            >
+              <div>
+                <!-- Top Meta Row -->
+                <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#f3f4f6] dark:border-[#242834]">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#2e3446]">
+                      {item.category}
+                    </span>
+                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                      by {item.designer}
+                    </span>
+                  </div>
+
+                  <a
+                    href={`https://fonts.google.com/specimen/${item.name.replace(/\s+/g, '+')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>Specimen</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+
+                <!-- Font Name Title -->
+                <div class="mt-3 flex items-center justify-between">
+                  <h3 class="text-base font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                    {item.name}
+                  </h3>
+                  <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                    {item.weights}
+                  </span>
+                </div>
+
+                <!-- LIVE CURSIVE SPECIMEN DISPLAY -->
+                <div class="my-6 min-h-[90px] flex items-center overflow-x-auto py-2">
+                  <div
+                    class="script-specimen-preview text-[#111827] dark:text-[#f3f4f6] tracking-normal leading-normal transition-all w-full outline-none"
+                    contenteditable="true"
+                    spellcheck="false"
+                    style={`font-family: '${item.name}', cursive; font-size: 34px;`}
+                  >
+                    {item.sampleText}
+                  </div>
+                </div>
+
+                <!-- Typographic Cursive Anatomy Tags -->
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834]">
+                  <div>
+                    <span class="text-[#727272] dark:text-[#9ca3af]">Stroke:</span>
+                    <span class="text-[#262626] dark:text-[#cbd5e1] ml-1 font-medium">{item.stroke}</span>
+                  </div>
+                  <div>
+                    <span class="text-[#727272] dark:text-[#9ca3af]">Slant:</span>
+                    <span class="text-[#262626] dark:text-[#cbd5e1] ml-1 font-medium">{item.slant}</span>
+                  </div>
+                  <div class="col-span-2 pt-1 border-t border-[#e5e7eb]/50 dark:border-[#242834]/60 flex items-start gap-1">
+                    <span class="text-[#727272] dark:text-[#9ca3af] shrink-0">Best for:</span>
+                    <span class="text-[#4b5563] dark:text-[#9ca3af] truncate">{item.bestFor}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Actions -->
+              <div class="mt-5 pt-3.5 border-t border-[#f3f4f6] dark:border-[#242834] flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  data-css={item.css}
+                  class="btn-copy-script-css px-3.5 py-1.5 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-[11px] font-mono font-medium hover:bg-[#ff4d00] transition-colors cursor-pointer"
+                >
+                  Copy CSS
+                </button>
+
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                    Ligatures: {item.ligature}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- No Results Fallback -->
+        <div id="no-script-results" class="hidden py-16 text-center text-xs font-mono text-[#727272] dark:text-[#9ca3af] border border-dashed border-[#e5e7eb] dark:border-[#242834] rounded-2xl mt-4">
+          No script fonts matched your query. Try searching for "Caveat", "Wedding", "Signature", or clear the filter.
+        </div>
+      </div>
+
+      <!-- TAB 2: VISUAL HANDWRITING IMAGE SCANNER -->
+      <div id="tab-scanner-content" class="hidden mt-8 max-w-[1000px] mx-auto">
+        <!-- Callout Banner with Industry Tips for Handwriting OCR -->
+        <div class="mb-6 p-5 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+          <div class="flex items-start gap-3.5">
+            <div class="w-8 h-8 rounded-full bg-[#ff4d00]/10 border border-[#ff4d00]/20 flex items-center justify-center text-[#ff4d00] shrink-0 mt-0.5">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+              <strong class="text-[#262626] dark:text-[#f3f4f6] font-medium block mb-1">Industry Handwriting Optical Best Practices:</strong>
+              Because script fonts feature continuous connecting ligatures, standard character-by-character OCR can cut letters mid-stroke.
+              For best accuracy: <span class="text-[#ff4d00]">crop tightly around 2–4 full words</span>, ensure bright even lighting on paper samples, and avoid overlapping strokes.
+            </div>
+          </div>
+        </div>
+
+        <!-- OCR Engine Instance -->
         <FontFinderApp
           dropzoneTitle="Drop handwriting sample, signature, or calligraphy"
-          dropzoneSubtitle="Isolates cursive ligatures and stroke flow &bull; 100% private in-browser"
+          dropzoneSubtitle="Ligature-preserving optical engine &bull; 100% private in-browser detection"
           buttonText="Select Handwriting Image"
-          samplesTitle="Test Cursive Samples:"
-          samples={scriptSamples}
         />
       </div>
+
+      <!-- Educational Typographic Guide -->
+      <div class="mt-16 p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#15171e] shadow-xs">
+        <h3 class="text-lg font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+          How Industry Typographers Classify Script Fonts
+        </h3>
+        <p class="mt-2 text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-2xl">
+          Unlike Roman typefaces which are divided into Serif and Sans-Serif, script typefaces are classified by pen tool dynamics and stroke velocity:
+        </p>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
+            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">01 / Casual Hand</span>
+            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Everyday Gestural</h4>
+            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+              Emulates natural handwriting using ballpoint pens, gel pens, or felt markers. High legibility and friendly warmth.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
+            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">02 / Calligraphy</span>
+            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Copperplate & Nib</h4>
+            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+              Characterized by dramatic contrast between thin entry strokes and thick downward swells produced by flexible steel nibs.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
+            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">03 / Brush Script</span>
+            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Signpainter Speed</h4>
+            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+              Bold, fluid letters inspired by mid-20th-century commercial signpainters using sable brushes or dry ink markers.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
+            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">04 / Monoline Signature</span>
+            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Single-Weight Line</h4>
+            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+              Maintains perfectly uniform stroke thickness across loops and ascenders, ideal for minimalist modern personal signatures.
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- Interactive Client-Side Logic -->
+  <script id="handwriting-raw-data" type="application/json" is:inline set:html={handwritingJson}></script>
+  <script is:inline>
+    (function () {
+      const tabCatalogBtn = document.getElementById('tab-catalog-btn');
+      const tabScannerBtn = document.getElementById('tab-scanner-btn');
+      const tabCatalogContent = document.getElementById('tab-catalog-content');
+      const tabScannerContent = document.getElementById('tab-scanner-content');
+
+      const searchInput = document.getElementById('script-search-input');
+      const customInput = document.getElementById('custom-specimen-input');
+      const sizeSlider = document.getElementById('font-size-slider');
+      const sizeVal = document.getElementById('font-size-val');
+      const catButtons = document.querySelectorAll('.script-cat-btn');
+      const presetPills = document.querySelectorAll('.preset-pill');
+      const cards = document.querySelectorAll('.script-card');
+      const countEl = document.getElementById('script-count');
+      const noResults = document.getElementById('no-script-results');
+
+      let activeCategory = 'All';
+      let searchQuery = '';
+      let globalCustomText = '';
+
+      // Tab Switching
+      function switchTab(target) {
+        if (target === 'catalog') {
+          tabCatalogContent?.classList.remove('hidden');
+          tabScannerContent?.classList.add('hidden');
+
+          tabCatalogBtn?.classList.add('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
+          tabCatalogBtn?.classList.remove('text-[#727272]', 'dark:text-[#9ca3af]');
+
+          tabScannerBtn?.classList.remove('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
+          tabScannerBtn?.classList.add('text-[#727272]', 'dark:text-[#9ca3af]');
+        } else {
+          tabScannerContent?.classList.remove('hidden');
+          tabCatalogContent?.classList.add('hidden');
+
+          tabScannerBtn?.classList.add('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
+          tabScannerBtn?.classList.remove('text-[#727272]', 'dark:text-[#9ca3af]');
+
+          tabCatalogBtn?.classList.remove('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
+          tabCatalogBtn?.classList.add('text-[#727272]', 'dark:text-[#9ca3af]');
+        }
+      }
+
+      tabCatalogBtn?.addEventListener('click', () => switchTab('catalog'));
+      tabScannerBtn?.addEventListener('click', () => switchTab('scanner'));
+
+      // Filter Script Cards
+      function filterCards() {
+        let visible = 0;
+        cards.forEach((card) => {
+          const name = card.getAttribute('data-name') || '';
+          const category = card.getAttribute('data-category') || '';
+
+          const matchesCat = activeCategory === 'All' || category === activeCategory;
+          const matchesSearch = !searchQuery || name.includes(searchQuery) || category.toLowerCase().includes(searchQuery);
+
+          if (matchesCat && matchesSearch) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        if (countEl) countEl.textContent = String(visible);
+        if (noResults) {
+          if (visible === 0) noResults.classList.remove('hidden');
+          else noResults.classList.add('hidden');
+        }
+      }
+
+      // Search input handler
+      searchInput?.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        filterCards();
+      });
+
+      // Category chip buttons
+      catButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          catButtons.forEach((b) => {
+            b.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-white dark:bg-[#101217] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]';
+          });
+          btn.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-[#262626] dark:bg-[#242834] text-white border-transparent';
+          activeCategory = btn.getAttribute('data-category') || 'All';
+          filterCards();
+        });
+      });
+
+      // Live Custom Specimen Text handler
+      function updateAllSpecimens(text) {
+        cards.forEach((card) => {
+          const previewEl = card.querySelector('.script-specimen-preview');
+          const defaultText = card.getAttribute('data-default-sample') || '';
+          if (previewEl) {
+            previewEl.textContent = text.trim() ? text : defaultText;
+          }
+        });
+      }
+
+      customInput?.addEventListener('input', (e) => {
+        globalCustomText = e.target.value;
+        updateAllSpecimens(globalCustomText);
+      });
+
+      // Preset pills
+      presetPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+          const text = pill.getAttribute('data-preset') || '';
+          if (customInput) customInput.value = text;
+          updateAllSpecimens(text);
+        });
+      });
+
+      // Font Size Slider
+      sizeSlider?.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (sizeVal) sizeVal.textContent = `${val}px`;
+        cards.forEach((card) => {
+          const previewEl = card.querySelector('.script-specimen-preview');
+          if (previewEl) {
+            previewEl.style.fontSize = `${val}px`;
+          }
+        });
+      });
+
+      // Copy Script CSS
+      document.querySelectorAll('.btn-copy-script-css').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const css = btn.getAttribute('data-css') || '';
+          navigator.clipboard.writeText(css).then(() => {
+            const original = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('bg-[#ff4d00]');
+            setTimeout(() => {
+              btn.textContent = original;
+              btn.classList.remove('bg-[#ff4d00]');
+            }, 1800);
+          });
+        });
+      });
+    })();
+  </script>
 </BaseLayout>

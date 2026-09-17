@@ -115,7 +115,7 @@ const benchmarksJson = JSON.stringify(benchmarks);
   title="Detect Fonts from Any Website URL — Live Web Typography Finder"
   description="Enter any website link or URL to extract loaded web fonts, stylesheet @font-face declarations, Google Fonts, and typography rules."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       <!-- Breadcrumb & Tag -->
       <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
@@ -133,33 +133,8 @@ const benchmarksJson = JSON.stringify(benchmarks);
         Enter any webpage URL to extract loaded Google Fonts, Adobe Typekit, self-hosted WOFF2 files, and stylesheet typography stacks.
       </p>
 
-      <!-- Interactive Mode Toggle -->
-      <div class="mt-8 inline-flex p-1 rounded-full bg-[#f3f4f6] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <button
-          id="tab-url"
-          type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer"
-        >
-          Analyze Live URL
-        </button>
-        <button
-          id="tab-paste"
-          type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
-        >
-          Paste HTML / CSS
-        </button>
-        <button
-          id="tab-bookmarklet"
-          type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
-        >
-          1-Click Bookmarklet
-        </button>
-      </div>
-
-      <!-- Mode 1: URL Scanner (Default) -->
-      <div id="section-url" class="mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
+      <!-- URL Scanner -->
+      <div id="section-url" class="mt-8 sm:mt-10 w-full max-w-[1000px] mx-auto text-left">
         <!-- Search Box -->
         <div class="relative">
           <input
@@ -353,64 +328,7 @@ const benchmarksJson = JSON.stringify(benchmarks);
           </div>
         </div>
       </div>
-
-      <!-- Mode 2: Paste HTML / CSS (Hidden by default) -->
-      <div id="section-paste" class="hidden mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
-        <div class="p-6 sm:p-7 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
-          <div class="mb-4">
-            <h3 class="text-lg font-bold text-[#262626] dark:text-[#f3f4f6]">Paste Website HTML or Stylesheet Snippet</h3>
-            <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1">
-              If a website blocks automated scrapers or runs behind a login/intranet, paste its &lt;head&gt; tags, &lt;link&gt; tags, or CSS stylesheets here.
-            </p>
-          </div>
-
-          <textarea
-            id="paste-input"
-            rows="6"
-            placeholder="Paste HTML or CSS here, e.g.:&#10;<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap'>&#10;or @font-face { font-family: 'MyFont'; src: url('myfont.woff2'); }"
-            class="w-full p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs font-mono text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00]"
-          ></textarea>
-
-          <div class="mt-4 flex justify-end">
-            <button
-              id="btn-parse-paste"
-              type="button"
-              class="px-6 py-2.5 rounded-full bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-mono font-medium transition-all shadow-sm cursor-pointer"
-            >
-              Parse Pasted Fonts &rarr;
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mode 3: 1-Click Bookmarklet (Hidden by default) -->
-      <div id="section-bookmarklet" class="hidden mt-8 sm:mt-12 w-full max-w-[1000px] mx-auto text-left">
-        <div class="p-6 sm:p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
-          <div class="max-w-xl">
-            <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider font-bold">ZERO CORS LIMITATIONS</span>
-            <h3 class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] mt-1">Inspect Typography on Any Live Tab</h3>
-            <p class="text-sm text-[#727272] dark:text-[#9ca3af] mt-2 leading-relaxed">
-              Drag the button below directly onto your browser's Bookmarks bar. Whenever you are visiting any site (even behind logins), click the bookmark to display an instant floating font overlay!
-            </p>
-          </div>
-
-          <div class="mt-8 p-6 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border-2 border-dashed border-[#ff4d00]/40 text-center">
-            <p class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] mb-4">
-              &darr; Drag this button to your Chrome / Safari / Firefox Bookmarks Bar:
-            </p>
-            <a
-              href="javascript:(function(){const f=new Set();document.querySelectorAll('h1,h2,h3,p,span,a,button').forEach(e=>{const ff=getComputedStyle(e).fontFamily;if(ff){ff.split(',').forEach(x=>f.add(x.trim().replace(/['&quot;]/g,'')))}});const list=Array.from(f).slice(0,12).join('\n• ');alert('🔤 Detected Fonts on this page:\n• '+list);})();"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff4d00] text-white font-mono text-xs font-bold shadow-md hover:scale-105 transition-all cursor-grab active:cursor-grabbing"
-              onclick="event.preventDefault(); alert('Drag this button directly to your browser bookmark bar to use it on any webpage!');"
-            >
-              <span>🔤 Font Finder HUD</span>
-            </a>
-            <p class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] mt-4">
-              100% Client-Side &bull; No permissions required &bull; Works on any live webpage
-            </p>
-          </div>
-        </div>
-      </div>
+    </div>
     </div>
   </section>
 </BaseLayout>
@@ -418,16 +336,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
 <script is:inline define:vars={{ benchmarksJson }}>
   (function () {
     const benchmarks = JSON.parse(benchmarksJson);
-
-    // Tab buttons
-    const tabUrl = document.getElementById('tab-url');
-    const tabPaste = document.getElementById('tab-paste');
-    const tabBookmarklet = document.getElementById('tab-bookmarklet');
-
-    // Sections
-    const sectionUrl = document.getElementById('section-url');
-    const sectionPaste = document.getElementById('section-paste');
-    const sectionBookmarklet = document.getElementById('section-bookmarklet');
 
     // Inputs & Controls
     const urlInput = document.getElementById('url-input');
@@ -462,32 +370,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
     const copyStatus = document.getElementById('copy-status');
     const sourcesList = document.getElementById('sources-list');
 
-    // Paste mode elements
-    const pasteInput = document.getElementById('paste-input');
-    const btnParsePaste = document.getElementById('btn-parse-paste');
-
-    // Tab Switcher logic
-    function setTab(active) {
-      const tabs = [
-        { btn: tabUrl, sec: sectionUrl, id: 'url' },
-        { btn: tabPaste, sec: sectionPaste, id: 'paste' },
-        { btn: tabBookmarklet, sec: sectionBookmarklet, id: 'bookmarklet' }
-      ];
-
-      tabs.forEach((t) => {
-        if (t.id === active) {
-          t.sec.classList.remove('hidden');
-          t.btn.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
-        } else {
-          t.sec.classList.add('hidden');
-          t.btn.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
-        }
-      });
-    }
-
-    tabUrl.addEventListener('click', () => setTab('url'));
-    tabPaste.addEventListener('click', () => setTab('paste'));
-    tabBookmarklet.addEventListener('click', () => setTab('bookmarklet'));
 
     // Render a Profile
     function renderProfile(profile, displayDomain) {
@@ -808,8 +690,7 @@ const benchmarksJson = JSON.stringify(benchmarks);
         // Fallback banner
         statusBanner.className = 'mt-4 p-3 rounded-xl border border-amber-500/30 bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-200 text-xs font-mono';
         statusBanner.innerHTML = `
-          <strong>Notice:</strong> This site blocked external automated scrapers. 
-          Use the <strong>"Paste HTML / CSS"</strong> tab or the <strong>"1-Click Bookmarklet"</strong> above to inspect this site instantly with zero limits!
+          <strong>Notice:</strong> Unable to inspect this URL directly (target server blocked external proxies or requires authentication). Please verify the link or test one of the famous tech presets above.
         `;
         statusBanner.classList.remove('hidden');
       }
@@ -823,50 +704,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
       if (e.key === 'Enter') {
         analyzeUrl(urlInput.value);
       }
-    });
-
-    // Handle Pasted HTML/CSS
-    btnParsePaste.addEventListener('click', () => {
-      const text = (pasteInput.value || '').trim();
-      if (!text) return;
-
-      const extracted = extractFontsFromHtml(text, 'pasted-content');
-      const fontList = extracted.fonts;
-      const mainFont = fontList[0] || 'Custom Typeface';
-      const secondFont = fontList[1] || 'Secondary Font';
-
-      const customProfile = {
-        url: 'pasted-code-snippet',
-        primary: {
-          name: mainFont,
-          type: extracted.sources[0]?.provider || 'Pasted Declaration',
-          weights: ['400', '600', '700'],
-          role: 'Primary Declared Typeface',
-          sample: 'Typography parsed directly from your pasted HTML/CSS markup.'
-        },
-        secondary: {
-          name: secondFont,
-          type: 'Secondary Declared Typeface',
-          weights: ['400', '500'],
-          role: 'Interface / Body Font',
-          sample: 'Secondary font declaration from stylesheet.'
-        },
-        freeTwin: {
-          name: 'Inter',
-          similarity: '96%',
-          category: 'Neo-Grotesque Sans',
-          reason: 'Clean open-source universal modern typeface.',
-          id: 'inter'
-        },
-        css: `font-family: '${mainFont}', sans-serif;`,
-        sources: extracted.sources.length > 0 ? extracted.sources : [{ provider: 'Pasted CSS Scanner', details: `Extracted ${fontList.length} font declaration(s)` }]
-      };
-
-      setTab('url');
-      renderProfile(customProfile, 'Pasted Source Code');
-      statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
-      statusBanner.textContent = `✓ Successfully extracted ${fontList.length || 1} font(s) from pasted source!`;
-      statusBanner.classList.remove('hidden');
     });
   })();
 </script>

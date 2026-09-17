@@ -114,3 +114,42 @@ export interface GlyphSignature {
   isDistinctive?: boolean;
 }
 
+export interface SegmentedGlyph {
+  id: string;
+  char: string;
+  confidence: number;
+  box: { x: number; y: number; w: number; h: number };
+  signature: Uint8Array;
+  zone: 'cap' | 'x-height' | 'ascender' | 'descender' | 'punctuation';
+  croppedImageDataUrl?: string;
+}
+
+export interface SegmentedWord {
+  id: string;
+  text: string;
+  bounds: { x: number; y: number; w: number; h: number };
+  lineIndex: number;
+  glyphs: SegmentedGlyph[];
+  isJoinedScript: boolean;
+  inkPixelCount: number;
+  croppedWordDataUrl?: string;
+}
+
+export interface TextAnalysisResult {
+  words: SegmentedWord[];
+  primaryWordIndex: number;
+  imageWidth: number;
+  imageHeight: number;
+  dominantBgColor: { r: number; g: number; b: number };
+}
+
+export interface FontSignatureManifest {
+  grid: number;
+  bytesPerGlyph: number;
+  chars: string;
+  weights: string[];
+  fonts: string[];
+  families: string[];
+  categories: string[];
+}
+
