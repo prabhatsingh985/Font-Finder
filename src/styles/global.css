@@ -149,15 +149,15 @@
 /* Engineering hairline grid pattern */
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, #242834 1px, transparent 1px),
-    linear-gradient(to bottom, #242834 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .bg-grid-pattern-subtle {
   background-image: 
-    linear-gradient(to right, rgba(36, 40, 52, 0.75) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(36, 40, 52, 0.75) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.065) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.065) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -479,15 +479,15 @@ html:not(.dark) .hero-radial-glow {
 
 html:not(.dark) .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, #e5e7eb 1px, transparent 1px),
-    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 html:not(.dark) .bg-grid-pattern-subtle {
   background-image: 
-    linear-gradient(to right, rgba(229, 231, 235, 0.8) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(229, 231, 235, 0.8) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
