@@ -12,7 +12,7 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
   description="Identify any font from screenshots with optical precision. Technical letterform analysis verified against authentic Google Fonts with production CSS blueprints."
 >
   <!-- Hero Section with Linear Atmospheric Depth & Floor Wash -->
-  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-20 px-4 sm:px-6 hero-gradient-floor border-b border-[#23252a] overflow-hidden">
+  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-20 px-4 sm:px-6 bg-grid-pattern-subtle hero-gradient-floor border-b border-[#23252a] overflow-hidden">
     <div class="max-w-[1200px] mx-auto text-center relative z-10">
       
       <!-- Linear Precision Status Tag -->
@@ -26,7 +26,7 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
       <!-- Linear Display Headline (64px / 510 / tight tracking -0.022em) -->
       <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-[510] tracking-[-0.022em] text-[#ffffff] leading-[1.05] max-w-4xl mx-auto">
         Identify fonts in <br class="hidden sm:inline" />
-        <span class="inline-flex items-center justify-center min-w-[220px] sm:min-w-[340px] text-[#ffffff] transition-all duration-300 select-none border-b-2 border-[#e4f222]/60 pb-0.5" id="morphing-font-word" style="font-family: 'Playfair Display', serif; font-style: italic;">
+        <span class="inline-flex items-center justify-center min-w-[220px] sm:min-w-[340px] text-[#e4f222] transition-all duration-300 select-none" id="morphing-font-word" style="font-family: 'Playfair Display', serif; font-style: italic; color: #e4f222;">
           Playfair Display
         </span>
       </h1>
@@ -53,12 +53,12 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
   <script is:inline>
     (function () {
       const fonts = [
-        { name: 'Playfair Display', style: "font-family: 'Playfair Display', serif; font-style: italic;", css: "font-family: 'Playfair Display', serif;" },
-        { name: 'JetBrains Mono', style: "font-family: 'JetBrains Mono', monospace; font-weight: 500;", css: "font-family: 'JetBrains Mono', monospace;" },
-        { name: 'Bebas Neue', style: "font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px;", css: "font-family: 'Bebas Neue', cursive;" },
-        { name: 'Syne', style: "font-family: 'Syne', sans-serif; font-weight: 700;", css: "font-family: 'Syne', sans-serif;" },
-        { name: 'Cinzel', style: "font-family: 'Cinzel', serif; font-weight: 600;", css: "font-family: 'Cinzel', serif;" },
-        { name: 'Inter', style: "font-family: 'Inter', sans-serif; font-weight: 600;", css: "font-family: 'Inter', sans-serif;" }
+        { name: 'Playfair Display', style: "font-family: 'Playfair Display', serif; font-style: italic; color: #e4f222;", css: "font-family: 'Playfair Display', serif;" },
+        { name: 'JetBrains Mono', style: "font-family: 'JetBrains Mono', monospace; font-weight: 500; color: #e4f222;", css: "font-family: 'JetBrains Mono', monospace;" },
+        { name: 'Bebas Neue', style: "font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; color: #e4f222;", css: "font-family: 'Bebas Neue', cursive;" },
+        { name: 'Syne', style: "font-family: 'Syne', sans-serif; font-weight: 700; color: #e4f222;", css: "font-family: 'Syne', sans-serif;" },
+        { name: 'Cinzel', style: "font-family: 'Cinzel', serif; font-weight: 600; color: #e4f222;", css: "font-family: 'Cinzel', serif;" },
+        { name: 'Inter', style: "font-family: 'Inter', sans-serif; font-weight: 600; color: #e4f222;", css: "font-family: 'Inter', sans-serif;" }
       ];
 
       let idx = 0;

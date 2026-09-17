@@ -48,14 +48,6 @@ const currentPath = Astro.url.pathname;
         Browse Fonts
       </a>
       <a
-        href="/how-it-works"
-        class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath === '/how-it-works' ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
-        }`}
-      >
-        Anatomy & Guide
-      </a>
-      <a
         href="/about"
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
           currentPath === '/about' ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
@@ -101,7 +93,7 @@ const currentPath = Astro.url.pathname;
     <a href="/" class={`hover:text-[#ffffff] ${currentPath === '/' ? 'text-[#ffffff] font-[510]' : ''}`}>Finder</a>
     <a href="/tools" class={`hover:text-[#ffffff] ${currentPath.startsWith('/tools') ? 'text-[#ffffff] font-[510]' : ''}`}>Tools</a>
     <a href="/fonts" class={`hover:text-[#ffffff] ${currentPath.startsWith('/fonts') ? 'text-[#ffffff] font-[510]' : ''}`}>Browse</a>
-    <a href="/how-it-works" class={`hover:text-[#ffffff] ${currentPath === '/how-it-works' ? 'text-[#ffffff] font-[510]' : ''}`}>Guide</a>
+    <a href="/about" class={`hover:text-[#ffffff] ${currentPath === '/about' ? 'text-[#ffffff] font-[510]' : ''}`}>About</a>
     <button
       id="theme-toggle-mobile"
       type="button"

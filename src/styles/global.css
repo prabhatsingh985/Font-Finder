@@ -141,12 +141,24 @@
   background: radial-gradient(circle at 50% 0%, rgba(228, 242, 34, 0.04) 0%, rgba(8, 9, 10, 0) 65%);
 }
 
+#morphing-font-word {
+  color: #e4f222 !important;
+  border-bottom: none !important;
+}
+
 /* Engineering hairline grid pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, #242834 1px, transparent 1px),
+    linear-gradient(to bottom, #242834 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 .bg-grid-pattern-subtle {
   background-image: 
-    linear-gradient(to right, rgba(35, 37, 42, 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(35, 37, 42, 0.4) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(to right, rgba(36, 40, 52, 0.75) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 40, 52, 0.75) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* ------------------------------------------------------------- */
@@ -465,11 +477,18 @@ html:not(.dark) .hero-radial-glow {
   background: radial-gradient(circle at 50% 0%, rgba(228, 242, 34, 0.06) 0%, rgba(247, 248, 249, 0) 65%);
 }
 
+html:not(.dark) .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
 html:not(.dark) .bg-grid-pattern-subtle {
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(to right, rgba(229, 231, 235, 0.8) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(229, 231, 235, 0.8) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Scrollbars in Light Mode */
