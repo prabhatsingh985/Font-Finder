@@ -7,49 +7,49 @@ import FontFinderApp from '../../components/FontFinderApp.astro';
   title="Find the Font in a Screenshot — Instant Clipboard (⌘V) & Optical Matcher"
   description="Screenshots provide clean, undistorted letterforms. Paste directly from your clipboard with ⌘V / Ctrl+V or drop any captured screen snip to identify fonts in seconds."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 bg-[#08090a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       
       <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Screenshot Font Finder</span>
+      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">Tools</a>
+        <span class="text-xs text-[#62666d]">/</span>
+        <span class="text-xs font-mono text-[#d0d6e0] uppercase tracking-wider">Screenshot Font Finder</span>
       </div>
 
       <!-- Hero Header -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
+      <h1 class="text-3xl sm:text-5xl font-[510] text-[#ffffff] tracking-[-0.022em] max-w-2xl mx-auto">
         Find the font in a screenshot
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-xl mx-auto leading-relaxed">
-        Screenshots are the purest input: sharp, pixel-aligned, and undistorted. Press <kbd class="font-mono text-xs bg-white dark:bg-[#242834] border border-[#e5e7eb] dark:border-[#374151] px-2 py-0.5 rounded text-[#262626] dark:text-white shadow-2xs font-semibold">⌘V</kbd> or <kbd class="font-mono text-xs bg-white dark:bg-[#242834] border border-[#e5e7eb] dark:border-[#374151] px-2 py-0.5 rounded text-[#262626] dark:text-white shadow-2xs font-semibold">Ctrl+V</kbd> anywhere to paste directly from your clipboard.
+      <p class="mt-3 text-[15px] sm:text-[16px] text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
+        Screenshots are the purest input: sharp, pixel-aligned, and undistorted. Press <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">⌘V</kbd> or <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">Ctrl+V</kbd> anywhere to paste directly from your clipboard.
       </p>
 
       <!-- Screenshot Workflow Benefits Pills -->
       <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-mono">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] shadow-2xs">
-          <span class="text-[#059669] dark:text-[#34d399] font-bold">&check;</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
+          <span class="text-[#27a644] font-bold">&check;</span>
           <span>Zero File Saving Needed</span>
         </div>
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] shadow-2xs">
-          <span class="text-[#059669] dark:text-[#34d399] font-bold">&check;</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
+          <span class="text-[#27a644] font-bold">&check;</span>
           <span>HiDPI & Retina 2x Auto-Normalized</span>
         </div>
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] shadow-2xs">
-          <span class="text-[#059669] dark:text-[#34d399] font-bold">&check;</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
+          <span class="text-[#27a644] font-bold">&check;</span>
           <span>Multi-Word Sentence Selector</span>
         </div>
       </div>
 
       <!-- Screenshot Scanner Main Application -->
       <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
-        <div class="mb-5 p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-xs font-mono text-[#727272] dark:text-[#9ca3af] flex items-center justify-between gap-3 shadow-xs">
+        <div class="mb-5 p-4 rounded-[12px] border border-[#23252a] bg-[#0f1011] text-xs font-mono text-[#8a8f98] flex items-center justify-between gap-3 shadow-sm">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-            <span>Clipboard Listener Active: Press <kbd class="px-1.5 py-0.5 rounded bg-[#f3f4f6] dark:bg-[#242834] border border-[#e5e7eb] dark:border-[#374151] font-semibold text-[#111827] dark:text-white">Ctrl+V</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-[#f3f4f6] dark:bg-[#242834] border border-[#e5e7eb] dark:border-[#374151] font-semibold text-[#111827] dark:text-white">⌘V</kbd> to analyze screenshot instantly</span>
+            <span class="w-2 h-2 rounded-full bg-[#27a644]"></span>
+            <span>Clipboard Listener Active: Press <kbd class="px-1.5 py-0.5 rounded bg-[#161718] border border-[#23252a] text-[#ffffff]">Ctrl+V</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-[#161718] border border-[#23252a] text-[#ffffff]">⌘V</kbd> to analyze screenshot instantly</span>
           </div>
-          <span class="text-[11px] text-[#ff4d00] font-semibold hidden sm:inline-block">100% In-Browser</span>
+          <span class="text-[11px] text-[#8a8f98] hidden sm:inline-block">100% In-Browser</span>
         </div>
 
         <FontFinderApp
@@ -59,25 +59,6 @@ import FontFinderApp from '../../components/FontFinderApp.astro';
           accept="image/png, image/jpeg, image/jpg, image/webp"
         />
       </div>
-
-      <!-- Shortcut Instruction Card -->
-      <div class="mt-12 max-w-2xl mx-auto p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-left shadow-xs">
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">HOW TO SNIP & PASTE IN 2 SECONDS</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-          <div class="p-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
-            <span class="font-bold text-[#111827] dark:text-[#f3f4f6] block mb-1">On Windows:</span>
-            <span class="text-[#727272] dark:text-[#9ca3af]">Press <kbd class="px-1 py-0.5 bg-white dark:bg-[#242834] rounded border border-[#e5e7eb] dark:border-[#374151] text-[#111827] dark:text-white">Win+Shift+S</kbd> to snip any text, then press <kbd class="px-1 py-0.5 bg-white dark:bg-[#242834] rounded border border-[#e5e7eb] dark:border-[#374151] text-[#111827] dark:text-white">Ctrl+V</kbd> here.</span>
-          </div>
-          <div class="p-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
-            <span class="font-bold text-[#111827] dark:text-[#f3f4f6] block mb-1">On macOS:</span>
-            <span class="text-[#727272] dark:text-[#9ca3af]">Press <kbd class="px-1 py-0.5 bg-white dark:bg-[#242834] rounded border border-[#e5e7eb] dark:border-[#374151] text-[#111827] dark:text-white">Cmd+Ctrl+Shift+4</kbd> to copy selection, then press <kbd class="px-1 py-0.5 bg-white dark:bg-[#242834] rounded border border-[#e5e7eb] dark:border-[#374151] text-[#111827] dark:text-white">⌘V</kbd> here.</span>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 </BaseLayout>

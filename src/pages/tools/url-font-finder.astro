@@ -115,21 +115,21 @@ const benchmarksJson = JSON.stringify(benchmarks);
   title="Detect Fonts from Any Website URL — Live Web Typography Finder"
   description="Enter any website link or URL to extract loaded web fonts, stylesheet @font-face declarations, Google Fonts, and typography rules."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       <!-- Breadcrumb & Tag -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">URL Font Finder</span>
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">Tools</a>
+        <span class="text-xs text-[#383b3f]">/</span>
+        <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">URL Font Finder</span>
       </div>
 
       <!-- Centered Minimalist Hero -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto" style="letter-spacing: -0.022em;">
         Detect fonts from any website link
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-xl mx-auto leading-relaxed">
+      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
         Enter any webpage URL to extract loaded Google Fonts, Adobe Typekit, self-hosted WOFF2 files, and stylesheet typography stacks.
       </p>
 
@@ -141,15 +141,15 @@ const benchmarksJson = JSON.stringify(benchmarks);
             id="url-input"
             type="text"
             placeholder="e.g. https://stripe.com or linear.app"
-            class="w-full pl-11 pr-32 sm:pr-40 py-3.5 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-sm text-[#262626] dark:text-[#f3f4f6] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] dark:placeholder:text-[#6b7280] transition-all"
+            class="w-full pl-11 pr-32 sm:pr-40 py-3.5 rounded-[6px] border border-[#23252a] bg-[#0f1011] text-sm text-[#d0d6e0] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all"
           />
-          <svg class="w-5 h-5 text-[#727272] dark:text-[#9ca3af] absolute left-4 top-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5 text-[#8a8f98] absolute left-4 top-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
           </svg>
           <button
             id="btn-analyze"
             type="button"
-            class="absolute right-2 top-2 px-4 sm:px-6 py-2 rounded-xl bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-mono font-medium transition-all shadow-sm cursor-pointer flex items-center gap-1.5"
+            class="btn-acid-lime absolute right-2 top-2 px-4 sm:px-6 py-2 rounded-[6px] text-xs font-mono font-medium transition-all shadow-sm cursor-pointer flex items-center gap-1.5"
           >
             <span id="analyze-spinner" class="hidden animate-spin">&#9696;</span>
             <span id="analyze-btn-text">Analyze &rarr;</span>
@@ -158,12 +158,12 @@ const benchmarksJson = JSON.stringify(benchmarks);
 
         <!-- Preset Chips -->
         <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-          <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">Famous Tech Presets:</span>
+          <span class="text-[11px] font-mono text-[#8a8f98]">Famous Tech Presets:</span>
           {Object.keys(benchmarks).map((key) => (
             <button
               type="button"
               data-preset={key}
-              class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00] transition-all cursor-pointer capitalize"
+              class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#23252a] bg-[rgba(255,255,255,0.05)] text-[#d0d6e0] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer capitalize"
             >
               {key}
             </button>
@@ -171,25 +171,25 @@ const benchmarksJson = JSON.stringify(benchmarks);
         </div>
 
         <!-- Status Message Banner -->
-        <div id="status-banner" class="hidden mt-4 p-3 rounded-xl border text-xs font-mono"></div>
+        <div id="status-banner" class="hidden mt-4 p-3 rounded-[6px] border border-[#23252a] text-xs font-mono"></div>
 
         <!-- Live Matched Result Cards Container (Hidden by default until analyzed) -->
         <div id="result-container" class="hidden mt-8 space-y-6">
           <!-- Main Overview Card -->
-          <div class="p-6 sm:p-7 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#e5e7eb] dark:border-[#242834]">
+          <div class="p-6 sm:p-7 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#23252a]">
               <div>
                 <div class="flex items-center gap-2 mb-1">
-                  <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
-                  <span class="text-[11px] font-mono text-[#10b981] uppercase font-bold tracking-wider">Analysis Complete</span>
+                  <span class="w-2 h-2 rounded-full bg-[#27a644]"></span>
+                  <span class="text-[11px] font-mono text-[#27a644] uppercase font-bold tracking-wider">Analysis Complete</span>
                 </div>
-                <h3 id="site-display-url" class="text-xl font-bold text-[#262626] dark:text-[#f3f4f6]">
+                <h3 id="site-display-url" class="text-xl font-bold text-[#ffffff]">
                   stripe.com
                 </h3>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] text-[#727272] dark:text-[#9ca3af]">
-                  <span id="total-fonts-count" class="font-bold text-[#ff4d00]">2</span> typefaces identified
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#161718] border border-[#23252a] text-[#8a8f98]">
+                  <span id="total-fonts-count" class="font-bold text-[#e4f222]">2</span> typefaces identified
                 </span>
               </div>
             </div>
@@ -197,71 +197,71 @@ const benchmarksJson = JSON.stringify(benchmarks);
             <!-- 2-Column Primary / Secondary Breakdown -->
             <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Heading Font -->
-              <div class="p-5 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex flex-col justify-between">
+              <div class="p-5 rounded-[12px] bg-[#161718] border border-[#23252a] flex flex-col justify-between">
                 <div>
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">HEADINGS & HERO</span>
-                    <span id="primary-type" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-[#1a1d26] text-[#ff4d00] border border-[#e5e7eb] dark:border-[#242834]">
+                    <span class="text-[11px] font-mono text-[#8a8f98] uppercase tracking-wider">HEADINGS & HERO</span>
+                    <span id="primary-type" class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#0f1011] text-[#e4f222] border border-[#23252a]">
                       Custom Webfont
                     </span>
                   </div>
-                  <h4 id="primary-name" class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                  <h4 id="primary-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">
                     Söhne
                   </h4>
-                  <p id="primary-sample" class="mt-3 text-base text-[#262626] dark:text-[#f3f4f6] leading-snug font-medium line-clamp-2">
+                  <p id="primary-sample" class="mt-3 text-base text-[#d0d6e0] leading-snug font-medium line-clamp-2">
                     Financial infrastructure for the internet.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+                <div class="mt-4 pt-3 border-t border-[#23252a] flex items-center justify-between text-xs font-mono text-[#8a8f98]">
                   <span id="primary-weights">Weights: 400, 500, 600, 700</span>
-                  <span class="text-[11px] text-[#ff4d00]">Primary Brand</span>
+                  <span class="text-[11px] text-[#e4f222]">Primary Brand</span>
                 </div>
               </div>
 
               <!-- Body Font -->
-              <div class="p-5 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex flex-col justify-between">
+              <div class="p-5 rounded-[12px] bg-[#161718] border border-[#23252a] flex flex-col justify-between">
                 <div>
                   <div class="flex items-center justify-between mb-2">
-                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase tracking-wider">BODY & INTERFACE</span>
-                    <span id="secondary-type" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white dark:bg-[#1a1d26] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834]">
+                    <span class="text-[11px] font-mono text-[#8a8f98] uppercase tracking-wider">BODY & INTERFACE</span>
+                    <span id="secondary-type" class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#0f1011] text-[#d0d6e0] border border-[#23252a]">
                       Custom Webfont
                     </span>
                   </div>
-                  <h4 id="secondary-name" class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                  <h4 id="secondary-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">
                     Söhne / Camphor
                   </h4>
-                  <p id="secondary-sample" class="mt-3 text-sm text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed line-clamp-2">
+                  <p id="secondary-sample" class="mt-3 text-sm text-[#8a8f98] leading-relaxed line-clamp-2">
                     Millions of companies of all sizes use Stripe to accept payments.
                   </p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+                <div class="mt-4 pt-3 border-t border-[#23252a] flex items-center justify-between text-xs font-mono text-[#8a8f98]">
                   <span id="secondary-weights">Weights: 400, 500</span>
-                  <span class="text-[11px] text-[#10b981]">High Legibility</span>
+                  <span class="text-[11px] text-[#27a644]">High Legibility</span>
                 </div>
               </div>
             </div>
 
             <!-- Google Font Alternative Match Box -->
-            <div class="mt-6 p-5 rounded-xl bg-[#fff8f5] dark:bg-[#1a1412] border border-[#ff4d00]/30">
+            <div class="mt-6 p-5 rounded-[12px] bg-[#161718] border border-[#23252a]">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-                  <span class="text-xs font-mono font-bold text-[#ff4d00] uppercase tracking-wider">
+                  <span class="w-2 h-2 rounded-full bg-[#e4f222]"></span>
+                  <span class="text-xs font-mono font-bold text-[#e4f222] uppercase tracking-wider">
                     Free Google Font Stand-in:
                   </span>
                 </div>
                 <div class="flex items-center gap-2 font-mono text-xs">
-                  <span class="text-[#727272] dark:text-[#9ca3af]">Visual Match:</span>
-                  <span id="twin-similarity" class="font-bold text-[#059669] dark:text-[#10b981]">97%</span>
+                  <span class="text-[#8a8f98]">Visual Match:</span>
+                  <span id="twin-similarity" class="font-bold text-[#27a644]">97%</span>
                 </div>
               </div>
 
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h5 id="twin-name" class="text-xl font-bold text-[#ff4d00]">
+                  <h5 id="twin-name" class="text-xl font-bold text-[#ffffff]">
                     Inter
                   </h5>
-                  <p id="twin-reason" class="text-xs text-[#4b5563] dark:text-[#cbd5e1] mt-1 max-w-xl leading-relaxed">
+                  <p id="twin-reason" class="text-xs text-[#8a8f98] mt-1 max-w-xl leading-relaxed">
                     Tall x-height, neutral geometric apertures, and crisp digital legibility. Free under SIL Open Font License.
                   </p>
                 </div>
@@ -269,7 +269,7 @@ const benchmarksJson = JSON.stringify(benchmarks);
                   <a
                     id="twin-link"
                     href="/fonts/inter"
-                    class="px-4 py-2 rounded-full bg-[#ff4d00] text-white text-xs font-mono font-medium hover:bg-[#e04400] transition-colors inline-flex items-center gap-1 shadow-xs"
+                    class="btn-acid-lime px-4 py-2 rounded-[6px] text-xs font-mono font-medium inline-flex items-center gap-1 shadow-xs"
                   >
                     <span>Inspect Font</span>
                     <span>&rarr;</span>
@@ -279,54 +279,55 @@ const benchmarksJson = JSON.stringify(benchmarks);
             </div>
 
             <!-- Live Editable Specimen Tester -->
-            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
-              <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-[#727272] dark:text-[#9ca3af]">
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
+              <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-[#8a8f98]">
                 <span>Live Specimen Preview (Type to test):</span>
-                <span id="active-font-indicator" class="text-[#ff4d00]">Inter (Google Font Twin)</span>
+                <span id="active-font-indicator" class="text-[#e4f222]">Inter (Google Font Twin)</span>
               </div>
               <input
                 id="live-specimen-input"
                 type="text"
                 value="Almost before we knew it, we had left the ground. 1234567890"
-                class="w-full px-4 py-3 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-lg sm:text-xl text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] transition-colors"
+                class="w-full px-4 py-3 rounded-[6px] border border-[#23252a] bg-[#161718] text-lg sm:text-xl text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] transition-colors"
                 style="font-family: 'Inter', sans-serif;"
               />
             </div>
 
             <!-- Copy Ready CSS Block -->
-            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Ready-to-Use CSS Declaration:</span>
+                <span class="text-xs font-mono text-[#8a8f98]">Ready-to-Use CSS Declaration:</span>
                 <button
                   id="btn-copy-css"
                   type="button"
-                  class="text-xs font-mono px-3 py-1 rounded-full bg-[#262626] dark:bg-[#242834] text-white hover:bg-[#ff4d00] transition-colors cursor-pointer flex items-center gap-1"
+                  class="btn-ghost-linear text-xs font-mono px-3 py-1 rounded-[6px] flex items-center gap-1 cursor-pointer"
                 >
                   <span>Copy CSS</span>
-                  <span id="copy-status" class="hidden text-green-400">&check;</span>
+                  <span id="copy-status" class="hidden text-[#27a644]">&check;</span>
                 </button>
               </div>
-              <pre id="code-css-display" class="p-4 rounded-xl bg-[#101217] text-white font-mono text-xs overflow-x-auto select-all border border-[#242834]">font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</pre>
+              <pre id="code-css-display" class="p-4 rounded-[6px] bg-[#161718] text-[#d0d6e0] font-mono text-xs overflow-x-auto select-all border border-[#23252a]">font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</pre>
             </div>
 
             <!-- Detected Loaded Resources List -->
-            <div class="mt-6 pt-5 border-t border-[#e5e7eb] dark:border-[#242834]">
-              <h5 class="text-xs font-mono uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] mb-3">
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
+              <h5 class="text-xs font-mono uppercase tracking-wider text-[#8a8f98] mb-3">
                 Detected Stylesheets & Font Providers:
               </h5>
               <div id="sources-list" class="space-y-2">
-                <div class="p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono">
-                  <span class="text-[#ff4d00]">Self-Hosted WOFF2</span>
-                  <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">https://b.stripecdn.com/stripetype/soehne-var.woff2</span>
+                <div class="p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#e4f222]">Self-Hosted WOFF2</span>
+                  <span class="text-[#8a8f98] truncate max-w-md">https://b.stripecdn.com/stripetype/soehne-var.woff2</span>
                 </div>
-                <div class="p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono">
-                  <span class="text-[#ff4d00]">CSS Variables</span>
-                  <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">--font-family-sans: "Söhne", sans-serif</span>
+                <div class="p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#e4f222]">CSS Variables</span>
+                  <span class="text-[#8a8f98] truncate max-w-md">--font-family-sans: "Söhne", sans-serif</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
     </div>
@@ -404,10 +405,10 @@ const benchmarksJson = JSON.stringify(benchmarks);
       sourcesList.innerHTML = '';
       (profile.sources || []).forEach((src) => {
         const row = document.createElement('div');
-        row.className = 'p-3 rounded-lg bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between text-xs font-mono';
+        row.className = 'p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono';
         row.innerHTML = `
-          <span class="text-[#ff4d00]">${src.provider}</span>
-          <span class="text-[#727272] dark:text-[#9ca3af] truncate max-w-md">${src.details}</span>
+          <span class="text-[#e4f222]">${src.provider}</span>
+          <span class="text-[#8a8f98] truncate max-w-md">${src.details}</span>
         `;
         sourcesList.appendChild(row);
       });
@@ -556,7 +557,7 @@ const benchmarksJson = JSON.stringify(benchmarks);
       const domainMatch = Object.keys(benchmarks).find((key) => url.toLowerCase().includes(key));
       if (domainMatch && benchmarks[domainMatch]) {
         renderProfile(benchmarks[domainMatch], url.replace(/^https?:\/\//, ''));
-        statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
+        statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#27a644]/40 bg-[#161718] text-[#27a644] text-xs font-mono';
         statusBanner.textContent = `✓ Verified profile loaded for ${domainMatch.toUpperCase()}`;
         statusBanner.classList.remove('hidden');
         return;
@@ -683,12 +684,12 @@ const benchmarksJson = JSON.stringify(benchmarks);
         };
 
         renderProfile(customProfile, url.replace(/^https?:\/\//, ''));
-        statusBanner.className = 'mt-4 p-3 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300 text-xs font-mono';
+        statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#27a644]/40 bg-[#161718] text-[#27a644] text-xs font-mono';
         statusBanner.textContent = `✓ Successfully extracted ${fontList.length || 1} font(s) from ${url.replace(/^https?:\/\//, '')}`;
         statusBanner.classList.remove('hidden');
       } else {
         // Fallback banner
-        statusBanner.className = 'mt-4 p-3 rounded-xl border border-amber-500/30 bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-200 text-xs font-mono';
+        statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#eb5757]/40 bg-[#161718] text-[#eb5757] text-xs font-mono';
         statusBanner.innerHTML = `
           <strong>Notice:</strong> Unable to inspect this URL directly (target server blocked external proxies or requires authentication). Please verify the link or test one of the famous tech presets above.
         `;

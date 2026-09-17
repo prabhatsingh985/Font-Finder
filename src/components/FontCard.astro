@@ -9,51 +9,51 @@ const { font } = Astro.props;
 const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 ---
 
-<div class="group rounded-xl border border-[#e5e7eb] dark:border-[#222533] bg-[#fafafa] dark:bg-[#11131b] p-5 transition-all hover:bg-white dark:hover:bg-[#151824] hover:border-[#ff4d00]/40 hover:shadow-xs flex flex-col justify-between">
+<div class="group rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 transition-all hover:bg-[#161718] hover:border-[#383b3f] shadow-sm flex flex-col justify-between">
   <div>
     <!-- Header -->
     <div class="flex items-start justify-between gap-2 mb-3">
       <div>
-        <h3 class="font-medium text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6] tracking-tight group-hover:text-[#ff4d00] transition-colors">
+        <h3 class="font-[510] text-[15px] sm:text-[16px] text-[#ffffff] tracking-[-0.012em] group-hover:text-[#ffffff] transition-colors">
           <a href={`/fonts/${font.id}`}>{font.family}</a>
         </h3>
-        <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] mt-0.5">
+        <p class="text-[12px] text-[#8a8f98] mt-0.5 font-normal">
           {font.designer} &bull; <span class="capitalize">{font.category}</span>
         </p>
       </div>
-      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-0.5 rounded-full bg-white dark:bg-[#181b26] text-[#111827] dark:text-[#f3f4f6] border border-[#e5e7eb] dark:border-[#262938] shrink-0">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+      <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-white/[0.04] text-[#8a8f98] border border-[#23252a] shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#27a644]"></span>
         <span>Verified</span>
       </span>
     </div>
 
     <!-- Live Specimen -->
-    <div class="my-3.5 p-3 rounded-lg bg-white dark:bg-[#161924] border border-[#e5e7eb] dark:border-[#262938] overflow-hidden">
+    <div class="my-3.5 p-3.5 rounded-[6px] bg-[#161718] border border-[#23252a] overflow-hidden">
       <link
         rel="stylesheet"
         href={`https://fonts.googleapis.com/css2?family=${encodedFamily}:wght@400;700&display=swap`}
       />
       <p
-        class="text-lg text-[#111827] dark:text-[#f3f4f6] truncate select-all"
+        class="text-[18px] text-[#ffffff] truncate select-all"
         style={`font-family: '${font.family}', ${font.category};`}
       >
         Almost before we knew it, we had left the ground.
       </p>
     </div>
 
-    <p class="text-xs text-[#6b7280] dark:text-[#9ca3af] line-clamp-2 leading-relaxed">
+    <p class="text-[13px] text-[#8a8f98] line-clamp-2 leading-relaxed">
       {font.description}
     </p>
   </div>
 
   <!-- Footer Info & Actions -->
-  <div class="mt-4 pt-3.5 border-t border-[#e5e7eb] dark:border-[#222533] flex items-center justify-between font-mono text-xs">
-    <span class="text-[#6b7280] dark:text-[#9ca3af] text-[11px]">
+  <div class="mt-4 pt-3.5 border-t border-[#23252a] flex items-center justify-between font-mono text-[12px]">
+    <span class="text-[#62666d] text-[11px]">
       {font.variants.length} styles {font.variable ? '• Variable' : ''}
     </span>
     <a
       href={`/fonts/${font.id}`}
-      class="font-medium text-xs text-[#111827] dark:text-[#f3f4f6] group-hover:text-[#ff4d00] transition-colors inline-flex items-center gap-1"
+      class="font-normal text-[12px] text-[#d0d6e0] hover:text-[#ffffff] transition-colors inline-flex items-center gap-1"
     >
       Inspect &rarr;
     </a>

@@ -358,39 +358,39 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Pacifico&family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Satisfy&family=Sacramento&family=Kalam:wght@400;700&family=Alex+Brush&family=Yellowtail&family=Allura&family=Shadows+Into+Light&family=Kaushan+Script&family=Homemade+Apple&family=Marck+Script&family=Tangerine:wght@400;700&family=Italianno&family=Pinyon+Script&family=Reenie+Beanie&family=Patrick+Hand&family=Gochi+Hand&family=Indie+Flower&family=Damion&family=Rock+Salt&family=Permanent+Marker&family=Covered+By+Your+Grace&family=La+Belle+Aurore&family=Pangolin&family=Delius&display=swap"
   />
 
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto">
       
       <!-- Top Breadcrumb & Badge -->
       <div class="flex items-center justify-center gap-2 mb-3">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-          <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-          <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Cursive & Handwriting AI</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+          <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">Tools</a>
+          <span class="text-xs text-[#383b3f]">/</span>
+          <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">Cursive & Handwriting AI</span>
         </div>
       </div>
 
       <!-- Hero Header -->
       <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+        <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight" style="letter-spacing: -0.022em;">
           Find a handwriting or script font
         </h1>
-        <p class="mt-3.5 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-xl mx-auto">
+        <p class="mt-3.5 text-sm sm:text-base text-[#8a8f98] leading-relaxed max-w-xl mx-auto">
           Cursive ligatures and handwritten strokes break standard OCR. Search our calligraphic intelligence catalog or scan an image using our stroke-preserving optical matcher.
         </p>
       </div>
 
       <!-- Mode Switcher Tabs -->
       <div class="mt-8 flex justify-center">
-        <div class="inline-flex p-1 rounded-2xl bg-[#f3f4f6] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834] shadow-xs">
+        <div class="inline-flex p-1 rounded-full bg-[#0f1011] border border-[#23252a] shadow-xs">
           <button
             type="button"
             id="tab-catalog-btn"
-            class="px-5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all cursor-pointer bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs border border-[#e5e7eb] dark:border-[#2e3446]"
+            class="px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer bg-[#ffffff] text-[#08090a] shadow-xs"
           >
             <span class="inline-flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#ff4d00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-4 h-4 text-[#08090a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
               <span>Script Catalog & Live Studio (28)</span>
@@ -400,10 +400,10 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
           <button
             type="button"
             id="tab-scanner-btn"
-            class="px-5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all cursor-pointer text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6]"
+            class="px-5 py-2.5 rounded-full text-xs font-mono font-medium transition-all cursor-pointer text-[#8a8f98] hover:text-[#ffffff]"
           >
             <span class="inline-flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#727272]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-4 h-4 text-[#8a8f98]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <span>Scan Handwriting Image</span>
@@ -415,7 +415,7 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
       <!-- TAB 1: SCRIPT CATALOG & INTERACTIVE LIVE STUDIO -->
       <div id="tab-catalog-content" class="mt-8">
         <!-- Interactive Controls Bar -->
-        <div class="p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+        <div class="p-6 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
             
             <!-- Search by Font Name or Use Case -->
@@ -424,9 +424,9 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                 id="script-search-input"
                 type="text"
                 placeholder="Search by font or style (e.g. Caveat, Wedding, Signature)..."
-                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs font-mono text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] transition-all"
+                class="w-full pl-10 pr-4 py-2.5 rounded-[6px] border border-[#23252a] bg-[#161718] text-xs font-mono text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all"
               />
-              <svg class="w-4 h-4 text-[#727272] dark:text-[#9ca3af] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-4 h-4 text-[#8a8f98] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -437,15 +437,15 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                 id="custom-specimen-input"
                 type="text"
                 placeholder="Type custom text to preview live across all script fonts..."
-                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] transition-all"
+                class="w-full pl-10 pr-4 py-2.5 rounded-[6px] border border-[#23252a] bg-[#161718] text-xs text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all"
               />
-              <svg class="w-4 h-4 text-[#ff4d00] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-4 h-4 text-[#e4f222] absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>
 
             <!-- Font Size Adjuster -->
-            <div class="lg:col-span-3 flex items-center justify-end gap-3 font-mono text-xs text-[#727272] dark:text-[#9ca3af]">
+            <div class="lg:col-span-3 flex items-center justify-end gap-3 font-mono text-xs text-[#8a8f98]">
               <span>Size:</span>
               <input
                 id="font-size-slider"
@@ -453,14 +453,14 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                 min="22"
                 max="56"
                 value="34"
-                class="w-28 accent-[#ff4d00] cursor-pointer"
+                class="w-28 accent-[#e4f222] cursor-pointer"
               />
-              <span id="font-size-val" class="w-8 text-right font-medium text-[#262626] dark:text-[#f3f4f6]">34px</span>
+              <span id="font-size-val" class="w-8 text-right font-medium text-[#ffffff]">34px</span>
             </div>
           </div>
 
           <!-- Quick Text Presets & Style Filters -->
-          <div class="mt-5 pt-4 border-t border-[#f3f4f6] dark:border-[#242834] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="mt-5 pt-4 border-t border-[#23252a] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             
             <!-- Category Chips -->
             <div class="flex flex-wrap items-center gap-1.5" id="category-filters">
@@ -470,8 +470,8 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                   data-category={cat}
                   class={`script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer ${
                     idx === 0
-                      ? 'bg-[#262626] dark:bg-[#242834] text-white border-transparent'
-                      : 'bg-white dark:bg-[#101217] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]'
+                      ? 'bg-[#ffffff] text-[#08090a] border-transparent font-medium'
+                      : 'bg-[#161718] border-[#23252a] text-[#8a8f98] hover:border-[#e4f222] hover:text-[#ffffff]'
                   }`}
                 >
                   {cat}
@@ -480,21 +480,21 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
             </div>
 
             <!-- Preset Samples -->
-            <div class="flex items-center gap-1.5 text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-[#8a8f98]">
               <span class="hidden sm:inline">Presets:</span>
-              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Save the Date &bull; October 14">Save the Date</button>
-              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Warmest regards & best wishes">Signature</button>
-              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="Artisan Coffee & Bakery">Artisan</button>
-              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] hover:text-[#ff4d00] cursor-pointer transition-colors" data-preset="The quick brown fox jumps over the lazy dog">Pangram</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b3f] border border-[#23252a] cursor-pointer transition-colors" data-preset="Save the Date &bull; October 14">Save the Date</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b3f] border border-[#23252a] cursor-pointer transition-colors" data-preset="Warmest regards & best wishes">Signature</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b3f] border border-[#23252a] cursor-pointer transition-colors" data-preset="Artisan Coffee & Bakery">Artisan</button>
+              <button type="button" class="preset-pill px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b3f] border border-[#23252a] cursor-pointer transition-colors" data-preset="The quick brown fox jumps over the lazy dog">Pangram</button>
             </div>
           </div>
         </div>
 
         <!-- Counter & Status Bar -->
-        <div class="mt-6 flex items-center justify-between px-1 text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
-          <span>Showing <strong id="script-count" class="text-[#ff4d00] font-semibold">28</strong> script typefaces</span>
+        <div class="mt-6 flex items-center justify-between px-1 text-xs font-mono text-[#8a8f98]">
+          <span>Showing <strong id="script-count" class="text-[#e4f222] font-semibold">28</strong> script typefaces</span>
           <span class="inline-flex items-center gap-1.5 text-[11px]">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="w-2 h-2 rounded-full bg-[#27a644]"></span>
             100% Free Google Fonts &bull; SIL Open Font License
           </span>
         </div>
@@ -503,19 +503,19 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
         <div id="script-cards-grid" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
           {handwritingDatabase.map((item) => (
             <div
-              class="script-card p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] hover:border-[#ff4d00]/40 dark:hover:border-[#ff4d00]/50 transition-all flex flex-col justify-between group shadow-xs"
+              class="script-card p-6 rounded-[12px] border border-[#23252a] bg-[#0f1011] hover:border-[#383b3f] transition-all flex flex-col justify-between group shadow-xs"
               data-name={item.name.toLowerCase()}
               data-category={item.category}
               data-default-sample={item.sampleText}
             >
               <div>
                 <!-- Top Meta Row -->
-                <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#f3f4f6] dark:border-[#242834]">
+                <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#23252a]">
                   <div class="flex items-center gap-2">
-                    <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#2e3446]">
+                    <span class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#161718] text-[#d0d6e0] border border-[#23252a]">
                       {item.category}
                     </span>
-                    <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                    <span class="text-[11px] font-mono text-[#8a8f98]">
                       by {item.designer}
                     </span>
                   </div>
@@ -524,7 +524,7 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                     href={`https://fonts.google.com/specimen/${item.name.replace(/\s+/g, '+')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors inline-flex items-center gap-1"
+                    class="text-[11px] font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors inline-flex items-center gap-1"
                   >
                     <span>Specimen</span>
                     <span>&rarr;</span>
@@ -533,10 +533,10 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
 
                 <!-- Font Name Title -->
                 <div class="mt-3 flex items-center justify-between">
-                  <h3 class="text-base font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                  <h3 class="text-base font-bold text-[#ffffff] tracking-tight">
                     {item.name}
                   </h3>
-                  <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                  <span class="text-[11px] font-mono text-[#8a8f98]">
                     {item.weights}
                   </span>
                 </div>
@@ -544,7 +544,7 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                 <!-- LIVE CURSIVE SPECIMEN DISPLAY -->
                 <div class="my-6 min-h-[90px] flex items-center overflow-x-auto py-2">
                   <div
-                    class="script-specimen-preview text-[#111827] dark:text-[#f3f4f6] tracking-normal leading-normal transition-all w-full outline-none"
+                    class="script-specimen-preview text-[#ffffff] tracking-normal leading-normal transition-all w-full outline-none"
                     contenteditable="true"
                     spellcheck="false"
                     style={`font-family: '${item.name}', cursive; font-size: 34px;`}
@@ -554,34 +554,34 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
                 </div>
 
                 <!-- Typographic Cursive Anatomy Tags -->
-                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834]">
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-[6px] bg-[#161718] border border-[#23252a]">
                   <div>
-                    <span class="text-[#727272] dark:text-[#9ca3af]">Stroke:</span>
-                    <span class="text-[#262626] dark:text-[#cbd5e1] ml-1 font-medium">{item.stroke}</span>
+                    <span class="text-[#8a8f98]">Stroke:</span>
+                    <span class="text-[#ffffff] ml-1 font-medium">{item.stroke}</span>
                   </div>
                   <div>
-                    <span class="text-[#727272] dark:text-[#9ca3af]">Slant:</span>
-                    <span class="text-[#262626] dark:text-[#cbd5e1] ml-1 font-medium">{item.slant}</span>
+                    <span class="text-[#8a8f98]">Slant:</span>
+                    <span class="text-[#ffffff] ml-1 font-medium">{item.slant}</span>
                   </div>
-                  <div class="col-span-2 pt-1 border-t border-[#e5e7eb]/50 dark:border-[#242834]/60 flex items-start gap-1">
-                    <span class="text-[#727272] dark:text-[#9ca3af] shrink-0">Best for:</span>
-                    <span class="text-[#4b5563] dark:text-[#9ca3af] truncate">{item.bestFor}</span>
+                  <div class="col-span-2 pt-1 border-t border-[#23252a] flex items-start gap-1">
+                    <span class="text-[#8a8f98] shrink-0">Best for:</span>
+                    <span class="text-[#d0d6e0] truncate">{item.bestFor}</span>
                   </div>
                 </div>
               </div>
 
               <!-- Bottom Actions -->
-              <div class="mt-5 pt-3.5 border-t border-[#f3f4f6] dark:border-[#242834] flex items-center justify-between gap-3">
+              <div class="mt-5 pt-3.5 border-t border-[#23252a] flex items-center justify-between gap-3">
                 <button
                   type="button"
                   data-css={item.css}
-                  class="btn-copy-script-css px-3.5 py-1.5 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-[11px] font-mono font-medium hover:bg-[#ff4d00] transition-colors cursor-pointer"
+                  class="btn-copy-script-css btn-ghost-linear px-3.5 py-1.5 rounded-[6px] text-[11px] font-mono font-medium cursor-pointer"
                 >
                   Copy CSS
                 </button>
 
                 <div class="flex items-center gap-2">
-                  <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af]">
+                  <span class="text-[11px] font-mono text-[#8a8f98]">
                     Ligatures: {item.ligature}
                   </span>
                 </div>
@@ -591,7 +591,7 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
         </div>
 
         <!-- No Results Fallback -->
-        <div id="no-script-results" class="hidden py-16 text-center text-xs font-mono text-[#727272] dark:text-[#9ca3af] border border-dashed border-[#e5e7eb] dark:border-[#242834] rounded-2xl mt-4">
+        <div id="no-script-results" class="hidden py-16 text-center text-xs font-mono text-[#8a8f98] border border-dashed border-[#23252a] rounded-[12px] mt-4">
           No script fonts matched your query. Try searching for "Caveat", "Wedding", "Signature", or clear the filter.
         </div>
       </div>
@@ -599,17 +599,17 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
       <!-- TAB 2: VISUAL HANDWRITING IMAGE SCANNER -->
       <div id="tab-scanner-content" class="hidden mt-8 max-w-[1000px] mx-auto">
         <!-- Callout Banner with Industry Tips for Handwriting OCR -->
-        <div class="mb-6 p-5 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs">
+        <div class="mb-6 p-5 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
           <div class="flex items-start gap-3.5">
-            <div class="w-8 h-8 rounded-full bg-[#ff4d00]/10 border border-[#ff4d00]/20 flex items-center justify-center text-[#ff4d00] shrink-0 mt-0.5">
+            <div class="w-8 h-8 rounded-full bg-[rgba(228,242,34,0.1)] border border-[rgba(228,242,34,0.2)] flex items-center justify-center text-[#e4f222] shrink-0 mt-0.5">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <div class="text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
-              <strong class="text-[#262626] dark:text-[#f3f4f6] font-medium block mb-1">Industry Handwriting Optical Best Practices:</strong>
+            <div class="text-xs text-[#8a8f98] leading-relaxed">
+              <strong class="text-[#ffffff] font-medium block mb-1">Industry Handwriting Optical Best Practices:</strong>
               Because script fonts feature continuous connecting ligatures, standard character-by-character OCR can cut letters mid-stroke.
-              For best accuracy: <span class="text-[#ff4d00]">crop tightly around 2–4 full words</span>, ensure bright even lighting on paper samples, and avoid overlapping strokes.
+              For best accuracy: <span class="text-[#e4f222]">crop tightly around 2–4 full words</span>, ensure bright even lighting on paper samples, and avoid overlapping strokes.
             </div>
           </div>
         </div>
@@ -623,43 +623,43 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
       </div>
 
       <!-- Educational Typographic Guide -->
-      <div class="mt-16 p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#15171e] shadow-xs">
-        <h3 class="text-lg font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+      <div class="mt-16 p-8 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
+        <h3 class="text-lg font-bold text-[#ffffff] tracking-tight">
           How Industry Typographers Classify Script Fonts
         </h3>
-        <p class="mt-2 text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-2xl">
+        <p class="mt-2 text-xs sm:text-sm text-[#8a8f98] leading-relaxed max-w-2xl">
           Unlike Roman typefaces which are divided into Serif and Sans-Serif, script typefaces are classified by pen tool dynamics and stroke velocity:
         </p>
 
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">01 / Casual Hand</span>
-            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Everyday Gestural</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">01 / Casual Hand</span>
+            <h4 class="text-sm font-semibold text-[#ffffff]">Everyday Gestural</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Emulates natural handwriting using ballpoint pens, gel pens, or felt markers. High legibility and friendly warmth.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">02 / Calligraphy</span>
-            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Copperplate & Nib</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">02 / Calligraphy</span>
+            <h4 class="text-sm font-semibold text-[#ffffff]">Copperplate & Nib</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Characterized by dramatic contrast between thin entry strokes and thick downward swells produced by flexible steel nibs.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">03 / Brush Script</span>
-            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Signpainter Speed</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">03 / Brush Script</span>
+            <h4 class="text-sm font-semibold text-[#ffffff]">Signpainter Speed</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Bold, fluid letters inspired by mid-20th-century commercial signpainters using sable brushes or dry ink markers.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">04 / Monoline Signature</span>
-            <h4 class="text-sm font-semibold text-[#262626] dark:text-[#f3f4f6]">Single-Weight Line</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">04 / Monoline Signature</span>
+            <h4 class="text-sm font-semibold text-[#ffffff]">Single-Weight Line</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Maintains perfectly uniform stroke thickness across loops and ascenders, ideal for minimalist modern personal signatures.
             </p>
           </div>
@@ -698,20 +698,20 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
           tabCatalogContent?.classList.remove('hidden');
           tabScannerContent?.classList.add('hidden');
 
-          tabCatalogBtn?.classList.add('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
-          tabCatalogBtn?.classList.remove('text-[#727272]', 'dark:text-[#9ca3af]');
+          tabCatalogBtn?.classList.add('bg-[#ffffff]', 'text-[#08090a]');
+          tabCatalogBtn?.classList.remove('text-[#8a8f98]');
 
-          tabScannerBtn?.classList.remove('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
-          tabScannerBtn?.classList.add('text-[#727272]', 'dark:text-[#9ca3af]');
+          tabScannerBtn?.classList.remove('bg-[#ffffff]', 'text-[#08090a]');
+          tabScannerBtn?.classList.add('text-[#8a8f98]');
         } else {
           tabScannerContent?.classList.remove('hidden');
           tabCatalogContent?.classList.add('hidden');
 
-          tabScannerBtn?.classList.add('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
-          tabScannerBtn?.classList.remove('text-[#727272]', 'dark:text-[#9ca3af]');
+          tabScannerBtn?.classList.add('bg-[#ffffff]', 'text-[#08090a]');
+          tabScannerBtn?.classList.remove('text-[#8a8f98]');
 
-          tabCatalogBtn?.classList.remove('bg-white', 'dark:bg-[#15171e]', 'text-[#262626]', 'dark:text-[#f3f4f6]', 'shadow-xs', 'border', 'border-[#e5e7eb]', 'dark:border-[#2e3446]');
-          tabCatalogBtn?.classList.add('text-[#727272]', 'dark:text-[#9ca3af]');
+          tabCatalogBtn?.classList.remove('bg-[#ffffff]', 'text-[#08090a]');
+          tabCatalogBtn?.classList.add('text-[#8a8f98]');
         }
       }
 
@@ -753,9 +753,9 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
       catButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           catButtons.forEach((b) => {
-            b.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-white dark:bg-[#101217] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]';
+            b.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-[#161718] border-[#23252a] text-[#8a8f98] hover:border-[#e4f222] hover:text-[#ffffff]';
           });
-          btn.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-[#262626] dark:bg-[#242834] text-white border-transparent';
+          btn.className = 'script-cat-btn text-[11px] font-mono px-3 py-1 rounded-full border transition-all cursor-pointer bg-[#ffffff] text-[#08090a] border-transparent font-medium';
           activeCategory = btn.getAttribute('data-category') || 'All';
           filterCards();
         });
@@ -805,10 +805,10 @@ const handwritingJson = JSON.stringify(handwritingDatabase);
           navigator.clipboard.writeText(css).then(() => {
             const original = btn.textContent;
             btn.textContent = 'Copied!';
-            btn.classList.add('bg-[#ff4d00]');
+            btn.classList.add('bg-[#e4f222]', 'text-[#08090a]');
             setTimeout(() => {
               btn.textContent = original;
-              btn.classList.remove('bg-[#ff4d00]');
+              btn.classList.remove('bg-[#e4f222]', 'text-[#08090a]');
             }, 1800);
           });
         });

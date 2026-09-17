@@ -221,38 +221,38 @@ const dbJson = JSON.stringify(commercialDatabase);
   title="Find Free Alternatives to Paid Fonts — Commercial Font Matcher"
   description="Instantly look up the closest free, open-source Google Font twin for any commercial paid font. Includes similarity scores, metrics, live specimen previews, and copyable CSS."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       
       <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Commercial Font Twins</span>
+      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#161718] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">Tools</a>
+        <span class="text-xs text-[#383b3f]">/</span>
+        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">Commercial Font Twins</span>
       </div>
 
       <!-- Hero Header -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto">
         Find a free alternative to a paid font
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-xl mx-auto">
+      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto">
         Avoid costly commercial foundry licenses. Search 50+ proprietary typefaces or upload an image to get verified 100% free Google Font twins with production CSS.
       </p>
 
       <!-- Mode Switcher Tabs -->
-      <div class="mt-8 inline-flex p-1 rounded-full bg-[#f3f4f6] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+      <div class="mt-8 inline-flex p-1 rounded-full bg-[#161718] border border-[#23252a]">
         <button
           id="tab-search"
           type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer"
         >
           Instant Font Search
         </button>
         <button
           id="tab-image"
           type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer"
         >
           Upload Sample Image
         </button>
@@ -267,10 +267,10 @@ const dbJson = JSON.stringify(commercialDatabase);
             id="commercial-input"
             type="text"
             placeholder="Type any commercial font (e.g. Helvetica, Futura, Gotham, Didot, DIN, Avenir, Circular...)"
-            class="w-full pl-12 pr-4 py-4 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-sm text-[#262626] dark:text-[#f3f4f6] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] dark:placeholder:text-[#6b7280] transition-all font-mono"
+            class="w-full pl-12 pr-4 py-4 rounded-[12px] border border-[#23252a] bg-[#0f1011] text-sm text-[#ffffff] shadow-xs focus:outline-none focus:border-[#e4f222] placeholder:text-[#62666d] transition-all font-mono"
             autocomplete="off"
           />
-          <svg class="w-5 h-5 text-[#727272] dark:text-[#9ca3af] absolute left-4 top-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5 text-[#8a8f98] absolute left-4 top-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
@@ -278,12 +278,12 @@ const dbJson = JSON.stringify(commercialDatabase);
         <!-- Category Filters & Popular Preset Chips -->
         <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
           <div class="flex flex-wrap items-center gap-1.5">
-            <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] mr-1">Popular:</span>
+            <span class="text-[11px] font-mono text-[#8a8f98] mr-1">Popular:</span>
             {['Helvetica', 'Futura', 'Gotham', 'Didot', 'DIN', 'Avenir', 'Circular', 'Garamond'].map((name) => (
               <button
                 type="button"
                 data-preset={name}
-                class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00] transition-all cursor-pointer shadow-2xs"
+                class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#23252a] bg-[#161718] text-[#8a8f98] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer shadow-xs"
               >
                 {name}
               </button>
@@ -292,49 +292,49 @@ const dbJson = JSON.stringify(commercialDatabase);
 
           <!-- Category Filter Pills -->
           <div id="cat-filter-container" class="flex flex-wrap items-center gap-1">
-            <button type="button" data-cat="all" class="cat-pill active text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#262626] dark:bg-white text-white dark:text-[#111827] font-semibold cursor-pointer">All</button>
-            <button type="button" data-cat="Neo-Grotesque Sans" class="cat-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Grotesk</button>
-            <button type="button" data-cat="Geometric Sans" class="cat-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Geometric</button>
-            <button type="button" data-cat="Serif" class="cat-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Serif</button>
-            <button type="button" data-cat="Display / Slab" class="cat-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Display</button>
+            <button type="button" data-cat="all" class="cat-pill active text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer">All</button>
+            <button type="button" data-cat="Neo-Grotesque Sans" class="cat-pill text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer">Grotesk</button>
+            <button type="button" data-cat="Geometric Sans" class="cat-pill text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer">Geometric</button>
+            <button type="button" data-cat="Serif" class="cat-pill text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer">Serif</button>
+            <button type="button" data-cat="Display / Slab" class="cat-pill text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer">Display</button>
           </div>
         </div>
 
-        <!-- Main Showcase Card (Elevated Firecrawl Style) -->
-        <div id="match-card" class="mt-8 p-6 sm:p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] space-y-6">
+        <!-- Main Showcase Card -->
+        <div id="match-card" class="mt-8 p-6 sm:p-8 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs space-y-6">
           
           <!-- Card Header: Commercial Font Identity vs Top Match % -->
-          <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e5e7eb] dark:border-[#242834]">
+          <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#23252a]">
             <div>
               <div class="flex items-center gap-2">
-                <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">COMMERCIAL PROPRIETARY TYPEFACE</span>
-                <span id="result-foundry" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#f3f4f6] dark:bg-[#101217] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834]">
+                <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98]">COMMERCIAL PROPRIETARY TYPEFACE</span>
+                <span id="result-foundry" class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#161718] text-[#d0d6e0] border border-[#23252a]">
                   Linotype / Monotype
                 </span>
               </div>
-              <h2 id="result-paid" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] dark:text-[#f3f4f6] mt-2">
+              <h2 id="result-paid" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#ffffff] mt-2">
                 Helvetica
               </h2>
-              <p id="result-cat-desc" class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1 font-mono">
+              <p id="result-cat-desc" class="text-xs text-[#8a8f98] mt-1 font-mono">
                 Category: Neo-Grotesque Sans &bull; Commercial License Required
               </p>
             </div>
 
             <div class="text-right shrink-0">
-              <span class="font-mono text-xs text-[#727272] dark:text-[#9ca3af]">OPTICAL SIMILARITY</span>
-              <div id="result-similarity" class="font-mono text-2xl sm:text-3xl font-bold text-[#059669] dark:text-[#34d399]">98%</div>
-              <div class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">SIL Open License</div>
+              <span class="font-mono text-xs text-[#8a8f98]">OPTICAL SIMILARITY</span>
+              <div id="result-similarity" class="font-mono text-2xl sm:text-3xl font-bold text-[#27a644]">98%</div>
+              <div class="text-[11px] font-mono text-[#8a8f98] uppercase">SIL Open License</div>
             </div>
           </div>
 
           <!-- Ranked Twin Selection Tabs (#1 Closest, #2 Secondary, #3 Alternative) -->
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+              <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98] flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></span>
                 <span>RANKED FREE GOOGLE FONT TWINS</span>
               </span>
-              <span class="text-xs text-[#727272] dark:text-[#9ca3af] font-mono">Click to preview twin</span>
+              <span class="text-xs text-[#8a8f98] font-mono">Click to preview twin</span>
             </div>
             
             <div id="twins-rank-buttons" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -343,38 +343,38 @@ const dbJson = JSON.stringify(commercialDatabase);
           </div>
 
           <!-- Active Twin Detailed Specimen & Rationale Box -->
-          <div class="p-6 rounded-xl bg-[#f8f9fa] dark:bg-[#101217] border border-[#f0f0f0] dark:border-[#242834] space-y-4">
+          <div class="p-6 rounded-[8px] bg-[#161718] border border-[#23252a] space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Currently Previewing Free Twin:</span>
+                <span class="text-xs font-mono text-[#8a8f98]">Currently Previewing Free Twin:</span>
                 <div class="flex items-center gap-2 mt-0.5">
-                  <h3 id="result-free-name" class="text-2xl font-bold text-[#ff4d00] tracking-tight">Inter</h3>
-                  <span id="result-free-designer" class="text-xs text-[#727272] dark:text-[#9ca3af] font-mono">by Rasmus Andersson</span>
+                  <h3 id="result-free-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">Inter</h3>
+                  <span id="result-free-designer" class="text-xs text-[#8a8f98] font-mono">by Rasmus Andersson</span>
                 </div>
               </div>
 
               <!-- Specimen Controls -->
               <div class="flex items-center gap-3">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Size:</span>
-                  <input id="specimen-size" type="range" min="16" max="64" value="32" class="w-24 sm:w-28 accent-[#ff4d00] cursor-pointer" />
-                  <span id="specimen-size-label" class="font-mono text-xs text-[#262626] dark:text-[#f3f4f6] w-7">32px</span>
+                  <span class="text-xs font-mono text-[#8a8f98]">Size:</span>
+                  <input id="specimen-size" type="range" min="16" max="64" value="32" class="w-24 sm:w-28 accent-[#e4f222] cursor-pointer" />
+                  <span id="specimen-size-label" class="font-mono text-xs text-[#ffffff] w-7">32px</span>
                 </div>
               </div>
             </div>
 
-            <p id="result-reason" class="text-xs sm:text-sm text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed">
+            <p id="result-reason" class="text-xs sm:text-sm text-[#d0d6e0] leading-relaxed">
               Tall x-height, neutral apertures, clean geometric balance, perfected for UI screens.
             </p>
 
             <!-- Live Editable Specimen Text Field -->
             <div class="pt-2">
-              <span class="font-mono text-[10px] text-[#727272] dark:text-[#9ca3af] uppercase block mb-1">Interactive Specimen (Type anything to test):</span>
+              <span class="font-mono text-[10px] text-[#8a8f98] uppercase block mb-1">Interactive Specimen (Type anything to test):</span>
               <input
                 id="specimen-input"
                 type="text"
                 value="Sphinx of black quartz, judge my vow. 0123456789"
-                class="w-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] rounded-xl px-4 py-3 text-[#111827] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] transition-all leading-snug break-words"
+                class="w-full bg-[#08090a] border border-[#23252a] rounded-[6px] px-4 py-3 text-[#ffffff] focus:outline-none focus:border-[#e4f222] transition-all leading-snug break-words"
                 style="font-size: 32px; font-family: 'Inter', sans-serif;"
                 spellcheck="false"
               />
@@ -383,58 +383,58 @@ const dbJson = JSON.stringify(commercialDatabase);
 
           <!-- Typographic Geometry Metrics -->
           <div>
-            <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] block mb-3">
+            <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98] block mb-3">
               TYPOGRAPHIC METRICS COMPARISON
             </span>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div class="p-3 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217]">
-                <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] block">x-Height Ratio</span>
-                <span id="metric-xheight" class="font-mono font-semibold text-xs sm:text-sm text-[#111827] dark:text-[#f3f4f6]">High (0.72)</span>
+              <div class="p-3 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-[11px] font-mono text-[#8a8f98] block">x-Height Ratio</span>
+                <span id="metric-xheight" class="font-mono font-semibold text-xs sm:text-sm text-[#ffffff]">High (0.72)</span>
               </div>
-              <div class="p-3 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217]">
-                <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] block">Stroke Contrast</span>
-                <span id="metric-contrast" class="font-mono font-semibold text-xs sm:text-sm text-[#111827] dark:text-[#f3f4f6]">Low / Monoline</span>
+              <div class="p-3 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-[11px] font-mono text-[#8a8f98] block">Stroke Contrast</span>
+                <span id="metric-contrast" class="font-mono font-semibold text-xs sm:text-sm text-[#ffffff]">Low / Monoline</span>
               </div>
-              <div class="p-3 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217]">
-                <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] block">Terminals</span>
-                <span id="metric-terminals" class="font-mono font-semibold text-xs sm:text-sm text-[#111827] dark:text-[#f3f4f6]">Strictly Horizontal</span>
+              <div class="p-3 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-[11px] font-mono text-[#8a8f98] block">Terminals</span>
+                <span id="metric-terminals" class="font-mono font-semibold text-xs sm:text-sm text-[#ffffff]">Strictly Horizontal</span>
               </div>
-              <div class="p-3 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-[#ffffff] dark:bg-[#101217]">
-                <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] block">Apertures</span>
-                <span id="metric-apertures" class="font-mono font-semibold text-xs sm:text-sm text-[#111827] dark:text-[#f3f4f6]">Neutral / Semi-closed</span>
+              <div class="p-3 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-[11px] font-mono text-[#8a8f98] block">Apertures</span>
+                <span id="metric-apertures" class="font-mono font-semibold text-xs sm:text-sm text-[#ffffff]">Neutral / Semi-closed</span>
               </div>
             </div>
           </div>
 
           <!-- Production CSS Blueprint Window -->
-          <div class="rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] overflow-hidden">
-            <div class="h-10 px-4 bg-[#f9f9f9] dark:bg-[#101217] border-b border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between">
+          <div class="rounded-[8px] border border-[#23252a] bg-[#08090a] overflow-hidden">
+            <div class="h-10 px-4 bg-[#161718] border-b border-[#23252a] flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <span class="font-mono text-xs text-[#727272] dark:text-[#9ca3af] ml-2">production-twin.css</span>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <span class="font-mono text-xs text-[#8a8f98] ml-2">production-twin.css</span>
               </div>
               <button
                 id="btn-copy-blueprint"
                 type="button"
-                class="font-mono text-xs px-3 py-1 rounded-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] hover:bg-[#f9f9f9] dark:hover:bg-[#242834] text-[#262626] dark:text-[#f3f4f6] transition-colors cursor-pointer"
+                class="btn-ghost-linear font-mono text-xs px-3 py-1 rounded-[6px] cursor-pointer"
               >
                 Copy CSS
               </button>
             </div>
-            <pre id="code-blueprint" class="p-4 font-mono text-xs text-[#262626] dark:text-[#f3f4f6] overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+            <pre id="code-blueprint" class="p-4 font-mono text-xs text-[#d0d6e0] overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 font-family: 'Inter', sans-serif;</code></pre>
           </div>
 
           <!-- Action Links -->
-          <div class="pt-4 border-t border-[#e5e7eb] dark:border-[#242834] flex flex-wrap items-center justify-between gap-3">
+          <div class="pt-4 border-t border-[#23252a] flex flex-wrap items-center justify-between gap-3">
             <a
               id="link-google-font"
               href="https://fonts.google.com/specimen/Inter"
               target="_blank"
               rel="noopener noreferrer"
-              class="font-mono text-xs font-semibold text-[#ff4d00] hover:underline inline-flex items-center gap-1.5"
+              class="font-mono text-xs font-medium text-[#e4f222] hover:underline inline-flex items-center gap-1.5"
             >
               <span>Inspect on Google Fonts Repository</span>
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -445,7 +445,7 @@ font-family: 'Inter', sans-serif;</code></pre>
             <a
               id="link-specimen-internal"
               href="/fonts/inter"
-              class="font-mono text-xs text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6] transition-colors"
+              class="font-mono text-xs text-[#8a8f98] hover:text-[#ffffff] transition-colors"
             >
               View Full Font Family Specimen &rarr;
             </a>
@@ -456,8 +456,8 @@ font-family: 'Inter', sans-serif;</code></pre>
 
       <!-- Mode 2: Upload Font Image -->
       <div id="section-image" class="hidden mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
-        <div class="mb-6 p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-xs font-mono text-[#727272] dark:text-[#9ca3af] flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+        <div class="mb-6 p-4 rounded-[8px] border border-[#23252a] bg-[#161718] text-xs font-mono text-[#d0d6e0] flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#e4f222]"></span>
           <span>Upload an image sample of a commercial font. Our in-browser optical engine matches letterforms and checks 50+ commercial stand-in equivalents automatically.</span>
         </div>
         <FontFinderApp />
@@ -510,15 +510,15 @@ font-family: 'Inter', sans-serif;</code></pre>
 
       // Tab Switcher
       tabSearch?.addEventListener('click', () => {
-        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
-        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer';
+        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
         secSearch?.classList.remove('hidden');
         secImage?.classList.add('hidden');
       });
 
       tabImage?.addEventListener('click', () => {
-        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
-        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        tabImage.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer';
+        tabSearch.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
         secImage?.classList.remove('hidden');
         secSearch?.classList.add('hidden');
       });
@@ -578,18 +578,18 @@ font-family: 'Inter', sans-serif;</code></pre>
             const isSelected = (idx === selectedTwinIndex);
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = `p-3 rounded-xl border text-left transition-all cursor-pointer ${
+            btn.className = `p-3 rounded-[8px] border text-left transition-all cursor-pointer ${
               isSelected
-                ? 'border-[#ff4d00] bg-[#ff4d00]/5 dark:bg-[#ff4d00]/10 ring-1 ring-[#ff4d00]'
-                : 'border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217] hover:border-[#d1d5db] dark:hover:border-[#333846]'
+                ? 'border-[#e4f222] bg-[#161718] ring-1 ring-[#e4f222]'
+                : 'border-[#23252a] bg-[#0f1011] hover:border-[#383b3f]'
             }`;
             btn.innerHTML = `
               <div class="flex items-center justify-between text-xs font-mono mb-1">
-                <span class="${isSelected ? 'text-[#ff4d00] font-bold' : 'text-[#727272] dark:text-[#9ca3af]'}">#${idx + 1} Twin</span>
-                <span class="font-bold ${isSelected ? 'text-[#059669] dark:text-[#34d399]' : 'text-[#727272] dark:text-[#9ca3af]'}">${twin.similarity}</span>
+                <span class="${isSelected ? 'text-[#e4f222] font-semibold' : 'text-[#8a8f98]'}">#${idx + 1} Twin</span>
+                <span class="font-bold ${isSelected ? 'text-[#27a644]' : 'text-[#8a8f98]'}">${twin.similarity}</span>
               </div>
-              <div class="font-bold text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6]">${twin.name}</div>
-              <div class="text-[11px] text-[#727272] dark:text-[#9ca3af] line-clamp-1 mt-0.5">${twin.weight}</div>
+              <div class="font-bold text-sm sm:text-base ${isSelected ? 'text-[#ffffff]' : 'text-[#d0d6e0]'}">${twin.name}</div>
+              <div class="text-[11px] ${isSelected ? 'text-[#8a8f98]' : 'text-[#62666d]'} line-clamp-1 mt-0.5">${twin.weight}</div>
             `;
             btn.addEventListener('click', () => {
               renderItem(item, idx);
@@ -648,11 +648,9 @@ font-family: 'Inter', sans-serif;</code></pre>
       document.querySelectorAll('.cat-pill').forEach((pill) => {
         pill.addEventListener('click', () => {
           document.querySelectorAll('.cat-pill').forEach(p => {
-            p.classList.remove('bg-[#262626]', 'dark:bg-white', 'text-white', 'dark:text-[#111827]', 'font-semibold');
-            p.classList.add('bg-[#f3f4f6]', 'dark:bg-[#15171e]', 'text-[#4b5563]', 'dark:text-[#cbd5e1]', 'border', 'border-[#e5e7eb]', 'dark:border-[#242834]');
+            p.className = 'cat-pill text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer';
           });
-          pill.classList.remove('bg-[#f3f4f6]', 'dark:bg-[#15171e]', 'text-[#4b5563]', 'dark:text-[#cbd5e1]', 'border', 'border-[#e5e7eb]', 'dark:border-[#242834]');
-          pill.classList.add('bg-[#262626]', 'dark:bg-white', 'text-white', 'dark:text-[#111827]', 'font-semibold');
+          pill.className = 'cat-pill active text-[11px] font-mono px-2.5 py-1 rounded-[4px] bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer';
 
           const cat = pill.getAttribute('data-cat');
           if (cat === 'all') {
@@ -697,7 +695,7 @@ font-family: 'Inter', sans-serif;</code></pre>
         }
 
         const orig = btnCopyBlueprint.innerHTML;
-        btnCopyBlueprint.innerHTML = `<span class="text-[#059669] dark:text-[#34d399] font-semibold">✓ Copied!</span>`;
+        btnCopyBlueprint.innerHTML = `<span class="text-[#27a644] font-semibold">✓ Copied!</span>`;
         setTimeout(() => {
           btnCopyBlueprint.innerHTML = orig;
         }, 2000);

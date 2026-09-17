@@ -193,38 +193,38 @@ const brandDbJson = JSON.stringify(brandLogos);
   title="Identify the Font in a Logo — Brand Typeface & Free Alternative Identifier"
   description="Discover what font any famous brand or logo uses. Search our 30+ brand typography database or upload any logo image for automated in-browser letterform matching."
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       
       <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-        <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-        <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-        <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Logo Font Finder</span>
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">Tools</a>
+        <span class="text-xs text-[#383b3f]">/</span>
+        <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">Logo Font Finder</span>
       </div>
 
       <!-- Hero Header -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight max-w-2xl mx-auto">
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto" style="letter-spacing: -0.022em;">
         Identify the font in a logo
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] max-w-xl mx-auto">
+      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto">
         Find the exact typeface behind iconic brand logos &mdash; plus free legal Google Font equivalents with ready-to-use CSS.
       </p>
 
       <!-- Mode Switcher Tabs -->
-      <div class="mt-8 inline-flex p-1 rounded-full bg-[#f3f4f6] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
+      <div class="mt-8 inline-flex p-1 rounded-full bg-[#0f1011] border border-[#23252a]">
         <button
           id="tab-brand-dir"
           type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer"
         >
           Brand Logo Directory
         </button>
         <button
           id="tab-logo-upload"
           type="button"
-          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer"
+          class="px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer"
         >
           Upload Any Logo Image
         </button>
@@ -239,10 +239,10 @@ const brandDbJson = JSON.stringify(brandLogos);
             id="brand-input"
             type="text"
             placeholder="Search brand logo (e.g. Nike, Supreme, Spotify, Netflix, Google, Tesla...)"
-            class="w-full pl-12 pr-4 py-4 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-sm text-[#262626] dark:text-[#f3f4f6] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] dark:placeholder:text-[#6b7280] transition-all font-mono"
+            class="w-full pl-12 pr-4 py-4 rounded-[6px] border border-[#23252a] bg-[#0f1011] text-sm text-[#d0d6e0] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all font-mono"
             autocomplete="off"
           />
-          <svg class="w-5 h-5 text-[#727272] dark:text-[#9ca3af] absolute left-4 top-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5 text-[#8a8f98] absolute left-4 top-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
@@ -250,12 +250,12 @@ const brandDbJson = JSON.stringify(brandLogos);
         <!-- Quick Brand Chips -->
         <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
           <div class="flex flex-wrap items-center gap-1.5">
-            <span class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] mr-1">Brands:</span>
+            <span class="text-[11px] font-mono text-[#8a8f98] mr-1">Brands:</span>
             {['Nike', 'Supreme', 'Spotify', 'Netflix', 'Google', 'Apple', 'Tesla', 'Airbnb'].map((brandName) => (
               <button
                 type="button"
                 data-brand={brandName}
-                class="brand-chip text-xs font-mono px-3 py-1 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00] transition-all cursor-pointer shadow-2xs"
+                class="brand-chip text-xs font-mono px-3 py-1 rounded-full border border-[#23252a] bg-[rgba(255,255,255,0.05)] text-[#d0d6e0] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer shadow-2xs"
               >
                 {brandName}
               </button>
@@ -264,44 +264,44 @@ const brandDbJson = JSON.stringify(brandLogos);
 
           <!-- Industry Filter Pills -->
           <div id="industry-filter-container" class="flex flex-wrap items-center gap-1">
-            <button type="button" data-ind="all" class="ind-pill active text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#262626] dark:bg-white text-white dark:text-[#111827] font-semibold cursor-pointer">All</button>
-            <button type="button" data-ind="Tech" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Tech</button>
-            <button type="button" data-ind="Apparel" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Apparel</button>
-            <button type="button" data-ind="Media" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Media</button>
-            <button type="button" data-ind="Food" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#15171e] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834] cursor-pointer">Food</button>
+            <button type="button" data-ind="all" class="ind-pill active text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ffffff] text-[#08090a] font-semibold cursor-pointer">All</button>
+            <button type="button" data-ind="Tech" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:text-[#ffffff] cursor-pointer">Tech</button>
+            <button type="button" data-ind="Apparel" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:text-[#ffffff] cursor-pointer">Apparel</button>
+            <button type="button" data-ind="Media" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:text-[#ffffff] cursor-pointer">Media</button>
+            <button type="button" data-ind="Food" class="ind-pill text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:text-[#ffffff] cursor-pointer">Food</button>
           </div>
         </div>
 
         <!-- Main Brand Showcase Card -->
-        <div id="brand-card" class="mt-8 p-6 sm:p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-[0_0_0_6px_rgb(249,249,249)] dark:shadow-[0_0_0_6px_rgba(21,23,30,0.9)] space-y-6">
+        <div id="brand-card" class="mt-8 p-6 sm:p-8 rounded-[12px] border border-[#23252a] bg-[#0f1011] space-y-6">
           
           <!-- Brand Identity Header -->
-          <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e5e7eb] dark:border-[#242834]">
+          <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#23252a]">
             <div>
               <div class="flex items-center gap-2">
-                <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">OFFICIAL BRAND LOGO TYPEFACE</span>
-                <span id="logo-industry" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#f3f4f6] dark:bg-[#101217] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#242834]">
+                <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98]">OFFICIAL BRAND LOGO TYPEFACE</span>
+                <span id="logo-industry" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#161718] text-[#8a8f98] border border-[#23252a]">
                   Apparel & Sports
                 </span>
               </div>
-              <h2 id="logo-brand-name" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] dark:text-[#f3f4f6] mt-2">
+              <h2 id="logo-brand-name" class="text-3xl sm:text-4xl font-bold tracking-tight text-[#ffffff] mt-2">
                 Nike
               </h2>
-              <p id="logo-official-font" class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1 font-mono">
+              <p id="logo-official-font" class="text-xs text-[#8a8f98] mt-1 font-mono">
                 Official Typeface: Futura Bold Extra Condensed (Oblique) &bull; Bauer / Monotype
               </p>
             </div>
 
             <div class="text-right shrink-0">
-              <span class="font-mono text-xs text-[#727272] dark:text-[#9ca3af]">CLOSEST FREE TWIN</span>
-              <div id="logo-similarity" class="font-mono text-2xl sm:text-3xl font-bold text-[#059669] dark:text-[#34d399]">97%</div>
-              <div class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] uppercase">SIL Open License</div>
+              <span class="font-mono text-xs text-[#8a8f98]">CLOSEST FREE TWIN</span>
+              <div id="logo-similarity" class="font-mono text-2xl sm:text-3xl font-bold text-[#27a644]">97%</div>
+              <div class="text-[11px] font-mono text-[#8a8f98] uppercase">SIL Open License</div>
             </div>
           </div>
 
           <!-- Ranked Free Stand-in Twins Tabs -->
           <div>
-            <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af] block mb-3">
+            <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98] block mb-3">
               RANKED FREE GOOGLE FONT STAND-INS
             </span>
             <div id="logo-twins-container" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -310,74 +310,74 @@ const brandDbJson = JSON.stringify(brandLogos);
           </div>
 
           <!-- Specimen Preview Box -->
-          <div class="p-6 rounded-xl bg-[#f8f9fa] dark:bg-[#101217] border border-[#f0f0f0] dark:border-[#242834] space-y-4">
+          <div class="p-6 rounded-[12px] bg-[#161718] border border-[#23252a] space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Previewing Stand-in Font:</span>
+                <span class="text-xs font-mono text-[#8a8f98]">Previewing Stand-in Font:</span>
                 <div class="flex items-center gap-2 mt-0.5">
-                  <h3 id="logo-free-font-name" class="text-2xl font-bold text-[#ff4d00] tracking-tight">Oswald</h3>
-                  <span class="text-xs text-[#727272] dark:text-[#9ca3af] font-mono">(Google Font)</span>
+                  <h3 id="logo-free-font-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">Oswald</h3>
+                  <span class="text-xs text-[#8a8f98] font-mono">(Google Font)</span>
                 </div>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Size:</span>
-                <input id="logo-specimen-size" type="range" min="18" max="72" value="38" class="w-24 sm:w-28 accent-[#ff4d00] cursor-pointer" />
-                <span id="logo-specimen-size-label" class="font-mono text-xs text-[#262626] dark:text-[#f3f4f6] w-7">38px</span>
+                <span class="text-xs font-mono text-[#8a8f98]">Size:</span>
+                <input id="logo-specimen-size" type="range" min="18" max="72" value="38" class="w-24 sm:w-28 accent-[#e4f222] cursor-pointer" />
+                <span id="logo-specimen-size-label" class="font-mono text-xs text-[#d0d6e0] w-7">38px</span>
               </div>
             </div>
 
-            <p id="logo-reason" class="text-xs sm:text-sm text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed">
+            <p id="logo-reason" class="text-xs sm:text-sm text-[#8a8f98] leading-relaxed">
               Sturdy condensed vertical stems, athletic uppercase energy, near-identical proportion to Futura Condensed.
             </p>
 
             <div class="pt-2">
-              <span class="font-mono text-[10px] text-[#727272] dark:text-[#9ca3af] uppercase block mb-1">Interactive Brand Specimen:</span>
+              <span class="font-mono text-[10px] text-[#8a8f98] uppercase block mb-1">Interactive Brand Specimen:</span>
               <input
                 id="logo-specimen-input"
                 type="text"
                 value="JUST DO IT"
-                class="w-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] rounded-xl px-4 py-3 text-[#111827] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] transition-all leading-snug break-words"
+                class="w-full bg-[#0f1011] border border-[#23252a] rounded-[6px] px-4 py-3 text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] transition-all leading-snug break-words"
                 style="font-size: 38px; font-family: 'Oswald', sans-serif;"
                 spellcheck="false"
               />
             </div>
 
-            <p id="logo-notes" class="text-xs text-[#727272] dark:text-[#9ca3af] font-mono pt-2 border-t border-[#e5e7eb] dark:border-[#242834]">
+            <p id="logo-notes" class="text-xs text-[#8a8f98] font-mono pt-2 border-t border-[#23252a]">
               The iconic Nike tagline and wordmark uses a customized heavyweight italic cut of Futura Condensed.
             </p>
           </div>
 
           <!-- CSS Window -->
-          <div class="rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9f9f9] dark:bg-[#101217] overflow-hidden">
-            <div class="h-10 px-4 bg-[#f9f9f9] dark:bg-[#101217] border-b border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between">
+          <div class="rounded-[12px] border border-[#23252a] bg-[#161718] overflow-hidden">
+            <div class="h-10 px-4 bg-[#161718] border-b border-[#23252a] flex items-center justify-between">
               <div class="flex items-center gap-1.5">
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#e5e7eb] dark:bg-[#242834]"></div>
-                <span class="font-mono text-xs text-[#727272] dark:text-[#9ca3af] ml-2">logo-font-blueprint.css</span>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+                <span class="font-mono text-xs text-[#8a8f98] ml-2">logo-font-blueprint.css</span>
               </div>
               <button
                 id="btn-copy-logo-css"
                 type="button"
-                class="font-mono text-xs px-3 py-1 rounded-full bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] hover:bg-[#f9f9f9] dark:hover:bg-[#242834] text-[#262626] dark:text-[#f3f4f6] transition-colors cursor-pointer"
+                class="btn-ghost-linear font-mono text-xs px-3 py-1 rounded-[6px] cursor-pointer"
               >
                 Copy CSS
               </button>
             </div>
-            <pre id="code-logo-css" class="p-4 font-mono text-xs text-[#262626] dark:text-[#f3f4f6] overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+            <pre id="code-logo-css" class="p-4 font-mono text-xs text-[#d0d6e0] overflow-x-auto leading-relaxed"><code>@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 font-family: 'Oswald', sans-serif;
 font-weight: 700;
 font-style: italic;</code></pre>
           </div>
 
           <!-- Action Links -->
-          <div class="pt-4 border-t border-[#e5e7eb] dark:border-[#242834] flex flex-wrap items-center justify-between gap-3">
+          <div class="pt-4 border-t border-[#23252a] flex flex-wrap items-center justify-between gap-3">
             <a
               id="link-logo-gf"
               href="https://fonts.google.com/specimen/Oswald"
               target="_blank"
               rel="noopener noreferrer"
-              class="font-mono text-xs font-semibold text-[#ff4d00] hover:underline inline-flex items-center gap-1.5"
+              class="font-mono text-xs font-semibold text-[#e4f222] hover:underline inline-flex items-center gap-1.5"
             >
               <span>Inspect on Google Fonts Repository</span>
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -388,7 +388,7 @@ font-style: italic;</code></pre>
             <a
               id="link-logo-specimen"
               href="/fonts/oswald"
-              class="font-mono text-xs text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6] transition-colors"
+              class="font-mono text-xs text-[#8a8f98] hover:text-[#ffffff] transition-colors"
             >
               View Full Typography Specimen &rarr;
             </a>
@@ -399,8 +399,8 @@ font-style: italic;</code></pre>
 
       <!-- Mode 2: Upload Logo Image -->
       <div id="section-logo-upload" class="hidden mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
-        <div class="mb-6 p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-xs font-mono text-[#727272] dark:text-[#9ca3af] flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+        <div class="mb-6 p-4 rounded-[12px] border border-[#23252a] bg-[#0f1011] text-xs font-mono text-[#8a8f98] flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-[#e4f222]"></span>
           <span>Logo pre-processor active: Transparent alphas are normalized, colored backgrounds are auto-inverted, and non-letter emblem icons are segmented automatically.</span>
         </div>
         <FontFinderApp
@@ -451,15 +451,15 @@ font-style: italic;</code></pre>
 
       // Tab switcher
       tabBrandDir?.addEventListener('click', () => {
-        tabBrandDir.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
-        tabLogoUpload.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        tabBrandDir.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer';
+        tabLogoUpload.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
         secBrandDir?.classList.remove('hidden');
         secLogoUpload?.classList.add('hidden');
       });
 
       tabLogoUpload?.addEventListener('click', () => {
-        tabLogoUpload.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-white dark:bg-[#242834] text-[#262626] dark:text-white shadow-xs cursor-pointer';
-        tabBrandDir.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-white cursor-pointer';
+        tabLogoUpload.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all font-medium bg-[#ffffff] text-[#08090a] shadow-xs cursor-pointer';
+        tabBrandDir.className = 'px-5 py-1.5 rounded-full text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
         secLogoUpload?.classList.remove('hidden');
         secBrandDir?.classList.add('hidden');
       });
@@ -514,18 +514,18 @@ font-style: italic;</code></pre>
             const isSelected = (idx === twinIndex);
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = `p-3 rounded-xl border text-left transition-all cursor-pointer ${
+            btn.className = `p-3 rounded-[6px] border text-left transition-all cursor-pointer ${
               isSelected
-                ? 'border-[#ff4d00] bg-[#ff4d00]/5 dark:bg-[#ff4d00]/10 ring-1 ring-[#ff4d00]'
-                : 'border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217] hover:border-[#d1d5db] dark:hover:border-[#333846]'
+                ? 'border-[#e4f222] bg-[rgba(228,242,34,0.06)] ring-1 ring-[#e4f222]'
+                : 'border-[#23252a] bg-[#161718] hover:border-[#383b3f]'
             }`;
             btn.innerHTML = `
               <div class="flex items-center justify-between text-xs font-mono mb-1">
-                <span class="${isSelected ? 'text-[#ff4d00] font-bold' : 'text-[#727272] dark:text-[#9ca3af]'}">#${idx + 1} Twin</span>
-                <span class="font-bold ${isSelected ? 'text-[#059669] dark:text-[#34d399]' : 'text-[#727272] dark:text-[#9ca3af]'}">${twin.similarity}</span>
+                <span class="${isSelected ? 'text-[#e4f222] font-bold' : 'text-[#8a8f98]'}">#${idx + 1} Twin</span>
+                <span class="font-bold ${isSelected ? 'text-[#27a644]' : 'text-[#8a8f98]'}">${twin.similarity}</span>
               </div>
-              <div class="font-bold text-sm sm:text-base text-[#111827] dark:text-[#f3f4f6]">${twin.name}</div>
-              <div class="text-[11px] text-[#727272] dark:text-[#9ca3af] mt-0.5">Weight: ${twin.weight}</div>
+              <div class="font-bold text-sm sm:text-base text-[#ffffff]">${twin.name}</div>
+              <div class="text-[11px] text-[#8a8f98] mt-0.5">Weight: ${twin.weight}</div>
             `;
             btn.addEventListener('click', () => {
               renderBrand(brand, idx);
@@ -585,11 +585,11 @@ font-style: italic;</code></pre>
       document.querySelectorAll('.ind-pill').forEach(pill => {
         pill.addEventListener('click', () => {
           document.querySelectorAll('.ind-pill').forEach(p => {
-            p.classList.remove('bg-[#262626]', 'dark:bg-white', 'text-white', 'dark:text-[#111827]', 'font-semibold');
-            p.classList.add('bg-[#f3f4f6]', 'dark:bg-[#15171e]', 'text-[#4b5563]', 'dark:text-[#cbd5e1]', 'border', 'border-[#e5e7eb]', 'dark:border-[#242834]');
+            p.classList.remove('bg-[#ffffff]', 'text-[#08090a]', 'font-semibold');
+            p.classList.add('bg-[#161718]', 'text-[#8a8f98]', 'border', 'border-[#23252a]');
           });
-          pill.classList.remove('bg-[#f3f4f6]', 'dark:bg-[#15171e]', 'text-[#4b5563]', 'dark:text-[#cbd5e1]', 'border', 'border-[#e5e7eb]', 'dark:border-[#242834]');
-          pill.classList.add('bg-[#262626]', 'dark:bg-white', 'text-white', 'dark:text-[#111827]', 'font-semibold');
+          pill.classList.remove('bg-[#161718]', 'text-[#8a8f98]', 'border', 'border-[#23252a]');
+          pill.classList.add('bg-[#ffffff]', 'text-[#08090a]', 'font-semibold');
 
           const ind = pill.getAttribute('data-ind');
           if (ind === 'all') {

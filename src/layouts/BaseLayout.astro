@@ -2,7 +2,6 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import SeoHead from '../components/SeoHead.astro';
-import NeonCursorTrail from '../components/NeonCursorTrail.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -16,18 +15,22 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <!-- Prevent dark mode flash -->
     <script is:inline>
-      (function () {
-        const storedTheme = localStorage.getItem('theme');
-        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (storedTheme === 'dark' || (!storedTheme && userPrefersDark)) {
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          if (stored === 'light' || (!stored && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          }
+        } catch (e) {
           document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
@@ -38,10 +41,10 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
       ogImage={ogImage}
     />
   </head>
-  <body class="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200">
+  <body class="min-h-screen flex flex-col bg-[#08090a] text-[#d0d6e0] font-sans antialiased selection:bg-[#e4f222] selection:text-[#08090a] transition-colors duration-150">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-foreground text-background font-medium rounded-md shadow-lg"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[#ffffff] text-[#08090a] font-medium rounded-[6px] shadow-sm"
     >
       Skip to content
     </a>
@@ -52,7 +55,6 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
       <slot />
     </main>
 
-    <NeonCursorTrail />
     <Footer />
   </body>
 </html>

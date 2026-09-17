@@ -351,25 +351,25 @@ const pairingsJson = JSON.stringify(pairings);
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=Montserrat:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@500;600;700&family=Outfit:wght@400;500;600&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Oswald:wght@500;600;700&family=Merriweather:wght@300;400;700&family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=swap"
   />
 
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-grid-pattern-subtle border-b border-[#e5e7eb] dark:border-[#242834] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto">
       
       <!-- Top Breadcrumb & Badge -->
       <div class="flex items-center justify-center gap-2 mb-3">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f9fafb] dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834]">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <a href="/tools" class="text-xs font-mono text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors">Tools</a>
-          <span class="text-xs text-[#d1d5db] dark:text-[#4b5563]">/</span>
-          <span class="text-xs font-mono text-[#ff4d00] uppercase tracking-wider">Design System Studio</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+          <a href="/tools" class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">Tools</a>
+          <span class="text-xs text-[#383b3f]">/</span>
+          <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">Design System Studio</span>
         </div>
       </div>
 
       <!-- Hero Header -->
       <div class="text-center max-w-3xl mx-auto">
-        <h1 class="text-3xl sm:text-5xl font-medium text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+        <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight" style="letter-spacing: -0.022em;">
           Find a font pairing
         </h1>
-        <p class="mt-3.5 text-sm sm:text-base text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-xl mx-auto">
+        <p class="mt-3.5 text-sm sm:text-base text-[#8a8f98] leading-relaxed max-w-xl mx-auto">
           Typography harmony is an exact science. Test 31 designer-curated Google Font combinations across Editorial, SaaS Hero, and Product layouts with live CSS exports.
         </p>
       </div>
@@ -377,22 +377,22 @@ const pairingsJson = JSON.stringify(pairings);
       <!-- ========================================================================= -->
       <!-- SECTION 1: INTERACTIVE DESIGN SYSTEM STUDIO (LIVE CANVAS) -->
       <!-- ========================================================================= -->
-      <div id="studio" class="mt-10 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs overflow-hidden">
+      <div id="studio" class="mt-10 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs overflow-hidden">
         
         <!-- Studio Toolbar: Header Pair Status & Layout Switcher -->
-        <div class="p-4 sm:p-5 border-b border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="p-4 sm:p-5 border-b border-[#23252a] bg-[#161718] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           
           <!-- Active Pair Display -->
           <div class="flex items-center gap-3">
-            <div class="w-2.5 h-2.5 rounded-full bg-[#ff4d00] animate-pulse"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#e4f222]"></div>
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-xs font-mono font-bold text-[#262626] dark:text-[#f3f4f6]" id="active-heading-name">Space Grotesk</span>
-                <span class="text-xs font-mono text-[#ff4d00]">&plus;</span>
-                <span class="text-xs font-mono font-bold text-[#262626] dark:text-[#f3f4f6]" id="active-body-name">Inter</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#ff4d00]/10 text-[#ff4d00] border border-[#ff4d00]/20 ml-2" id="active-vibe-badge">SaaS & Tech</span>
+                <span class="text-xs font-mono font-bold text-[#ffffff]" id="active-heading-name">Space Grotesk</span>
+                <span class="text-xs font-mono text-[#e4f222]">&plus;</span>
+                <span class="text-xs font-mono font-bold text-[#ffffff]" id="active-body-name">Inter</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[rgba(228,242,34,0.1)] text-[#e4f222] border border-[rgba(228,242,34,0.2)] ml-2" id="active-vibe-badge">SaaS & Tech</span>
               </div>
-              <p class="text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] mt-0.5" id="active-rule-text">
+              <p class="text-[11px] font-mono text-[#8a8f98] mt-0.5" id="active-rule-text">
                 Neo-brutalist tech headline balanced by ultra-clean neutral UI workhorse.
               </p>
             </div>
@@ -404,7 +404,7 @@ const pairingsJson = JSON.stringify(pairings);
             <button
               type="button"
               id="btn-shuffle-pair"
-              class="px-3.5 py-1.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] hover:border-[#ff4d00] hover:text-[#ff4d00] text-[#262626] dark:text-[#f3f4f6] text-xs font-mono transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-xs"
+              class="btn-ghost-linear px-3.5 py-1.5 rounded-[6px] text-xs font-mono transition-all cursor-pointer inline-flex items-center gap-1.5"
               title="Pick a random pairing"
             >
               <span>🎲</span>
@@ -415,7 +415,7 @@ const pairingsJson = JSON.stringify(pairings);
             <button
               type="button"
               id="btn-swap-fonts"
-              class="px-3.5 py-1.5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] hover:border-[#ff4d00] hover:text-[#ff4d00] text-[#262626] dark:text-[#f3f4f6] text-xs font-mono transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-xs"
+              class="btn-ghost-linear px-3.5 py-1.5 rounded-[6px] text-xs font-mono transition-all cursor-pointer inline-flex items-center gap-1.5"
               title="Swap Heading and Body fonts"
             >
               <span>⇄</span>
@@ -423,11 +423,11 @@ const pairingsJson = JSON.stringify(pairings);
             </button>
 
             <!-- Layout View Switchers -->
-            <div class="inline-flex p-0.5 rounded-xl bg-[#e5e7eb]/70 dark:bg-[#242834] border border-[#d1d5db] dark:border-[#2e3446]">
+            <div class="inline-flex p-0.5 rounded-[6px] bg-[#0f1011] border border-[#23252a]">
               <button
                 type="button"
                 id="layout-btn-editorial"
-                class="layout-view-btn px-2.5 py-1 rounded-lg text-xs font-mono transition-all bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs cursor-pointer"
+                class="layout-view-btn px-2.5 py-1 rounded-[4px] text-xs font-mono transition-all bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer"
                 data-layout="editorial"
               >
                 Editorial
@@ -435,7 +435,7 @@ const pairingsJson = JSON.stringify(pairings);
               <button
                 type="button"
                 id="layout-btn-saas"
-                class="layout-view-btn px-2.5 py-1 rounded-lg text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6] cursor-pointer"
+                class="layout-view-btn px-2.5 py-1 rounded-[4px] text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer"
                 data-layout="saas"
               >
                 SaaS Hero
@@ -443,7 +443,7 @@ const pairingsJson = JSON.stringify(pairings);
               <button
                 type="button"
                 id="layout-btn-product"
-                class="layout-view-btn px-2.5 py-1 rounded-lg text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6] cursor-pointer"
+                class="layout-view-btn px-2.5 py-1 rounded-[4px] text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer"
                 data-layout="product"
               >
                 Product Card
@@ -453,7 +453,7 @@ const pairingsJson = JSON.stringify(pairings);
         </div>
 
         <!-- Studio Hierarchy & Sliders Control Panel -->
-        <div class="px-5 py-3 border-b border-[#f3f4f6] dark:border-[#242834] bg-white dark:bg-[#15171e] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+        <div class="px-5 py-3 border-b border-[#23252a] bg-[#0f1011] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#8a8f98]">
           <div class="flex flex-wrap items-center gap-6">
             <!-- Heading Size Slider -->
             <div class="flex items-center gap-2">
@@ -464,9 +464,9 @@ const pairingsJson = JSON.stringify(pairings);
                 min="24"
                 max="60"
                 value="38"
-                class="w-24 accent-[#ff4d00] cursor-pointer"
+                class="w-24 accent-[#e4f222] cursor-pointer"
               />
-              <span id="label-heading-size" class="w-8 text-[#262626] dark:text-[#f3f4f6] font-medium">38px</span>
+              <span id="label-heading-size" class="w-8 text-[#ffffff] font-medium">38px</span>
             </div>
 
             <!-- Body Size Slider -->
@@ -478,9 +478,9 @@ const pairingsJson = JSON.stringify(pairings);
                 min="13"
                 max="20"
                 value="15"
-                class="w-20 accent-[#ff4d00] cursor-pointer"
+                class="w-20 accent-[#e4f222] cursor-pointer"
               />
-              <span id="label-body-size" class="w-8 text-[#262626] dark:text-[#f3f4f6] font-medium">15px</span>
+              <span id="label-body-size" class="w-8 text-[#ffffff] font-medium">15px</span>
             </div>
 
             <!-- Heading Weight -->
@@ -488,7 +488,7 @@ const pairingsJson = JSON.stringify(pairings);
               <span>H1 Weight:</span>
               <select
                 id="select-heading-weight"
-                class="px-2 py-1 rounded-lg border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] text-xs text-[#262626] dark:text-[#f3f4f6] outline-none"
+                class="px-2 py-1 rounded-[4px] border border-[#23252a] bg-[#161718] text-xs text-[#ffffff] outline-none"
               >
                 <option value="400">Regular (400)</option>
                 <option value="600">SemiBold (600)</option>
@@ -498,28 +498,28 @@ const pairingsJson = JSON.stringify(pairings);
             </div>
           </div>
 
-          <div class="text-[11px] text-[#9ca3af] dark:text-[#6b7280]">
-            💡 All text below is <span class="text-[#ff4d00]">editable</span> — click to test your own copy
+          <div class="text-[11px] text-[#8a8f98]">
+            💡 All text below is <span class="text-[#e4f222]">editable</span> — click to test your own copy
           </div>
         </div>
 
         <!-- ========================================================================= -->
         <!-- LIVE CANVAS CONTENT AREA (3 Switchable Layouts) -->
         <!-- ========================================================================= -->
-        <div class="p-6 sm:p-10 min-h-[380px] bg-white dark:bg-[#15171e] transition-colors">
+        <div class="p-6 sm:p-10 min-h-[380px] bg-[#0f1011] transition-colors">
           
           <!-- LAYOUT 1: EDITORIAL ARTICLE LAYOUT -->
           <div id="canvas-editorial" class="canvas-layout max-w-3xl mx-auto">
             <div class="flex items-center gap-2 mb-3">
-              <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-sm bg-[#f3f4f6] dark:bg-[#1f2330] text-[#727272] dark:text-[#9ca3af] border border-[#e5e7eb] dark:border-[#2e3446]">
+              <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-[4px] bg-[#161718] text-[#8a8f98] border border-[#23252a]">
                 Typography Monograph
               </span>
-              <span class="text-xs font-mono text-[#9ca3af]">&bull; Volume IV</span>
+              <span class="text-xs font-mono text-[#8a8f98]">&bull; Volume IV</span>
             </div>
 
             <h1
               id="live-heading-editorial"
-              class="font-bold text-[#111827] dark:text-[#f3f4f6] tracking-tight outline-none transition-all leading-[1.15]"
+              class="font-bold text-[#ffffff] tracking-tight outline-none transition-all leading-[1.15]"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Space Grotesk', sans-serif; font-size: 38px; font-weight: 700;"
@@ -527,7 +527,7 @@ const pairingsJson = JSON.stringify(pairings);
               Architecture in digital spaces and the mathematical harmony of screens
             </h1>
 
-            <div class="mt-4 pb-4 border-b border-[#f3f4f6] dark:border-[#242834] flex items-center gap-3 text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+            <div class="mt-4 pb-4 border-b border-[#23252a] flex items-center gap-3 text-xs font-mono text-[#8a8f98]">
               <span>By Elena Rostova</span>
               <span>&bull;</span>
               <span>6 min read</span>
@@ -537,7 +537,7 @@ const pairingsJson = JSON.stringify(pairings);
 
             <h2
               id="live-subhead-editorial"
-              class="mt-6 font-semibold text-[#262626] dark:text-[#e5e7eb] tracking-tight outline-none transition-all text-xl"
+              class="mt-6 font-semibold text-[#d0d6e0] tracking-tight outline-none transition-all text-xl"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Space Grotesk', sans-serif;"
@@ -547,7 +547,7 @@ const pairingsJson = JSON.stringify(pairings);
 
             <p
               id="live-body-editorial-1"
-              class="mt-4 text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed outline-none transition-all"
+              class="mt-4 text-[#d0d6e0] leading-relaxed outline-none transition-all"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Inter', sans-serif; font-size: 15px;"
@@ -557,7 +557,7 @@ const pairingsJson = JSON.stringify(pairings);
 
             <blockquote
               id="live-quote-editorial"
-              class="my-6 pl-4 border-l-2 border-[#ff4d00] italic text-[#262626] dark:text-[#f3f4f6] outline-none text-base transition-all"
+              class="my-6 pl-4 border-l-2 border-[#e4f222] italic text-[#ffffff] outline-none text-base transition-all"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Space Grotesk', serif;"
@@ -567,7 +567,7 @@ const pairingsJson = JSON.stringify(pairings);
 
             <p
               id="live-body-editorial-2"
-              class="mt-4 text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed outline-none transition-all"
+              class="mt-4 text-[#d0d6e0] leading-relaxed outline-none transition-all"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Inter', sans-serif; font-size: 15px;"
@@ -578,14 +578,14 @@ const pairingsJson = JSON.stringify(pairings);
 
           <!-- LAYOUT 2: SAAS HERO LANDING LAYOUT -->
           <div id="canvas-saas" class="canvas-layout hidden max-w-3xl mx-auto text-center py-4">
-            <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#ff4d00]/10 border border-[#ff4d00]/20 text-[#ff4d00] text-xs font-mono">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+            <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[rgba(228,242,34,0.1)] border border-[rgba(228,242,34,0.2)] text-[#e4f222] text-xs font-mono">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></span>
               <span>NOW AVAILABLE FOR TEAMS &bull; VERSION 3.0</span>
             </div>
 
             <h1
               id="live-heading-saas"
-              class="font-bold text-[#111827] dark:text-[#f3f4f6] tracking-tight outline-none transition-all leading-[1.15]"
+              class="font-bold text-[#ffffff] tracking-tight outline-none transition-all leading-[1.15]"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700;"
@@ -595,7 +595,7 @@ const pairingsJson = JSON.stringify(pairings);
 
             <p
               id="live-body-saas"
-              class="mt-5 text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed outline-none transition-all max-w-xl mx-auto"
+              class="mt-5 text-[#d0d6e0] leading-relaxed outline-none transition-all max-w-xl mx-auto"
               contenteditable="true"
               spellcheck="false"
               style="font-family: 'Inter', sans-serif; font-size: 16px;"
@@ -604,47 +604,47 @@ const pairingsJson = JSON.stringify(pairings);
             </p>
 
             <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <button type="button" class="px-6 py-2.5 rounded-full bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer">
+              <button type="button" class="btn-acid-lime px-6 py-2.5 rounded-[6px] text-xs font-semibold shadow-xs transition-colors cursor-pointer">
                 Start Building Free &rarr;
               </button>
-              <button type="button" class="px-5 py-2.5 rounded-full border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217] text-[#262626] dark:text-[#f3f4f6] text-xs font-mono transition-colors hover:border-[#727272] cursor-pointer">
+              <button type="button" class="btn-ghost-linear px-5 py-2.5 rounded-[6px] text-xs font-mono transition-colors cursor-pointer">
                 View API Documentation
               </button>
             </div>
 
             <!-- Mini Feature Stats Cards -->
             <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
-              <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
-                <span class="text-xs font-mono text-[#ff4d00]">99.99%</span>
-                <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Zero Layout Shift</h4>
-                <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1" style="font-family: 'Inter', sans-serif;">Optimized font-display swap.</p>
+              <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-xs font-mono text-[#e4f222]">99.99%</span>
+                <h4 class="text-sm font-bold text-[#ffffff] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Zero Layout Shift</h4>
+                <p class="text-xs text-[#8a8f98] mt-1" style="font-family: 'Inter', sans-serif;">Optimized font-display swap.</p>
               </div>
-              <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
-                <span class="text-xs font-mono text-[#ff4d00]">100% In-Browser</span>
-                <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Zero Latency</h4>
-                <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1" style="font-family: 'Inter', sans-serif;">Local Web Worker processing.</p>
+              <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-xs font-mono text-[#e4f222]">100% In-Browser</span>
+                <h4 class="text-sm font-bold text-[#ffffff] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Zero Latency</h4>
+                <p class="text-xs text-[#8a8f98] mt-1" style="font-family: 'Inter', sans-serif;">Local Web Worker processing.</p>
               </div>
-              <div class="p-4 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
-                <span class="text-xs font-mono text-[#ff4d00]">Open License</span>
-                <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Commercial Free</h4>
-                <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1" style="font-family: 'Inter', sans-serif;">SIL Open Font License.</p>
+              <div class="p-4 rounded-[6px] border border-[#23252a] bg-[#161718]">
+                <span class="text-xs font-mono text-[#e4f222]">Open License</span>
+                <h4 class="text-sm font-bold text-[#ffffff] mt-0.5" style="font-family: 'Space Grotesk', sans-serif;">Commercial Free</h4>
+                <p class="text-xs text-[#8a8f98] mt-1" style="font-family: 'Inter', sans-serif;">SIL Open Font License.</p>
               </div>
             </div>
           </div>
 
           <!-- LAYOUT 3: PRODUCT CARD LAYOUT -->
           <div id="canvas-product" class="canvas-layout hidden max-w-xl mx-auto py-4">
-            <div class="p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217] shadow-xs">
+            <div class="p-6 rounded-[12px] border border-[#23252a] bg-[#161718] shadow-xs">
               <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-sm bg-[#ff4d00]/10 text-[#ff4d00] border border-[#ff4d00]/20">
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-[4px] bg-[rgba(228,242,34,0.1)] text-[#e4f222] border border-[rgba(228,242,34,0.2)]">
                   Archival Edition
                 </span>
-                <span class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">Item #TK-0842</span>
+                <span class="text-xs font-mono text-[#8a8f98]">Item #TK-0842</span>
               </div>
 
               <h2
                 id="live-heading-product"
-                class="font-bold text-[#111827] dark:text-[#f3f4f6] tracking-tight outline-none transition-all text-2xl sm:text-3xl"
+                class="font-bold text-[#ffffff] tracking-tight outline-none transition-all text-2xl sm:text-3xl"
                 contenteditable="true"
                 spellcheck="false"
                 style="font-family: 'Space Grotesk', sans-serif;"
@@ -652,13 +652,13 @@ const pairingsJson = JSON.stringify(pairings);
                 Chronograph Mechanical Watch No. 42
               </h2>
 
-              <div class="mt-2 text-xl font-mono text-[#ff4d00] font-semibold">
+              <div class="mt-2 text-xl font-mono text-[#e4f222] font-semibold">
                 $480.00 USD
               </div>
 
               <p
                 id="live-body-product"
-                class="mt-3 text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed outline-none transition-all text-sm"
+                class="mt-3 text-[#d0d6e0] leading-relaxed outline-none transition-all text-sm"
                 contenteditable="true"
                 spellcheck="false"
                 style="font-family: 'Inter', sans-serif;"
@@ -666,11 +666,11 @@ const pairingsJson = JSON.stringify(pairings);
                 Engineered from aircraft-grade titanium with high-domed scratch-resistant sapphire glass. Features a 38-jewel Swiss mechanical automatic movement calibrated for extreme precision.
               </p>
 
-              <div class="mt-6 pt-4 border-t border-[#e5e7eb] dark:border-[#242834] flex items-center justify-between gap-4">
-                <div class="text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
+              <div class="mt-6 pt-4 border-t border-[#23252a] flex items-center justify-between gap-4">
+                <div class="text-xs font-mono text-[#8a8f98]">
                   Free global express shipping &bull; 5-year warranty
                 </div>
-                <button type="button" class="px-5 py-2 rounded-xl bg-[#262626] dark:bg-[#242834] hover:bg-[#ff4d00] text-white text-xs font-mono font-medium transition-colors cursor-pointer shrink-0">
+                <button type="button" class="btn-acid-lime px-5 py-2 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0">
                   Add to Cart &rarr;
                 </button>
               </div>
@@ -682,21 +682,21 @@ const pairingsJson = JSON.stringify(pairings);
         <!-- ========================================================================= -->
         <!-- BOTTOM BAR: PRODUCTION CSS & DESIGN SYSTEM TOKENS EXPORT DRAWER -->
         <!-- ========================================================================= -->
-        <div class="p-5 border-t border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#101217]">
+        <div class="p-5 border-t border-[#23252a] bg-[#161718]">
           <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             
             <div class="flex items-center gap-3">
-              <span class="text-xs font-mono font-bold text-[#262626] dark:text-[#f3f4f6]">Production Code:</span>
+              <span class="text-xs font-mono font-bold text-[#ffffff]">Production Code:</span>
               
               <!-- Code Format Toggle -->
-              <div class="inline-flex p-0.5 rounded-lg bg-[#e5e7eb] dark:bg-[#242834]">
-                <button type="button" id="btn-export-css" class="btn-export-type px-2.5 py-1 rounded text-[11px] font-mono bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs cursor-pointer" data-type="css">
+              <div class="inline-flex p-0.5 rounded-[6px] bg-[#0f1011] border border-[#23252a]">
+                <button type="button" id="btn-export-css" class="btn-export-type px-2.5 py-1 rounded-[4px] text-[11px] font-mono bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer" data-type="css">
                   CSS Variables
                 </button>
-                <button type="button" id="btn-export-import" class="btn-export-type px-2.5 py-1 rounded text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] cursor-pointer" data-type="import">
+                <button type="button" id="btn-export-import" class="btn-export-type px-2.5 py-1 rounded-[4px] text-[11px] font-mono text-[#8a8f98] hover:text-[#ffffff] cursor-pointer" data-type="import">
                   Google @import
                 </button>
-                <button type="button" id="btn-export-tailwind" class="btn-export-type px-2.5 py-1 rounded text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] cursor-pointer" data-type="tailwind">
+                <button type="button" id="btn-export-tailwind" class="btn-export-type px-2.5 py-1 rounded-[4px] text-[11px] font-mono text-[#8a8f98] hover:text-[#ffffff] cursor-pointer" data-type="tailwind">
                   Tailwind Config
                 </button>
               </div>
@@ -706,7 +706,7 @@ const pairingsJson = JSON.stringify(pairings);
             <button
               type="button"
               id="btn-copy-active-code"
-              class="px-5 py-2 rounded-full bg-[#ff4d00] hover:bg-[#e04400] text-white text-xs font-mono font-medium transition-all shadow-xs inline-flex items-center gap-2 cursor-pointer"
+              class="btn-acid-lime px-5 py-2 rounded-[6px] text-xs font-mono font-medium transition-all shadow-xs inline-flex items-center gap-2 cursor-pointer"
             >
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
@@ -716,7 +716,7 @@ const pairingsJson = JSON.stringify(pairings);
           </div>
 
           <!-- Code Display Block -->
-          <pre id="active-code-display" class="mt-3 p-3.5 rounded-xl bg-white dark:bg-[#15171e] border border-[#e5e7eb] dark:border-[#242834] text-[11px] font-mono text-[#262626] dark:text-[#cbd5e1] overflow-x-auto leading-relaxed"></pre>
+          <pre id="active-code-display" class="mt-3 p-3.5 rounded-[6px] bg-[#0f1011] border border-[#23252a] text-[11px] font-mono text-[#d0d6e0] overflow-x-auto leading-relaxed"></pre>
         </div>
 
       </div>
@@ -725,16 +725,16 @@ const pairingsJson = JSON.stringify(pairings);
       <!-- SECTION 2: CURATED PAIRINGS DIRECTORY & FILTER ENGINE (31 Pairs) -->
       <!-- ========================================================================= -->
       <div class="mt-14">
-        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-[#e5e7eb] dark:border-[#242834]">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-[#23252a]">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-              <span class="font-mono text-xs uppercase tracking-wider text-[#727272] dark:text-[#9ca3af]">EXPLORE MATRIX</span>
+              <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+              <span class="font-mono text-xs uppercase tracking-wider text-[#8a8f98]">EXPLORE MATRIX</span>
             </div>
-            <h2 class="text-2xl font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+            <h2 class="text-2xl font-bold text-[#ffffff] tracking-tight">
               Curated typography pairings directory
             </h2>
-            <p class="text-xs text-[#727272] dark:text-[#9ca3af] mt-1">
+            <p class="text-xs text-[#8a8f98] mt-1">
               Click "Test in Studio" on any pairing to load it into the interactive live canvas above.
             </p>
           </div>
@@ -745,9 +745,9 @@ const pairingsJson = JSON.stringify(pairings);
               id="pairing-search"
               type="text"
               placeholder="Search by font name or vibe..."
-              class="w-full pl-9 pr-4 py-2 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] text-xs font-mono text-[#262626] dark:text-[#f3f4f6] focus:outline-none focus:border-[#ff4d00] placeholder:text-[#9ca3af] transition-all"
+              class="w-full pl-9 pr-4 py-2 rounded-[6px] border border-[#23252a] bg-[#0f1011] text-xs font-mono text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all"
             />
-            <svg class="w-4 h-4 text-[#727272] dark:text-[#9ca3af] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 text-[#8a8f98] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
@@ -761,8 +761,8 @@ const pairingsJson = JSON.stringify(pairings);
               data-vibe={vibe}
               class={`vibe-btn text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
                 idx === 0
-                  ? 'bg-[#262626] dark:bg-[#242834] text-white border-transparent'
-                  : 'bg-white dark:bg-[#15171e] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]'
+                  ? 'bg-[#ffffff] text-[#08090a] border-transparent font-medium'
+                  : 'bg-[#161718] border-[#23252a] text-[#8a8f98] hover:border-[#e4f222] hover:text-[#ffffff]'
               }`}
             >
               {vibe}
@@ -771,8 +771,8 @@ const pairingsJson = JSON.stringify(pairings);
         </div>
 
         <!-- Status Count -->
-        <div class="mt-5 flex items-center justify-between text-xs font-mono text-[#727272] dark:text-[#9ca3af]">
-          <span>Showing <strong id="pair-count" class="text-[#ff4d00]">31</strong> pairings</span>
+        <div class="mt-5 flex items-center justify-between text-xs font-mono text-[#8a8f98]">
+          <span>Showing <strong id="pair-count" class="text-[#e4f222]">31</strong> pairings</span>
           <span class="text-[11px]">100% Free Google Fonts &bull; Open Source</span>
         </div>
 
@@ -783,7 +783,7 @@ const pairingsJson = JSON.stringify(pairings);
             const encodedBody = encodeURIComponent(p.body).replace(/%20/g, '+');
             return (
               <div
-                class="pair-card p-6 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#15171e] shadow-xs hover:border-[#ff4d00]/40 dark:hover:border-[#ff4d00]/50 transition-all flex flex-col justify-between group"
+                class="pair-card p-6 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs hover:border-[#383b3f] transition-all flex flex-col justify-between group"
                 data-id={p.id}
                 data-heading={p.heading}
                 data-heading-cat={p.headingCat}
@@ -794,14 +794,14 @@ const pairingsJson = JSON.stringify(pairings);
               >
                 <div>
                   <!-- Top Row -->
-                  <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#f3f4f6] dark:border-[#242834]">
-                    <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#f3f4f6] dark:bg-[#1f2330] text-[#4b5563] dark:text-[#cbd5e1] border border-[#e5e7eb] dark:border-[#2e3446]">
+                  <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#23252a]">
+                    <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#161718] text-[#d0d6e0] border border-[#23252a]">
                       {p.vibe}
                     </span>
 
                     <button
                       type="button"
-                      class="btn-load-studio text-[11px] font-mono text-[#ff4d00] hover:underline cursor-pointer inline-flex items-center gap-1"
+                      class="btn-load-studio text-[11px] font-mono text-[#e4f222] hover:underline cursor-pointer inline-flex items-center gap-1"
                       data-id={p.id}
                     >
                       <span>Test in Studio</span>
@@ -811,30 +811,30 @@ const pairingsJson = JSON.stringify(pairings);
 
                   <!-- Font Pairing Title Names -->
                   <div class="mt-3 flex items-center gap-2">
-                    <h3 class="text-base font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                    <h3 class="text-base font-bold text-[#ffffff] tracking-tight">
                       {p.heading}
                     </h3>
-                    <span class="text-xs font-mono text-[#ff4d00] font-bold">&plus;</span>
-                    <h3 class="text-base font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+                    <span class="text-xs font-mono text-[#e4f222] font-bold">&plus;</span>
+                    <h3 class="text-base font-bold text-[#ffffff] tracking-tight">
                       {p.body}
                     </h3>
                   </div>
 
                   <!-- Contrast Rule Note -->
-                  <p class="mt-1 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+                  <p class="mt-1 text-xs text-[#8a8f98] leading-relaxed">
                     {p.contrastRule}
                   </p>
 
                   <!-- Live Mini Preview -->
-                  <div class="my-5 p-4 rounded-xl bg-[#f9fafb] dark:bg-[#101217] border border-[#e5e7eb] dark:border-[#242834]">
+                  <div class="my-5 p-4 rounded-[6px] bg-[#161718] border border-[#23252a]">
                     <div
-                      class="text-xl font-bold text-[#111827] dark:text-[#f3f4f6] tracking-tight leading-tight"
+                      class="text-xl font-bold text-[#ffffff] tracking-tight leading-tight"
                       style={`font-family: '${p.heading}', serif;`}
                     >
                       Typography creates visual rhythm
                     </div>
                     <div
-                      class="mt-2 text-xs text-[#4b5563] dark:text-[#cbd5e1] leading-relaxed line-clamp-2"
+                      class="mt-2 text-xs text-[#d0d6e0] leading-relaxed line-clamp-2"
                       style={`font-family: '${p.body}', sans-serif;`}
                     >
                       {p.description}
@@ -843,11 +843,11 @@ const pairingsJson = JSON.stringify(pairings);
                 </div>
 
                 <!-- Bottom Bar: Actions & Links -->
-                <div class="pt-3.5 border-t border-[#f3f4f6] dark:border-[#242834] flex items-center justify-between gap-3">
+                <div class="pt-3.5 border-t border-[#23252a] flex items-center justify-between gap-3">
                   <button
                     type="button"
                     data-css={`/* Design System Typography Tokens */\n:root {\n  --font-heading: '${p.heading}', ${p.headingCat.toLowerCase()};\n  --font-body: '${p.body}', ${p.bodyCat.toLowerCase()};\n}`}
-                    class="btn-copy-card-css px-3 py-1.5 rounded-full bg-[#262626] dark:bg-[#242834] text-white text-[11px] font-mono font-medium hover:bg-[#ff4d00] transition-colors cursor-pointer"
+                    class="btn-copy-card-css btn-ghost-linear px-3 py-1.5 rounded-[6px] text-[11px] font-mono font-medium cursor-pointer"
                   >
                     Copy CSS
                   </button>
@@ -857,7 +857,7 @@ const pairingsJson = JSON.stringify(pairings);
                       href={`https://fonts.google.com/specimen/${p.heading.replace(/\s+/g, '+')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors"
+                      class="text-[#8a8f98] hover:text-[#e4f222] transition-colors"
                     >
                       {p.heading} &rarr;
                     </a>
@@ -865,7 +865,7 @@ const pairingsJson = JSON.stringify(pairings);
                       href={`https://fonts.google.com/specimen/${p.body.replace(/\s+/g, '+')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="text-[#727272] dark:text-[#9ca3af] hover:text-[#ff4d00] transition-colors"
+                      class="text-[#8a8f98] hover:text-[#e4f222] transition-colors"
                     >
                       {p.body} &rarr;
                     </a>
@@ -876,7 +876,7 @@ const pairingsJson = JSON.stringify(pairings);
           })}
         </div>
 
-        <div id="no-pairings" class="hidden py-16 text-center text-xs font-mono text-[#727272] dark:text-[#9ca3af] border border-dashed border-[#e5e7eb] dark:border-[#242834] rounded-2xl mt-4">
+        <div id="no-pairings" class="hidden py-16 text-center text-xs font-mono text-[#8a8f98] border border-dashed border-[#23252a] rounded-[12px] mt-4">
           No pairings matched your search. Try "Space Grotesk", "Playfair", "Inter", or select "All".
         </div>
       </div>
@@ -884,42 +884,40 @@ const pairingsJson = JSON.stringify(pairings);
       <!-- ========================================================================= -->
       <!-- SECTION 3: TYPOGRAPHIC PAIRING SCIENCE & RULES -->
       <!-- ========================================================================= -->
-      <div class="mt-16 p-8 rounded-2xl border border-[#e5e7eb] dark:border-[#242834] bg-[#f9fafb] dark:bg-[#15171e] shadow-xs">
-        <h3 class="text-lg font-bold text-[#262626] dark:text-[#f3f4f6] tracking-tight">
+      <div class="mt-16 p-8 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
+        <h3 class="text-lg font-bold text-[#ffffff] tracking-tight">
           The 3 Golden Rules of Typographic Pairing
         </h3>
-        <p class="mt-2 text-xs sm:text-sm text-[#727272] dark:text-[#9ca3af] leading-relaxed max-w-2xl">
+        <p class="mt-2 text-xs sm:text-sm text-[#8a8f98] leading-relaxed max-w-2xl">
           Pairing fonts is about establishing clear contrast without conflict. Industry typographers follow three fundamental rules:
         </p>
 
         <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="p-5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">RULE 01</span>
-            <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6]">Category Contrast</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-5 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">RULE 01</span>
+            <h4 class="text-sm font-bold text-[#ffffff]">Category Contrast</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Pair typefaces from different historical classifications (e.g. Serif Header with Sans-Serif Body). Never pair two fonts that look almost identical, as it creates optical discord.
             </p>
           </div>
 
-          <div class="p-5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">RULE 02</span>
-            <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6]">Proportional x-Height Harmony</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-5 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">RULE 02</span>
+            <h4 class="text-sm font-bold text-[#ffffff]">Proportional x-Height Harmony</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Ensure both fonts share a visually compatible x-height ratio. Fonts with vastly differing baseline proportions feel disjointed when rendered on the same screen.
             </p>
           </div>
 
-          <div class="p-5 rounded-xl border border-[#e5e7eb] dark:border-[#242834] bg-white dark:bg-[#101217]">
-            <span class="text-xs font-mono text-[#ff4d00] font-semibold block mb-1">RULE 03</span>
-            <h4 class="text-sm font-bold text-[#262626] dark:text-[#f3f4f6]">Distinct Role Assignment</h4>
-            <p class="mt-1.5 text-xs text-[#727272] dark:text-[#9ca3af] leading-relaxed">
+          <div class="p-5 rounded-[6px] border border-[#23252a] bg-[#161718]">
+            <span class="text-xs font-mono text-[#e4f222] font-semibold block mb-1">RULE 03</span>
+            <h4 class="text-sm font-bold text-[#ffffff]">Distinct Role Assignment</h4>
+            <p class="mt-1.5 text-xs text-[#8a8f98] leading-relaxed">
               Assign one expressive typeface for headlines (the "personality") and one clean, neutral workhorse for body text (the "clarity"). Never use two expressive fonts together.
             </p>
           </div>
         </div>
-      </div>
-
-    </div>
+        </div>
   </section>
 
   <!-- Client-Side Pairings Data & Logic Engine -->
@@ -1115,9 +1113,9 @@ const pairingsJson = JSON.stringify(pairings);
       layoutButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           layoutButtons.forEach((b) => {
-            b.className = 'layout-view-btn px-2.5 py-1 rounded-lg text-xs font-mono transition-all text-[#727272] dark:text-[#9ca3af] hover:text-[#262626] dark:hover:text-[#f3f4f6] cursor-pointer';
+            b.className = 'layout-view-btn px-2.5 py-1 rounded-[4px] text-xs font-mono transition-all text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
           });
-          btn.className = 'layout-view-btn px-2.5 py-1 rounded-lg text-xs font-mono transition-all bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs cursor-pointer';
+          btn.className = 'layout-view-btn px-2.5 py-1 rounded-[4px] text-xs font-mono transition-all bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer';
 
           const layout = btn.getAttribute('data-layout');
           if (layout === 'editorial') {
@@ -1131,7 +1129,7 @@ const pairingsJson = JSON.stringify(pairings);
           } else if (layout === 'product') {
             canvasProduct?.classList.remove('hidden');
             canvasEditorial?.classList.add('hidden');
-            canvasSaas?.classList.add('hidden');
+            canvasProduct?.classList.add('hidden');
           }
         });
       });
@@ -1140,9 +1138,9 @@ const pairingsJson = JSON.stringify(pairings);
       exportButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           exportButtons.forEach((b) => {
-            b.className = 'btn-export-type px-2.5 py-1 rounded text-[11px] font-mono text-[#727272] dark:text-[#9ca3af] cursor-pointer';
+            b.className = 'btn-export-type px-2.5 py-1 rounded-[4px] text-[11px] font-mono text-[#8a8f98] hover:text-[#ffffff] cursor-pointer';
           });
-          btn.className = 'btn-export-type px-2.5 py-1 rounded text-[11px] font-mono bg-white dark:bg-[#15171e] text-[#262626] dark:text-[#f3f4f6] shadow-xs cursor-pointer';
+          btn.className = 'btn-export-type px-2.5 py-1 rounded-[4px] text-[11px] font-mono bg-[#ffffff] text-[#08090a] font-medium shadow-xs cursor-pointer';
 
           activeExportType = btn.getAttribute('data-type') || 'css';
           if (activeCodeDisplay) {
@@ -1182,10 +1180,10 @@ const pairingsJson = JSON.stringify(pairings);
           navigator.clipboard.writeText(css).then(() => {
             const original = btn.textContent;
             btn.textContent = 'Copied!';
-            btn.classList.add('bg-[#ff4d00]');
+            btn.classList.add('bg-[#e4f222]', 'text-[#08090a]');
             setTimeout(() => {
               btn.textContent = original;
-              btn.classList.remove('bg-[#ff4d00]');
+              btn.classList.remove('bg-[#e4f222]', 'text-[#08090a]');
             }, 1800);
           });
         });
@@ -1225,9 +1223,9 @@ const pairingsJson = JSON.stringify(pairings);
       vibeButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           vibeButtons.forEach((b) => {
-            b.className = 'vibe-btn text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all cursor-pointer bg-white dark:bg-[#15171e] border-[#e5e7eb] dark:border-[#242834] text-[#4b5563] dark:text-[#cbd5e1] hover:border-[#ff4d00] hover:text-[#ff4d00]';
+            b.className = 'vibe-btn text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all cursor-pointer bg-[#161718] border-[#23252a] text-[#8a8f98] hover:border-[#e4f222] hover:text-[#ffffff]';
           });
-          btn.className = 'vibe-btn text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all cursor-pointer bg-[#262626] dark:bg-[#242834] text-white border-transparent';
+          btn.className = 'vibe-btn text-xs font-mono px-3.5 py-1.5 rounded-full border transition-all cursor-pointer bg-[#ffffff] text-[#08090a] border-transparent font-medium';
           directoryFilterVibe = btn.getAttribute('data-vibe') || 'All';
           filterDirectory();
         });

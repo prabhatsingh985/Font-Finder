@@ -29,30 +29,30 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
     href={`https://fonts.googleapis.com/css2?family=${encodedFamily}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap`}
   />
 
-  <article class="py-12 sm:py-16 px-4 sm:px-6 max-w-[1200px] mx-auto">
-    <!-- Breadcrumb in Geist Mono -->
-    <nav class="flex items-center gap-2 font-mono text-xs text-[#727272] mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-[#ff4d00]">Home</a>
-      <span>/</span>
-      <a href="/fonts" class="hover:text-[#ff4d00]">Fonts</a>
-      <span>/</span>
-      <span class="text-[#262626] font-medium">{font.family}</span>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1200px] mx-auto">
+    <!-- Breadcrumb in Berkeley/JetBrains Mono -->
+    <nav class="flex items-center gap-2 font-mono text-[12px] text-[#8a8f98] mb-8" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-[#ffffff] transition-colors">Home</a>
+      <span class="text-[#62666d]">/</span>
+      <a href="/fonts" class="hover:text-[#ffffff] transition-colors">Fonts</a>
+      <span class="text-[#62666d]">/</span>
+      <span class="text-[#ffffff] font-normal">{font.family}</span>
     </nav>
 
     <!-- Header Section -->
-    <div class="flex flex-wrap items-start justify-between gap-6 pb-8 border-b border-[#e5e7eb]">
+    <div class="flex flex-wrap items-start justify-between gap-6 pb-8 border-b border-[#23252a]">
       <div>
         <div class="flex items-center gap-3">
-          <h1 class="text-3xl sm:text-5xl font-medium tracking-tight text-[#262626]">
+          <h1 class="text-3xl sm:text-5xl font-[510] tracking-[-0.022em] text-[#ffffff]">
             {font.family}
           </h1>
-          <span class="inline-flex items-center gap-1.5 font-mono text-xs px-3 py-1 rounded-full bg-[#f9f9f9] text-[#262626] border border-[#e5e7eb]">
-            <span class="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+          <span class="inline-flex items-center gap-1.5 font-mono text-[11px] px-2.5 py-0.5 rounded-[4px] bg-white/[0.04] text-[#8a8f98] border border-[#23252a]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#27a644]"></span>
             <span>Google Fonts Verified</span>
           </span>
         </div>
-        <p class="text-sm text-[#727272] mt-2">
-          Designed by <span class="text-[#262626] font-medium">{font.designer}</span> &bull; <span class="capitalize">{font.category}</span> &bull; SIL Open Font License (OFL)
+        <p class="text-[13px] text-[#8a8f98] mt-2 font-normal">
+          Designed by <span class="text-[#ffffff] font-normal">{font.designer}</span> &bull; <span class="capitalize">{font.category}</span> &bull; SIL Open Font License (OFL)
         </p>
       </div>
 
@@ -61,10 +61,10 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
           href={font.googleFontsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ff4d00] text-white font-mono text-xs font-semibold hover:opacity-95 transition-all shadow-[0_0_0_0_transparent] hover:shadow-[0_0_0_6px_#fcddcc]"
+          class="btn-acid-lime"
         >
           <span>Open on Google Fonts</span>
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-3.5 h-3.5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
@@ -75,65 +75,65 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="md:col-span-2">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></div>
-          <h2 class="font-mono text-xs uppercase tracking-wider text-[#727272]">TYPEFACE OVERVIEW</h2>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98]">TYPEFACE OVERVIEW</span>
         </div>
-        <p class="text-base text-[#262626] leading-relaxed">
+        <p class="text-[15px] text-[#d0d6e0] leading-relaxed">
           {font.description}
         </p>
 
         {font.commercialAlternativesFor && font.commercialAlternativesFor.length > 0 && (
-          <div class="mt-5 p-4 rounded-xl bg-[#f9f9f9] border border-[#e5e7eb] font-mono text-xs text-[#616161]">
-            <span class="font-semibold text-[#262626]">Commercial Stand-In:</span> Often chosen as an open-source alternative to {font.commercialAlternativesFor.join(', ')}.
+          <div class="mt-5 p-4 rounded-[8px] bg-[#0f1011] border border-[#23252a] font-mono text-[12px] text-[#8a8f98]">
+            <span class="font-[510] text-[#ffffff]">Commercial Stand-In:</span> Often chosen as an open-source alternative to {font.commercialAlternativesFor.join(', ')}.
           </div>
         )}
       </div>
 
-      <!-- Quick Metrics Panel (Vellum 16px radius) -->
-      <div class="p-6 rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_6px_rgb(249,249,249)] space-y-3 font-mono text-xs">
-        <h3 class="font-semibold text-[#262626] uppercase tracking-wider text-[11px] pb-2 border-b border-[#e5e7eb]">
+      <!-- Quick Metrics Panel -->
+      <div class="p-6 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-sm space-y-3 font-mono text-[12px]">
+        <h3 class="font-[510] text-[#ffffff] uppercase tracking-wider text-[11px] pb-2 border-b border-[#23252a]">
           OPTICAL CHARACTERISTICS
         </h3>
-        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
-          <span class="text-[#727272]">Category</span>
-          <span class="font-medium text-[#262626] capitalize">{font.category}</span>
+        <div class="flex justify-between py-1.5 border-b border-[#23252a]">
+          <span class="text-[#8a8f98]">Category</span>
+          <span class="text-[#ffffff] capitalize">{font.category}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
-          <span class="text-[#727272]">Serifs</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.serif || 'None'}</span>
+        <div class="flex justify-between py-1.5 border-b border-[#23252a]">
+          <span class="text-[#8a8f98]">Serifs</span>
+          <span class="text-[#ffffff] capitalize">{font.typographicMetrics?.serif || 'None'}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
-          <span class="text-[#727272]">Contrast</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.contrast || 'Low'}</span>
+        <div class="flex justify-between py-1.5 border-b border-[#23252a]">
+          <span class="text-[#8a8f98]">Contrast</span>
+          <span class="text-[#ffffff] capitalize">{font.typographicMetrics?.contrast || 'Low'}</span>
         </div>
-        <div class="flex justify-between py-1 border-b border-[#e5e7eb]">
-          <span class="text-[#727272]">Proportions</span>
-          <span class="font-medium text-[#262626] capitalize">{font.typographicMetrics?.proportions || 'Regular'}</span>
+        <div class="flex justify-between py-1.5 border-b border-[#23252a]">
+          <span class="text-[#8a8f98]">Proportions</span>
+          <span class="text-[#ffffff] capitalize">{font.typographicMetrics?.proportions || 'Regular'}</span>
         </div>
-        <div class="flex justify-between py-1">
-          <span class="text-[#727272]">Variable Font</span>
-          <span class="font-medium text-[#262626]">{font.variable ? 'Yes' : 'Static'}</span>
+        <div class="flex justify-between py-1.5">
+          <span class="text-[#8a8f98]">Variable Font</span>
+          <span class="text-[#ffffff]">{font.variable ? 'Yes' : 'Static'}</span>
         </div>
       </div>
     </div>
 
     <!-- Interactive Specimen Playground -->
-    <div class="mt-12 rounded-2xl border border-[#e5e7eb] bg-[#ffffff] p-6 sm:p-8 shadow-[0_0_0_6px_rgb(249,249,249)]">
-      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#e5e7eb]">
-        <span class="font-mono text-xs uppercase tracking-wider text-[#727272]">
+    <div class="mt-12 rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#23252a]">
+        <span class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98]">
           INTERACTIVE SPECIMEN TESTER
         </span>
         <div class="flex items-center gap-2">
-          <span class="font-mono text-xs text-[#727272]">Size:</span>
+          <span class="font-mono text-[11px] text-[#8a8f98]">Size:</span>
           <input
             id="page-size-slider"
             type="range"
             min="16"
             max="80"
             value="36"
-            class="w-28 sm:w-36 accent-[#ff4d00] cursor-pointer"
+            class="w-28 sm:w-36 accent-[#e4f222] cursor-pointer"
           />
-          <span id="page-size-label" class="font-mono text-xs text-[#262626] w-10">36px</span>
+          <span id="page-size-label" class="font-mono text-[11px] text-[#ffffff] w-10">36px</span>
         </div>
       </div>
 
@@ -141,7 +141,7 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
         <textarea
           id="page-specimen-text"
           rows="2"
-          class="w-full bg-transparent border-0 text-[#262626] focus:ring-0 focus:outline-none resize-none leading-tight transition-all"
+          class="w-full bg-transparent border-0 text-[#ffffff] focus:ring-0 focus:outline-none resize-none leading-tight transition-all"
           style={`font-family: '${font.family}', ${font.category}; font-size: 36px;`}
         >All their equipment and instruments are alive.</textarea>
       </div>
@@ -149,17 +149,17 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
 
     <!-- Styles & Weights Showcase -->
     <div class="mt-12">
-      <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-4">
+      <h2 class="text-xl font-[510] text-[#ffffff] tracking-[-0.015em] mb-4">
         Styles & Weights ({font.variants.length})
       </h2>
-      <div class="divide-y divide-[#e5e7eb] border-y border-[#e5e7eb] bg-white rounded-xl shadow-sm px-6">
+      <div class="divide-y divide-[#23252a] border-y border-[#23252a] bg-[#0f1011] rounded-[12px] shadow-sm px-6">
         {font.variants.map((variant) => (
           <div class="py-5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
-            <span class="font-mono text-xs text-[#727272] w-36 shrink-0">
+            <span class="font-mono text-[12px] text-[#8a8f98] w-36 shrink-0">
               {variant.weight} {variant.style === 'italic' ? 'Italic' : 'Regular'}
             </span>
             <p
-              class="text-xl sm:text-2xl text-[#262626] truncate select-all flex-1"
+              class="text-xl sm:text-2xl text-[#ffffff] truncate select-all flex-1"
               style={`font-family: '${font.family}', ${font.category}; font-weight: ${variant.weight}; font-style: ${variant.style};`}
             >
               Pack my box with five dozen liquor jugs.
@@ -169,71 +169,71 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
       </div>
     </div>
 
-    <!-- Firecrawl Code Windows: CSS Snippets -->
+    <!-- Production CSS Blueprint -->
     <div class="mt-12">
-      <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-4">
+      <h2 class="text-xl font-[510] text-[#ffffff] tracking-[-0.015em] mb-4">
         Production CSS Blueprint
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- @import Code Window -->
-        <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
-          <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+        <div class="rounded-[12px] border border-[#23252a] bg-[#08090a] shadow-sm overflow-hidden">
+          <div class="h-10 px-3.5 bg-[#161718] border-b border-[#23252a] flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <span class="font-mono text-xs text-[#727272] ml-2">google-fonts.css</span>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <span class="font-mono text-[11px] text-[#8a8f98] ml-2">google-fonts.css</span>
             </div>
             <button
               type="button"
-              class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
+              class="copy-btn font-mono text-[11px] px-2.5 py-1 rounded-[4px] bg-white/[0.05] border border-[#23252a] hover:bg-white/[0.1] text-[#d0d6e0] hover:text-[#ffffff] transition-colors cursor-pointer"
               data-text={font.importUrl}
             >
               Copy
             </button>
           </div>
-          <pre class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>{font.importUrl}</code></pre>
+          <pre class="p-4 font-mono text-[12px] text-[#d0d6e0] overflow-x-auto leading-relaxed"><code>{font.importUrl}</code></pre>
         </div>
 
         <!-- font-family Code Window -->
-        <div class="rounded-lg border border-[#e5e7eb] bg-[#f9f9f9] shadow-[0_0_0_8px_rgb(253,253,253)] overflow-hidden">
-          <div class="h-10 px-3 bg-[#f9f9f9] border-b border-[#e5e7eb] flex items-center justify-between">
+        <div class="rounded-[12px] border border-[#23252a] bg-[#08090a] shadow-sm overflow-hidden">
+          <div class="h-10 px-3.5 bg-[#161718] border-b border-[#23252a] flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <div class="w-2 h-2 rounded-full bg-[#e5e7eb]"></div>
-              <span class="font-mono text-xs text-[#727272] ml-2">style.css</span>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <div class="w-2 h-2 rounded-full bg-[#23252a]"></div>
+              <span class="font-mono text-[11px] text-[#8a8f98] ml-2">style.css</span>
             </div>
             <button
               type="button"
-              class="copy-btn font-mono text-xs px-2.5 py-1 rounded-full bg-white border border-[#e5e7eb] hover:bg-[#f9f9f9] text-[#262626] transition-colors"
+              class="copy-btn font-mono text-[11px] px-2.5 py-1 rounded-[4px] bg-white/[0.05] border border-[#23252a] hover:bg-white/[0.1] text-[#d0d6e0] hover:text-[#ffffff] transition-colors cursor-pointer"
               data-text={font.fontFamilyCss}
             >
               Copy
             </button>
           </div>
-          <pre class="p-4 font-mono text-xs text-[#262626] overflow-x-auto leading-relaxed"><code>{font.fontFamilyCss}</code></pre>
+          <pre class="p-4 font-mono text-[12px] text-[#d0d6e0] overflow-x-auto leading-relaxed"><code>{font.fontFamilyCss}</code></pre>
         </div>
       </div>
     </div>
 
     <!-- Similar Fonts -->
     {similarFonts.length > 0 && (
-      <div class="mt-16 pt-12 border-t border-[#e5e7eb]">
-        <h2 class="text-xl font-medium text-[#262626] tracking-tight mb-6">
+      <div class="mt-16 pt-12 border-t border-[#23252a]">
+        <h2 class="text-xl font-[510] text-[#ffffff] tracking-[-0.015em] mb-6">
           Similar Verified Typefaces
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {similarFonts.map((sim) => (
             <a
               href={`/fonts/${sim.id}`}
-              class="group p-5 rounded-2xl border border-[#e5e7eb] bg-[#f9f9f9] hover:bg-white hover:border-[#ff4d00]/30 hover:shadow-[0_0_0_6px_rgb(249,249,249)] transition-all block"
+              class="group p-5 rounded-[12px] border border-[#23252a] bg-[#0f1011] hover:bg-[#161718] hover:border-[#383b3f] shadow-sm transition-all block"
             >
-              <h3 class="font-medium text-[#262626] text-sm group-hover:text-[#ff4d00] transition-colors">{sim.family}</h3>
-              <p class="text-xs text-[#727272] mt-1 line-clamp-2">{sim.description}</p>
-              <div class="mt-4 flex items-center justify-between font-mono text-[11px] text-[#727272]">
+              <h3 class="font-[510] text-[#ffffff] text-sm group-hover:text-[#ffffff] transition-colors">{sim.family}</h3>
+              <p class="text-[12px] text-[#8a8f98] mt-1 line-clamp-2">{sim.description}</p>
+              <div class="mt-4 flex items-center justify-between font-mono text-[11px] text-[#8a8f98]">
                 <span class="capitalize">{sim.category}</span>
-                <span class="font-medium text-[#262626]">View Specimen &rarr;</span>
+                <span class="text-[#d0d6e0] group-hover:text-[#ffffff]">View Specimen &rarr;</span>
               </div>
             </a>
           ))}
@@ -263,7 +263,7 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
         try {
           await navigator.clipboard.writeText(text);
           const original = btn.innerHTML;
-          btn.innerHTML = `<span class="text-[#ff4d00] font-semibold">Copied!</span>`;
+          btn.innerHTML = `<span class="text-[#27a644] font-normal">✓ Copied!</span>`;
           setTimeout(() => {
             btn.innerHTML = original;
           }, 2000);
