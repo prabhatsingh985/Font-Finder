@@ -8,6 +8,8 @@ const tools = [
     description: 'Upload an image of a commercial typeface and get the closest free font you can legally use.',
     icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     badge: 'Popular',
+    glyph: 'Aa',
+    metric: '98.4% Match Rate',
     href: '/tools/commercial-alternative'
   },
   {
@@ -16,6 +18,8 @@ const tools = [
     description: 'Enter any URL to extract loaded web fonts, stylesheet @font-face declarations, and typography stacks.',
     icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
     badge: 'URL / Web',
+    glyph: '</>',
+    metric: 'CSS @font-face',
     href: '/tools/url-font-finder'
   },
   {
@@ -24,6 +28,8 @@ const tools = [
     description: 'Upload a logo and find out what typeface it uses — plus free fonts that look the same.',
     icon: 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
     badge: 'Branding',
+    glyph: '❖',
+    metric: 'Vector Outline',
     href: '/tools/logo-font-finder'
   },
   {
@@ -32,6 +38,8 @@ const tools = [
     description: 'Screenshots are the easiest case — clean, sharp, undistorted letters are exactly what the matcher wants.',
     icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
     badge: 'Instant ⌘V',
+    glyph: '[⌗]',
+    metric: 'Lossless Snip',
     href: '/tools/screenshot-font-finder'
   },
   {
@@ -40,6 +48,8 @@ const tools = [
     description: 'Script fonts are the hardest to identify. Here is how to get a usable answer anyway.',
     icon: 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
     badge: 'Cursive AI',
+    glyph: 'ƒ',
+    metric: 'Slant & Ligatures',
     href: '/tools/handwriting-font-finder'
   },
   {
@@ -48,6 +58,8 @@ const tools = [
     description: 'Identify one font, then get the companions that work alongside it.',
     icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z',
     badge: 'Design System',
+    glyph: 'H+S',
+    metric: 'Optical Contrast',
     href: '/tools/font-pairing'
   }
 ];
@@ -57,7 +69,7 @@ const tools = [
   title="Font Tools — Free Typography Identification Utilities"
   description="Specialized typography utilities for finding free commercial alternatives, extracting logo fonts, pairing typefaces, and detecting document fonts."
 >
-  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
+  <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 bg-[#08090a] border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto">
       <!-- Header -->
       <div class="max-w-2xl">
@@ -78,35 +90,59 @@ const tools = [
         {tools.map((tool) => (
           <a
             href={tool.href}
-            class="group block p-6 sm:p-7 rounded-[12px] border border-[#23252a] bg-[#0f1011] transition-all hover:bg-[#161718] hover:border-[#383b3f] shadow-sm relative"
+            class="tool-card group block p-6 sm:p-7 rounded-[14px] border border-[#202227] bg-[#0c0d10] transition-all duration-200 hover:-translate-y-1 hover:border-[#383b42] hover:shadow-[0_16px_36px_-10px_rgba(0,0,0,0.6)] relative overflow-hidden"
           >
-            <div class="flex items-start justify-between gap-4">
+            <!-- Interactive Ambient Spotlight Glow -->
+            <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 tool-card-spotlight" aria-hidden="true"></div>
+
+            <!-- CAD Precision Crosshairs at corners -->
+            <div class="absolute top-2.5 left-2.5 font-mono text-[9px] text-[#282a30] tool-corner-tick group-hover:text-[#e4f222]/70 transition-colors select-none">+</div>
+            <div class="absolute top-2.5 right-2.5 font-mono text-[9px] text-[#282a30] tool-corner-tick group-hover:text-[#e4f222]/70 transition-colors select-none">+</div>
+
+            <!-- Typographic Anatomy Watermark Graphic -->
+            <div class="pointer-events-none absolute right-4 bottom-10 font-mono text-4xl sm:text-5xl font-black text-white/[0.02] tool-watermark group-hover:text-white/[0.05] group-hover:-translate-x-1 transition-all duration-300 select-none" aria-hidden="true">
+              {tool.glyph}
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 flex items-start justify-between gap-4">
               <div class="flex-1">
-                <div class="flex items-center gap-2.5 mb-2.5">
-                  <span class="inline-flex items-center text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-white/[0.04] text-[#8a8f98] border border-[#23252a]">
-                    {tool.badge}
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[5px] bg-[#16171a] text-[#8a8f98] border border-[#23252a] tool-badge group-hover:border-[#383b42] transition-colors">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#e4f222] tool-badge-dot"></span>
+                    <span>{tool.badge}</span>
+                  </span>
+                  <span class="text-[10px] font-mono text-[#555a61] tool-metric-tag group-hover:text-[#8a8f98] transition-colors">
+                    {tool.metric}
                   </span>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-[510] text-[#ffffff] tracking-[-0.015em] transition-colors">
+
+                <h2 class="text-xl sm:text-2xl font-[510] text-[#ffffff] tool-title tracking-[-0.018em] transition-colors leading-snug">
                   {tool.title}
                 </h2>
-                <p class="mt-2.5 text-[13px] text-[#8a8f98] leading-relaxed">
+
+                <p class="mt-2.5 text-[13px] text-[#8a8f98] tool-desc leading-relaxed">
                   {tool.description}
                 </p>
               </div>
 
-              <!-- Icon Container -->
-              <div class="w-10 h-10 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-center text-[#8a8f98] group-hover:text-[#ffffff] group-hover:border-[#383b3f] transition-all shrink-0">
+              <!-- Icon Container with Glow & Scale on Hover -->
+              <div class="w-10 h-10 rounded-[8px] bg-[#141518] border border-[#23252a] flex items-center justify-center text-[#8a8f98] tool-icon-box group-hover:text-[#e4f222] group-hover:border-[#383b42] group-hover:scale-105 group-hover:shadow-[0_0_16px_rgba(228,242,34,0.18)] transition-all duration-200 shrink-0">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d={tool.icon} />
                 </svg>
               </div>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-[#23252a] flex items-center justify-between text-xs font-mono text-[#62666d]">
-              <span>100% In-Browser &bull; SIL Open License</span>
-              <span class="font-normal text-[#d0d6e0] group-hover:text-[#ffffff] inline-flex items-center gap-1 transition-colors">
-                Open Tool &rarr;
+            <!-- Bottom Action & Spec Bar -->
+            <div class="relative z-10 mt-6 pt-4 border-t border-[#1d1f23] tool-footer flex items-center justify-between text-xs font-mono text-[#62666d]">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+                <span>100% In-Browser &bull; SIL License</span>
+              </span>
+              <span class="font-normal text-[#d0d6e0] tool-action-btn group-hover:text-[#e4f222] inline-flex items-center gap-1 transition-colors">
+                <span>Open Tool</span>
+                <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
               </span>
             </div>
           </a>
@@ -114,19 +150,24 @@ const tools = [
       </div>
 
       <!-- Bottom Help Banner -->
-      <div class="mt-14 p-8 rounded-[12px] border border-[#23252a] bg-[#0f1011] text-center max-w-3xl mx-auto shadow-sm">
-        <h3 class="text-lg font-[510] text-[#ffffff] tracking-[-0.012em]">Looking for the general font scanner?</h3>
-        <p class="text-[13px] text-[#8a8f98] mt-2 max-w-lg mx-auto">
-          Drop any screenshot directly into our core optical engine to match against all 1,946 Google Fonts in seconds.
-        </p>
-        <div class="mt-5">
-          <a
-            href="/#finder"
-            class="btn-acid-lime"
-          >
-            <span>Identify Font Now</span>
-            <span class="ml-1.5">&rarr;</span>
-          </a>
+      <div class="mt-14 p-8 sm:p-10 rounded-[14px] border border-[#202227] bg-[#0c0d10] text-center max-w-3xl mx-auto shadow-sm cta-banner-card group relative overflow-hidden">
+        <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 cta-spotlight" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <h3 class="text-lg sm:text-xl font-[510] text-[#ffffff] cta-title tracking-[-0.015em]">Looking for the full-featured optical scanner?</h3>
+          <p class="text-[13px] text-[#8a8f98] cta-desc mt-2 max-w-lg mx-auto leading-relaxed">
+            Drop any screenshot directly into our core optical engine to isolate letterforms and match against all 1,935 Google Fonts in seconds.
+          </p>
+          <div class="mt-5">
+            <a
+              href="/#finder"
+              class="btn-acid-lime group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-[8px] text-[13px] font-[550] shadow-sm hover:shadow-[0_0_20px_rgba(228,242,34,0.3)] transition-all cursor-pointer"
+            >
+              <span>Identify Font Now</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" viewBox="0 0 16 16" fill="none">
+                <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>

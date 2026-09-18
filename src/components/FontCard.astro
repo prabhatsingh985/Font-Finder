@@ -9,53 +9,126 @@ const { font } = Astro.props;
 const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 ---
 
-<div class="group rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 transition-all hover:bg-[#161718] hover:border-[#383b3f] shadow-sm flex flex-col justify-between">
+<div class="font-catalog-card group p-5 sm:p-6 flex flex-col justify-between">
   <div>
-    <!-- Header -->
-    <div class="flex items-start justify-between gap-2 mb-3">
-      <div>
-        <h3 class="font-[510] text-[15px] sm:text-[16px] text-[#ffffff] tracking-[-0.012em] group-hover:text-[#ffffff] transition-colors">
-          <a href={`/fonts/${font.id}`}>{font.family}</a>
+    <!-- Header: Family Name, Category & Verified Badge -->
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div class="min-w-0">
+        <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#ffffff] tracking-[-0.015em] transition-colors truncate">
+          <a href={`/fonts/${font.id}`} class="hover:underline focus:outline-none">{font.family}</a>
         </h3>
-        <p class="text-[12px] text-[#8a8f98] mt-0.5 font-normal">
-          {font.designer} &bull; <span class="capitalize">{font.category}</span>
-        </p>
+        <div class="flex items-center gap-2 mt-1 text-[12px] text-[#8a8f98]">
+          <span class="truncate">{font.designer}</span>
+          <span class="text-[#3b3e45]">•</span>
+          <span class="capitalize px-1.5 py-0.5 rounded bg-white/[0.04] border border-white/[0.06] text-[10px] font-mono text-[#a0a6b2] shrink-0">
+            {font.category}
+          </span>
+        </div>
       </div>
-      <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-white/[0.04] text-[#8a8f98] border border-[#23252a] shrink-0">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#27a644]"></span>
+
+      <!-- Professional Subtle Verified Pill -->
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[5px] text-[10px] font-mono bg-white/[0.03] border border-[#24262c] text-[#8a8f98] shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
         <span>Verified</span>
       </span>
     </div>
 
-    <!-- Live Specimen -->
-    <div class="my-3.5 p-3.5 rounded-[6px] bg-[#161718] border border-[#23252a] overflow-hidden">
+    <!-- Live Specimen Showcase Box -->
+    <div class="font-specimen-box my-3.5 p-4 rounded-[8px] relative overflow-hidden">
+      <!-- Google Font Stylesheet Link -->
       <link
         rel="stylesheet"
-        href={`https://fonts.googleapis.com/css2?family=${encodedFamily}:wght@400;700&display=swap`}
+        href={`https://fonts.googleapis.com/css2?family=${encodedFamily}:wght@400;500;700&display=swap`}
       />
+
+      <!-- Specimen Header Toolbar -->
+      <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-white/[0.04] text-[10px] font-mono text-[#62666d]">
+        <span class="group-hover:text-[#8a8f98] transition-colors">Specimen Preview</span>
+        
+        <!-- Discreet Copy CSS Action on Hover -->
+        <button
+          type="button"
+          class="font-card-copy-btn opacity-0 group-hover:opacity-100 inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-[#1a1c22] border border-[#282b33] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b44] transition-all cursor-pointer"
+          data-css={font.fontFamilyCss || `font-family: '${font.family}', ${font.category};`}
+          title={`Copy font-family declaration`}
+        >
+          <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span class="copy-label">Copy CSS</span>
+        </button>
+      </div>
+
+      <!-- Live Specimen Typography: Smooth weight expansion on hover -->
       <p
-        class="text-[18px] text-[#ffffff] truncate select-all"
+        class="font-specimen-text text-[19px] sm:text-[20px] text-[#f4f4f5] group-hover:text-[#ffffff] group-hover:font-medium transition-all duration-200 truncate select-all font-normal leading-snug"
         style={`font-family: '${font.family}', ${font.category};`}
       >
         Almost before we knew it, we had left the ground.
       </p>
+
+      <!-- Specimen Metadata Sub-row -->
+      <div class="mt-2.5 pt-2 border-t border-white/[0.03] text-[10px] font-mono text-[#62666d] flex items-center justify-between">
+        <span class="truncate">Aa Bb Gg 123 • Open Source</span>
+        <span class="text-[#8a8f98] shrink-0">{font.variable ? 'Variable Axis' : `${font.variants.length} Weights`}</span>
+      </div>
     </div>
 
-    <p class="text-[13px] text-[#8a8f98] line-clamp-2 leading-relaxed">
+    <!-- Description -->
+    <p class="text-[13px] text-[#8a8f98] line-clamp-2 leading-relaxed mt-1 font-normal">
       {font.description}
     </p>
   </div>
 
   <!-- Footer Info & Actions -->
-  <div class="mt-4 pt-3.5 border-t border-[#23252a] flex items-center justify-between font-mono text-[12px]">
-    <span class="text-[#62666d] text-[11px]">
-      {font.variants.length} styles {font.variable ? '• Variable' : ''}
-    </span>
+  <div class="mt-5 pt-3.5 border-t border-[#1f2127] flex items-center justify-between font-mono text-[12px]">
+    <div class="flex items-center gap-1.5 text-[#62666d] text-[11px]">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+      </svg>
+      <span>
+        {font.variants.length} styles {font.variable ? '• Variable' : ''}
+      </span>
+    </div>
+
     <a
       href={`/fonts/${font.id}`}
-      class="font-normal text-[12px] text-[#d0d6e0] hover:text-[#ffffff] transition-colors inline-flex items-center gap-1"
+      class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#d0d6e0] group-hover:text-[#ffffff] transition-colors"
     >
-      Inspect &rarr;
+      <span>Inspect</span>
+      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
     </a>
   </div>
 </div>
+
+<script>
+  // Clean, professional delegated Copy CSS handler
+  (function initFontCardCopy() {
+    if (typeof window === 'undefined') return;
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement)?.closest('.font-card-copy-btn') as HTMLButtonElement | null;
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const css = btn.getAttribute('data-css') || '';
+      const label = btn.querySelector('.copy-label');
+
+      navigator.clipboard.writeText(css).then(() => {
+        if (label) label.textContent = 'Copied';
+        btn.classList.add('text-[#10b981]', 'border-[#10b981]/40');
+        setTimeout(() => {
+          if (label) label.textContent = 'Copy CSS';
+          btn.classList.remove('text-[#10b981]', 'border-[#10b981]/40');
+        }, 1600);
+      }).catch(() => {
+        if (label) label.textContent = 'Copied';
+        setTimeout(() => {
+          if (label) label.textContent = 'Copy CSS';
+        }, 1600);
+      });
+    });
+  })();
+</script>

@@ -15,7 +15,7 @@
     --color-mist: #374151;
     --color-bone: #161718;
     --color-paper: #08090a;
-    --color-acid-lime: #e4f222;
+    --color-acid-lime: #ff4d00;
     --color-pulse-green: #16a34a;
     --color-coral-red: #eb5757;
     --color-signal-teal: #02b8cc;
@@ -125,7 +125,12 @@
   }
 
   /* Linear strict typography tracking */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--color-paper);
     font-weight: 510;
     letter-spacing: -0.022em;
@@ -142,20 +147,20 @@
 }
 
 #morphing-font-word {
-  color: #e4f222 !important;
+  color: var(--color-acid-lime) !important;
   border-bottom: none !important;
 }
 
 /* Engineering hairline grid pattern */
 .bg-grid-pattern {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .bg-grid-pattern-subtle {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.065) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.065) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -183,9 +188,11 @@
   cursor: pointer;
   border: none;
 }
+
 .btn-acid-lime:hover {
   filter: brightness(1.05);
 }
+
 .btn-acid-lime:active {
   transform: scale(0.98);
   filter: brightness(0.95);
@@ -207,11 +214,13 @@
   justify-content: center;
   cursor: pointer;
 }
+
 .btn-ghost-linear:hover {
   border-color: var(--color-smoke);
   color: var(--color-paper);
   background-color: rgba(255, 255, 255, 0.02);
 }
+
 .btn-ghost-linear:active {
   transform: scale(0.99);
 }
@@ -230,9 +239,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .btn-white-pill:hover {
   background-color: var(--color-bone);
 }
+
 .btn-white-pill:active {
   transform: scale(0.98);
 }
@@ -249,6 +260,7 @@
   border: 1px solid transparent;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
+
 .btn-pill-subtle:hover {
   background-color: rgba(255, 255, 255, 0.08);
   color: var(--color-paper);
@@ -262,6 +274,7 @@
   box-shadow: var(--shadow-sm);
   transition: border-color 0.15s ease;
 }
+
 .card-linear:hover {
   border-color: var(--color-smoke);
 }
@@ -285,6 +298,7 @@
   font-size: 14px;
   transition: border-color 0.15s ease, color 0.15s ease;
 }
+
 .input-linear:focus {
   outline: none;
   border-color: var(--color-mist);
@@ -314,19 +328,25 @@
   width: 5px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-graphite);
   border-radius: 999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-smoke);
 }
 
 /* Focus states */
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
   outline: 1px solid var(--color-mist);
   outline-offset: 2px;
 }
@@ -335,12 +355,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 html.dark .sun-icon {
   display: block !important;
 }
+
 html.dark .moon-icon {
   display: none !important;
 }
+
 html:not(.dark) .sun-icon {
   display: none !important;
 }
+
 html:not(.dark) .moon-icon {
   display: block !important;
 }
@@ -358,6 +381,7 @@ html:not(.dark) body {
 html:not(.dark) .bg-\[\#08090a\] {
   background-color: #f7f8f9 !important;
 }
+
 html:not(.dark) .bg-\[\#08090a\]\/85,
 html:not(.dark) .bg-\[\#08090a\]\/90 {
   background-color: rgba(247, 248, 249, 0.9) !important;
@@ -378,6 +402,7 @@ html:not(.dark) .bg-\[\#161718\] {
 html:not(.dark) .border-\[\#23252a\] {
   border-color: #e1e4ea !important;
 }
+
 html:not(.dark) .border-\[\#383b3f\] {
   border-color: #d0d5dd !important;
 }
@@ -386,12 +411,15 @@ html:not(.dark) .border-\[\#383b3f\] {
 html:not(.dark) .text-\[\#ffffff\] {
   color: #08090a !important;
 }
+
 html:not(.dark) .text-\[\#d0d6e0\] {
   color: #374151 !important;
 }
+
 html:not(.dark) .text-\[\#8a8f98\] {
   color: #6b7280 !important;
 }
+
 html:not(.dark) .text-\[\#62666d\] {
   color: #9ca3af !important;
 }
@@ -403,6 +431,7 @@ html:not(.dark) button.bg-\[\#ffffff\].text-\[\#08090a\] {
   background-color: #08090a !important;
   color: #ffffff !important;
 }
+
 html:not(.dark) a.bg-\[\#ffffff\].text-\[\#08090a\]:hover,
 html:not(.dark) button.bg-\[\#ffffff\].text-\[\#08090a\]:hover {
   background-color: #1f2328 !important;
@@ -414,18 +443,19 @@ html:not(.dark) .btn-ghost-linear {
   border-color: #e1e4ea;
   color: #374151;
 }
+
 html:not(.dark) .btn-ghost-linear:hover {
   background-color: #f0f2f5;
   border-color: #d0d5dd;
   color: #08090a;
 }
 
-/* Acid Lime Button in Light Mode */
+/* Accent Button in Light Mode */
 html:not(.dark) .btn-acid-lime {
-  background-color: #e4f222;
-  color: #08090a;
+  background-color: #ff4d00;
+  color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(255, 77, 0, 0.2);
 }
 
 /* Inputs in Light Mode */
@@ -437,10 +467,12 @@ html:not(.dark) .input-linear {
   color: #08090a !important;
   border-color: #e1e4ea !important;
 }
+
 html:not(.dark) input[type="text"]::placeholder,
 html:not(.dark) textarea::placeholder {
   color: #9ca3af !important;
 }
+
 html:not(.dark) input[type="text"]:focus,
 html:not(.dark) textarea:focus,
 html:not(.dark) .input-linear:focus {
@@ -460,6 +492,7 @@ html:not(.dark) #upload-dropzone {
   background-color: #ffffff !important;
   border-color: #d0d5dd !important;
 }
+
 html:not(.dark) #upload-dropzone:hover {
   border-color: #08090a !important;
 }
@@ -473,19 +506,20 @@ html:not(.dark) input[type="range"] {
 html:not(.dark) .hero-gradient-floor {
   background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 0, 0, 0.03), transparent 70%);
 }
+
 html:not(.dark) .hero-radial-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(228, 242, 34, 0.06) 0%, rgba(247, 248, 249, 0) 65%);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 77, 0, 0.05) 0%, rgba(247, 248, 249, 0) 65%);
 }
 
 html:not(.dark) .bg-grid-pattern {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 html:not(.dark) .bg-grid-pattern-subtle {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.055) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -495,6 +529,7 @@ html:not(.dark) .bg-grid-pattern-subtle {
 html:not(.dark) ::-webkit-scrollbar-thumb {
   background: #d0d5dd;
 }
+
 html:not(.dark) ::-webkit-scrollbar-thumb:hover {
   background: #9aa0a6;
 }
@@ -566,20 +601,750 @@ html.dark .text-\[\#9ca3af\] {
   box-shadow: 0 0 0 1px var(--color-graphite) !important;
 }
 
-/* Replace legacy ember orange badges & accents with Linear precision markers */
-.bg-\[\#ff4d00\],
-.bg-\[\#ff4d00\]\/10 {
+/* In dark mode, map legacy ember orange to Linear yellow / acid-lime */
+html.dark .bg-\[\#ff4d00\],
+html.dark .bg-\[\#ff4d00\]\/10 {
   background-color: rgba(228, 242, 34, 0.1) !important;
   color: var(--color-acid-lime) !important;
 }
 
-.text-\[\#ff4d00\] {
+html.dark .text-\[\#ff4d00\] {
   color: var(--color-acid-lime) !important;
 }
 
-.border-\[\#ff4d00\],
-.border-\[\#ff4d00\]\/20,
-.border-\[\#ff4d00\]\/30,
-.border-\[\#ff4d00\]\/40 {
+html.dark .border-\[\#ff4d00\],
+html.dark .border-\[\#ff4d00\]\/20,
+html.dark .border-\[\#ff4d00\]\/30,
+html.dark .border-\[\#ff4d00\]\/40 {
   border-color: rgba(228, 242, 34, 0.3) !important;
 }
+
+/* In light mode ONLY: Use #ff4d00 in place of yellow */
+html:not(.dark) .bg-\[\#e4f222\],
+html:not(.dark) .bg-acid,
+html:not(.dark) .bg-acid-lime {
+  background-color: #ff4d00 !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .hover\:bg-\[\#e4f222\]:hover {
+  background-color: #ff4d00 !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .text-\[\#e4f222\],
+html:not(.dark) .text-acid,
+html:not(.dark) .text-acid-lime {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .hover\:text-\[\#e4f222\]:hover {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .border-\[\#e4f222\],
+html:not(.dark) .border-acid,
+html:not(.dark) .border-acid-lime {
+  border-color: #ff4d00 !important;
+}
+
+html:not(.dark) .hover\:border-\[\#e4f222\]:hover {
+  border-color: #ff4d00 !important;
+}
+
+html:not(.dark) .border-t-\[\#e4f222\] {
+  border-top-color: #ff4d00 !important;
+}
+
+html:not(.dark) .accent-\[\#e4f222\] {
+  accent-color: #ff4d00 !important;
+}
+
+html:not(.dark) .ring-\[\#e4f222\] {
+  --tw-ring-color: #ff4d00 !important;
+}
+
+html:not(.dark) .bg-\[rgba\(228\,242\,34\,0\.1\)\],
+html:not(.dark) .bg-\[rgba\(228\,242\,34\,0\.06\)\] {
+  background-color: rgba(255, 77, 0, 0.08) !important;
+}
+
+html:not(.dark) .border-\[rgba\(228\,242\,34\,0\.2\)\],
+html:not(.dark) .border-\[rgba\(228\,242\,34\,0\.3\)\] {
+  border-color: rgba(255, 77, 0, 0.25) !important;
+}
+
+html:not(.dark) ::selection {
+  background-color: #ff4d00 !important;
+  color: #ffffff !important;
+}
+
+/* ========================================================================= */
+/* DEVELOPER ECOSYSTEM TRUST STRIP                                          */
+/* ========================================================================= */
+.ecosystem-strip {
+  border-bottom: 1px solid #23252a;
+  background-color: #08090a;
+}
+
+.ecosystem-card {
+  background-color: #0c0d10;
+  border: 1px solid #202227;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ecosystem-card:hover {
+  border-color: #383b44;
+  background-color: #111317;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.ecosystem-icon-box {
+  background-color: #16171b;
+  border: 1px solid #26282e;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ecosystem-card:hover .ecosystem-icon-box {
+  border-color: rgba(228, 242, 34, 0.4);
+  color: #e4f222;
+}
+
+.ecosystem-pill {
+  background-color: #16171a;
+  border: 1px solid #25272e;
+  color: #8a8f98;
+}
+
+/* ========================================================================= */
+/* THREE-STEP RECOGNITION PIPELINE (CREATIVE HOVER & LIGHTING)             */
+/* ========================================================================= */
+.pipeline-step-card {
+  position: relative;
+  background-color: #0d0e11;
+  border: 1px solid #202329;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pipeline-step-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(228, 242, 34, 0.35);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), 0 0 24px -4px rgba(228, 242, 34, 0.08);
+}
+
+.pipeline-step-card .step-watermark {
+  transition: all 0.35s ease;
+}
+
+.pipeline-step-card:hover .step-watermark {
+  color: rgba(228, 242, 34, 0.12);
+  transform: scale(1.08) translateY(-2px);
+}
+
+.pipeline-step-card .step-badge-pill {
+  transition: all 0.25s ease;
+}
+
+.pipeline-step-card:hover .step-badge-pill {
+  border-color: rgba(228, 242, 34, 0.4);
+  background-color: rgba(228, 242, 34, 0.08);
+  color: #e4f222;
+}
+
+.pipeline-step-card .scan-laser {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.pipeline-step-card:hover .scan-laser {
+  transform: translateX(280px);
+  opacity: 1;
+}
+
+/* Light Mode Overrides */
+html:not(.dark) .ecosystem-strip {
+  background-color: #f7f8f9 !important;
+  border-bottom-color: #e2e4e8 !important;
+}
+
+html:not(.dark) .ecosystem-divider {
+  border-color: #e2e4e8 !important;
+}
+
+html:not(.dark) .ecosystem-card {
+  background-color: #ffffff !important;
+  border-color: #e2e4e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+html:not(.dark) .ecosystem-card:hover {
+  border-color: #ff4d00 !important;
+  background-color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 77, 0, 0.08) !important;
+}
+
+html:not(.dark) .ecosystem-icon-box {
+  background-color: #f3f4f6 !important;
+  border-color: #e2e4e8 !important;
+  color: #08090a !important;
+}
+
+html:not(.dark) .ecosystem-card:hover .ecosystem-icon-box {
+  border-color: rgba(255, 77, 0, 0.4) !important;
+  color: #ff4d00 !important;
+  background-color: #fff6f2 !important;
+}
+
+html:not(.dark) .ecosystem-pill {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+html:not(.dark) .ecosystem-title {
+  color: #08090a !important;
+}
+
+html:not(.dark) .ecosystem-card:hover .ecosystem-title {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .ecosystem-sub {
+  color: #64748b !important;
+}
+
+/* ========================================================================= */
+/* THREE-STEP RECOGNITION PIPELINE - LIGHT MODE POLISH                       */
+/* ========================================================================= */
+
+html:not(.dark) .pipeline-tag {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .pipeline-tag span:first-child {
+  background-color: #ff4d00 !important;
+  box-shadow: 0 0 8px rgba(255, 77, 0, 0.6) !important;
+}
+
+html:not(.dark) .pipeline-tag span:last-child {
+  color: #334155 !important;
+}
+
+html:not(.dark) .pipeline-heading {
+  color: #08090a !important;
+}
+
+html:not(.dark) .pipeline-subheading {
+  color: #475569 !important;
+}
+
+/* Header Live Speed & Privacy Assurance Badge */
+html:not(.dark) .pipeline-assurance-badge {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) .pipeline-assurance-badge > div:first-child {
+  color: #059669 !important;
+}
+
+html:not(.dark) .pipeline-assurance-badge > span {
+  color: #cbd5e1 !important;
+}
+
+html:not(.dark) .pipeline-assurance-badge > div:last-child {
+  color: #334155 !important;
+}
+
+html:not(.dark) .pipeline-assurance-badge > div:last-child svg {
+  color: #ff4d00 !important;
+}
+
+/* Connecting line across steps */
+html:not(.dark) .pipeline-connecting-line {
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.08), transparent) !important;
+}
+
+/* Cards in Light Mode */
+html:not(.dark) .pipeline-step-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+html:not(.dark) .pipeline-step-card:hover {
+  border-color: rgba(255, 77, 0, 0.35) !important;
+  box-shadow: 0 16px 36px -8px rgba(255, 77, 0, 0.12), 0 0 20px -4px rgba(255, 77, 0, 0.05) !important;
+}
+
+/* Giant Creative Number Watermarks */
+html:not(.dark) .step-watermark {
+  color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .step-watermark {
+  color: rgba(255, 77, 0, 0.08) !important;
+}
+
+/* Step Header Pill */
+html:not(.dark) .step-badge-pill {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+html:not(.dark) .step-badge-pill span span:first-child {
+  background-color: #ff4d00 !important;
+}
+
+html:not(.dark) .step-badge-pill span span:last-child {
+  background-color: #ff4d00 !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .step-badge-pill {
+  border-color: rgba(255, 77, 0, 0.35) !important;
+  background-color: rgba(255, 77, 0, 0.06) !important;
+  color: #ff4d00 !important;
+}
+
+/* Phase Subtitle Tag */
+html:not(.dark) .pipeline-step-card .step-phase-tag {
+  color: #64748b !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .step-phase-tag {
+  color: #ff4d00 !important;
+}
+
+/* Step Title & Description */
+html:not(.dark) .pipeline-step-card .step-title {
+  color: #08090a !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .step-title {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .pipeline-step-card .step-desc {
+  color: #475569 !important;
+}
+
+html:not(.dark) .pipeline-step-card .step-desc kbd {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .pipeline-step-card .step-desc code {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Preview Boxes General */
+html:not(.dark) .pipeline-preview-box {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .pipeline-preview-box {
+  border-color: #cbd5e1 !important;
+}
+
+/* Card 1 - Crop Viewfinder */
+html:not(.dark) .crop-bracket {
+  border-color: #ff4d00 !important;
+}
+
+html:not(.dark) .crop-glyph-box {
+  background-color: #ffffff !important;
+  border-color: rgba(255, 77, 0, 0.45) !important;
+}
+
+html:not(.dark) .pipeline-step-card:hover .crop-glyph-box {
+  border-color: #ff4d00 !important;
+  box-shadow: 0 0 12px rgba(255, 77, 0, 0.18) !important;
+}
+
+html:not(.dark) .crop-glyph-text {
+  color: #08090a !important;
+}
+
+html:not(.dark) .crop-badge-tag {
+  background-color: #ff4d00 !important;
+  color: #ffffff !important;
+}
+
+html:not(.dark) .crop-detect-pill {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark) .crop-detect-icon {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .crop-detect-sub {
+  color: #64748b !important;
+}
+
+/* Card 2 - 16x16 Matrix & Telemetry */
+html:not(.dark) .matrix-grid-box {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .matrix-dot-1,
+html:not(.dark) .matrix-dot-4,
+html:not(.dark) .matrix-dot-6 {
+  background-color: #ff4d00 !important;
+  box-shadow: 0 0 6px rgba(255, 77, 0, 0.5) !important;
+}
+
+html:not(.dark) .matrix-dot-2,
+html:not(.dark) .matrix-dot-5 {
+  background-color: rgba(255, 77, 0, 0.75) !important;
+}
+
+html:not(.dark) .matrix-dot-3 {
+  background-color: rgba(255, 77, 0, 0.25) !important;
+}
+
+html:not(.dark) .matrix-dot-7 {
+  background-color: rgba(255, 77, 0, 0.4) !important;
+}
+
+html:not(.dark) .matrix-dot-8 {
+  background-color: rgba(255, 77, 0, 0.65) !important;
+}
+
+html:not(.dark) .scan-laser {
+  background: linear-gradient(to right, transparent, rgba(255, 77, 0, 0.75), transparent) !important;
+  box-shadow: 0 0 16px #ff4d00 !important;
+}
+
+html:not(.dark) .matrix-telemetry {
+  color: #64748b !important;
+}
+
+html:not(.dark) .matrix-val {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .apertures-val {
+  color: #08090a !important;
+}
+
+html:not(.dark) .nodes-val {
+  color: #059669 !important;
+}
+
+/* Card 3 - Code Blueprint */
+html:not(.dark) .code-preview-box {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .code-terminal-header {
+  border-color: #f1f5f9 !important;
+}
+
+html:not(.dark) .code-terminal-title {
+  color: #64748b !important;
+}
+
+html:not(.dark) .code-ready-badge {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .code-keyword {
+  color: #ff4d00 !important;
+  font-weight: 600;
+}
+
+html:not(.dark) .code-url {
+  color: #0284c7 !important;
+}
+
+html:not(.dark) .code-prop {
+  color: #64748b !important;
+}
+
+html:not(.dark) .code-val {
+  color: #08090a !important;
+}
+
+/* Card Footers */
+html:not(.dark) .step-card-footer {
+  border-color: #f1f5f9 !important;
+  color: #64748b !important;
+}
+
+html:not(.dark) .step-card-footer span:last-child {
+  color: #94a3b8 !important;
+}
+
+/* ========================================================================= */
+/* VERIFIED FONT CATALOG CARDS (PROFESSIONAL REFINED DESIGN)                 */
+/* ========================================================================= */
+.font-catalog-card {
+  position: relative;
+  background-color: #0c0d10;
+  border: 1px solid #202227;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.font-catalog-card:hover {
+  transform: translateY(-2px);
+  border-color: #383b42;
+  background-color: #101114;
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
+}
+
+.font-specimen-box {
+  background-color: #131417;
+  border: 1px solid #1e2025;
+  transition: all 0.2s ease;
+}
+
+.font-catalog-card:hover .font-specimen-box {
+  border-color: #2b2e35;
+  background-color: #16171b;
+}
+
+/* Light Mode Overrides for Font Catalog Cards */
+html:not(.dark) .font-catalog-card {
+  background-color: #ffffff !important;
+  border-color: #e2e4e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+html:not(.dark) .font-catalog-card:hover {
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.07) !important;
+}
+
+html:not(.dark) .font-specimen-box {
+  background-color: #f8f9fa !important;
+  border-color: #e2e4e8 !important;
+}
+
+html:not(.dark) .font-catalog-card:hover .font-specimen-box {
+  border-color: #d1d5db !important;
+  background-color: #f4f5f7 !important;
+}
+
+html:not(.dark) .font-catalog-card .font-card-name {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .font-catalog-card .font-specimen-text {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .font-catalog-card .font-card-copy-btn {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+html:not(.dark) .font-catalog-card .font-card-copy-btn:hover {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+/* ========================================================================= */
+/* FINAL CTA PRECISION CARD (LINEAR / HIGH-CRAFT DESIGN)                    */
+/* ========================================================================= */
+.cta-banner-card {
+  position: relative;
+  background-color: #0c0d10;
+  border: 1px solid #202227;
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.cta-banner-card:hover {
+  border-color: #383b42;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.55), 0 0 28px -6px rgba(228, 242, 34, 0.07);
+}
+
+.cta-spotlight {
+  background: radial-gradient(circle 500px at 50% 50%, rgba(228, 242, 34, 0.055), transparent 70%);
+}
+
+/* Light Mode Overrides for Final CTA Card */
+html:not(.dark) .cta-banner-card {
+  background-color: #ffffff !important;
+  border-color: #e2e4e8 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .cta-banner-card:hover {
+  border-color: rgba(255, 77, 0, 0.35) !important;
+  box-shadow: 0 16px 36px -8px rgba(255, 77, 0, 0.10), 0 0 24px -4px rgba(255, 77, 0, 0.04) !important;
+}
+
+html:not(.dark) .cta-spotlight {
+  background: radial-gradient(circle 500px at 50% 50%, rgba(255, 77, 0, 0.055), transparent 70%) !important;
+}
+
+html:not(.dark) .cta-title {
+  color: #08090a !important;
+}
+
+html:not(.dark) .cta-desc {
+  color: #4b5563 !important;
+}
+
+html:not(.dark) .cta-badge {
+  background-color: #f8f9fa !important;
+  border-color: #e2e4e8 !important;
+}
+
+html:not(.dark) .cta-badge-text {
+  color: #08090a !important;
+}
+
+html:not(.dark) .cta-secondary-btn {
+  background-color: #ffffff !important;
+  border-color: #e2e4e8 !important;
+  color: #374151 !important;
+}
+
+html:not(.dark) .cta-secondary-btn:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  color: #08090a !important;
+}
+
+html:not(.dark) .cta-corner-tick {
+  color: #d1d5db !important;
+}
+
+html:not(.dark) .cta-banner-card:hover .cta-corner-tick {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .cta-watermark {
+  color: rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .cta-banner-card:hover .cta-watermark {
+  color: rgba(255, 77, 0, 0.06) !important;
+}
+
+/* ========================================================================= */
+/* TOOL SUITE CARDS (PRECISION HOVER ARCHITECTURE)                          */
+/* ========================================================================= */
+.tool-card {
+  position: relative;
+  background-color: #0c0d10;
+  border: 1px solid #202227;
+  border-radius: 14px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  border-color: #383b42;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 0 24px -6px rgba(228, 242, 34, 0.06);
+}
+
+.tool-card-spotlight {
+  background: radial-gradient(circle at top right, rgba(228, 242, 34, 0.06), transparent 65%);
+}
+
+/* Light Mode Overrides for Tool Suite Cards */
+html:not(.dark) .tool-card {
+  background-color: #ffffff !important;
+  border-color: #e2e4e8 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+html:not(.dark) .tool-card:hover {
+  border-color: rgba(255, 77, 0, 0.4) !important;
+  box-shadow: 0 16px 36px -8px rgba(255, 77, 0, 0.12), 0 0 20px -4px rgba(255, 77, 0, 0.04) !important;
+}
+
+html:not(.dark) .tool-card-spotlight {
+  background: radial-gradient(circle at top right, rgba(255, 77, 0, 0.05), transparent 65%) !important;
+}
+
+html:not(.dark) .tool-corner-tick {
+  color: #cbd5e1 !important;
+}
+
+html:not(.dark) .tool-card:hover .tool-corner-tick {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .tool-watermark {
+  color: rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .tool-card:hover .tool-watermark {
+  color: rgba(255, 77, 0, 0.06) !important;
+}
+
+html:not(.dark) .tool-badge {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark) .tool-badge-dot {
+  background-color: #ff4d00 !important;
+}
+
+html:not(.dark) .tool-metric-tag {
+  color: #64748b !important;
+}
+
+html:not(.dark) .tool-title {
+  color: #08090a !important;
+}
+
+html:not(.dark) .tool-card:hover .tool-title {
+  color: #ff4d00 !important;
+}
+
+html:not(.dark) .tool-desc {
+  color: #475569 !important;
+}
+
+html:not(.dark) .tool-icon-box {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+html:not(.dark) .tool-card:hover .tool-icon-box {
+  border-color: rgba(255, 77, 0, 0.4) !important;
+  color: #ff4d00 !important;
+  box-shadow: 0 0 16px rgba(255, 77, 0, 0.18) !important;
+}
+
+html:not(.dark) .tool-footer {
+  border-color: #f1f5f9 !important;
+  color: #64748b !important;
+}
+
+html:not(.dark) .tool-action-btn {
+  color: #334155 !important;
+}
+
+html:not(.dark) .tool-card:hover .tool-action-btn {
+  color: #ff4d00 !important;
+}
