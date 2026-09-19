@@ -176,10 +176,6 @@
       return rects;
     }
 
-    function isToolsRoute(): boolean {
-      const p = window.location.pathname;
-      return p === '/tools' || p.startsWith('/tools/');
-    }
 
     function startLoop() {
       if (!animId) {
@@ -189,7 +185,7 @@
     }
 
     function updateGridStatus(x: number, y: number, target?: EventTarget | null) {
-      if (isToolsRoute() || isPointInDropSection(x, y, target)) {
+      if (isPointInDropSection(x, y, target)) {
         isInGrid = false;
         targetAlpha = 0;
         currentAlpha = 0;
@@ -221,7 +217,7 @@
 
       updateGridStatus(targetX, targetY, e.target);
 
-      if (isToolsRoute() || !isInGrid || isPointInDropSection(targetX, targetY, e.target)) {
+      if (!isInGrid || isPointInDropSection(targetX, targetY, e.target)) {
         currentAlpha = 0;
         return;
       }
@@ -263,7 +259,7 @@
       const x = e.clientX;
       const y = e.clientY;
 
-      if (isToolsRoute() || !isPointInGrid(x, y) || isPointInDropSection(x, y, e.target)) return;
+      if (!isPointInGrid(x, y) || isPointInDropSection(x, y, e.target)) return;
 
       const dark = isDarkMode();
       const palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
@@ -318,12 +314,6 @@
     function render(now: number) {
       if (!ctx || !canvas) return;
 
-      if (isToolsRoute()) {
-        currentAlpha = 0;
-        ctx.clearRect(0, 0, width, height);
-        animId = null;
-        return;
-      }
 
       const dt = Math.min(now - lastFrameTime, 100);
       lastFrameTime = now;
