@@ -11,7 +11,7 @@ const {
   title = 'Font Finder — Free Image Font Identifier & Google Fonts Verification',
   description = 'Instantly identify fonts from any image or screenshot. Powered by optical typography analysis with verified Google Fonts matches, copy-ready CSS, and free alternatives.',
   canonicalUrl = Astro.url.href,
-  ogImage = '/og-image.png',
+  ogImage = '/og-image.jpg',
   type = 'website'
 } = Astro.props;
 
@@ -26,6 +26,9 @@ const absoluteCanonical = canonicalUrl.startsWith('http')
 const absoluteOgImage = ogImage.startsWith('http')
   ? ogImage
   : `${siteOrigin}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+
+const isPng = absoluteOgImage.toLowerCase().endsWith('.png');
+const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 ---
 
 <!-- Primary Meta Tags -->
@@ -51,9 +54,9 @@ const absoluteOgImage = ogImage.startsWith('http')
 <meta property="og:description" content={description} />
 <meta property="og:image" content={absoluteOgImage} />
 <meta property="og:image:secure_url" content={absoluteOgImage} />
+<meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:type" content="image/png" />
 <meta property="og:image:alt" content="Font Finder - In-Browser Font Identification from Images & Screenshots" />
 <meta property="og:site_name" content={siteName} />
 
