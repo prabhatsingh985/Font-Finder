@@ -9,13 +9,13 @@ const { font } = Astro.props;
 const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 ---
 
-<div class="font-catalog-card group p-5 sm:p-6 flex flex-col justify-between">
+<a href={`/fonts/${font.id}`} class="font-catalog-card group p-5 sm:p-6 flex flex-col justify-between cursor-pointer block no-underline">
   <div>
     <!-- Header: Family Name, Category & Verified Badge -->
     <div class="flex items-start justify-between gap-3 mb-3">
       <div class="min-w-0">
-        <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#ffffff] tracking-[-0.015em] transition-colors truncate">
-          <a href={`/fonts/${font.id}`} class="hover:underline focus:outline-none">{font.family}</a>
+        <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#ffffff] tracking-[-0.015em] transition-colors truncate group-hover:text-[#e4f222]">
+          {font.family}
         </h3>
         <div class="flex items-center gap-2 mt-1 text-[12px] text-[#8a8f98]">
           <span class="truncate">{font.designer}</span>
@@ -91,17 +91,16 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
       </span>
     </div>
 
-    <a
-      href={`/fonts/${font.id}`}
+    <span
       class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#d0d6e0] group-hover:text-[#ffffff] transition-colors"
     >
       <span>Inspect</span>
       <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
       </svg>
-    </a>
+    </span>
   </div>
-</div>
+</a>
 
 <script>
   // Clean, professional delegated Copy CSS handler

@@ -150,7 +150,7 @@
     function isPointInBoxSection(x: number, y: number, target?: EventTarget | null): boolean {
       // 1. Direct event target check via closest
       if (target instanceof Element) {
-        if (target.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
+        if (target.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, .font-catalog-card, .font-item, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
           return true;
         }
       }
@@ -158,7 +158,7 @@
       // 2. Element from point check
       if (typeof document !== 'undefined' && typeof document.elementFromPoint === 'function') {
         const el = document.elementFromPoint(x, y);
-        if (el && el.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
+        if (el && el.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, .font-catalog-card, .font-item, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
           return true;
         }
       }
@@ -190,6 +190,8 @@
         '#studio',
         '.tool-card',
         '.cta-banner-card',
+        '.font-catalog-card',
+        '.font-item',
         'header',
         'nav',
         '[data-drop-zone="true"]',

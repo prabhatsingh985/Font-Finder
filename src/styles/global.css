@@ -1094,11 +1094,13 @@ html:not(.dark) .step-card-footer span:last-child {
 /* ========================================================================= */
 /* VERIFIED FONT CATALOG CARDS (PROFESSIONAL REFINED DESIGN)                 */
 /* ========================================================================= */
-.font-catalog-card {
+.font-catalog-card,
+.font-item {
   position: relative;
   background-color: #0c0d10;
   border: 1px solid #202227;
   border-radius: 12px;
+  cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

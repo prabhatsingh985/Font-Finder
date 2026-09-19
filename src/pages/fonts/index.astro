@@ -153,25 +153,26 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     }
 
     function createCardElement(font) {
-      const div = document.createElement('div');
-      div.className = 'font-item group rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 transition-all hover:bg-[#161718] hover:border-[#383b3f] shadow-sm flex flex-col justify-between';
-      div.setAttribute('data-family', (font.family || '').toLowerCase());
-      const designers = Array.isArray(font.designers) ? font.designers.join(', ') : (font.designer || 'Google Fonts');
-      div.setAttribute('data-designer', designers.toLowerCase());
-      div.setAttribute('data-cat', font.category || 'sans-serif');
-
-      const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
       const fontId = font.id || font.family.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const inspectUrl = `/fonts/${fontId}`;
+      const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
+      const designers = Array.isArray(font.designers) ? font.designers.join(', ') : (font.designer || 'Google Fonts');
       const weightsCount = Array.isArray(font.weights) ? font.weights.length : (Array.isArray(font.variants) ? font.variants.length : 1);
       const activeSpecimen = globalSpecimenInput ? globalSpecimenInput.value : 'Almost before we knew it, we had left the ground.';
 
-      div.innerHTML = `
+      const a = document.createElement('a');
+      a.href = inspectUrl;
+      a.className = 'font-item font-catalog-card group rounded-[12px] border border-[#23252a] bg-[#0c0d10] p-6 transition-all hover:bg-[#101114] hover:border-[#383b42] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.45)] shadow-sm flex flex-col justify-between cursor-pointer block no-underline';
+      a.setAttribute('data-family', (font.family || '').toLowerCase());
+      a.setAttribute('data-designer', designers.toLowerCase());
+      a.setAttribute('data-cat', font.category || 'sans-serif');
+
+      a.innerHTML = `
         <div>
           <div class="flex items-start justify-between gap-2 mb-3">
             <div>
-              <h3 class="font-[510] text-[16px] text-[#ffffff] tracking-[-0.012em] transition-colors">
-                <a href="${inspectUrl}">${font.family}</a>
+              <h3 class="font-[510] text-[16px] text-[#ffffff] tracking-[-0.012em] transition-colors group-hover:text-[#e4f222]">
+                ${font.family}
               </h3>
               <p class="text-[12px] text-[#8a8f98] mt-0.5 font-normal">
                 ${designers} &bull; <span class="capitalize">${font.category || 'sans-serif'}</span>
@@ -183,7 +184,7 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
             </span>
           </div>
 
-          <div class="my-4 p-3.5 rounded-[6px] bg-[#161718] border border-[#23252a] overflow-hidden">
+          <div class="my-4 p-3.5 rounded-[6px] bg-[#161718] border border-[#23252a] overflow-hidden group-hover:border-[#2b2e35]">
             <p
               class="specimen-text text-xl text-[#ffffff] truncate select-all"
               style="font-family: '${font.family}', ${font.category || 'sans-serif'};"
@@ -201,15 +202,14 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
           <span class="text-[#62666d]">
             ${weightsCount} style${weightsCount > 1 ? 's' : ''} ${font.variable ? '• Variable' : ''}
           </span>
-          <a
-            href="${inspectUrl}"
-            class="font-normal text-[#d0d6e0] hover:text-[#ffffff] transition-colors inline-flex items-center gap-1"
+          <span
+            class="font-normal text-[#d0d6e0] group-hover:text-[#ffffff] transition-colors inline-flex items-center gap-1"
           >
             Inspect &rarr;
-          </a>
+          </span>
         </div>
       `;
-      return div;
+      return a;
     }
 
     function preloadVisibleFonts(fontsToLoad) {
