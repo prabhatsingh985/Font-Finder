@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { VERIFIED_GOOGLE_FONTS } from '../services/googleFonts/data';
 
 export const GET: APIRoute = async () => {
-  const siteUrl = 'https://fontfinder.dev';
+  const siteUrl = 'https://font-finder-zeta.vercel.app';
 
   const staticPages = [
     '',
