@@ -5,7 +5,7 @@ import FontFinderApp from '../../components/FontFinderApp.astro';
 
 <BaseLayout
   title="Find the Font in a Screenshot — Instant Clipboard (⌘V) & Optical Matcher"
-  description="Screenshots provide clean, undistorted letterforms. Paste directly from your clipboard with ⌘V / Ctrl+V or drop any captured screen snip to identify fonts in seconds."
+  description="Paste directly from your clipboard with ⌘V / Ctrl+V or drop any captured screen snip to identify fonts in seconds."
 >
   <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
@@ -23,38 +23,14 @@ import FontFinderApp from '../../components/FontFinderApp.astro';
         Find the font in a screenshot
       </h1>
       <p class="mt-3 text-[15px] sm:text-[16px] text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
-        Screenshots are the purest input: sharp, pixel-aligned, and undistorted. Press <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">⌘V</kbd> or <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">Ctrl+V</kbd> anywhere to paste directly from your clipboard.
+        Paste directly from your clipboard using <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">⌘V</kbd> or <kbd class="font-mono text-xs bg-[#161718] border border-[#23252a] px-2 py-0.5 rounded text-[#ffffff] shadow-sm font-semibold">Ctrl+V</kbd>, or drop a screenshot file below.
       </p>
-
-      <!-- Screenshot Workflow Benefits Pills -->
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-mono">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
-          <span class="text-[#27a644] font-bold">&check;</span>
-          <span>Zero File Saving Needed</span>
-        </div>
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
-          <span class="text-[#27a644] font-bold">&check;</span>
-          <span>HiDPI & Retina 2x Auto-Normalized</span>
-        </div>
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a] text-[#8a8f98] shadow-sm">
-          <span class="text-[#27a644] font-bold">&check;</span>
-          <span>Multi-Word Sentence Selector</span>
-        </div>
-      </div>
 
       <!-- Screenshot Scanner Main Application -->
       <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
-        <div class="mb-5 p-4 rounded-[12px] border border-[#23252a] bg-[#0f1011] text-xs font-mono text-[#8a8f98] flex items-center justify-between gap-3 shadow-sm">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#27a644]"></span>
-            <span>Clipboard Listener Active: Press <kbd class="px-1.5 py-0.5 rounded bg-[#161718] border border-[#23252a] text-[#ffffff]">Ctrl+V</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-[#161718] border border-[#23252a] text-[#ffffff]">⌘V</kbd> to analyze screenshot instantly</span>
-          </div>
-          <span class="text-[11px] text-[#8a8f98] hidden sm:inline-block">100% In-Browser</span>
-        </div>
-
         <FontFinderApp
-          dropzoneTitle="Paste screen capture (⌘V / Ctrl+V) or drop file"
-          dropzoneSubtitle="Optimized for Mac & Windows snips &bull; HiDPI 2x Retina supported &bull; 100% private"
+          dropzoneTitle="Paste screenshot (⌘V / Ctrl+V) or drop file here"
+          dropzoneSubtitle="Supports PNG, JPG, and WebP images"
           buttonText="Select Screenshot File"
           accept="image/png, image/jpeg, image/jpg, image/webp"
         />
