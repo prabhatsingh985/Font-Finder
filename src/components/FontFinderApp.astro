@@ -122,8 +122,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       <!-- Sentence Crop Preview Box -->
       <div id="stage2-sentence-preview-card" class="rounded-[12px] border border-[#23252a] bg-[#161718] p-4 flex flex-col items-center justify-center min-h-[90px] overflow-hidden transition-all">
         <div class="w-full flex items-center justify-between mb-2.5">
-          <span class="text-[11px] font-mono uppercase tracking-wider text-[#8a8f98]">Detected Text Region:</span>
-          <span id="stage2-preview-badge" class="text-[10px] font-mono text-[#d0d6e0] bg-white/[0.05] px-2.5 py-0.5 rounded-[4px] border border-[#23252a]">Full Sentence Crop</span>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#8a8f98]">Detected text:</span>
+          <span id="stage2-preview-badge" class="hidden"></span>
         </div>
         <div class="w-full flex items-center justify-center bg-[#08090a] rounded-[6px] border border-[#23252a] p-3 min-h-[70px]">
           <img id="stage2-sentence-preview-img" src="" alt="Detected Text Crop" class="max-h-[120px] max-w-full object-contain rounded-[4px]" />
@@ -134,18 +134,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       <div class="space-y-2">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-[14px] sm:text-[15px] font-[510] text-[#ffffff] inline tracking-[-0.011em]">
-              Verify detected text.
+            <h3 class="text-[14px] sm:text-[15px] font-[510] text-[#ffffff] tracking-[-0.011em]">
+              Verify detected text
             </h3>
-            <span class="text-[13px] text-[#8a8f98] ml-1.5 font-normal">
-              Fix any typos or characters before identifying.
-            </span>
           </div>
-          <div id="ocr-engine-badge" class="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-950/30 px-2.5 py-0.5 rounded-[4px] border border-emerald-800/60 shrink-0">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span id="ocr-engine-badge-text">AI OCR Verified</span>
+          <div id="ocr-engine-badge" class="hidden">
+            <span id="ocr-engine-badge-text"></span>
           </div>
         </div>
 
@@ -168,7 +162,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           class="font-mono text-[12px] text-[#8a8f98] hover:text-[#ffffff] transition-colors flex items-center gap-1.5 cursor-pointer select-none"
         >
           <span id="advanced-inspection-caret" class="text-[10px]">►</span>
-          <span>Advanced: Inspect individual words & letters</span>
+          <span>Inspect individual words & letters</span>
         </button>
 
         <!-- Collapsible content -->
@@ -192,7 +186,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         type="button"
         class="btn-acid-lime text-[14px] px-8 py-3 rounded-[6px] font-[510]"
       >
-        <span>Identify this font</span>
+        <span>Identify font</span>
         <svg class="w-4 h-4 ml-2 fill-none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
@@ -245,8 +239,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     <div class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 sm:p-6 shadow-sm space-y-4">
       <div class="flex items-center justify-between gap-3">
         <div>
-          <span class="text-[14px] font-[510] text-[#ffffff]">Preview text.</span>
-          <span class="text-[13px] text-[#8a8f98] ml-1.5 font-normal">Type anything to see it set in each match.</span>
+          <span class="text-[14px] font-[510] text-[#ffffff]">Preview text</span>
         </div>
         <div class="flex items-center gap-2">
           <button
@@ -272,49 +265,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         class="w-full bg-[#08090a] border border-[#23252a] rounded-[6px] px-4 py-2.5 text-[14px] text-[#ffffff] font-mono focus:outline-none focus:border-[#d0d6e0] shadow-sm"
       />
 
-      <!-- "▼ How this was matched" Collapsible Panel -->
-      <div class="rounded-[6px] border border-[#23252a] bg-[#161718] overflow-hidden">
-        <button
-          id="btn-toggle-matched-details"
-          type="button"
-          class="w-full px-4 py-2.5 text-left flex items-center justify-between text-[12px] font-normal text-[#d0d6e0] hover:bg-white/[0.02] transition-colors cursor-pointer"
-        >
-          <span class="flex items-center gap-1.5">
-            <span id="matched-details-caret">►</span>
-            <span>How this was matched</span>
-          </span>
-          <span class="text-[11px] font-mono text-[#8a8f98]">100% In-Browser</span>
-        </button>
-        <div id="matched-details-content" class="hidden px-4 pb-4 pt-1 border-t border-[#23252a] text-[12px] text-[#d0d6e0] space-y-3">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8">
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Letters read</span>
-              <span id="meta-letters-read" class="font-mono text-[#ffffff]">--</span>
-            </div>
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Letters compared</span>
-              <span id="meta-letters-count" class="font-mono text-[#ffffff]">--</span>
-            </div>
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Shape signatures</span>
-              <span class="font-mono text-right text-[11px] text-[#ffffff]">16×16 per letter (1,935 fonts)</span>
-            </div>
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Stroke weight</span>
-              <span id="meta-stroke-weight" class="font-mono text-right text-[#ffffff]">Matched as drawn</span>
-            </div>
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Second pass</span>
-              <span class="font-mono text-right text-[11px] text-[#ffffff]">Whole-word silhouette render</span>
-            </div>
-            <div class="flex items-center justify-between py-1.5 border-b border-[#23252a]">
-              <span class="text-[#8a8f98]">Execution</span>
-              <span class="font-mono text-right text-[11px] text-[#e4f222]">100% In-Browser (Zero Cloud)</span>
-            </div>
-          </div>
-          <p class="text-[11px] text-[#8a8f98] font-mono">
-            Everything above ran in your browser. No image left this device.
-          </p>
+      <!-- "▼ How this was matched" Collapsible Panel (hidden for minimal layout) -->
+      <div class="hidden">
+        <button id="btn-toggle-matched-details" type="button"></button>
+        <div id="matched-details-content">
+          <span id="meta-letters-read"></span>
+          <span id="meta-letters-count"></span>
+          <span id="meta-stroke-weight"></span>
         </div>
       </div>
     </div>
@@ -336,7 +293,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             <div id="res-confidence-badge" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-white/[0.04] text-[#e4f222] border border-[#23252a]">
               <span id="res-confidence">--%</span>
               <span>Match</span>
-              <span id="res-confidence-label" class="text-[10px] text-[#8a8f98]">(Excellent)</span>
+              <span id="res-confidence-label" class="hidden"></span>
             </div>
           </div>
 
@@ -411,7 +368,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             <h3 class="text-[14px] sm:text-[15px] font-[510] text-[#ffffff] tracking-[-0.011em]">
               Compare with your image
             </h3>
-            <p class="text-[12px] text-[#8a8f98] mt-0.5">Type any text below to compare letterforms side-by-side.</p>
           </div>
         </div>
 
@@ -1599,7 +1555,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         wordChipsContainer.innerHTML = `
           <div class="flex items-center gap-2.5 py-3 px-3 text-xs font-mono text-[#8a8f98]">
             <div class="w-4 h-4 rounded-full border-2 border-[#e4f222]/30 border-t-[#e4f222] animate-spin"></div>
-            <span>Extracting words & letterforms with AI OCR...</span>
+            <span>Detecting text and letterforms...</span>
           </div>
         `;
       }
@@ -2490,7 +2446,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           else if (detectedWords[0]?.wordImgDataUrl) stage2SentencePreviewImg.src = detectedWords[0].wordImgDataUrl;
         }
         if (stage2PreviewBadge) {
-          stage2PreviewBadge.textContent = 'Full Sentence Crop';
+          stage2PreviewBadge.textContent = '';
         }
 
         // Visual update on organize chips
@@ -2502,13 +2458,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
         const badgeText = document.getElementById('ocr-engine-badge-text');
         if (badgeText) {
-          const totalLetters = detectedWords.reduce((sum, w) => sum + (w.glyphs ? w.glyphs.length : (w.text ? w.text.length : 0)), 0);
-          badgeText.textContent = `Full Sentence (${totalLetters} letters)`;
+          badgeText.textContent = '';
         }
         if (btnIdentifyFont) {
           const btnSpan = btnIdentifyFont.querySelector('span');
           if (btnSpan) {
-            btnSpan.textContent = 'Identify Entire Sentence font';
+            btnSpan.textContent = 'Identify font';
           }
         }
         
@@ -2533,7 +2488,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           stage2SentencePreviewImg.src = currentSelectedWord.wordImgDataUrl || '';
         }
         if (stage2PreviewBadge) {
-          stage2PreviewBadge.textContent = `Word: "${currentSelectedWord.text}"`;
+          stage2PreviewBadge.textContent = '';
         }
 
         renderWordChips();
@@ -2544,16 +2499,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         }
         const badgeText = document.getElementById('ocr-engine-badge-text');
         if (badgeText) {
-          if (currentSelectedWord.confidence) {
-            badgeText.textContent = `AI OCR Verified (${Math.round(currentSelectedWord.confidence)}%)`;
-          } else {
-            badgeText.textContent = 'Word Verified';
-          }
+          badgeText.textContent = '';
         }
         if (btnIdentifyFont) {
           const btnSpan = btnIdentifyFont.querySelector('span');
-          if (btnSpan && currentSelectedWord) {
-            btnSpan.textContent = `Identify "${currentSelectedWord.text}" font`;
+          if (btnSpan) {
+            btnSpan.textContent = 'Identify font';
           }
         }
         prepareAndSegmentSelectedWord(currentSelectedWord);
@@ -2586,13 +2537,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           });
           const badgeText = document.getElementById('ocr-engine-badge-text');
           if (badgeText) {
-            const letterCount = newText.replace(/\s/g, '').length;
-            badgeText.textContent = `Full Sentence (${letterCount} letters)`;
+            badgeText.textContent = '';
           }
           if (btnIdentifyFont) {
             const btnSpan = btnIdentifyFont.querySelector('span');
             if (btnSpan) {
-              btnSpan.textContent = 'Identify Entire Sentence font';
+              btnSpan.textContent = 'Identify font';
             }
           }
         } else if (currentSelectedWord) {
@@ -4457,15 +4407,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       const confLabelEl = document.getElementById('res-confidence-label');
       if (confLabelEl) {
-        if (displayConfidence >= 95) {
-          confLabelEl.textContent = '(Excellent)';
-        } else if (displayConfidence >= 90) {
-          confLabelEl.textContent = '(Very Close)';
-        } else if (displayConfidence >= 80) {
-          confLabelEl.textContent = '(Good Match)';
-        } else {
-          confLabelEl.textContent = '(Best Match)';
-        }
+        confLabelEl.textContent = '';
       }
 
       const linkGfTop = document.getElementById('link-google-fonts-top');
