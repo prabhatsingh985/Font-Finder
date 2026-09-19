@@ -145,20 +145,102 @@
     }
 
     /**
-     * Check whether coordinates (x, y) or an event target is inside the drop image section
+     * Check whether coordinates (x, y) or an event target is inside any card, tool container, or surface box
      */
-    function isPointInDropSection(x: number, y: number, target?: EventTarget | null): boolean {
-      if (target instanceof Element && target.closest('#dropzone, [data-drop-zone="true"]')) {
-        return true;
+    function isPointInBoxSection(x: number, y: number, target?: EventTarget | null): boolean {
+      // 1. Direct event target check via closest
+      if (target instanceof Element) {
+        if (target.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
+          return true;
+        }
       }
-      const dropEl = document.getElementById('dropzone') || document.querySelector('[data-drop-zone="true"]');
-      if (dropEl) {
-        const rect = dropEl.getBoundingClientRect();
+
+      // 2. Element from point check
+      if (typeof document !== 'undefined' && typeof document.elementFromPoint === 'function') {
+        const el = document.elementFromPoint(x, y);
+        if (el && el.closest('#finder, #dropzone, #organize-stage, #loading-stage, #results-stage, #section-url, #studio, .tool-card, .cta-banner-card, header, nav, footer, [data-drop-zone="true"], [data-exclude-cursor-glow]')) {
+          return true;
+        }
+      }
+
+      // 3. Coordinate check against all visible card containers
+      const boxRects = getVisibleBoxRects();
+      for (let i = 0; i < boxRects.length; i++) {
+        const rect = boxRects[i];
         if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
           return true;
         }
       }
+
       return false;
+    }
+
+    /**
+     * Get all visible box bounding boxes to carve out (subtract) from the grid canvas rendering
+     */
+    function getVisibleBoxRects(): DOMRect[] {
+      const rawRects: DOMRect[] = [];
+      const selectors = [
+        '#finder',
+        '#dropzone',
+        '#organize-stage',
+        '#loading-stage',
+        '#results-stage',
+        '#section-url',
+        '#studio',
+        '.tool-card',
+        '.cta-banner-card',
+        'header',
+        'nav',
+        '[data-drop-zone="true"]',
+        '[data-exclude-cursor-glow]'
+      ];
+
+      const elements = document.querySelectorAll<HTMLElement>(selectors.join(', '));
+      elements.forEach(el => {
+        if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+          const rect = el.getBoundingClientRect();
+          if (rect.bottom > 0 && rect.top < height && rect.right > 0 && rect.left < width) {
+            rawRects.push(rect);
+          }
+        }
+      });
+
+      // Eliminate identical or nested rects so evenodd clipping never inverts
+      const cleanRects: DOMRect[] = [];
+      for (let i = 0; i < rawRects.length; i++) {
+        const a = rawRects[i];
+        let skip = false;
+        for (let j = 0; j < rawRects.length; j++) {
+          if (i === j) continue;
+          const b = rawRects[j];
+          const isIdentical = Math.abs(a.left - b.left) < 2 &&
+                              Math.abs(a.right - b.right) < 2 &&
+                              Math.abs(a.top - b.top) < 2 &&
+                              Math.abs(a.bottom - b.bottom) < 2;
+          if (isIdentical) {
+            if (i > j) {
+              skip = true;
+              break;
+            }
+            continue;
+          }
+          if (
+            a.left >= b.left - 2 &&
+            a.right <= b.right + 2 &&
+            a.top >= b.top - 2 &&
+            a.bottom <= b.bottom + 2
+          ) {
+            skip = true;
+            break;
+          }
+        }
+        if (!skip) {
+          cleanRects.push(a);
+        }
+      }
+
+      return cleanRects;
     }
 
     /**
@@ -185,7 +267,7 @@
     }
 
     function updateGridStatus(x: number, y: number, target?: EventTarget | null) {
-      if (isPointInDropSection(x, y, target)) {
+      if (isPointInBoxSection(x, y, target)) {
         isInGrid = false;
         targetAlpha = 0;
         currentAlpha = 0;
@@ -217,8 +299,10 @@
 
       updateGridStatus(targetX, targetY, e.target);
 
-      if (!isInGrid || isPointInDropSection(targetX, targetY, e.target)) {
+      if (!isInGrid || isPointInBoxSection(targetX, targetY, e.target)) {
         currentAlpha = 0;
+        targetAlpha = 0;
+        trail.length = 0;
         return;
       }
 
@@ -259,7 +343,7 @@
       const x = e.clientX;
       const y = e.clientY;
 
-      if (!isPointInGrid(x, y) || isPointInDropSection(x, y, e.target)) return;
+      if (!isPointInGrid(x, y) || isPointInBoxSection(x, y, e.target)) return;
 
       const dark = isDarkMode();
       const palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
@@ -322,11 +406,12 @@
       currentX += (targetX - currentX) * 0.45;
       currentY += (targetY - currentY) * 0.45;
 
-      // Alpha transition: strictly 0 inside drop section or outside grid
-      if (isInGrid && !isPointInDropSection(targetX, targetY) && !isPointInDropSection(currentX, currentY)) {
+      // Alpha transition: strictly 0 inside any card/tool box or outside grid
+      if (isInGrid && !isPointInBoxSection(targetX, targetY) && !isPointInBoxSection(currentX, currentY)) {
         currentAlpha += (targetAlpha - currentAlpha) * 0.25;
       } else {
         currentAlpha = 0;
+        targetAlpha = 0;
       }
       if (currentAlpha < 0.002) currentAlpha = 0;
 
@@ -350,19 +435,17 @@
       const dark = isDarkMode();
       const palette = dark ? DARK_PALETTE : LIGHT_PALETTE;
 
-      // Clip canvas strictly to visible grid sections, carving out drop zone
-      const dropEl = document.getElementById('dropzone') || document.querySelector('[data-drop-zone="true"]');
+      // Clip canvas strictly to visible grid sections, carving out all card/tool boxes
+      const boxRects = getVisibleBoxRects();
       ctx.save();
       ctx.beginPath();
       for (let i = 0; i < gridRects.length; i++) {
         const r = gridRects[i];
         ctx.rect(r.left, r.top, r.width, r.height);
       }
-      if (dropEl) {
-        const dr = dropEl.getBoundingClientRect();
-        if (dr.bottom > 0 && dr.top < height && dr.right > 0 && dr.left < width) {
-          ctx.rect(dr.left, dr.top, dr.width, dr.height);
-        }
+      for (let i = 0; i < boxRects.length; i++) {
+        const br = boxRects[i];
+        ctx.rect(br.left, br.top, br.width, br.height);
       }
       ctx.clip('evenodd');
 

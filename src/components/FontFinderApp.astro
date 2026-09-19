@@ -20,7 +20,7 @@ const {
 const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 ---
 
-<div id="finder" class="w-full max-w-[1000px] mx-auto scroll-mt-20">
+<div id="finder" data-exclude-cursor-glow="true" class="w-full max-w-[1000px] mx-auto scroll-mt-20">
   <script id="fonts-data" type="application/json" is:inline set:html={fontsJson}></script>
   <script is:inline src="/vendor/tesseract.min.js"></script>
   <script is:inline>
