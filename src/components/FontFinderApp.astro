@@ -279,12 +279,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           <div class="flex items-center gap-2 flex-wrap">
             <span
               id="res-verified-badge"
-              class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#27a644]/10 text-[#27a644] border border-[#27a644]/30"
+              class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 font-medium"
             >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#27a644]"></span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
               <span>Best Match</span>
             </span>
-            <div id="res-confidence-badge" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-white/[0.04] text-[#e4f222] border border-[#23252a]">
+            <div id="res-confidence-badge" class="hidden">
               <span id="res-confidence">--%</span>
               <span>Match</span>
               <span id="res-confidence-label" class="hidden"></span>
@@ -4375,13 +4375,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       const verifiedBadge = document.getElementById('res-verified-badge');
       if (verifiedBadge) {
         if (meta.isDistinctFont) {
+          verifiedBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 font-medium';
           verifiedBadge.innerHTML = `
-            <span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
             <span>Distinct Font (${meta.wordText || 'Word'})</span>
           `;
         } else {
+          verifiedBadge.className = 'inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 font-medium';
           verifiedBadge.innerHTML = `
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
             <span>Best Match</span>
           `;
         }
@@ -4514,13 +4516,13 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             <div class="flex items-start justify-between gap-4">
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  ${isBest ? `<span class="bg-[#27a644]/10 text-[#27a644] border border-[#27a644]/30 text-[11px] font-mono px-2 py-0.5 rounded-[4px]">Best match</span>` : ''}
+                  ${isBest ? `<span class="inline-flex items-center gap-1.5 bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 text-[11px] font-mono px-2 py-0.5 rounded-[4px] font-medium"><span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>Best match</span>` : ''}
                   <h3 class="text-lg sm:text-xl font-[510] text-[#ffffff] tracking-[-0.015em]">
                     ${cFam}
                   </h3>
                 </div>
                 <div class="text-[12px] text-[#8a8f98] mt-1 capitalize">
-                  ${cCat} &bull; Free &bull; open licence &bull; ${cand.confidence}% match
+                  ${cCat} &bull; Free &bull; open licence
                 </div>
               </div>
 
