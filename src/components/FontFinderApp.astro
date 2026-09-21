@@ -250,13 +250,6 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
           >
             <span>&uarr; Edit Text</span>
           </button>
-          <button
-            id="btn-reset-preview-text"
-            type="button"
-            class="btn-ghost-linear font-mono text-[11px] px-3 py-1.5"
-          >
-            Reset
-          </button>
         </div>
       </div>
       <input
@@ -439,17 +432,17 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             type="text"
             value="The quick brown fox jumps over the lazy dog"
             class="w-full bg-transparent border-0 text-[#ffffff] focus:ring-0 focus:outline-none placeholder-[#62666d] transition-all"
-            style="font-size: 28px; line-height: 1.2;"
+            style="font-size: 28px; line-height: 1.2; font-weight: 400;"
             spellcheck="false"
           />
         </div>
 
         <!-- Weight Pills -->
         <div id="specimen-weight-pills" class="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-[#23252a]">
-          <button type="button" data-weight="300" class="weight-pill px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] hover:text-[#ffffff]">Light 300</button>
-          <button type="button" data-weight="400" class="weight-pill px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#ffffff] bg-[#ffffff] text-[#08090a] font-medium">Regular 400</button>
-          <button type="button" data-weight="600" class="weight-pill px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] hover:text-[#ffffff]">SemiBold 600</button>
-          <button type="button" data-weight="700" class="weight-pill px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] hover:text-[#ffffff]">Bold 700</button>
+          <button type="button" data-weight="300" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">Light 300</button>
+          <button type="button" data-weight="400" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#ffffff] bg-[#ffffff] text-[#08090a] font-medium shadow-sm hover:opacity-95">Regular 400</button>
+          <button type="button" data-weight="600" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">SemiBold 600</button>
+          <button type="button" data-weight="700" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">Bold 700</button>
         </div>
       </div>
 
@@ -4483,6 +4476,20 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         specimenInput.style.fontWeight = '400';
       }
 
+      const wpContainer = document.getElementById('specimen-weight-pills');
+      if (wpContainer) {
+        const allPills = wpContainer.querySelectorAll('.weight-pill');
+        allPills.forEach((p) => {
+          if (p.getAttribute('data-weight') === '400') {
+            p.classList.remove('border-[#23252a]', 'bg-[#08090a]', 'text-[#8a8f98]', 'font-normal');
+            p.classList.add('border-[#ffffff]', 'bg-[#ffffff]', 'text-[#08090a]', 'font-medium', 'shadow-sm');
+          } else {
+            p.classList.remove('border-[#ffffff]', 'bg-[#ffffff]', 'text-[#08090a]', 'font-medium', 'shadow-sm');
+            p.classList.add('border-[#23252a]', 'bg-[#08090a]', 'text-[#8a8f98]', 'font-normal');
+          }
+        });
+      }
+
       // 1. Populate Ranked Google Font Matches Cards (Competitor Minimalist Style)
       const rankedCardsContainer = document.getElementById('res-ranked-cards-list');
       const topMatches = data.allTopMatches || [data.primary, ...(data.runnersUp || [])];
@@ -4653,19 +4660,30 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       specimenInput.style.fontSize = `${val}px`;
     });
 
-    specimenWeightPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        specimenWeightPills.forEach((p) => {
-          p.classList.remove('bg-[#262626]', 'text-white', 'border-[#262626]');
-          p.classList.add('bg-white', 'text-[#727272]', 'border-[#e5e7eb]');
+    const activeWeightClasses = ['border-[#ffffff]', 'bg-[#ffffff]', 'text-[#08090a]', 'font-medium', 'shadow-sm'];
+    const inactiveWeightClasses = ['border-[#23252a]', 'bg-[#08090a]', 'text-[#8a8f98]', 'font-normal'];
+
+    const weightPillsContainer = document.getElementById('specimen-weight-pills');
+    if (weightPillsContainer) {
+      weightPillsContainer.addEventListener('click', (e) => {
+        const pill = e.target.closest('.weight-pill');
+        if (!pill) return;
+
+        const allPills = weightPillsContainer.querySelectorAll('.weight-pill');
+        allPills.forEach((p) => {
+          p.classList.remove(...activeWeightClasses);
+          p.classList.add(...inactiveWeightClasses);
         });
-        pill.classList.remove('bg-white', 'text-[#727272]', 'border-[#e5e7eb]');
-        pill.classList.add('bg-[#262626]', 'text-white', 'border-[#262626]');
+
+        pill.classList.remove(...inactiveWeightClasses);
+        pill.classList.add(...activeWeightClasses);
 
         const weight = pill.getAttribute('data-weight');
-        specimenInput.style.fontWeight = weight;
+        if (specimenInput && weight) {
+          specimenInput.style.fontWeight = weight;
+        }
       });
-    });
+    }
 
     setupCopyButton('btn-copy-import', 'code-import');
     setupCopyButton('btn-copy-family', 'code-family');
