@@ -746,74 +746,284 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
         Frequently Asked Questions
       </h2>
 
+      <!-- Schema.org JSON-LD FAQPage Schema for Search Engine Rich Snippets -->
+      <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What the font finder: What is a font finder and how does it work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "What The Font Finder is a free online typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and CSS embed codes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Google identify a font?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While Google Lens can recognize words in an image, it does not specialize in typographic identification, font weights, or matching exact CSS font-family declarations. FreeFontFinderAI is built specifically for designers and developers to match letterforms against the full Google Fonts library with 100% verified CSS embed codes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I identify a type of font?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To identify a type of font, examine key typographic traits: check whether it has serifs (feet on strokes) or is sans-serif, observe the x-height and terminal shapes of letters like 'a' and 'g', note stroke weight contrast, and upload a clear screenshot to FreeFontFinderAI for automatic optical contour matching."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to see which font is used?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To see which font is used on a live website, right-click the text and select 'Inspect' (or press F12) to examine the CSS font-family property in DevTools. If the font is rendered inside an image, logo, graphic banner, or PDF, take a screenshot and upload it to FreeFontFinderAI to detect the exact font family."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use AI to identify a font?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Modern AI font identifiers like FreeFontFinderAI use client-side computer vision, optical character segmentation, and geometric vector similarity to compare glyph letterforms against pre-computed font datasets in milliseconds right in your browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a free font finder?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, FreeFontFinderAI is completely free with no scan limits, paywalls, or registrations required. Unlike paid services that charge per lookup or promote costly commercial licenses, all matched results are 100% verified, free, open-source Google Fonts safe for commercial and personal use."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to match a font?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To match a font: (1) Capture a crisp, high-contrast image or screenshot of the text. (2) Upload or paste the image into FreeFontFinderAI. (3) Verify the detected characters. (4) Review the ranked font matches using the interactive side-by-side comparison slider and live specimen tester."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I take a picture of a font and find it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly. Ensure the picture is well-lit, in focus, and taken straight-on for the highest matching accuracy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where can I find free fonts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The premier source for free, commercially licensed web fonts is Google Fonts (fonts.google.com). You can also explore our curated Font Directory, which catalogs popular Google Fonts with interactive weight tests, pairing guides, and copy-ready CSS @import declarations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to find a specific text font?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To identify a specific text font, crop tightly around a clean word containing 3 to 6 distinct characters (like 'R', 'g', 'a', or 'e' which have unique structural traits). Upload the cropped sample to FreeFontFinderAI to isolate and match that specific typeface."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I use Google Fonts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Using Google Fonts is simple: (1) Pick your matched font. (2) Copy the provided CSS @import link or HTML <link> tag and paste it into your stylesheet or website <head>. (3) Apply the CSS rule, for example: font-family: 'Inter', sans-serif;. Google Fonts are hosted on high-speed global CDNs for free."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to identify a font in a PDF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To identify fonts in a PDF document: (1) Open the PDF in Adobe Acrobat or browser and check File > Properties > Fonts to see embedded font names. (2) If the PDF contains flattened vector or rasterized text, take a screenshot (Win+Shift+S or Cmd+Shift+4) and paste it into FreeFontFinderAI for instant optical recognition."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I create a font using AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While FreeFontFinderAI is designed to identify existing fonts and find free open-source matches, generative AI tools (such as Calligraphr, Fontjoy, or custom vector AI models) can help generate custom typography and font files from user drawings or prompt sketches."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can the font identifier match cursive fonts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. FreeFontFinderAI recognizes cursive, script, handwritten, and calligraphic font styles. Because cursive letters often connect, using a sharp, high-resolution image helps the optical engine trace interconnected strokes accurately. You can also test dedicated script fonts with our Handwriting Font Finder tool."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What font types does it cover?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "FreeFontFinderAI covers all major typographic genres: Sans-Serif (Geometric, Neo-Grotesque, Humanist), Serif (Old Style, Transitional, Slab Serif), Monospace (Developer and Terminal fonts), Display (Poster and Headline fonts), and Script/Cursive typefaces across the entire verified Google Fonts collection."
+            }
+          }
+        ]
+      }
+      </script>
+
       <div class="divide-y divide-[#e2e4e8] dark:divide-[#23252a] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] rounded-[12px] px-5 sm:px-6 shadow-sm">
         <details class="group py-4" open>
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>What is a font finder?</span>
+            <span>What the font finder: What is a font finder and how does it work?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            A font finder is an optical typography tool that analyzes text inside an image, screenshot, or graphic to determine the typeface name, typographic style, and font family. FreeFontFinderAI identifies fonts locally and matches them with verified open-source Google Fonts alternatives.
+            What The Font Finder is a free online typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and CSS embed codes.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>How can I find a font from an image?</span>
+            <span>Can Google identify a font?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            Simply drag and drop or upload your image file (PNG, JPG, or WebP) into the Font Finder upload dropzone above. The tool isolates the text, extracts letterform contours, and instantly displays the highest-confidence matching font families along with direct Google Fonts links and copy-ready CSS embed snippets.
+            While Google Lens can recognize words in an image, it does not specialize in typographic identification, font weights, or matching exact CSS <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">font-family</code> declarations. FreeFontFinderAI is built specifically for designers and developers to match letterforms against the full Google Fonts library with 100% verified CSS embed codes.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>Can I identify a font from a screenshot?</span>
+            <span>How can I identify a type of font?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            Yes. You can paste a screenshot directly into the tool using <code class="text-[#ff4d00] dark:text-[#e4f222] font-mono bg-[#f1f3f6] dark:bg-[#161718] px-1.5 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">Ctrl+V</code> (or <code class="text-[#ff4d00] dark:text-[#e4f222] font-mono bg-[#f1f3f6] dark:bg-[#161718] px-1.5 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">Cmd+V</code> on Mac) or upload a clipped screenshot file. For the most accurate identification, ensure the text in the screenshot is sharp, clear, and horizontally aligned. You can also use our dedicated <a href="/tools/screenshot-font-finder" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline font-medium">Screenshot Font Finder</a>.
+            To identify a type of font, examine key typographic traits: check whether it has serifs (feet on strokes) or is sans-serif, observe the x-height and terminal shapes of letters like 'a' and 'g', note stroke weight contrast, and upload a clear screenshot to FreeFontFinderAI for automatic optical contour matching.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>Is the font finder free?</span>
+            <span>How to see which font is used?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            Yes, FreeFontFinderAI is 100% free with unlimited scans. There are no credit cards, subscriptions, paywalls, or account registrations required. All matched Google Fonts are open-source and free for both personal and commercial use under the SIL Open Font License.
+            To see which font is used on a live website, right-click the text and select 'Inspect' (or press F12) to examine the CSS <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">font-family</code> property in DevTools. If the font is rendered inside an image, logo, graphic banner, or PDF, take a screenshot and upload it to FreeFontFinderAI to detect the exact font family.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>How does image-based font identification work?</span>
+            <span>Can I use AI to identify a font?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            The tool uses in-browser optical analysis running on HTML5 Canvas and WebGL. It detects text lines, binarizes the raster pixels, traces glyph contours, measures typographic ratios (x-height, stroke weight, aperture, serifs), and computes Euclidean geometric distance against thousands of pre-calculated font vector models in under 150 milliseconds.
+            Yes. Modern AI font identifiers like FreeFontFinderAI use client-side computer vision, optical character segmentation, and geometric vector similarity to compare glyph letterforms against pre-computed font datasets in milliseconds right in your browser without uploading your private images to any cloud server.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>Can I find free alternatives to a font?</span>
+            <span>Is there a free font finder?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            Yes. When an image contains a paid commercial typeface (such as Helvetica, Futura, Gotham, or Didot), Font Finder detects its visual letterform traits and automatically suggests the closest 100% free, open-source Google Fonts alternatives. You can also explore our <a href="/tools/commercial-alternative" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline font-medium">Commercial Font Alternatives Tool</a>.
+            Yes, FreeFontFinderAI is completely free with no scan limits, paywalls, or registrations required. Unlike paid services that charge per lookup or promote costly commercial licenses, all matched results are 100% verified, free, open-source Google Fonts safe for commercial and personal use under the SIL Open Font License.
           </p>
         </details>
 
         <details class="group py-4">
           <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
-            <span>Can I identify cursive or handwritten fonts?</span>
+            <span>How to match a font?</span>
             <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
           </summary>
           <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-            Yes. Font Finder supports script, handwritten, and cursive font styles. For script fonts with connected letters, ensure your image has good resolution so the tool can trace character junctions clearly. You can also try our specialized <a href="/tools/handwriting-font-finder" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline font-medium">Handwriting Font Finder</a> for dedicated cursive testing.
+            To match a font: (1) Capture a crisp, high-contrast image or screenshot of the text. (2) Upload or paste the image into FreeFontFinderAI. (3) Verify the detected characters in the letter verification stage. (4) Review the ranked font matches using the interactive side-by-side comparison slider and live specimen tester.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>Can I take a picture of a font and find it?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>Where can I find free fonts?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            The premier source for free, commercially licensed web fonts is Google Fonts (<a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline">fonts.google.com</a>). You can also explore our curated <a href="/fonts" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline font-medium">Font Directory</a>, which catalogs popular open-source typefaces with interactive weight tests, pairing guides, and copy-ready CSS declarations.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>How to find a specific text font?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            To identify a specific text font, crop tightly around a clean word containing 3 to 6 distinct characters (like 'R', 'g', 'a', or 'e' which have unique structural traits). Upload the cropped sample to FreeFontFinderAI to isolate and match that specific typeface style and weight.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>How do I use Google Fonts?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            Using Google Fonts is simple: (1) Pick your matched font. (2) Copy the provided CSS <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">@import</code> link or HTML <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">&lt;link&gt;</code> tag and paste it into your stylesheet or website <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">&lt;head&gt;</code>. (3) Apply the CSS rule, for example: <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">font-family: 'Inter', sans-serif;</code>.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>How to identify a font in a PDF?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            To identify fonts in a PDF document: (1) Open the PDF in Adobe Acrobat or browser and check <strong class="font-medium text-[#08090a] dark:text-[#ffffff]">File &gt; Properties &gt; Fonts</strong> to see embedded font names. (2) If the PDF contains flattened vector or rasterized text, take a screenshot (<code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">Win+Shift+S</code> or <code class="font-mono text-[#ff4d00] dark:text-[#e4f222] bg-[#f1f3f6] dark:bg-[#161718] px-1 py-0.5 rounded border border-[#e2e4e8] dark:border-[#23252a]">Cmd+Shift+4</code>) and paste it into FreeFontFinderAI for instant optical recognition.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>Can I create a font using AI?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            While FreeFontFinderAI is designed to identify existing fonts and find free open-source matches, generative AI tools (such as Calligraphr, Fontjoy, or custom vector AI models) can help generate custom typography and font files from user drawings or prompt sketches.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>Can the font identifier match cursive fonts?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            Yes. FreeFontFinderAI recognizes cursive, script, handwritten, and calligraphic font styles. Because cursive letters often connect, using a sharp, high-resolution image helps the optical engine trace interconnected strokes accurately. You can also test dedicated script fonts with our <a href="/tools/handwriting-font-finder" class="text-[#ff4d00] dark:text-[#e4f222] hover:underline font-medium">Handwriting Font Finder</a> tool.
+          </p>
+        </details>
+
+        <details class="group py-4">
+          <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
+            <span>What font types does it cover?</span>
+            <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>
+          </summary>
+          <p class="mt-2 text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            FreeFontFinderAI covers all major typographic genres: Sans-Serif (Geometric, Neo-Grotesque, Humanist), Serif (Old Style, Transitional, Slab Serif), Monospace (Developer and Terminal fonts), Display (Poster and Headline fonts), and Script/Cursive typefaces across the entire verified Google Fonts collection.
           </p>
         </details>
       </div>

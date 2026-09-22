@@ -5,6 +5,7 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   type?: 'website' | 'article';
+  noindex?: boolean;
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   description = 'Identify any font from images and screenshots instantly with Font Finder. Upload an image to analyze letterforms and get 100% verified free font alternatives.',
   canonicalUrl = Astro.url.href,
   ogImage = '/og-image.jpg',
-  type = 'website'
+  type = 'website',
+  noindex = false
 } = Astro.props;
 
 const siteName = 'FreeFontFinderAI';
@@ -36,6 +38,11 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow" />
+)}
 <link rel="canonical" href={absoluteCanonical} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 

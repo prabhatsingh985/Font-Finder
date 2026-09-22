@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { VERIFIED_GOOGLE_FONTS } from '../services/googleFonts/data';
+import { getAllFontsMap } from '../services/googleFonts/fontCatalog';
 
 export const GET: APIRoute = async () => {
   const siteUrl = 'https://freefontfinderai.com';
@@ -17,10 +17,17 @@ export const GET: APIRoute = async () => {
     '/how-it-works',
     '/about',
     '/privacy',
-    '/terms'
+    '/terms',
+    '/contact'
   ];
 
-  const fontPages = VERIFIED_GOOGLE_FONTS.map((f) => `/fonts/${f.id}`);
+  const fontsMap = getAllFontsMap();
+  const fontSlugs = new Set<string>();
+  fontsMap.forEach((f) => {
+    fontSlugs.add(f.id.toLowerCase());
+  });
+
+  const fontPages = Array.from(fontSlugs).map((slug) => `/fonts/${slug}`);
   const allUrls = [...staticPages, ...fontPages];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

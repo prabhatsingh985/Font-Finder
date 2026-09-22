@@ -10,9 +10,10 @@ interface Props {
   description?: string;
   canonicalUrl?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
-const { title, description, canonicalUrl, ogImage } = Astro.props;
+const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -40,6 +41,7 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
       description={description}
       canonicalUrl={canonicalUrl}
       ogImage={ogImage}
+      noindex={noindex}
     />
   </head>
   <body class="min-h-screen flex flex-col bg-[#f7f8f9] dark:bg-[#08090a] text-[#374151] dark:text-[#d0d6e0] font-sans antialiased selection:bg-[#ff4d00] selection:text-white dark:selection:bg-[#e4f222] dark:selection:text-[#08090a] transition-colors duration-150">
