@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getAllFontsMap } from '../services/googleFonts/fontCatalog';
 
 export const GET: APIRoute = async () => {
-  const siteUrl = 'https://freefontfinderai.com';
+  const siteUrl = 'https://profontfinder.com';
 
   const staticPages = [
     '',

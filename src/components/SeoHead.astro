@@ -17,8 +17,8 @@ const {
   noindex = false
 } = Astro.props;
 
-const siteName = 'FreeFontFinderAI';
-const siteOrigin = 'https://freefontfinderai.com';
+const siteName = 'ProFontFinder';
+const siteOrigin = 'https://profontfinder.com';
 
 // Always provide absolute HTTPS URLs for social scrapers (WhatsApp, Twitter, LinkedIn, Slack, Discord)
 const absoluteCanonical = canonicalUrl.startsWith('http')
@@ -64,7 +64,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="FreeFontFinderAI - Free Image Font Finder & Typeface Identifier" />
+<meta property="og:image:alt" content="ProFontFinder - Free Image Font Finder & Typeface Identifier" />
 <meta property="og:site_name" content={siteName} />
 
 <!-- Twitter / X -->
@@ -73,7 +73,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={absoluteOgImage} />
-<meta name="twitter:image:alt" content="FreeFontFinderAI - Free Image Font Finder & Typeface Identifier" />
+<meta name="twitter:image:alt" content="ProFontFinder - Free Image Font Finder & Typeface Identifier" />
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" is:inline>
@@ -82,24 +82,24 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://freefontfinderai.com/#website",
-        "url": "https://freefontfinderai.com/",
-        "name": "FreeFontFinderAI",
+        "@id": "https://profontfinder.com/#website",
+        "url": "https://profontfinder.com/",
+        "name": "ProFontFinder",
         "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder"],
         "description": "Free image font finder and open-source Google Fonts identifier."
       },
       {
         "@type": "Organization",
-        "@id": "https://freefontfinderai.com/#organization",
-        "name": "FreeFontFinderAI",
-        "url": "https://freefontfinderai.com/",
-        "logo": "https://freefontfinderai.com/favicon.svg"
+        "@id": "https://profontfinder.com/#organization",
+        "name": "ProFontFinder",
+        "url": "https://profontfinder.com/",
+        "logo": "https://profontfinder.com/favicon.svg"
       },
       {
         "@type": "WebApplication",
-        "@id": "https://freefontfinderai.com/#webapp",
-        "name": "FreeFontFinderAI Font Finder",
-        "url": "https://freefontfinderai.com/",
+        "@id": "https://profontfinder.com/#webapp",
+        "name": "ProFontFinder Font Finder",
+        "url": "https://profontfinder.com/",
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires HTML5 Canvas and JavaScript",
