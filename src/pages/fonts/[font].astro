@@ -241,6 +241,34 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
       </div>
     )}
   </article>
+
+  <!-- Schema.org JSON-LD for Generative AI & Rich Snippets -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": font.family,
+    "headline": `${font.family} — Free Google Font Specimen, Weights & CSS Blueprint`,
+    "description": font.description,
+    "author": {
+      "@type": "Person",
+      "name": font.designer
+    },
+    "genre": font.category,
+    "license": "https://scripts.sil.org/OFL",
+    "isAccessibleForFree": true,
+    "url": `https://profontfinder.com/fonts/${font.id}`,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com"
+    }
+  })} />
 </BaseLayout>
 
 <script is:inline>

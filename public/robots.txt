@@ -1,4 +1,25 @@
 User-agent: *
 Allow: /
 
+# Generative AI & Answer Engine Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap & LLM Index
 Sitemap: https://profontfinder.com/sitemap.xml
+# LLMs.txt index for Generative AI search: https://profontfinder.com/llms.txt
