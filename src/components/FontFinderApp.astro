@@ -36,7 +36,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     <!-- Elevated Dropzone Card -->
     <div
       id="dropzone"
-      class="relative rounded-[12px] border border-[#23252a] bg-[#0f1011] p-8 sm:p-12 shadow-sm hover:border-[#383b3f] transition-all cursor-pointer group"
+      class="relative rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-8 sm:p-12 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b3f] transition-all cursor-pointer group"
     >
       <input
         type="file"
@@ -48,16 +48,16 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       <!-- Center Content -->
       <div class="text-center max-w-md mx-auto">
         <!-- Precision Line Icon Container -->
-        <div class="mx-auto w-10 h-10 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-center text-[#e4f222] mb-4 group-hover:border-[#383b3f] transition-colors">
+        <div class="mx-auto w-10 h-10 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] flex items-center justify-center text-[#ff4d00] dark:text-[#e4f222] mb-4 group-hover:border-[#ff4d00] dark:group-hover:border-[#383b3f] transition-colors">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
 
-        <h3 class="text-[16px] sm:text-[17px] font-[510] text-[#ffffff] tracking-[-0.012em]">
+        <h3 class="text-[16px] sm:text-[17px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
           {dropzoneTitle}
         </h3>
-        <p class="text-[13px] text-[#8a8f98] mt-1.5 font-normal">
+        <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-1.5 font-normal">
           {dropzoneSubtitle}
         </p>
 
@@ -271,15 +271,15 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
     </div>
     
     <!-- Primary Match Card -->
-    <div class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+    <div class="rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
       
       <!-- Top Bar: Badge, Font Name, Match Quality, and Actions -->
-      <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#23252a]">
+      <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e2e4e8] dark:border-[#23252a]">
         <div class="space-y-2">
           <div class="flex items-center gap-2 flex-wrap">
             <span
               id="res-verified-badge"
-              class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 font-medium"
+              class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#ff4d00] dark:text-[#e4f222] border border-[#ff4d00]/30 font-medium"
             >
               <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
               <span>Best Match</span>
@@ -291,11 +291,11 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             </div>
           </div>
 
-          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-[510] tracking-[-0.022em] text-[#ffffff]">
+          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-[510] tracking-[-0.022em] text-[#08090a] dark:text-[#ffffff]">
             Inter
           </h2>
 
-          <p id="res-font-designer" class="text-[13px] text-[#8a8f98]">
+          <p id="res-font-designer" class="text-[13px] text-[#475569] dark:text-[#8a8f98]">
             Designed by Rasmus Andersson &bull; SIL Open Font License
           </p>
         </div>
@@ -341,8 +341,8 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
 
       <!-- Commercial Alternative Notice -->
-      <div id="res-commercial-alert" class="hidden mt-4 p-3 rounded-[6px] bg-[#161718] border border-[#23252a] text-[12px] text-[#8a8f98]">
-        <span class="font-[510] text-[#ffffff]">Commercial Alternative:</span>
+      <div id="res-commercial-alert" class="hidden mt-4 p-3 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-[12px] text-[#475569] dark:text-[#8a8f98]">
+        <span class="font-[510] text-[#08090a] dark:text-[#ffffff]">Commercial Alternative:</span>
         <span id="res-commercial-text">Matches style of Helvetica. Free Google Fonts stand-in is Inter.</span>
       </div>
 
@@ -356,10 +356,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
 
       <!-- Side-by-Side Comparison (Uploaded vs Matched Specimen) -->
-      <div class="mt-6 rounded-[12px] border border-[#23252a] bg-[#161718] p-4 sm:p-5 space-y-4">
+      <div class="mt-6 rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#161718] p-4 sm:p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="text-[14px] sm:text-[15px] font-[510] text-[#ffffff] tracking-[-0.011em]">
+            <h3 class="text-[14px] sm:text-[15px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.011em]">
               Compare with your image
             </h3>
           </div>
@@ -371,21 +371,21 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             id="compare-text-input"
             type="text"
             placeholder="Type text to compare..."
-            class="w-full bg-[#08090a] border border-[#23252a] rounded-[6px] px-4 py-2.5 text-[14px] text-[#ffffff] font-mono focus:outline-none focus:border-[#d0d6e0] shadow-sm"
+            class="w-full bg-white dark:bg-[#08090a] border border-[#e2e4e8] dark:border-[#23252a] rounded-[6px] px-4 py-2.5 text-[14px] text-[#08090a] dark:text-[#ffffff] font-mono focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#d0d6e0] shadow-sm"
           />
         </div>
 
         <!-- Comparison Cards: Your Image vs Matched Font -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-          <div class="p-4 bg-[#08090a] rounded-[6px] border border-[#23252a] flex flex-col justify-between shadow-sm">
-            <span class="font-mono text-[11px] text-[#8a8f98] uppercase tracking-wider block mb-3">Your Image</span>
+          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm">
+            <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">Your Image</span>
             <div class="flex-1 flex items-center justify-center min-h-[72px] overflow-hidden">
               <img id="res-compare-uploaded" class="max-h-[80px] max-w-full object-contain rounded-[4px]" alt="Your cropped text specimen" />
             </div>
           </div>
-          <div class="p-4 bg-[#08090a] rounded-[6px] border border-[#23252a] flex flex-col justify-between shadow-sm">
-            <span id="res-compare-matched-title" class="font-mono text-[11px] text-[#8a8f98] uppercase tracking-wider block mb-3">Matched Font</span>
-            <div id="res-compare-matched" class="flex-1 flex items-center justify-center min-h-[72px] text-2xl sm:text-3xl text-[#ffffff] font-medium overflow-hidden px-2 text-center break-all">
+          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm">
+            <span id="res-compare-matched-title" class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">Matched Font</span>
+            <div id="res-compare-matched" class="flex-1 flex items-center justify-center min-h-[72px] text-2xl sm:text-3xl text-[#08090a] dark:text-[#ffffff] font-medium overflow-hidden px-2 text-center break-all">
               Typography Specimen
             </div>
           </div>
@@ -394,12 +394,12 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
       <!-- Ranked Google Font Matches -->
       <div class="mt-8">
-        <div class="flex items-center justify-between pb-3 border-b border-[#23252a] mb-4">
-          <span class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98] flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></span>
+        <div class="flex items-center justify-between pb-3 border-b border-[#e2e4e8] dark:border-[#23252a] mb-4">
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#475569] dark:text-[#8a8f98] flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
             <span>CLOSEST GOOGLE FONT MATCHES</span>
           </span>
-          <span class="text-[11px] text-[#8a8f98] font-mono">
+          <span class="text-[11px] text-[#64748b] dark:text-[#8a8f98] font-mono">
             Live preview rendered with Google Fonts
           </span>
         </div>
@@ -407,22 +407,22 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       </div>
 
       <!-- Live Specimen Tester -->
-      <div class="mt-8 rounded-[12px] border border-[#23252a] bg-[#161718] p-5 sm:p-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#23252a]">
-          <span class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98]">
+      <div class="mt-8 rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#161718] p-5 sm:p-6 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#e2e4e8] dark:border-[#23252a]">
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#475569] dark:text-[#8a8f98]">
             02 / LIVE SPECIMEN TESTER
           </span>
           <div class="flex items-center gap-2">
-            <span class="font-mono text-[11px] text-[#8a8f98]">Size:</span>
+            <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98]">Size:</span>
             <input
               id="specimen-size-slider"
               type="range"
               min="14"
               max="72"
               value="28"
-              class="w-24 sm:w-32 accent-[#e4f222] cursor-pointer"
+              class="w-24 sm:w-32 accent-[#ff4d00] dark:accent-[#e4f222] cursor-pointer"
             />
-            <span id="specimen-size-label" class="font-mono text-[11px] text-[#ffffff] w-8">28px</span>
+            <span id="specimen-size-label" class="font-mono text-[11px] text-[#08090a] dark:text-[#ffffff] w-8">28px</span>
           </div>
         </div>
 
@@ -431,18 +431,18 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
             id="specimen-text-input"
             type="text"
             value="The quick brown fox jumps over the lazy dog"
-            class="w-full bg-transparent border-0 text-[#ffffff] focus:ring-0 focus:outline-none placeholder-[#62666d] transition-all"
+            class="w-full bg-transparent border-0 text-[#08090a] dark:text-[#ffffff] focus:ring-0 focus:outline-none placeholder-[#94a3b8] dark:placeholder-[#62666d] transition-all"
             style="font-size: 28px; line-height: 1.2; font-weight: 400;"
             spellcheck="false"
           />
         </div>
 
         <!-- Weight Pills -->
-        <div id="specimen-weight-pills" class="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-[#23252a]">
-          <button type="button" data-weight="300" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">Light 300</button>
-          <button type="button" data-weight="400" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#ffffff] bg-[#ffffff] text-[#08090a] font-medium shadow-sm hover:opacity-95">Regular 400</button>
-          <button type="button" data-weight="600" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">SemiBold 600</button>
-          <button type="button" data-weight="700" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#23252a] bg-[#08090a] text-[#8a8f98] font-normal hover:text-[#ffffff] hover:border-[#383b3f]">Bold 700</button>
+        <div id="specimen-weight-pills" class="mt-5 flex flex-wrap gap-1.5 pt-4 border-t border-[#e2e4e8] dark:border-[#23252a]">
+          <button type="button" data-weight="300" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#08090a] text-[#475569] dark:text-[#8a8f98] font-normal hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f]">Light 300</button>
+          <button type="button" data-weight="400" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#08090a] dark:border-[#ffffff] bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] font-medium shadow-sm hover:opacity-95">Regular 400</button>
+          <button type="button" data-weight="600" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#08090a] text-[#475569] dark:text-[#8a8f98] font-normal hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f]">SemiBold 600</button>
+          <button type="button" data-weight="700" class="weight-pill cursor-pointer transition-all duration-150 active:scale-95 px-3 py-1 rounded-[6px] text-[12px] font-mono border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#08090a] text-[#475569] dark:text-[#8a8f98] font-normal hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f]">Bold 700</button>
         </div>
       </div>
 

@@ -14,21 +14,21 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
     <!-- Header: Family Name, Category & Verified Badge -->
     <div class="flex items-start justify-between gap-3 mb-3">
       <div class="min-w-0">
-        <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#ffffff] tracking-[-0.015em] transition-colors truncate group-hover:text-[#e4f222]">
+        <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em] transition-colors truncate group-hover:text-[#ff4d00] dark:group-hover:text-[#e4f222]">
           {font.family}
         </h3>
-        <div class="flex items-center gap-2 mt-1 text-[12px] text-[#8a8f98]">
+        <div class="flex items-center gap-2 mt-1 text-[12px] text-[#475569] dark:text-[#8a8f98]">
           <span class="truncate">{font.designer}</span>
-          <span class="text-[#3b3e45]">•</span>
-          <span class="capitalize px-1.5 py-0.5 rounded bg-white/[0.04] border border-white/[0.06] text-[10px] font-mono text-[#a0a6b2] shrink-0">
+          <span class="text-[#cbd5e1] dark:text-[#3b3e45]">•</span>
+          <span class="capitalize px-1.5 py-0.5 rounded bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.06] text-[10px] font-mono text-[#475569] dark:text-[#a0a6b2] shrink-0">
             {font.category}
           </span>
         </div>
       </div>
 
       <!-- Professional Subtle Verified Pill -->
-      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[5px] text-[10px] font-mono bg-white/[0.03] border border-[#24262c] text-[#8a8f98] shrink-0">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span>
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[5px] text-[10px] font-mono bg-[#f1f3f6] dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#24262c] text-[#475569] dark:text-[#8a8f98] shrink-0">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a] dark:bg-[#10b981]"></span>
         <span>Verified</span>
       </span>
     </div>
@@ -42,13 +42,13 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
       />
 
       <!-- Specimen Header Toolbar -->
-      <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-white/[0.04] text-[10px] font-mono text-[#62666d]">
-        <span class="group-hover:text-[#8a8f98] transition-colors">Specimen Preview</span>
+      <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-black/[0.05] dark:border-white/[0.04] text-[10px] font-mono text-[#64748b] dark:text-[#62666d]">
+        <span class="group-hover:text-[#08090a] dark:group-hover:text-[#8a8f98] transition-colors">Specimen Preview</span>
         
         <!-- Discreet Copy CSS Action on Hover -->
         <button
           type="button"
-          class="font-card-copy-btn opacity-0 group-hover:opacity-100 inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-[#1a1c22] border border-[#282b33] text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b44] transition-all cursor-pointer"
+          class="font-card-copy-btn opacity-0 group-hover:opacity-100 inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-white dark:bg-[#1a1c22] border border-[#cbd5e1] dark:border-[#282b33] text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#94a3b8] dark:hover:border-[#383b44] transition-all cursor-pointer shadow-sm"
           data-css={font.fontFamilyCss || `font-family: '${font.family}', ${font.category};`}
           title={`Copy font-family declaration`}
         >
@@ -61,28 +61,28 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 
       <!-- Live Specimen Typography: Smooth weight expansion on hover -->
       <p
-        class="font-specimen-text text-[19px] sm:text-[20px] text-[#f4f4f5] group-hover:text-[#ffffff] group-hover:font-medium transition-all duration-200 truncate select-all font-normal leading-snug"
+        class="font-specimen-text text-[19px] sm:text-[20px] text-[#08090a] dark:text-[#f4f4f5] group-hover:text-[#ff4d00] dark:group-hover:text-[#ffffff] group-hover:font-medium transition-all duration-200 truncate select-all font-normal leading-snug"
         style={`font-family: '${font.family}', ${font.category};`}
       >
         Almost before we knew it, we had left the ground.
       </p>
 
       <!-- Specimen Metadata Sub-row -->
-      <div class="mt-2.5 pt-2 border-t border-white/[0.03] text-[10px] font-mono text-[#62666d] flex items-center justify-between">
+      <div class="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.03] text-[10px] font-mono text-[#64748b] dark:text-[#62666d] flex items-center justify-between">
         <span class="truncate">Aa Bb Gg 123 • Open Source</span>
-        <span class="text-[#8a8f98] shrink-0">{font.variable ? 'Variable Axis' : `${font.variants.length} Weights`}</span>
+        <span class="text-[#475569] dark:text-[#8a8f98] shrink-0">{font.variable ? 'Variable Axis' : `${font.variants.length} Weights`}</span>
       </div>
     </div>
 
     <!-- Description -->
-    <p class="text-[13px] text-[#8a8f98] line-clamp-2 leading-relaxed mt-1 font-normal">
+    <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] line-clamp-2 leading-relaxed mt-1 font-normal">
       {font.description}
     </p>
   </div>
 
   <!-- Footer Info & Actions -->
-  <div class="mt-5 pt-3.5 border-t border-[#1f2127] flex items-center justify-between font-mono text-[12px]">
-    <div class="flex items-center gap-1.5 text-[#62666d] text-[11px]">
+  <div class="mt-5 pt-3.5 border-t border-[#e2e4e8] dark:border-[#1f2127] flex items-center justify-between font-mono text-[12px]">
+    <div class="flex items-center gap-1.5 text-[#64748b] dark:text-[#62666d] text-[11px]">
       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
@@ -92,7 +92,7 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
     </div>
 
     <span
-      class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#d0d6e0] group-hover:text-[#ffffff] transition-colors"
+      class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#334155] dark:text-[#d0d6e0] group-hover:text-[#08090a] dark:group-hover:text-[#ffffff] transition-colors"
     >
       <span>Inspect</span>
       <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

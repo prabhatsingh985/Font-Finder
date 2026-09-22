@@ -3,19 +3,19 @@ const currentPath = Astro.url.pathname;
 ---
 
 <!-- Linear Precision Top Nav Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-[#23252a] bg-[#08090a]/85 backdrop-blur-md transition-colors">
+<header class="sticky top-0 z-50 w-full border-b border-[#e2e4e8] dark:border-[#23252a] bg-white/85 dark:bg-[#08090a]/85 backdrop-blur-md transition-colors">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
     
     <!-- Left: Geometric Logo + Wordmark -->
     <a href="/" class="flex items-center gap-2.5 group">
-      <div class="w-6 h-6 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-center text-[#ffffff] group-hover:border-[#383b3f] transition-colors">
+      <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] flex items-center justify-center text-[#08090a] dark:text-[#ffffff] group-hover:border-[#ff4d00] dark:group-hover:border-[#383b3f] transition-colors">
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
       </div>
       <div class="flex items-center gap-2">
-        <span class="font-[510] tracking-[-0.015em] text-[14px] text-[#ffffff]">Font Finder</span>
-        <span class="font-mono text-[10px] text-[#8a8f98] border border-[#23252a] px-1.5 py-0.2 rounded-[4px] bg-white/[0.02] hidden sm:inline-block">
+        <span class="font-[510] tracking-[-0.015em] text-[14px] text-[#08090a] dark:text-[#ffffff]">Font Finder</span>
+        <span class="font-mono text-[10px] text-[#64748b] dark:text-[#8a8f98] border border-[#e2e4e8] dark:border-[#23252a] px-1.5 py-0.2 rounded-[4px] bg-black/[0.03] dark:bg-white/[0.02] hidden sm:inline-block">
           OPEN SOURCE
         </span>
       </div>
@@ -26,7 +26,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/"
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath === '/' ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
+          currentPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
         Finder
@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/tools"
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath.startsWith('/tools') ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
+          currentPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
         Tools
@@ -42,7 +42,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/fonts"
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath.startsWith('/fonts') ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
+          currentPath.startsWith('/fonts') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
         Browse Fonts
@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
       <a
         href="/about"
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath === '/about' ? 'text-[#ffffff] font-[510] bg-white/[0.05]' : 'text-[#d0d6e0] hover:text-[#ffffff] hover:bg-white/[0.03]'
+          currentPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
         About
@@ -64,7 +64,7 @@ const currentPath = Astro.url.pathname;
         id="theme-toggle"
         type="button"
         aria-label="Toggle color theme"
-        class="w-8 h-8 rounded-[6px] border border-[#23252a] bg-[#161718] flex items-center justify-center text-[#8a8f98] hover:text-[#ffffff] hover:border-[#383b3f] transition-colors cursor-pointer"
+        class="w-8 h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f] transition-colors cursor-pointer shadow-sm"
         title="Toggle dark / light mode"
       >
         <!-- Sun Icon (visible in dark mode) -->
@@ -73,14 +73,14 @@ const currentPath = Astro.url.pathname;
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41"></path>
         </svg>
         <!-- Moon Icon (visible in light mode) -->
-        <svg class="moon-icon w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <svg class="moon-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
         </svg>
       </button>
 
       <a
         href="/#finder"
-        class="btn-white-pill inline-flex items-center justify-center px-4 py-1.5 text-[13px] font-[510] rounded-full bg-[#ffffff] text-[#08090a] hover:bg-[#e5e5e6] transition-colors shadow-sm"
+        class="btn-white-pill inline-flex items-center justify-center px-4 py-1.5 text-[13px] font-[510] rounded-full bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm"
       >
         Identify Font
       </a>
@@ -89,21 +89,28 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile Secondary Menu Bar -->
-  <div class="flex md:hidden items-center justify-around border-t border-[#23252a] py-2 px-3 text-[12px] font-normal text-[#8a8f98] bg-[#08090a]/90 backdrop-blur-md">
-    <a href="/" class={`hover:text-[#ffffff] ${currentPath === '/' ? 'text-[#ffffff] font-[510]' : ''}`}>Finder</a>
-    <a href="/tools" class={`hover:text-[#ffffff] ${currentPath.startsWith('/tools') ? 'text-[#ffffff] font-[510]' : ''}`}>Tools</a>
-    <a href="/fonts" class={`hover:text-[#ffffff] ${currentPath.startsWith('/fonts') ? 'text-[#ffffff] font-[510]' : ''}`}>Browse</a>
-    <a href="/about" class={`hover:text-[#ffffff] ${currentPath === '/about' ? 'text-[#ffffff] font-[510]' : ''}`}>About</a>
+  <div class="flex md:hidden items-center justify-around border-t border-[#e2e4e8] dark:border-[#23252a] py-2 px-3 text-[12px] font-normal text-[#64748b] dark:text-[#8a8f98] bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-md">
+    <a href="/" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Finder</a>
+    <a href="/tools" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Tools</a>
+    <a href="/fonts" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/fonts') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Browse</a>
+    <a href="/about" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>About</a>
     <button
       id="theme-toggle-mobile"
       type="button"
       aria-label="Toggle color theme"
-      class="hover:text-[#ffffff] transition-colors flex items-center gap-1 cursor-pointer font-mono text-[11px]"
+      class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors flex items-center gap-1 cursor-pointer font-mono text-[11px]"
     >
       <span class="sun-icon">☀️ Light</span>
-      <span class="moon-icon hidden">🌙 Dark</span>
+      <span class="moon-icon">🌙 Dark</span>
     </button>
   </div>
+
+  <style>
+    :global(.dark) .sun-icon { display: block !important; }
+    :global(.dark) .moon-icon { display: none !important; }
+    :global(html:not(.dark)) .sun-icon { display: none !important; }
+    :global(html:not(.dark)) .moon-icon { display: block !important; }
+  </style>
 
   <script is:inline>
     (function () {
