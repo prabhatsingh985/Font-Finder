@@ -33,7 +33,7 @@ const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.pro
       (function() {
         try {
           const stored = localStorage.getItem('theme');
-          if (stored === 'light' || (!stored && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+          if (stored === 'light') {
             document.documentElement.classList.remove('dark');
             document.documentElement.classList.add('light');
           } else {

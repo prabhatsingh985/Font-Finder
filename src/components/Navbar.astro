@@ -3,12 +3,12 @@ const currentPath = Astro.url.pathname;
 ---
 
 <!-- Linear Precision Top Nav Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-[#e2e4e8] dark:border-[#23252a] bg-white/85 dark:bg-[#08090a]/85 backdrop-blur-md transition-colors">
+<header class="sticky top-0 z-50 w-full border-b border-[#e2e4e8] dark:border-[#383b44] bg-white/85 dark:bg-[#08090a]/85 backdrop-blur-md transition-colors">
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
     
     <!-- Left: Geometric Logo + Wordmark -->
     <a href="/" class="flex items-center gap-2.5 group">
-      <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] flex items-center justify-center text-[#08090a] dark:text-[#ffffff] group-hover:border-[#ff4d00] dark:group-hover:border-[#383b3f] transition-colors">
+      <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#383b44] flex items-center justify-center text-[#08090a] dark:text-[#ffffff] group-hover:border-[#ff4d00] dark:group-hover:border-[#64748b] transition-colors">
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
@@ -59,7 +59,7 @@ const currentPath = Astro.url.pathname;
         id="theme-toggle"
         type="button"
         aria-label="Toggle color theme"
-        class="w-8 h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f] transition-colors cursor-pointer shadow-sm"
+        class="w-8 h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#383b44] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#64748b] transition-colors cursor-pointer shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]"
         title="Toggle dark / light mode"
       >
         <!-- Sun Icon (visible in dark mode) -->
@@ -84,7 +84,7 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile Secondary Menu Bar -->
-  <div class="flex md:hidden items-center justify-around border-t border-[#e2e4e8] dark:border-[#23252a] py-2.5 px-4 text-[13px] font-normal text-[#64748b] dark:text-[#8a8f98] bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-md">
+  <div class="flex md:hidden items-center justify-around border-t border-[#e2e4e8] dark:border-[#383b44] py-2.5 px-4 text-[13px] font-normal text-[#64748b] dark:text-[#8a8f98] bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-md">
     <a href="/" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Finder</a>
     <a href="/tools" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Tools</a>
     <a href="/fonts" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/fonts') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Browse</a>
@@ -96,6 +96,14 @@ const currentPath = Astro.url.pathname;
     :global(.dark) .moon-icon { display: none !important; }
     :global(html:not(.dark)) .sun-icon { display: none !important; }
     :global(html:not(.dark)) .moon-icon { display: block !important; }
+
+    :global(html.dark) #theme-toggle {
+      border-color: #383b44 !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+    }
+    :global(html.dark) #theme-toggle:hover {
+      border-color: #64748b !important;
+    }
   </style>
 
   <script is:inline>

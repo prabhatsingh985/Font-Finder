@@ -76,8 +76,8 @@
     --color-void: #08090a;
     --color-carbon: #0f1011;
     --color-obsidian: #161718;
-    --color-graphite: #23252a;
-    --color-smoke: #383b3f;
+    --color-graphite: #383b44;
+    --color-smoke: #4a4e58;
     --color-ash: #62666d;
     --color-fog: #8a8f98;
     --color-mist: #d0d6e0;
@@ -92,12 +92,12 @@
 
     --background: #08090a;
     --foreground: #d0d6e0;
-    --border: #23252a;
+    --border: #383b44;
     --color-ink: #ffffff;
     --color-vellum: #0f1011;
-    --color-gridline: #1a1c20;
+    --color-gridline: #20232a;
     --color-slate: #8a8f98;
-    --color-stone: #23252a;
+    --color-stone: #383b44;
     --color-pebble: #62666d;
 
     --shadow-sm: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px;
@@ -703,18 +703,18 @@ html:not(.dark) ::selection {
 /* DEVELOPER ECOSYSTEM TRUST STRIP                                          */
 /* ========================================================================= */
 .ecosystem-strip {
-  border-bottom: 1px solid #23252a;
+  border-bottom: 1px solid #383b44;
   background-color: #08090a;
 }
 
 .ecosystem-card {
   background-color: #0c0d10;
-  border: 1px solid #202227;
+  border: 1px solid #383b44;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ecosystem-card:hover {
-  border-color: #383b44;
+  border-color: #555964;
   background-color: #111317;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -722,7 +722,7 @@ html:not(.dark) ::selection {
 
 .ecosystem-icon-box {
   background-color: #16171b;
-  border: 1px solid #26282e;
+  border: 1px solid #383b44;
   color: #ffffff;
   transition: all 0.2s ease;
 }
@@ -734,7 +734,7 @@ html:not(.dark) ::selection {
 
 .ecosystem-pill {
   background-color: #16171a;
-  border: 1px solid #25272e;
+  border: 1px solid #383b44;
   color: #8a8f98;
 }
 
@@ -744,7 +744,7 @@ html:not(.dark) ::selection {
 .pipeline-step-card {
   position: relative;
   background-color: #0d0e11;
-  border: 1px solid #202329;
+  border: 1px solid #383b44;
   border-radius: 14px;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1118,7 +1118,7 @@ html:not(.dark) .step-card-footer span:last-child {
 .font-item {
   position: relative;
   background-color: #0c0d10;
-  border: 1px solid #202227;
+  border: 1px solid #383b44;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1126,19 +1126,19 @@ html:not(.dark) .step-card-footer span:last-child {
 
 .font-catalog-card:hover {
   transform: translateY(-2px);
-  border-color: #383b42;
+  border-color: #555964;
   background-color: #101114;
   box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
 }
 
 .font-specimen-box {
   background-color: #131417;
-  border: 1px solid #1e2025;
+  border: 1px solid #383b44;
   transition: all 0.2s ease;
 }
 
 .font-catalog-card:hover .font-specimen-box {
-  border-color: #2b2e35;
+  border-color: #454854;
   background-color: #16171b;
 }
 
@@ -1190,14 +1190,14 @@ html:not(.dark) .font-catalog-card .font-card-copy-btn:hover {
 .cta-banner-card {
   position: relative;
   background-color: #0c0d10;
-  border: 1px solid #202227;
+  border: 1px solid #383b44;
   border-radius: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 }
 
 .cta-banner-card:hover {
-  border-color: #383b42;
+  border-color: #555964;
   box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.55), 0 0 28px -6px rgba(228, 242, 34, 0.07);
 }
 
@@ -1272,7 +1272,7 @@ html:not(.dark) .cta-banner-card:hover .cta-watermark {
 .tool-card {
   position: relative;
   background-color: #0c0d10;
-  border: 1px solid #202227;
+  border: 1px solid #383b44;
   border-radius: 14px;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
@@ -1280,7 +1280,7 @@ html:not(.dark) .cta-banner-card:hover .cta-watermark {
 
 .tool-card:hover {
   transform: translateY(-3px);
-  border-color: #383b42;
+  border-color: #555964;
   box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 0 24px -6px rgba(228, 242, 34, 0.06);
 }
 
@@ -1369,4 +1369,58 @@ html:not(.dark) .tool-action-btn {
 
 html:not(.dark) .tool-card:hover .tool-action-btn {
   color: #ff4d00 !important;
-}
+}
+
+/* ========================================================================= */
+/* UNIVERSAL CRISP & VISIBLE BORDERS FOR DARK MODE                           */
+/* Elevates dark mode borders from invisible black-on-black (#23252a) to    */
+/* a crisp, visible hairline outline (#383b44) matching light mode clarity. */
+/* ========================================================================= */
+html.dark .dark\:border-\[\#23252a\],
+html.dark .dark\:border-\[\#202329\],
+html.dark .dark\:border-\[\#24262c\],
+html.dark .dark\:border-\[\#282b33\],
+html.dark .dark\:border-\[\#282b32\],
+html.dark .dark\:border-\[\#1f2127\],
+html.dark .dark\:border-\[\#1e2025\],
+html.dark .dark\:border-\[\#202227\],
+html.dark .dark\:border-\[\#26282e\],
+html.dark .dark\:border-\[\#1d1f23\],
+html.dark .dark\:border-\[\#2d303a\],
+html.dark .dark\:border-\[\#2d3039\],
+html.dark .dark\:border-\[\#333742\],
+html.dark .border-\[\#23252a\],
+html.dark .border-\[\#202227\],
+html.dark .border-\[\#202329\],
+html.dark .border-\[\#24262c\],
+html.dark .border-\[\#1e2025\],
+html.dark .border-\[\#1f2127\],
+html.dark .border-\[\#282b32\],
+html.dark .border-\[\#282b33\],
+html.dark .border-\[\#26282e\],
+html.dark .border-\[\#2a2c32\],
+html.dark .border-\[\#1d1f23\],
+html.dark .border-\[\#2d303a\],
+html.dark .border-\[\#2d3039\],
+html.dark .border-\[\#333742\],
+html.dark .border-graphite,
+html.dark .border-border {
+  border-color: #383b44 !important;
+}
+
+html.dark .dark\:hover\:border-\[\#383b3f\]:hover,
+html.dark .dark\:hover\:border-\[\#383b42\]:hover,
+html.dark .hover\:border-\[\#383b3f\]:hover,
+html.dark .hover\:border-\[\#383b42\]:hover {
+  border-color: #555964 !important;
+}
+
+/* Theme toggle button in dark mode: visible crisp border & tactile depth */
+html.dark #theme-toggle {
+  border-color: #383b44 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+html.dark #theme-toggle:hover {
+  border-color: #64748b !important;
+}
+

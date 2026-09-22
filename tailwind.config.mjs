@@ -8,8 +8,8 @@ export default {
         void: '#08090a',
         carbon: '#0f1011',
         obsidian: '#161718',
-        graphite: '#23252a',
-        smoke: '#383b3f',
+        graphite: '#383b44',
+        smoke: '#4a4e58',
         ash: '#62666d',
         fog: '#8a8f98',
         mist: '#d0d6e0',
@@ -36,7 +36,7 @@ export default {
           violet: '#6366f1'
         },
         lavender: '#8b5cf6',
-        border: '#23252a',
+        border: '#383b44',
         background: '#08090a',
         foreground: '#d0d6e0'
       },
