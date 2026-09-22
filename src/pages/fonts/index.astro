@@ -15,28 +15,28 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     <!-- Header -->
     <div class="max-w-2xl">
       <div class="flex items-center gap-2 mb-2">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
-        <span class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98]">TYPEFACE DIRECTORY</span>
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></div>
+        <span class="font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98]">TYPEFACE DIRECTORY</span>
       </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[510] text-[#ffffff] tracking-[-0.022em]">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.022em]">
         Verified Google Fonts
       </h1>
-      <p class="mt-2.5 text-[14px] text-[#8a8f98] leading-relaxed">
+      <p class="mt-2.5 text-[14px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
         Browse open-source typefaces with tested CSS declarations, available weights, and commercial alternatives. All fonts are free under SIL Open Font License.
       </p>
     </div>
 
     <!-- Search & Filter Controls -->
-    <div class="mt-8 p-3.5 sm:p-4 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+    <div class="mt-8 p-3.5 sm:p-4 rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
       <!-- Search Input -->
       <div class="relative w-full md:w-80">
         <input
           id="font-search"
           type="text"
           placeholder="Search fonts by family or designer..."
-          class="w-full pl-9 pr-4 py-2 rounded-[6px] border border-[#23252a] bg-[#161718] text-xs font-mono text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#62666d]"
+          class="w-full pl-9 pr-4 py-2 rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#161718] text-xs font-mono text-[#08090a] dark:text-[#ffffff] focus:outline-none focus:border-[#94a3b8] dark:focus:border-[#d0d6e0] placeholder:text-[#64748b] dark:placeholder:text-[#62666d]"
         />
-        <svg class="w-4 h-4 text-[#8a8f98] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="w-4 h-4 text-[#64748b] dark:text-[#8a8f98] absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
@@ -49,8 +49,8 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
             data-cat={cat}
             class={`cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize ${
               cat === 'all'
-                ? 'bg-[#ffffff] text-[#08090a] font-[510]'
-                : 'bg-[#161718] text-[#8a8f98] border border-[#23252a] hover:text-[#ffffff] hover:bg-[#23252a]'
+                ? 'bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] font-[510]'
+                : 'bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border border-[#e2e4e8] dark:border-[#23252a] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]'
             }`}
           >
             {cat.replace('-', ' ')}
@@ -60,53 +60,60 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     </div>
 
     <!-- Specimen Adjuster Bar -->
-    <div class="mt-5 flex flex-wrap items-center justify-between gap-3 font-mono text-[12px] text-[#8a8f98] px-1">
+    <div class="mt-5 flex flex-wrap items-center justify-between gap-3 font-mono text-[12px] text-[#475569] dark:text-[#8a8f98] px-1">
       <div class="flex items-center gap-2">
         <span>Specimen text:</span>
         <input
           id="global-specimen-text"
           type="text"
           value="Almost before we knew it, we had left the ground."
-          class="px-3 py-1 rounded-[6px] border border-[#23252a] bg-[#161718] text-[#ffffff] text-[12px] w-64 sm:w-96 focus:outline-none focus:border-[#d0d6e0]"
+          class="px-3 py-1 rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#161718] text-[#08090a] dark:text-[#ffffff] text-[12px] w-64 sm:w-96 focus:outline-none focus:border-[#94a3b8] dark:focus:border-[#d0d6e0]"
         />
       </div>
-      <span id="font-count-label" class="text-[11px]">Showing {initialFonts.length} verified fonts</span>
+      <span id="font-count-label" class="text-[11px] text-[#64748b] dark:text-[#8a8f98]">Showing {initialFonts.length} verified fonts</span>
     </div>
 
     <!-- Fonts Grid -->
     <div id="fonts-grid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {initialFonts.map((font) => (
-        <div class="font-item" data-family={font.family.toLowerCase()} data-designer={font.designer.toLowerCase()} data-cat={font.category}>
-          <FontCard font={font} />
-        </div>
+        <FontCard font={font} />
       ))}
     </div>
 
+    <!-- No Results State -->
+    <div id="no-results" class="hidden py-16 text-center font-mono">
+      <div class="w-12 h-12 rounded-full bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] mx-auto flex items-center justify-center text-[#64748b] dark:text-[#8a8f98] mb-3">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <p class="text-[14px] text-[#08090a] dark:text-[#ffffff] font-[510] mb-1">No matching fonts found</p>
+      <p class="text-[12px] text-[#64748b] dark:text-[#8a8f98]">
+        No verified fonts match your search query. Try "Inter", "Roboto", or "Sans".
+      </p>
+    </div>
+
     <!-- Show More Controls -->
-    <div class="mt-12 text-center">
+    <div id="show-more-container" class="mt-12 text-center">
       <button
         id="btn-show-more"
         type="button"
-        class="btn-ghost-linear font-mono text-[12px] px-7 py-3 rounded-[6px] inline-flex items-center gap-2"
+        class="btn-ghost-linear font-mono text-[12px] px-7 py-3 rounded-[6px] inline-flex items-center gap-2 cursor-pointer"
       >
-        <span>Show More Fonts (+9)</span>
+        <span>Show More Fonts</span>
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
-      <p id="all-loaded-note" class="hidden text-xs text-[#8a8f98] font-mono mt-4">
+      <p id="all-loaded-note" class="hidden text-xs text-[#64748b] dark:text-[#8a8f98] font-mono mt-4">
         &check; All available fonts displayed
       </p>
-    </div>
-
-    <div id="no-results" class="hidden py-16 text-center text-[#8a8f98] font-mono text-xs">
-      No verified fonts match your search query. Try "Inter", "Roboto", or "Sans".
     </div>
   </section>
 </BaseLayout>
 
-<script is:inline>
+<script is:inline define:vars={{ initialCatalog: initialFonts }}>
   (function () {
     const searchInput = document.getElementById('font-search');
     const tabs = document.querySelectorAll('.cat-tab');
@@ -114,10 +121,11 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     const noResults = document.getElementById('no-results');
     const countLabel = document.getElementById('font-count-label');
     const globalSpecimenInput = document.getElementById('global-specimen-text');
+    const showMoreContainer = document.getElementById('show-more-container');
     const btnShowMore = document.getElementById('btn-show-more');
     const allLoadedNote = document.getElementById('all-loaded-note');
 
-    let allFontsCatalog = [];
+    let allFontsCatalog = Array.isArray(initialCatalog) ? initialCatalog : [];
     let filteredFonts = [];
     let visibleCount = 9;
     const PAGE_SIZE = 9;
@@ -131,7 +139,7 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           allFontsCatalog = data;
-          applyFilterAndRender();
+          applyFilterAndRender(false);
         }
       })
       .catch((err) => {
@@ -140,72 +148,127 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
 
     function getFilteredList() {
       if (!allFontsCatalog || allFontsCatalog.length === 0) return [];
+
+      const q = (searchQuery || '').trim().toLowerCase();
+      const qCompact = q.replace(/[\s\-_]+/g, '');
+
       return allFontsCatalog.filter((font) => {
         const family = (font.family || '').toLowerCase();
-        const designers = Array.isArray(font.designers) ? font.designers.join(' ').toLowerCase() : (font.designer || '').toLowerCase();
-        const cat = font.category || '';
+        const familyCompact = family.replace(/[\s\-_]+/g, '');
+        const designers = Array.isArray(font.designers)
+          ? font.designers.join(' ').toLowerCase()
+          : (font.designer || '').toLowerCase();
+        const cat = (font.category || '').toLowerCase();
 
+        // Category filter
         const matchesCat = activeCategory === 'all' || cat === activeCategory;
-        const matchesSearch = !searchQuery || family.includes(searchQuery) || designers.includes(searchQuery);
+        if (!matchesCat) return false;
 
-        return matchesCat && matchesSearch;
+        // Search filter
+        if (!q) return true;
+
+        return (
+          family.includes(q) ||
+          familyCompact.includes(qCompact) ||
+          designers.includes(q) ||
+          cat.includes(q)
+        );
       });
     }
 
     function createCardElement(font) {
       const fontId = font.id || font.family.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const inspectUrl = `/fonts/${fontId}`;
-      const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
       const designers = Array.isArray(font.designers) ? font.designers.join(', ') : (font.designer || 'Google Fonts');
       const weightsCount = Array.isArray(font.weights) ? font.weights.length : (Array.isArray(font.variants) ? font.variants.length : 1);
-      const activeSpecimen = globalSpecimenInput ? globalSpecimenInput.value : 'Almost before we knew it, we had left the ground.';
+      const activeSpecimen = (globalSpecimenInput && globalSpecimenInput.value.trim()) ? globalSpecimenInput.value : 'Almost before we knew it, we had left the ground.';
+      const description = font.description || `${font.family} is an authentic open-source Google Font family licensed under the SIL Open Font License for personal and commercial use.`;
+      const cat = font.category || 'sans-serif';
+      const fontCss = font.fontFamilyCss || `font-family: '${font.family}', ${cat};`;
 
       const a = document.createElement('a');
       a.href = inspectUrl;
-      a.className = 'font-item font-catalog-card group rounded-[12px] border border-[#23252a] bg-[#0c0d10] p-6 transition-all hover:bg-[#101114] hover:border-[#383b42] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.45)] shadow-sm flex flex-col justify-between cursor-pointer block no-underline';
+      a.className = 'font-catalog-card group p-5 sm:p-6 flex flex-col justify-between cursor-pointer block no-underline';
       a.setAttribute('data-family', (font.family || '').toLowerCase());
       a.setAttribute('data-designer', designers.toLowerCase());
-      a.setAttribute('data-cat', font.category || 'sans-serif');
+      a.setAttribute('data-cat', cat);
 
       a.innerHTML = `
         <div>
-          <div class="flex items-start justify-between gap-2 mb-3">
-            <div>
-              <h3 class="font-[510] text-[16px] text-[#ffffff] tracking-[-0.012em] transition-colors group-hover:text-[#e4f222]">
+          <!-- Header: Family Name, Category & Verified Badge -->
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="min-w-0">
+              <h3 class="font-card-name font-[510] text-[16px] sm:text-[17px] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em] transition-colors truncate group-hover:text-[#ff4d00] dark:group-hover:text-[#e4f222]">
                 ${font.family}
               </h3>
-              <p class="text-[12px] text-[#8a8f98] mt-0.5 font-normal">
-                ${designers} &bull; <span class="capitalize">${font.category || 'sans-serif'}</span>
-              </p>
+              <div class="flex items-center gap-2 mt-1 text-[12px] text-[#475569] dark:text-[#8a8f98]">
+                <span class="truncate">${designers}</span>
+                <span class="text-[#cbd5e1] dark:text-[#3b3e45]">•</span>
+                <span class="capitalize px-1.5 py-0.5 rounded bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.06] text-[10px] font-mono text-[#475569] dark:text-[#a0a6b2] shrink-0">
+                  ${cat}
+                </span>
+              </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-white/[0.04] text-[#8a8f98] border border-[#23252a] shrink-0">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#27a644]"></span>
+
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[5px] text-[10px] font-mono bg-[#f1f3f6] dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#24262c] text-[#475569] dark:text-[#8a8f98] shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#16a34a] dark:bg-[#10b981]"></span>
               <span>Verified</span>
             </span>
           </div>
 
-          <div class="my-4 p-3.5 rounded-[6px] bg-[#161718] border border-[#23252a] overflow-hidden group-hover:border-[#2b2e35]">
+          <!-- Live Specimen Showcase Box -->
+          <div class="font-specimen-box my-3.5 p-4 rounded-[8px] relative overflow-hidden">
+            <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-black/[0.05] dark:border-white/[0.04] text-[10px] font-mono text-[#64748b] dark:text-[#62666d]">
+              <span class="group-hover:text-[#08090a] dark:group-hover:text-[#8a8f98] transition-colors">Specimen Preview</span>
+              
+              <button
+                type="button"
+                class="font-card-copy-btn opacity-0 group-hover:opacity-100 inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] bg-white dark:bg-[#1a1c22] border border-[#cbd5e1] dark:border-[#282b33] text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#94a3b8] dark:hover:border-[#383b44] transition-all cursor-pointer shadow-sm"
+                data-css="${fontCss.replace(/"/g, '&quot;')}"
+                title="Copy font-family declaration"
+              >
+                <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span class="copy-label">Copy CSS</span>
+              </button>
+            </div>
+
             <p
-              class="specimen-text text-xl text-[#ffffff] truncate select-all"
-              style="font-family: '${font.family}', ${font.category || 'sans-serif'};"
+              class="font-specimen-text specimen-text text-[19px] sm:text-[20px] text-[#08090a] dark:text-[#f4f4f5] group-hover:text-[#ff4d00] dark:group-hover:text-[#ffffff] group-hover:font-medium transition-all duration-200 truncate select-all font-normal leading-snug"
+              style="font-family: '${font.family}', ${cat};"
             >
               ${activeSpecimen}
             </p>
+
+            <div class="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.03] text-[10px] font-mono text-[#64748b] dark:text-[#62666d] flex items-center justify-between">
+              <span class="truncate">Aa Bb Gg 123 • Open Source</span>
+              <span class="text-[#475569] dark:text-[#8a8f98] shrink-0">${weightsCount} Weight${weightsCount > 1 ? 's' : ''}</span>
+            </div>
           </div>
 
-          <p class="text-[13px] text-[#8a8f98] line-clamp-2 leading-relaxed">
-            ${font.description || `${font.family} is a verified open-source Google Font family available for free personal and commercial projects.`}
+          <!-- Description -->
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] line-clamp-2 leading-relaxed mt-1 font-normal">
+            ${description}
           </p>
         </div>
 
-        <div class="mt-5 pt-4 border-t border-[#23252a] flex items-center justify-between font-mono text-[12px]">
-          <span class="text-[#62666d]">
-            ${weightsCount} style${weightsCount > 1 ? 's' : ''} ${font.variable ? '• Variable' : ''}
-          </span>
-          <span
-            class="font-normal text-[#d0d6e0] group-hover:text-[#ffffff] transition-colors inline-flex items-center gap-1"
-          >
-            Inspect &rarr;
+        <!-- Footer Info & Actions -->
+        <div class="mt-5 pt-3.5 border-t border-[#e2e4e8] dark:border-[#1f2127] flex items-center justify-between font-mono text-[12px]">
+          <div class="flex items-center gap-1.5 text-[#64748b] dark:text-[#62666d] text-[11px]">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+            <span>
+              ${weightsCount} style${weightsCount > 1 ? 's' : ''} ${font.variable ? '• Variable' : ''}
+            </span>
+          </div>
+
+          <span class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#334155] dark:text-[#d0d6e0] group-hover:text-[#08090a] dark:group-hover:text-[#ffffff] transition-colors">
+            <span>Inspect</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </span>
         </div>
       `;
@@ -214,7 +277,7 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
 
     function preloadVisibleFonts(fontsToLoad) {
       if (!fontsToLoad || fontsToLoad.length === 0) return;
-      const families = fontsToLoad.map(f => encodeURIComponent(f.family).replace(/%20/g, '+'));
+      const families = fontsToLoad.map((f) => encodeURIComponent(f.family).replace(/%20/g, '+'));
       const linkId = 'dynamic-catalog-fonts';
       let link = document.getElementById(linkId);
       if (!link) {
@@ -226,34 +289,80 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
       link.href = `https://fonts.googleapis.com/css2?family=${families.join('&family=')}&display=swap`;
     }
 
-    function applyFilterAndRender() {
+    function applyFilterAndRender(append = false) {
       filteredFonts = getFilteredList();
-      grid.innerHTML = '';
 
+      // Case 1: 0 items match
       if (filteredFonts.length === 0) {
-        noResults.classList.remove('hidden');
-        btnShowMore.classList.add('hidden');
-        allLoadedNote.classList.add('hidden');
-        countLabel.textContent = `Showing 0 fonts`;
+        grid.innerHTML = '';
+        if (noResults) {
+          noResults.classList.remove('hidden');
+          noResults.style.display = 'block';
+        }
+        if (showMoreContainer) {
+          showMoreContainer.classList.add('hidden');
+          showMoreContainer.style.display = 'none';
+        }
+        if (btnShowMore) {
+          btnShowMore.classList.add('hidden');
+          btnShowMore.style.display = 'none';
+        }
+        if (allLoadedNote) {
+          allLoadedNote.classList.add('hidden');
+          allLoadedNote.style.display = 'none';
+        }
+        if (countLabel) {
+          countLabel.textContent = 'Showing 0 fonts';
+        }
         return;
       }
 
-      noResults.classList.add('hidden');
-      const batch = filteredFonts.slice(0, visibleCount);
-      preloadVisibleFonts(batch);
+      // Case 2: Items exist
+      if (noResults) {
+        noResults.classList.add('hidden');
+        noResults.style.display = 'none';
+      }
 
-      batch.forEach((font) => {
-        grid.appendChild(createCardElement(font));
-      });
+      if (!append) {
+        grid.innerHTML = '';
+        const batch = filteredFonts.slice(0, visibleCount);
+        preloadVisibleFonts(batch);
+        batch.forEach((font) => {
+          grid.appendChild(createCardElement(font));
+        });
+      }
 
-      countLabel.textContent = `Showing ${batch.length} of ${filteredFonts.length.toLocaleString()} fonts`;
+      const currentlyShown = Math.min(visibleCount, filteredFonts.length);
+      if (countLabel) {
+        countLabel.textContent = `Showing ${currentlyShown} of ${filteredFonts.length.toLocaleString()} fonts`;
+      }
 
-      if (batch.length >= filteredFonts.length) {
-        btnShowMore.classList.add('hidden');
-        allLoadedNote.classList.remove('hidden');
+      // Show more controls display state
+      if (showMoreContainer) {
+        showMoreContainer.classList.remove('hidden');
+        showMoreContainer.style.display = 'block';
+      }
+
+      if (currentlyShown >= filteredFonts.length) {
+        // No more fonts to load
+        if (btnShowMore) {
+          btnShowMore.classList.add('hidden');
+          btnShowMore.style.display = 'none';
+        }
+        if (allLoadedNote) {
+          allLoadedNote.classList.remove('hidden');
+          allLoadedNote.style.display = 'block';
+        }
       } else {
-        btnShowMore.classList.remove('hidden');
-        allLoadedNote.classList.add('hidden');
+        // More fonts available to load
+        if (btnShowMore) {
+          btnShowMore.classList.remove('hidden');
+          btnShowMore.style.display = 'inline-flex';
+        }
+        if (allLoadedNote) {
+          allLoadedNote.classList.add('hidden');
+          allLoadedNote.style.display = 'none';
+        }
       }
     }
 
@@ -261,43 +370,59 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         tabs.forEach((t) => {
-          t.classList.remove('bg-[#ffffff]', 'text-[#08090a]', 'font-[510]');
-          t.classList.add('bg-[#161718]', 'text-[#8a8f98]', 'border', 'border-[#23252a]');
+          t.className = 'cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border border-[#e2e4e8] dark:border-[#23252a] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]';
         });
-        tab.classList.remove('bg-[#161718]', 'text-[#8a8f98]', 'border', 'border-[#23252a]');
-        tab.classList.add('bg-[#ffffff]', 'text-[#08090a]', 'font-[510]');
+        tab.className = 'cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] font-[510]';
 
         activeCategory = tab.getAttribute('data-cat') || 'all';
         visibleCount = PAGE_SIZE;
-        applyFilterAndRender();
+        applyFilterAndRender(false);
       });
     });
 
-    // Real-time search with debounce
+    // Real-time search with snappy debounce
     let debounceTimer;
     searchInput.addEventListener('input', (e) => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        searchQuery = (e.target.value || '').trim().toLowerCase();
+        searchQuery = (e.target.value || '').trim();
         visibleCount = PAGE_SIZE;
-        applyFilterAndRender();
-      }, 250);
+        applyFilterAndRender(false);
+      }, 120);
+    });
+
+    // Escape clears search
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        searchQuery = '';
+        visibleCount = PAGE_SIZE;
+        applyFilterAndRender(false);
+      }
     });
 
     // Global specimen preview live update
     if (globalSpecimenInput) {
       globalSpecimenInput.addEventListener('input', (e) => {
         const text = e.target.value || 'Almost before we knew it, we had left the ground.';
-        document.querySelectorAll('.specimen-text').forEach((el) => {
+        document.querySelectorAll('.font-specimen-text, .specimen-text').forEach((el) => {
           el.textContent = text;
         });
       });
     }
 
     // Show more fonts button
-    btnShowMore.addEventListener('click', () => {
-      visibleCount += PAGE_SIZE;
-      applyFilterAndRender();
-    });
+    if (btnShowMore) {
+      btnShowMore.addEventListener('click', () => {
+        const prevCount = visibleCount;
+        visibleCount += PAGE_SIZE;
+        const nextBatch = filteredFonts.slice(prevCount, visibleCount);
+        preloadVisibleFonts(nextBatch);
+        nextBatch.forEach((font) => {
+          grid.appendChild(createCardElement(font));
+        });
+        applyFilterAndRender(true);
+      });
+    }
   })();
 </script>
