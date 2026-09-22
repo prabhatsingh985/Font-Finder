@@ -33,10 +33,10 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 
   <!-- Step 1: Linear Precision Upload & Dropzone -->
   <div id="upload-stage" class="transition-all">
-    <!-- Elevated Dropzone Card -->
+    <!-- Elevated Dropzone Card: Linear Architectural Precision Box -->
     <div
       id="dropzone"
-      class="relative rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-8 sm:p-12 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b3f] transition-all cursor-pointer group"
+      class="relative rounded-[16px] border border-[#e2e4e8] dark:border-[#282b32] bg-white/95 dark:bg-gradient-to-b dark:from-[#131518]/95 dark:via-[#0c0d10]/95 dark:to-[#08090b]/95 backdrop-blur-md p-8 sm:p-12 shadow-sm dark:shadow-[0_4px_32px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.06)] hover:border-[#cbd5e1] dark:hover:border-[#e4f222]/45 dark:hover:shadow-[0_8px_40px_rgba(0,0,0,0.85),0_0_30px_rgba(228,242,34,0.14),inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-300 cursor-pointer group overflow-hidden"
     >
       <input
         type="file"
@@ -45,27 +45,44 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
         class="sr-only"
       />
 
+      <!-- Top Hairline Horizon Beam -->
+      <div class="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#ff4d00]/30 dark:via-[#e4f222]/40 to-transparent" aria-hidden="true"></div>
+
+      <!-- Ambient Card Inner Spotlight on Hover -->
+      <div class="pointer-events-none absolute inset-0 rounded-[16px] bg-[radial-gradient(ellipse_at_top,rgba(228,242,34,0.06),transparent_65%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+
+
+
       <!-- Center Content -->
-      <div class="text-center max-w-md mx-auto">
+      <div class="relative z-10 text-center max-w-md mx-auto">
         <!-- Precision Line Icon Container -->
-        <div class="mx-auto w-10 h-10 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] flex items-center justify-center text-[#ff4d00] dark:text-[#e4f222] mb-4 group-hover:border-[#ff4d00] dark:group-hover:border-[#383b3f] transition-colors">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+        <div class="mx-auto w-12 h-12 rounded-[10px] bg-gradient-to-b from-white to-[#f1f3f6] dark:from-[#1c1e24] dark:to-[#121317] border border-[#e2e4e8] dark:border-[#2d303a] flex items-center justify-center text-[#ff4d00] dark:text-[#e4f222] mb-4 shadow-sm dark:shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] group-hover:scale-105 group-hover:border-[#ff4d00]/50 dark:group-hover:border-[#e4f222]/60 group-hover:shadow-[0_0_20px_rgba(255,77,0,0.2)] dark:group-hover:shadow-[0_0_24px_rgba(228,242,34,0.3)] transition-all duration-300">
+          <svg class="w-5 h-5 fill-current transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 24 24">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
 
-        <h3 class="text-[16px] sm:text-[17px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
-          {dropzoneTitle}
+        <h3 class="text-[16px] sm:text-[17px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em] flex items-center justify-center gap-1.5 flex-wrap">
+          {dropzoneTitle.includes('(⌘V)') ? (
+            <>
+              <span>{dropzoneTitle.replace('(⌘V)', '').trim()}</span>
+              <kbd class="inline-flex items-center px-1.5 py-0.5 rounded-[4px] bg-[#f1f3f6] dark:bg-[#1a1c21] border border-[#d5d9e0] dark:border-[#2d3039] font-mono text-[11px] text-[#475569] dark:text-[#9ca3af] shadow-xs select-none">⌘V</kbd>
+            </>
+          ) : (
+            <span>{dropzoneTitle}</span>
+          )}
         </h3>
-        <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-1.5 font-normal">
-          {dropzoneSubtitle}
+        <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-2 font-normal flex items-center justify-center gap-1.5 flex-wrap">
+          <span>Supports PNG, JPG, WebP</span>
+          <span class="text-[#94a3b8] dark:text-[#4d515a]">&bull;</span>
+          <span>100% private in-browser detection</span>
         </p>
 
         <!-- Acid Lime Action Button -->
         <div class="mt-5">
-          <span class="btn-acid-lime">
+          <span class="btn-acid-lime shadow-sm dark:shadow-[0_0_20px_rgba(228,242,34,0.25)] group-hover:shadow-[0_0_28px_rgba(228,242,34,0.45)] transition-all inline-flex items-center gap-1.5 px-5 py-2.5 rounded-[8px] text-[13px] font-[550]">
             <span>{buttonText}</span>
-            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
           </span>
@@ -1244,7 +1261,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       dropzone.addEventListener(eventName, (e) => {
         e.preventDefault();
         e.stopPropagation();
-        dropzone.classList.add('border-[#e4f222]');
+        dropzone.classList.add('border-[#e4f222]', 'dragover-active');
       });
     });
 
@@ -1252,7 +1269,7 @@ const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
       dropzone.addEventListener(eventName, (e) => {
         e.preventDefault();
         e.stopPropagation();
-        dropzone.classList.remove('border-[#e4f222]');
+        dropzone.classList.remove('border-[#e4f222]', 'dragover-active');
       });
     });
 

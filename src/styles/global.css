@@ -166,6 +166,27 @@
   background-size: 24px 24px;
 }
 
+/* Linear Atmospheric Hero Floor with Ambient Wash */
+.hero-gradient-floor {
+  position: relative;
+}
+
+html.dark .hero-gradient-floor {
+  background-color: #08090a;
+  background-image:
+    radial-gradient(ellipse 900px 480px at 50% 62%, rgba(228, 242, 34, 0.045) 0%, rgba(255, 77, 0, 0.02) 40%, transparent 75%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.075) 1px, transparent 1px);
+  background-size: auto, 24px 24px, 24px 24px;
+}
+
+#dropzone.dragover-active {
+  border-color: var(--color-acid-lime) !important;
+  box-shadow: 0 0 40px rgba(228, 242, 34, 0.35), inset 0 0 20px rgba(228, 242, 34, 0.08) !important;
+  transform: scale(1.008);
+}
+
+
 /* ------------------------------------------------------------- */
 /* Linear Precision Components                                   */
 /* ------------------------------------------------------------- */
