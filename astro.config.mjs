@@ -5,5 +5,5 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [tailwind()],
   output: 'static',
-  site: 'https://font-finder-zeta.vercel.app'
+  site: 'https://freefontfinderai.com'
 });

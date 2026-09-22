@@ -8,15 +8,15 @@ interface Props {
 }
 
 const {
-  title = 'Font Finder — Free Image Font Identifier & Google Fonts Verification',
-  description = 'Instantly identify fonts from any image or screenshot. Powered by optical typography analysis with verified Google Fonts matches, copy-ready CSS, and free alternatives.',
+  title = 'Font Finder — Free Image Font Identifier',
+  description = 'Identify any font from images and screenshots instantly with Font Finder. Upload an image to analyze letterforms and get 100% verified free font alternatives.',
   canonicalUrl = Astro.url.href,
   ogImage = '/og-image.jpg',
   type = 'website'
 } = Astro.props;
 
-const siteName = 'Font Finder';
-const siteOrigin = 'https://font-finder-zeta.vercel.app';
+const siteName = 'FreeFontFinderAI';
+const siteOrigin = 'https://freefontfinderai.com';
 
 // Always provide absolute HTTPS URLs for social scrapers (WhatsApp, Twitter, LinkedIn, Slack, Discord)
 const absoluteCanonical = canonicalUrl.startsWith('http')
@@ -57,7 +57,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Font Finder - In-Browser Font Identification from Images & Screenshots" />
+<meta property="og:image:alt" content="FreeFontFinderAI - Free Image Font Finder & Typeface Identifier" />
 <meta property="og:site_name" content={siteName} />
 
 <!-- Twitter / X -->
@@ -66,31 +66,51 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={absoluteOgImage} />
-<meta name="twitter:image:alt" content="Font Finder - In-Browser Font Identification from Images & Screenshots" />
+<meta name="twitter:image:alt" content="FreeFontFinderAI - Free Image Font Finder & Typeface Identifier" />
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" is:inline>
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Font Finder",
-    "url": "https://font-finder-zeta.vercel.app",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Any",
-    "isAccessibleForFree": true,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Optical image font recognition",
-      "100% verified Google Fonts matches",
-      "Instant copy-ready CSS @import and font-family declarations",
-      "Free open-source alternatives to commercial typefaces",
-      "Live interactive font specimen tester",
-      "Zero image storage, privacy-first in-browser processing"
-    ],
-    "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets."
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://freefontfinderai.com/#website",
+        "url": "https://freefontfinderai.com/",
+        "name": "FreeFontFinderAI",
+        "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder"],
+        "description": "Free image font finder and open-source Google Fonts identifier."
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://freefontfinderai.com/#organization",
+        "name": "FreeFontFinderAI",
+        "url": "https://freefontfinderai.com/",
+        "logo": "https://freefontfinderai.com/favicon.svg"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://freefontfinderai.com/#webapp",
+        "name": "FreeFontFinderAI Font Finder",
+        "url": "https://freefontfinderai.com/",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires HTML5 Canvas and JavaScript",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Optical letterform recognition from images and screenshots",
+          "100% verified free Google Fonts alternatives",
+          "Client-side zero-storage privacy processing",
+          "Instant copy-ready CSS @import declarations",
+          "Interactive typography specimen test bench"
+        ],
+        "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets."
+      }
+    ]
   }
 </script>
