@@ -444,12 +444,54 @@ html:not(.dark) .text-\[\#62666d\] {
   color: #9ca3af !important;
 }
 
-/* In light mode, pill CTAs are pitch-black for high contrast */
+/* In light mode, pill CTAs and active tabs are pitch-black for high contrast */
 html:not(.dark) .btn-white-pill,
 html:not(.dark) a.bg-\[\#ffffff\].text-\[\#08090a\],
-html:not(.dark) button.bg-\[\#ffffff\].text-\[\#08090a\] {
+html:not(.dark) button.bg-\[\#ffffff\].text-\[\#08090a\],
+html:not(.dark) .cat-tab.active,
+html:not(.dark) button.cat-tab.active,
+html:not(.dark) .weight-pill.active,
+html:not(.dark) button.weight-pill.active,
+html:not(.dark) button.bg-\[\#08090a\],
+html:not(.dark) a.bg-\[\#08090a\],
+html:not(.dark) .bg-\[\#08090a\].text-white {
   background-color: #08090a !important;
   color: #ffffff !important;
+  border-color: #08090a !important;
+}
+
+html:not(.dark) .cat-tab:not(.active) {
+  background-color: #f1f3f6 !important;
+  color: #475569 !important;
+  border-color: #e2e4e8 !important;
+}
+
+html:not(.dark) .cat-tab:not(.active):hover {
+  background-color: #e2e4e8 !important;
+  color: #08090a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* In dark mode, active category tabs and weight pills are crisp white with dark text */
+html.dark .cat-tab.active,
+html.dark button.cat-tab.active,
+html.dark .weight-pill.active,
+html.dark button.weight-pill.active {
+  background-color: #ffffff !important;
+  color: #08090a !important;
+  border-color: #ffffff !important;
+}
+
+html.dark .cat-tab:not(.active) {
+  background-color: #161718 !important;
+  color: #8a8f98 !important;
+  border-color: #383b44 !important;
+}
+
+html.dark .cat-tab:not(.active):hover {
+  background-color: #23252a !important;
+  color: #ffffff !important;
+  border-color: #64748b !important;
 }
 
 html:not(.dark) a.bg-\[\#ffffff\].text-\[\#08090a\]:hover,

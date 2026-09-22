@@ -47,10 +47,10 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
           <button
             type="button"
             data-cat={cat}
-            class={`cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize ${
+            class={`cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] border transition-colors cursor-pointer capitalize ${
               cat === 'all'
-                ? 'bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] font-[510]'
-                : 'bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border border-[#e2e4e8] dark:border-[#23252a] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]'
+                ? 'active bg-[#08090a] text-white border-[#08090a] dark:bg-[#ffffff] dark:text-[#08090a] dark:border-white font-[510]'
+                : 'bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border-[#e2e4e8] dark:border-[#383b44] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]'
             }`}
           >
             {cat.replace('-', ' ')}
@@ -370,9 +370,11 @@ const initialFonts = VERIFIED_GOOGLE_FONTS.slice(0, 9);
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         tabs.forEach((t) => {
-          t.className = 'cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border border-[#e2e4e8] dark:border-[#23252a] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]';
+          t.classList.remove('active');
+          t.className = 'cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] border transition-colors cursor-pointer capitalize bg-[#f1f3f6] dark:bg-[#161718] text-[#475569] dark:text-[#8a8f98] border-[#e2e4e8] dark:border-[#383b44] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-[#e2e4e8] dark:hover:bg-[#23252a]';
         });
-        tab.className = 'cat-tab px-3 py-1.5 rounded-[6px] font-mono text-[12px] transition-colors cursor-pointer capitalize bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] font-[510]';
+        tab.classList.add('active');
+        tab.className = 'cat-tab active px-3 py-1.5 rounded-[6px] font-mono text-[12px] border transition-colors cursor-pointer capitalize bg-[#08090a] text-white border-[#08090a] dark:bg-[#ffffff] dark:text-[#08090a] dark:border-white font-[510]';
 
         activeCategory = tab.getAttribute('data-cat') || 'all';
         visibleCount = PAGE_SIZE;
