@@ -143,7 +143,7 @@
 }
 
 .hero-radial-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(228, 242, 34, 0.04) 0%, rgba(8, 9, 10, 0) 65%);
+  background: none;
 }
 
 #morphing-font-word {
@@ -174,10 +174,9 @@
 html.dark .hero-gradient-floor {
   background-color: #08090a;
   background-image:
-    radial-gradient(ellipse 900px 480px at 50% 62%, rgba(228, 242, 34, 0.045) 0%, rgba(255, 77, 0, 0.02) 40%, transparent 75%),
     linear-gradient(to right, rgba(255, 255, 255, 0.075) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.075) 1px, transparent 1px);
-  background-size: auto, 24px 24px, 24px 24px;
+  background-size: 24px 24px, 24px 24px;
 }
 
 #dropzone.dragover-active {
