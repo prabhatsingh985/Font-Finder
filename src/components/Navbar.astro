@@ -22,16 +22,16 @@ const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
 
 <!-- Linear Precision Top Nav Bar -->
 <header class="sticky top-0 z-50 w-full border-b border-[#e2e4e8] dark:border-[#383b44] bg-white/85 dark:bg-[#08090a]/85 backdrop-blur-md transition-colors">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+  <div class="max-w-[1200px] mx-auto px-3 sm:px-6 h-14 flex items-center justify-between gap-2">
     
     <!-- Left: Geometric Logo + Wordmark -->
-    <a href={homeHref} class="flex items-center gap-2.5 group">
+    <a href={homeHref} class="flex items-center gap-2 group shrink-0">
       <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#383b44] flex items-center justify-center text-[#08090a] dark:text-[#ffffff] group-hover:border-[#ff4d00] dark:group-hover:border-[#64748b] transition-colors">
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
       </div>
-      <span class="font-[510] tracking-[-0.015em] text-[14px] text-[#08090a] dark:text-[#ffffff]">{t.common.brandName}</span>
+      <span class="font-[510] tracking-[-0.015em] text-[13px] sm:text-[14px] text-[#08090a] dark:text-[#ffffff] whitespace-nowrap">{t.common.brandName}</span>
     </a>
 
     <!-- Center: Main Navigation Links (Pure Typographic Nav) -->
@@ -71,7 +71,7 @@ const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
     </nav>
 
     <!-- Right: Language Switcher, Theme Switcher & High-emphasis CTA -->
-    <div class="flex items-center gap-2 sm:gap-2.5">
+    <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
       <!-- Language Picker -->
       <LanguagePicker currentLang={lang} />
 
@@ -80,25 +80,29 @@ const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
         id="theme-toggle"
         type="button"
         aria-label={navT.toggleTheme}
-        class="w-8 h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#383b44] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#64748b] transition-colors cursor-pointer shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]"
+        class="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#383b44] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#64748b] transition-colors cursor-pointer shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]"
         title="Toggle dark / light mode"
       >
         <!-- Sun Icon (visible in dark mode) -->
-        <svg class="sun-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <svg class="sun-icon w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <circle cx="12" cy="12" r="4"></circle>
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41"></path>
         </svg>
         <!-- Moon Icon (visible in light mode) -->
-        <svg class="moon-icon w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+        <svg class="moon-icon w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
         </svg>
       </button>
 
       <a
         href={finderHref}
-        class="btn-white-pill inline-flex items-center justify-center px-4 py-1.5 text-[13px] font-[510] rounded-full bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm"
+        class="btn-white-pill inline-flex items-center justify-center gap-1 sm:gap-1.5 h-7 sm:h-8 px-2.5 sm:px-4 text-[11px] sm:text-[13px] font-[510] rounded-full bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm whitespace-nowrap shrink-0"
       >
-        {navT.identifyFont}
+        <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25">
+          <circle cx="11" cy="11" r="6"></circle>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20 20l-4.2-4.2"></path>
+        </svg>
+        <span>{navT.identifyFont}</span>
       </a>
     </div>
 

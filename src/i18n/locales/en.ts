@@ -7,7 +7,7 @@ export const en = {
       tools: 'Tools',
       guides: "Guides",
       about: 'About',
-      identifyFont: 'Identify Font',
+      identifyFont: 'Identify',
       toggleTheme: 'Toggle color theme',
       skipToContent: 'Skip to content',
       language: 'Language'

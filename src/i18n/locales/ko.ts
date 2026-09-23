@@ -9,7 +9,7 @@ export const ko: TranslationSchema = {
       tools: '도구 모음',
       guides: "가이드",
       about: '소개',
-      identifyFont: '폰트 식별하기',
+      identifyFont: '식별하기',
       toggleTheme: '색상 테마 전환',
       skipToContent: '본문으로 이동',
       language: '언어'

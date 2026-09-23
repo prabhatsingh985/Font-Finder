@@ -9,7 +9,7 @@ export const ja: TranslationSchema = {
       tools: 'ツール一覧',
       guides: "ガイド",
       about: '概要',
-      identifyFont: 'フォントを特定',
+      identifyFont: '特定する',
       toggleTheme: 'カラーテーマ切り替え',
       skipToContent: 'コンテンツへスキップ',
       language: '言語'

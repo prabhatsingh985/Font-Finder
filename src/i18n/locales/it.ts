@@ -9,7 +9,7 @@ export const it: TranslationSchema = {
       tools: 'Strumenti',
       guides: "Guide",
       about: 'Chi siamo',
-      identifyFont: 'Identifica Font',
+      identifyFont: 'Identifica',
       toggleTheme: 'Cambia tema colore',
       skipToContent: 'Salta al contenuto',
       language: 'Lingua'
