@@ -1,0 +1,726 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import type { SupportedLocale } from '../../i18n/languages';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
+const currentLocale = lang as SupportedLocale;
+const t = useTranslations(lang);
+const uT = t.urlFontFinder;
+const toolsHref = getLocalizedPath('/tools', currentLocale);
+
+// High-fidelity typography benchmarks for famous tech designs
+const benchmarks: Record<string, {
+  url: string;
+  primary: { name: string; type: string; weights: string[]; role: string; sample: string };
+  secondary: { name: string; type: string; weights: string[]; role: string; sample: string };
+  mono?: { name: string; type: string };
+  freeTwin: { name: string; similarity: string; category: string; reason: string; id: string };
+  css: string;
+  sources: { provider: string; details: string }[];
+}> = {
+  stripe: {
+    url: 'https://stripe.com',
+    primary: { name: 'Söhne', type: 'Custom Webfont (Klim Type Foundry)', weights: ['400', '500', '600', '700'], role: 'Headings & Hero', sample: 'Financial infrastructure for the internet.' },
+    secondary: { name: 'Söhne / Camphor', type: 'Custom Webfont', weights: ['400', '500'], role: 'Body & Microcopy', sample: 'Millions of companies of all sizes use Stripe to accept payments.' },
+    mono: { name: 'Söhne Mono', type: 'Proprietary Monospace' },
+    freeTwin: { name: 'Inter', similarity: '97%', category: 'Neo-Grotesque Sans', reason: 'Tall x-height, neutral geometric apertures, and crisp digital legibility.', id: 'inter' },
+    css: "font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
+    sources: [
+      { provider: 'Self-Hosted WOFF2', details: 'https://b.stripecdn.com/stripetype/soehne-var.woff2' },
+      { provider: 'CSS Variables', details: '--font-family-sans: "Söhne", sans-serif' }
+    ]
+  },
+  linear: {
+    url: 'https://linear.app',
+    primary: { name: 'Inter', type: 'Google Font & SIL Open License', weights: ['400', '500', '600'], role: 'Headings & UI', sample: 'Linear is a purpose-built tool for planning and building products.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400'], role: 'Body & Description', sample: 'Streamline issues, projects, and product roadmaps.' },
+    mono: { name: 'Geist Mono / SF Mono', type: 'Monospace Code' },
+    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct match. Linear uses the verified open-source Inter typeface by Rasmus Andersson.', id: 'inter' },
+    css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', sans-serif;",
+    sources: [
+      { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
+      { provider: 'Local Fallback', details: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto' }
+    ]
+  },
+  vercel: {
+    url: 'https://vercel.com',
+    primary: { name: 'Geist', type: 'Open-Source (Vercel & Basalt)', weights: ['400', '500', '600', '700'], role: 'Headings & Display', sample: 'Your complete platform for the web.' },
+    secondary: { name: 'Geist', type: 'Open-Source', weights: ['400', '500'], role: 'Body & Interface', sample: 'Vercel provides the developer tools and cloud infrastructure.' },
+    mono: { name: 'Geist Mono', type: 'Open-Source Monospace' },
+    freeTwin: { name: 'Inter', similarity: '96%', category: 'Neo-Grotesque Sans', reason: 'Engineered with similar Swiss modernist proportions and precision letter spacing.', id: 'inter' },
+    css: "font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
+    sources: [
+      { provider: 'Geist NPM / CDN', details: 'geist/font/sans and geist/font/mono packages' },
+      { provider: 'WOFF2 Fonts', details: 'Self-hosted variable font files' }
+    ]
+  },
+  github: {
+    url: 'https://github.com',
+    primary: { name: 'Mona Sans', type: 'Open Source (GitHub & Degarando)', weights: ['400', '600', '700', '900'], role: 'Marketing & Headings', sample: 'The world’s leading AI-powered developer platform.' },
+    secondary: { name: 'SF Pro / Inter', type: 'System UI Stack', weights: ['400', '500', '600'], role: 'App UI & Code Reviews', sample: 'Millions of developers and businesses build software on GitHub.' },
+    mono: { name: 'Hubot Sans / SF Mono', type: 'Open Monospace' },
+    freeTwin: { name: 'Plus Jakarta Sans', similarity: '95%', category: 'Modern Grotesk', reason: 'Distinctive wide architectural stance, friendly modern apex, high x-height.', id: 'plus-jakarta-sans' },
+    css: "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;",
+    sources: [
+      { provider: 'GitHub Mona Sans', details: 'https://github.githubassets.com/assets/mona-sans.woff2' },
+      { provider: 'Native System Stack', details: '-apple-system, BlinkMacSystemFont, "Segoe UI"' }
+    ]
+  },
+  apple: {
+    url: 'https://apple.com',
+    primary: { name: 'SF Pro Display', type: 'Apple Proprietary System', weights: ['400', '500', '600', '700'], role: 'Hero & Display Headings', sample: 'Designed to be loved. Engineered to last.' },
+    secondary: { name: 'SF Pro Text', type: 'Apple System', weights: ['400', '500'], role: 'Body Copy & Specs', sample: 'Explore the latest iPhone, Mac, iPad, and Apple Watch models.' },
+    mono: { name: 'SF Mono', type: 'Apple Proprietary' },
+    freeTwin: { name: 'Roboto', similarity: '95%', category: 'Neo-Grotesque Sans', reason: 'Clean neutral rhythm, dual mechanical curves, and open apertures built for screen reading.', id: 'roboto' },
+    css: "font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;",
+    sources: [
+      { provider: 'Apple System Fonts', details: 'Native local system renderer font' },
+      { provider: 'Web Fallback Stack', details: 'Helvetica Neue, Arial, sans-serif' }
+    ]
+  },
+  airbnb: {
+    url: 'https://airbnb.com',
+    primary: { name: 'Airbnb Cereal', type: 'Proprietary (Dalton Maag)', weights: ['400', '500', '700', '800'], role: 'Titles & Property Headings', sample: 'Find places to stay on Airbnb.' },
+    secondary: { name: 'Airbnb Cereal', type: 'Proprietary', weights: ['400', '500'], role: 'Details & Reviews', sample: 'Discover entire homes and rooms perfect for any trip.' },
+    freeTwin: { name: 'Plus Jakarta Sans', similarity: '96%', category: 'Clean Grotesk', reason: 'Warm circular neo-grotesque curves, friendly modern terminals, generous counters.', id: 'plus-jakarta-sans' },
+    css: "font-family: 'Airbnb Cereal', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;",
+    sources: [
+      { provider: 'Self-Hosted WOFF2', details: 'https://a0.muscache.com/airbnb/static/airbnb-dls-web/build-manifests/cereal.woff2' },
+      { provider: 'Brand Assets', details: 'Custom corporate commission by Dalton Maag' }
+    ]
+  },
+  notion: {
+    url: 'https://notion.so',
+    primary: { name: 'Lyon Display', type: 'Commercial Editorial Serif (Commercial Type)', weights: ['600', '700'], role: 'Editorial Headings', sample: 'The all-in-one connected workspace.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500', '600'], role: 'Document Canvas & UI', sample: 'Write, plan, and get organized with AI-powered docs and notes.' },
+    mono: { name: 'SFMono-Regular', type: 'System Monospace' },
+    freeTwin: { name: 'Playfair Display', similarity: '94%', category: 'Modern Serif', reason: 'High-contrast vertical modulation, elegant ball terminals, luxury editorial character.', id: 'playfair-display' },
+    css: "font-family: 'Lyon-Display', Georgia, Cambria, 'Times New Roman', Times, serif;",
+    sources: [
+      { provider: 'Commercial Type WOFF2', details: 'Self-hosted Lyon Display webfont files' },
+      { provider: 'Inter Google Font', details: 'Google Fonts CDN for UI elements' }
+    ]
+  },
+  tailwind: {
+    url: 'https://tailwindcss.com',
+    primary: { name: 'Inter', type: 'Google Font (SIL Open License)', weights: ['400', '500', '600', '700'], role: 'Headings & Marketing', sample: 'Rapidly build modern websites without ever leaving your HTML.' },
+    secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500'], role: 'Documentation & Body', sample: 'A utility-first CSS framework packed with classes like flex, pt-4, text-center.' },
+    mono: { name: 'Fira Code', type: 'Google Font Monospace' },
+    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct 100% match. Tailwind documentation relies on Inter for its default UI stack.', id: 'inter' },
+    css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', system-ui, -apple-system, sans-serif;",
+    sources: [
+      { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
+      { provider: 'Tailwind Font Stack', details: 'font-sans utility: ui-sans-serif, system-ui, sans-serif' }
+    ]
+  }
+};
+
+const benchmarksJson = JSON.stringify(benchmarks);
+---
+
+<BaseLayout
+  title={uT.meta.title}
+  description={uT.meta.description}
+  lang={lang}
+>
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
+    <div class="max-w-[1200px] mx-auto text-center">
+      <!-- Breadcrumb & Tag -->
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">{t.common.nav.tools}</a>
+        <span class="text-xs text-[#383b3f]">/</span>
+        <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">{uT.badge}</span>
+      </div>
+
+      <!-- Centered Minimalist Hero -->
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto" style="letter-spacing: -0.022em;">
+        {uT.title}
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
+        {uT.subtitle}
+      </p>
+
+      <!-- URL Scanner -->
+      <div id="section-url" class="mt-8 sm:mt-10 w-full max-w-[1000px] mx-auto text-left">
+        <!-- Search Box -->
+        <div class="relative">
+          <input
+            id="url-input"
+            type="text"
+            placeholder={uT.inputPlaceholder}
+            class="w-full pl-11 pr-32 sm:pr-40 py-3.5 rounded-[6px] border border-[#23252a] bg-[#0f1011] text-sm text-[#d0d6e0] focus:outline-none focus:border-[#d0d6e0] placeholder:text-[#8a8f98] transition-all"
+          />
+          <svg class="w-5 h-5 text-[#8a8f98] absolute left-4 top-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          </svg>
+          <button
+            id="btn-analyze"
+            type="button"
+            class="btn-acid-lime absolute right-2 top-2 px-4 sm:px-6 py-2 rounded-[6px] text-xs font-mono font-medium transition-all shadow-sm cursor-pointer flex items-center gap-1.5"
+          >
+            <span id="analyze-spinner" class="hidden animate-spin">&#9696;</span>
+            <span id="analyze-btn-text">{uT.analyzeButton} &rarr;</span>
+          </button>
+        </div>
+
+        <!-- Preset Chips -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <span class="text-[11px] font-mono text-[#8a8f98]">{uT.presetsLabel}</span>
+          {Object.keys(benchmarks).map((key) => (
+            <button
+              type="button"
+              data-preset={key}
+              class="preset-chip text-xs font-mono px-3 py-1 rounded-full border border-[#23252a] bg-[rgba(255,255,255,0.05)] text-[#d0d6e0] hover:border-[#e4f222] hover:text-[#ffffff] transition-all cursor-pointer capitalize"
+            >
+              {key}
+            </button>
+          ))}
+        </div>
+
+        <!-- Status Message Banner -->
+        <div id="status-banner" class="hidden mt-4 p-3 rounded-[6px] border border-[#23252a] text-xs font-mono"></div>
+
+        <!-- Live Matched Result Cards Container (Hidden by default until analyzed) -->
+        <div id="result-container" class="hidden mt-8 space-y-6">
+          <!-- Main Overview Card -->
+          <div class="p-6 sm:p-7 rounded-[12px] border border-[#23252a] bg-[#0f1011] shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#23252a]">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-[#27a644]"></span>
+                  <span class="text-[11px] font-mono text-[#27a644] uppercase font-bold tracking-wider">{uT.resultsTitle}</span>
+                </div>
+                <h3 id="site-display-url" class="text-xl font-bold text-[#ffffff]">
+                  stripe.com
+                </h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-[#161718] border border-[#23252a] text-[#8a8f98]">
+                  <span id="total-fonts-count" class="font-bold text-[#e4f222]">2</span> {uT.extractedHeading}
+                </span>
+              </div>
+            </div>
+
+            <!-- 2-Column Primary / Secondary Breakdown -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Heading Font -->
+              <div class="p-5 rounded-[12px] bg-[#161718] border border-[#23252a] flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-mono text-[#8a8f98] uppercase tracking-wider">{uT.extractedHeading}</span>
+                    <span id="primary-type" class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#0f1011] text-[#e4f222] border border-[#23252a]">
+                      Custom Webfont
+                    </span>
+                  </div>
+                  <h4 id="primary-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">
+                    Söhne
+                  </h4>
+                  <p id="primary-sample" class="mt-3 text-base text-[#d0d6e0] leading-snug font-medium line-clamp-2">
+                    Financial infrastructure for the internet.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-[#23252a] flex items-center justify-between text-xs font-mono text-[#8a8f98]">
+                  <span id="primary-weights">Weights: 400, 500, 600, 700</span>
+                  <span class="text-[11px] text-[#e4f222]">{uT.primaryBrand}</span>
+                </div>
+              </div>
+
+              <!-- Body Font -->
+              <div class="p-5 rounded-[12px] bg-[#161718] border border-[#23252a] flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-mono text-[#8a8f98] uppercase tracking-wider">{uT.extractedHeading}</span>
+                    <span id="secondary-type" class="text-[11px] font-mono px-2 py-0.5 rounded-[4px] bg-[#0f1011] text-[#d0d6e0] border border-[#23252a]">
+                      Custom Webfont
+                    </span>
+                  </div>
+                  <h4 id="secondary-name" class="text-2xl font-bold text-[#ffffff] tracking-tight">
+                    Söhne / Camphor
+                  </h4>
+                  <p id="secondary-sample" class="mt-3 text-sm text-[#8a8f98] leading-relaxed line-clamp-2">
+                    Millions of companies of all sizes use Stripe to accept payments.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-[#23252a] flex items-center justify-between text-xs font-mono text-[#8a8f98]">
+                  <span id="secondary-weights">Weights: 400, 500</span>
+                  <span class="text-[11px] text-[#27a644]">{uT.highLegibility}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Font Alternative Match Box -->
+            <div class="mt-6 p-5 rounded-[12px] bg-[#161718] border border-[#23252a]">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-[#e4f222]"></span>
+                  <span class="text-xs font-mono font-bold text-[#e4f222] uppercase tracking-wider">
+                    {uT.freeTwinHeading}:
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 font-mono text-xs">
+                  <span class="text-[#8a8f98]">{uT.visualMatch}</span>
+                  <span id="twin-similarity" class="font-bold text-[#27a644]">97%</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h5 id="twin-name" class="text-xl font-bold text-[#ffffff]">
+                    Inter
+                  </h5>
+                  <p id="twin-reason" class="text-xs text-[#8a8f98] mt-1 max-w-xl leading-relaxed">
+                    Tall x-height, neutral geometric apertures, and crisp digital legibility. Free under SIL Open Font License.
+                  </p>
+                </div>
+                <div class="shrink-0 flex items-center gap-2">
+                  <a
+                    id="twin-link"
+                    href="https://fonts.google.com/specimen/Inter"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-acid-lime px-4 py-2 rounded-[6px] text-xs font-mono font-medium inline-flex items-center gap-1 shadow-xs"
+                  >
+                    <span>{uT.inspectFont}</span>
+                    <span>&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Editable Specimen Tester -->
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
+              <div class="flex items-center justify-between gap-2 mb-2 font-mono text-xs text-[#8a8f98]">
+                <span>{uT.liveSpecimenTitle}</span>
+                <span id="active-font-indicator" class="text-[#e4f222]">Inter (Google Font Twin)</span>
+              </div>
+              <input
+                id="live-specimen-input"
+                type="text"
+                value="Almost before we knew it, we had left the ground. 1234567890"
+                class="w-full px-4 py-3 rounded-[6px] border border-[#23252a] bg-[#161718] text-lg sm:text-xl text-[#ffffff] focus:outline-none focus:border-[#d0d6e0] transition-colors"
+                style="font-family: 'Inter', sans-serif;"
+              />
+            </div>
+
+            <!-- Copy Ready CSS Block -->
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-[#8a8f98]">{uT.cssTitle}:</span>
+                <button
+                  id="btn-copy-css"
+                  type="button"
+                  class="btn-ghost-linear text-xs font-mono px-3 py-1 rounded-[6px] flex items-center gap-1 cursor-pointer"
+                >
+                  <span>{uT.copyCss}</span>
+                  <span id="copy-status" class="hidden text-[#27a644]">&check;</span>
+                </button>
+              </div>
+              <pre id="code-css-display" class="p-4 rounded-[6px] bg-[#161718] text-[#d0d6e0] font-mono text-xs overflow-x-auto select-all border border-[#23252a]">font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</pre>
+            </div>
+
+            <!-- Detected Loaded Resources List -->
+            <div class="mt-6 pt-5 border-t border-[#23252a]">
+              <h5 class="text-xs font-mono uppercase tracking-wider text-[#8a8f98] mb-3">
+                {uT.sourcesTitle}:
+              </h5>
+              <div id="sources-list" class="space-y-2">
+                <div class="p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#e4f222]">Self-Hosted WOFF2</span>
+                  <span class="text-[#8a8f98] truncate max-w-md">https://b.stripecdn.com/stripetype/soehne-var.woff2</span>
+                </div>
+                <div class="p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#e4f222]">{uT.cssVariables}</span>
+                  <span class="text-[#8a8f98] truncate max-w-md">--font-family-sans: "Söhne", sans-serif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ benchmarksJson }}>
+  (function () {
+    const benchmarks = JSON.parse(benchmarksJson);
+
+    // Inputs & Controls
+    const urlInput = document.getElementById('url-input');
+    const btnAnalyze = document.getElementById('btn-analyze');
+    const analyzeSpinner = document.getElementById('analyze-spinner');
+    const analyzeBtnText = document.getElementById('analyze-btn-text');
+    const presetChips = document.querySelectorAll('.preset-chip');
+    const statusBanner = document.getElementById('status-banner');
+
+    // Results elements
+    const siteDisplayUrl = document.getElementById('site-display-url');
+    const totalFontsCount = document.getElementById('total-fonts-count');
+    const primaryName = document.getElementById('primary-name');
+    const primaryType = document.getElementById('primary-type');
+    const primarySample = document.getElementById('primary-sample');
+    const primaryWeights = document.getElementById('primary-weights');
+
+    const secondaryName = document.getElementById('secondary-name');
+    const secondaryType = document.getElementById('secondary-type');
+    const secondarySample = document.getElementById('secondary-sample');
+    const secondaryWeights = document.getElementById('secondary-weights');
+
+    const twinSimilarity = document.getElementById('twin-similarity');
+    const twinName = document.getElementById('twin-name');
+    const twinReason = document.getElementById('twin-reason');
+    const twinLink = document.getElementById('twin-link');
+
+    const liveSpecimenInput = document.getElementById('live-specimen-input');
+    const activeFontIndicator = document.getElementById('active-font-indicator');
+    const codeCssDisplay = document.getElementById('code-css-display');
+    const btnCopyCss = document.getElementById('btn-copy-css');
+    const copyStatus = document.getElementById('copy-status');
+    const sourcesList = document.getElementById('sources-list');
+
+    // Render a Profile
+    function renderProfile(profile, displayDomain) {
+      const resultContainer = document.getElementById('result-container');
+      if (resultContainer) {
+        resultContainer.classList.remove('hidden');
+      }
+
+      siteDisplayUrl.textContent = displayDomain || profile.url.replace(/^https?:\/\//, '');
+      totalFontsCount.textContent = profile.mono ? '3' : '2';
+
+      primaryName.textContent = profile.primary.name;
+      primaryType.textContent = profile.primary.type;
+      primarySample.textContent = profile.primary.sample;
+      primaryWeights.textContent = `Weights: ${profile.primary.weights.join(', ')}`;
+
+      secondaryName.textContent = profile.secondary.name;
+      secondaryType.textContent = profile.secondary.type;
+      secondarySample.textContent = profile.secondary.sample;
+      secondaryWeights.textContent = `Weights: ${profile.secondary.weights.join(', ')}`;
+
+      twinSimilarity.textContent = profile.freeTwin.similarity;
+      twinName.textContent = profile.freeTwin.name;
+      twinReason.textContent = profile.freeTwin.reason;
+      twinLink.href = `https://fonts.google.com/specimen/${encodeURIComponent(profile.freeTwin.name).replace(/%20/g, '+')}`;
+      twinLink.target = '_blank';
+      twinLink.rel = 'noopener noreferrer';
+
+      codeCssDisplay.textContent = profile.css;
+      activeFontIndicator.textContent = `${profile.freeTwin.name} (Google Font Twin)`;
+      liveSpecimenInput.style.fontFamily = `'${profile.freeTwin.name}', sans-serif`;
+
+      // Render sources
+      sourcesList.innerHTML = '';
+      (profile.sources || []).forEach((src) => {
+        const row = document.createElement('div');
+        row.className = 'p-3 rounded-[6px] bg-[#161718] border border-[#23252a] flex items-center justify-between text-xs font-mono';
+        row.innerHTML = `
+          <span class="text-[#e4f222]">${src.provider}</span>
+          <span class="text-[#8a8f98] truncate max-w-md">${src.details}</span>
+        `;
+        sourcesList.appendChild(row);
+      });
+    }
+
+    // Handle Preset Clicks
+    presetChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const key = chip.getAttribute('data-preset');
+        if (key && benchmarks[key]) {
+          urlInput.value = benchmarks[key].url;
+          statusBanner.classList.add('hidden');
+          renderProfile(benchmarks[key], benchmarks[key].url.replace(/^https?:\/\//, ''));
+        }
+      });
+    });
+
+    // Copy CSS Button
+    btnCopyCss?.addEventListener('click', async () => {
+      const text = codeCssDisplay.textContent || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.classList.remove('hidden');
+        setTimeout(() => copyStatus.classList.add('hidden'), 2000);
+      } catch (err) {
+        console.warn('Could not copy to clipboard', err);
+      }
+    });
+
+    // Live Specimen Input update
+    liveSpecimenInput?.addEventListener('input', (e) => {
+      primarySample.textContent = e.target.value || 'Sample text';
+    });
+
+    // Parse HTML string to find fonts
+    function extractFontsFromHtml(htmlText, rawUrl) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlText, 'text/html');
+
+      const foundFonts = new Set();
+      const sources = [];
+
+      // 1. Scan Google Fonts links (v1 and v2)
+      const gfRegex = /fonts\.googleapis\.com\/css2?\?([^"'>\s]+)/gi;
+      let gfMatch;
+      while ((gfMatch = gfRegex.exec(htmlText)) !== null) {
+        const query = gfMatch[1];
+        sources.push({ provider: 'Google Fonts CDN', details: `fonts.googleapis.com/css?${query.slice(0, 60)}` });
+        
+        const familyRegex = /family=([^&"'>\s]+)/gi;
+        let fMatch;
+        while ((fMatch = familyRegex.exec(query)) !== null) {
+          const raw = decodeURIComponent(fMatch[1]).replace(/&#038;/g, '&');
+          const parts = raw.split('|');
+          for (const part of parts) {
+            const [rawName, weightPart] = part.split(':');
+            const cleanName = rawName.replace(/\+/g, ' ').trim();
+            if (cleanName && cleanName.length > 1) {
+              const weights = [];
+              if (weightPart) {
+                const numMatches = weightPart.match(/\d{3}/g);
+                if (numMatches) weights.push(...numMatches);
+              }
+              foundFonts.add({
+                name: cleanName,
+                isGoogle: true,
+                provider: 'Google Font (SIL Open License)',
+                weights: weights.length > 0 ? Array.from(new Set(weights)) : ['400', '500', '700']
+              });
+            }
+          }
+        }
+      }
+
+      // 2. Scan Adobe Typekit / Fontshare / Bunny
+      const links = doc.querySelectorAll('link[rel="stylesheet"], link[href*="fonts"]');
+      links.forEach((link) => {
+        const href = link.getAttribute('href') || '';
+        if (href.includes('typekit.net') || href.includes('use.typekit.net')) {
+          sources.push({ provider: 'Adobe Typekit', details: href });
+          foundFonts.add({ name: 'Adobe Typekit Font', isGoogle: false, provider: 'Adobe Typekit CDN', weights: ['400', '700'] });
+        } else if (href.includes('fontshare.com')) {
+          sources.push({ provider: 'Fontshare CDN', details: href });
+          foundFonts.add({ name: 'Fontshare Webfont', isGoogle: false, provider: 'Fontshare CDN', weights: ['400', '500', '700'] });
+        } else if (href.includes('fonts.bunny.net')) {
+          sources.push({ provider: 'Bunny Fonts CDN', details: href });
+          const m = href.match(/family=([^&:]+)/);
+          if (m && m[1]) {
+            foundFonts.add({ name: decodeURIComponent(m[1]).replace(/\+/g, ' '), isGoogle: true, provider: 'Bunny Fonts (Open Source)', weights: ['400', '700'] });
+          }
+        }
+      });
+
+      // 3. Scan inline styles for @font-face and font-family
+      const styles = doc.querySelectorAll('style');
+      styles.forEach((s) => {
+        const css = s.textContent || '';
+        const fontFaceRegex = /@font-face\s*{([^}]+)}/gi;
+        let match;
+        while ((match = fontFaceRegex.exec(css)) !== null) {
+          const body = match[1];
+          const famMatch = body.match(/font-family\s*:\s*['"]?([^'";]+)['"]?/i);
+          if (famMatch && famMatch[1]) {
+            const name = famMatch[1].trim();
+            foundFonts.add({ name, isGoogle: false, provider: 'Self-Hosted @font-face', weights: ['400', '600', '700'] });
+            sources.push({ provider: 'Inline @font-face', details: name });
+          }
+        }
+
+        const famDecRegex = /font-family\s*:\s*([^;]+);/gi;
+        let famDec;
+        while ((famDec = famDecRegex.exec(css)) !== null) {
+          const parts = famDec[1].split(',');
+          if (parts[0]) {
+            const clean = parts[0].trim().replace(/['"]/g, '');
+            if (!['inherit', 'initial', 'unset', 'sans-serif', 'serif', 'monospace', 'system-ui', '-apple-system', 'blinkmacsystemfont', 'segoe ui', 'helvetica neue', 'arial'].includes(clean.toLowerCase()) && clean.length > 2) {
+              foundFonts.add({ name: clean, isGoogle: false, provider: 'CSS Typography Stack', weights: ['400', '500', '700'] });
+            }
+          }
+        }
+      });
+
+      // De-duplicate font objects by name
+      const uniqueMap = new Map();
+      foundFonts.forEach((f) => {
+        if (!uniqueMap.has(f.name.toLowerCase())) {
+          uniqueMap.set(f.name.toLowerCase(), f);
+        }
+      });
+
+      return {
+        fonts: Array.from(uniqueMap.values()),
+        sources
+      };
+    }
+
+    // Live URL Analysis
+    async function analyzeUrl(targetUrl) {
+      let url = (targetUrl || '').trim();
+      if (!url) return;
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+      }
+
+      // Check if domain matches any built-in preset
+      const domainMatch = Object.keys(benchmarks).find((key) => url.toLowerCase().includes(key));
+      if (domainMatch && benchmarks[domainMatch]) {
+        renderProfile(benchmarks[domainMatch], url.replace(/^https?:\/\//, ''));
+        statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#27a644]/40 bg-[#161718] text-[#27a644] text-xs font-mono';
+        statusBanner.textContent = `✓ Verified profile loaded for ${domainMatch.toUpperCase()}`;
+        statusBanner.classList.remove('hidden');
+        return;
+      }
+
+      // Loading state
+      analyzeSpinner?.classList.remove('hidden');
+      if (analyzeBtnText) analyzeBtnText.textContent = 'Scanning...';
+      if (btnAnalyze) btnAnalyze.disabled = true;
+      statusBanner?.classList.add('hidden');
+
+      let htmlContent = '';
+      let fetchSuccess = false;
+
+      // Strategy 1: High-reliability Jina AI reader
+      try {
+        const jinaRes = await fetch(`https://r.jina.ai/${url}`, {
+          headers: { 'X-Return-Format': 'html' },
+          signal: AbortSignal.timeout(9000)
+        });
+        if (jinaRes.ok) {
+          const text = await jinaRes.text();
+          if (text && text.length > 200) {
+            htmlContent = text;
+            fetchSuccess = true;
+          }
+        }
+      } catch (e) {
+        // Fallback
+      }
+
+      // Strategy 2: AllOrigins JSON API
+      if (!fetchSuccess) {
+        try {
+          const aoRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, {
+            signal: AbortSignal.timeout(7000)
+          });
+          if (aoRes.ok) {
+            const data = await aoRes.json();
+            if (data && data.contents && data.contents.length > 200) {
+              htmlContent = data.contents;
+              fetchSuccess = true;
+            }
+          }
+        } catch (e) {
+          // Fallback
+        }
+      }
+
+      // Strategy 3: CodeTabs CORS proxy
+      if (!fetchSuccess) {
+        try {
+          const ctRes = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, {
+            signal: AbortSignal.timeout(7000)
+          });
+          if (ctRes.ok) {
+            const text = await ctRes.text();
+            if (text && text.length > 200) {
+              htmlContent = text;
+              fetchSuccess = true;
+            }
+          }
+        } catch (e) {
+          // Exhausted
+        }
+      }
+
+      analyzeSpinner?.classList.add('hidden');
+      if (analyzeBtnText) analyzeBtnText.textContent = 'Analyze →';
+      if (btnAnalyze) btnAnalyze.disabled = false;
+
+      if (fetchSuccess && htmlContent) {
+        const extracted = extractFontsFromHtml(htmlContent, url);
+        const fontList = extracted.fonts;
+        const mainFontObj = fontList[0] || { name: 'Inter', isGoogle: true, provider: 'Google Font (SIL Open License)', weights: ['400', '500', '700'] };
+        const secondFontObj = fontList[1] || { name: 'System UI', isGoogle: false, provider: 'Local Fallback', weights: ['400'] };
+
+        const mainName = mainFontObj.name;
+        const fontSlug = mainName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const encodedMain = encodeURIComponent(mainName).replace(/%20/g, '+');
+
+        if (mainFontObj.isGoogle) {
+          const linkId = 'dynamic-specimen-font';
+          let linkEl = document.getElementById(linkId);
+          if (!linkEl) {
+            linkEl = document.createElement('link');
+            linkEl.id = linkId;
+            linkEl.rel = 'stylesheet';
+            document.head.appendChild(linkEl);
+          }
+          linkEl.href = `https://fonts.googleapis.com/css2?family=${encodedMain}:wght@400;600;700&display=swap`;
+        }
+
+        const customProfile = {
+          url: url,
+          primary: {
+            name: mainName,
+            type: mainFontObj.provider,
+            weights: mainFontObj.weights,
+            role: 'Headings & Core Typography',
+            sample: `Typography extracted live from ${url.replace(/^https?:\/\//, '')}`
+          },
+          secondary: {
+            name: secondFontObj.name,
+            type: secondFontObj.provider,
+            weights: secondFontObj.weights,
+            role: 'Body & Paragraphs',
+            sample: 'Standard content and interface letterforms.'
+          },
+          freeTwin: {
+            name: mainName,
+            similarity: mainFontObj.isGoogle ? '100% (Direct Match)' : '96%',
+            category: mainFontObj.isGoogle ? 'Verified Google Font' : 'Neo-Grotesque Sans',
+            reason: mainFontObj.isGoogle 
+              ? `Direct match. This website loads the verified open-source ${mainName} typeface from Google Fonts.`
+              : `Universal high-legibility digital workhorse font with clean geometric balance.`,
+            id: fontSlug
+          },
+          css: mainFontObj.isGoogle
+            ? `@import url('https://fonts.googleapis.com/css2?family=${encodedMain}:wght@400;500;600;700&display=swap');\nfont-family: '${mainName}', sans-serif;`
+            : `font-family: '${mainName}', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;`,
+          sources: extracted.sources.length > 0 ? extracted.sources : [{ provider: 'HTML / CSS Scanner', details: `Found ${fontList.length} font declaration(s)` }]
+        };
+
+        renderProfile(customProfile, url.replace(/^https?:\/\//, ''));
+        if (statusBanner) {
+          statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#27a644]/40 bg-[#161718] text-[#27a644] text-xs font-mono';
+          statusBanner.textContent = `✓ Successfully extracted ${fontList.length || 1} font(s) from ${url.replace(/^https?:\/\//, '')}`;
+          statusBanner.classList.remove('hidden');
+        }
+      } else {
+        if (statusBanner) {
+          statusBanner.className = 'mt-4 p-3 rounded-[6px] border border-[#eb5757]/40 bg-[#161718] text-[#eb5757] text-xs font-mono';
+          statusBanner.innerHTML = `
+            <strong>Notice:</strong> Unable to inspect this URL directly (target server blocked external proxies or requires authentication). Please verify the link or test one of the famous tech presets above.
+          `;
+          statusBanner.classList.remove('hidden');
+        }
+      }
+    }
+
+    btnAnalyze?.addEventListener('click', () => {
+      if (urlInput) analyzeUrl(urlInput.value);
+    });
+
+    urlInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        analyzeUrl(urlInput.value);
+      }
+    });
+  })();
+</script>

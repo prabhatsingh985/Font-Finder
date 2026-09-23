@@ -1,0 +1,13 @@
+---
+import { NON_DEFAULT_LOCALES } from '../../i18n/languages';
+import TermsView from '../../components/pages/TermsView.astro';
+
+export function getStaticPaths() {
+  return NON_DEFAULT_LOCALES.map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+---
+<TermsView lang={lang} />

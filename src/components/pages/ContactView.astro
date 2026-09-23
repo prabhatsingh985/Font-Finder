@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
+const t = useTranslations(lang);
+const cT = t.contact;
+---
+
+<BaseLayout
+  title={cT.meta.title}
+  description={cT.meta.description}
+  lang={lang}
+>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto transition-colors">
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#23252a] font-mono text-[11px] text-[#475569] dark:text-[#8a8f98] mb-4 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+        <span>{cT.badge}</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.022em]">
+        {cT.title}
+      </h1>
+      <p class="mt-3 text-[15px] sm:text-[16px] text-[#475569] dark:text-[#8a8f98] leading-relaxed max-w-2xl">
+        {cT.subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left 2 Cols: Contact Form -->
+      <div class="lg:col-span-2">
+        <div class="rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+          <h2 class="text-xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em] mb-1.5">
+            {cT.title}
+          </h2>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mb-6">
+            {cT.subtitle}
+          </p>
+
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="block font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] mb-1.5">
+                  {cT.form.name} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  required
+                  placeholder="e.g. Alex Morgan"
+                  class="w-full px-3.5 py-2.5 rounded-[8px] border border-[#e2e4e8] dark:border-[#282b32] bg-[#f8f9fa] dark:bg-[#141518] text-[#08090a] dark:text-[#ffffff] text-[13px] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label for="contact-email" class="block font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] mb-1.5">
+                  {cT.form.email} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  required
+                  placeholder="alex@example.com"
+                  class="w-full px-3.5 py-2.5 rounded-[8px] border border-[#e2e4e8] dark:border-[#282b32] bg-[#f8f9fa] dark:bg-[#141518] text-[#08090a] dark:text-[#ffffff] text-[13px] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222] transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-subject" class="block font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] mb-1.5">
+                {cT.form.subject} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="contact-subject"
+                name="subject"
+                required
+                placeholder="e.g. OCR accuracy suggestion"
+                class="w-full px-3.5 py-2.5 rounded-[8px] border border-[#e2e4e8] dark:border-[#282b32] bg-[#f8f9fa] dark:bg-[#141518] text-[#08090a] dark:text-[#ffffff] text-[13px] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222] transition-colors"
+              />
+            </div>
+
+            <div>
+              <label for="contact-message" class="block font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] mb-1.5">
+                {cT.form.message} <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                id="contact-message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Share your thoughts, suggestions, or issues..."
+                class="w-full px-3.5 py-2.5 rounded-[8px] border border-[#e2e4e8] dark:border-[#282b32] bg-[#f8f9fa] dark:bg-[#141518] text-[#08090a] dark:text-[#ffffff] text-[13px] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222] transition-colors resize-y"
+              ></textarea>
+            </div>
+
+            <div id="contact-success" class="hidden p-3.5 rounded-[8px] bg-[#16a34a]/10 border border-[#16a34a]/30 text-[#16a34a] dark:text-[#22c55e] text-[13px]">
+              {cT.form.success}
+            </div>
+
+            <button
+              type="submit"
+              id="contact-submit"
+              class="w-full sm:w-auto px-6 py-2.5 rounded-[8px] bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] text-[13px] font-[510] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm cursor-pointer"
+            >
+              {cT.form.send}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Col: Sidebar info & FAQs -->
+      <div class="space-y-6">
+        <div class="rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm space-y-4">
+          <div>
+            <h3 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff] mb-1">{cT.directEmail.title}</h3>
+            <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{cT.directEmail.desc}</p>
+          </div>
+          <div class="pt-3 border-t border-[#e2e4e8] dark:border-[#23252a]">
+            <h3 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff] mb-1">{cT.responseTime.title}</h3>
+            <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{cT.responseTime.desc}</p>
+          </div>
+        </div>
+
+        <div class="rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm space-y-4">
+          <h3 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff]">{cT.faqTitle}</h3>
+          <div>
+            <h4 class="font-medium text-[13px] text-[#08090a] dark:text-[#ffffff] mb-1">{cT.faq1.q}</h4>
+            <p class="text-[12px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{cT.faq1.a}</p>
+          </div>
+          <div class="pt-3 border-t border-[#e2e4e8] dark:border-[#23252a]">
+            <h4 class="font-medium text-[13px] text-[#08090a] dark:text-[#ffffff] mb-1">{cT.faq2.q}</h4>
+            <p class="text-[12px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{cT.faq2.a}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('contact-success');
+      const submitBtn = document.getElementById('contact-submit');
+
+      form?.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (submitBtn) {
+          submitBtn.setAttribute('disabled', 'true');
+          submitBtn.style.opacity = '0.6';
+        }
+        setTimeout(() => {
+          if (success) success.classList.remove('hidden');
+          form.reset();
+          if (submitBtn) {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.style.opacity = '1';
+          }
+        }, 600);
+      });
+    })();
+  </script>
+</BaseLayout>

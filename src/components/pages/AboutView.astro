@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import type { SupportedLocale } from '../../i18n/languages';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
+const currentLocale = lang as SupportedLocale;
+const t = useTranslations(lang);
+const aT = t.about;
+const contactHref = getLocalizedPath('/contact', currentLocale);
+---
+
+<BaseLayout
+  title={aT.meta.title}
+  description={aT.meta.description}
+  lang={lang}
+>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto transition-colors">
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#23252a] font-mono text-[11px] text-[#475569] dark:text-[#8a8f98] mb-4 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+        <span>{aT.badge}</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.022em]">
+        {aT.title}
+      </h1>
+      <p class="mt-3 text-[15px] sm:text-[16px] text-[#475569] dark:text-[#8a8f98] leading-relaxed max-w-2xl">
+        {aT.subtitle}
+      </p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="space-y-8 text-[14px] leading-relaxed text-[#475569] dark:text-[#8a8f98]">
+      
+      <!-- Mission Section -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {aT.whyTitle}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {aT.whyP1}
+        </p>
+        <p class="mt-3 text-[#334155] dark:text-[#d0d6e0]">
+          {aT.whyP2}
+        </p>
+      </section>
+
+      <!-- 4 Pillars Grid -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+            <h3 class="font-[510] text-[15px] text-[#08090a] dark:text-[#ffffff]">{aT.pillar1.title}</h3>
+          </div>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            {aT.pillar1.desc}
+          </p>
+        </div>
+
+        <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#16a34a] dark:bg-[#27a644]"></span>
+            <h3 class="font-[510] text-[15px] text-[#08090a] dark:text-[#ffffff]">{aT.pillar2.title}</h3>
+          </div>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            {aT.pillar2.desc}
+          </p>
+        </div>
+
+        <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+            <h3 class="font-[510] text-[15px] text-[#08090a] dark:text-[#ffffff]">{aT.pillar3.title}</h3>
+          </div>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            {aT.pillar3.desc}
+          </p>
+        </div>
+
+        <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+            <h3 class="font-[510] text-[15px] text-[#08090a] dark:text-[#ffffff]">{aT.pillar4.title}</h3>
+          </div>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+            {aT.pillar4.desc}
+          </p>
+        </div>
+      </section>
+
+      <!-- Principles Section -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-4">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {aT.principlesTitle}
+          </h2>
+        </div>
+        <div class="space-y-4 text-[#334155] dark:text-[#d0d6e0]">
+          <div>
+            <h4 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff] mb-1">{aT.p1.title}</h4>
+            <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{aT.p1.desc}</p>
+          </div>
+          <div>
+            <h4 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff] mb-1">{aT.p2.title}</h4>
+            <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{aT.p2.desc}</p>
+          </div>
+          <div>
+            <h4 class="font-[510] text-[14px] text-[#08090a] dark:text-[#ffffff] mb-1">{aT.p3.title}</h4>
+            <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">{aT.p3.desc}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact CTA -->
+      <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#121316] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 class="font-[510] text-[15px] text-[#08090a] dark:text-[#ffffff]">{aT.ctaTitle}</h3>
+          <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-1">{aT.ctaDesc}</p>
+        </div>
+        <a
+          href={contactHref}
+          class="shrink-0 px-4 py-2 rounded-[8px] bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] text-[13px] font-[510] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm"
+        >
+          {aT.ctaButton}
+        </a>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

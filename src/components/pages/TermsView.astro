@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
+const t = useTranslations(lang);
+const tT = t.terms;
+---
+
+<BaseLayout
+  title={tT.meta.title}
+  description={tT.meta.description}
+  lang={lang}
+>
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1000px] mx-auto transition-colors">
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#23252a] font-mono text-[11px] text-[#475569] dark:text-[#8a8f98] mb-4 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
+        <span>{tT.badge}</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.022em]">
+        {tT.title}
+      </h1>
+      <p class="mt-3 text-[15px] sm:text-[16px] text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+        {tT.subtitle}
+      </p>
+      <p class="mt-1 text-[12px] font-mono text-[#64748b] dark:text-[#62666d]">
+        {tT.lastUpdated}
+      </p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="space-y-8 text-[14px] leading-relaxed text-[#475569] dark:text-[#8a8f98]">
+      
+      <!-- Section 1 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s1Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s1P}
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s2Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s2P}
+        </p>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s3Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s3P}
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s4Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s4P}
+        </p>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s5Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s5P}
+        </p>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+        <div class="border-l-2 border-[#ff4d00] dark:border-[#e4f222] pl-3.5 mb-3">
+          <h2 class="text-[17px] sm:text-[18px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.012em]">
+            {tT.s6Title}
+          </h2>
+        </div>
+        <p class="text-[#334155] dark:text-[#d0d6e0]">
+          {tT.s6P}
+        </p>
+      </section>
+
+    </div>
+  </article>
+</BaseLayout>

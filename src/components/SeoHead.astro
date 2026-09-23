@@ -1,4 +1,6 @@
 ---
+import { getHreflangTags, getCanonicalUrl } from '../i18n/utils';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,24 +8,28 @@ interface Props {
   ogImage?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
+  lang?: string;
 }
 
 const {
   title = 'Font Finder — Free Image Font Identifier',
   description = 'Identify any font from images and screenshots instantly with Font Finder. Upload an image to analyze letterforms and get 100% verified free font alternatives.',
-  canonicalUrl = Astro.url.href,
+  canonicalUrl,
   ogImage = '/og-image.jpg?v=2',
   type = 'website',
-  noindex = false
+  noindex = false,
+  lang = (Astro.currentLocale as string) || 'en'
 } = Astro.props;
 
 const siteName = 'ProFontFinder';
 const siteOrigin = 'https://profontfinder.com';
 
-// Always provide absolute HTTPS URLs for social scrapers (WhatsApp, Twitter, LinkedIn, Slack, Discord)
-const absoluteCanonical = canonicalUrl.startsWith('http')
-  ? canonicalUrl
-  : `${siteOrigin}${canonicalUrl.startsWith('/') ? '' : '/'}${canonicalUrl}`;
+// Generate self-referencing canonical URL if not explicitly provided
+const absoluteCanonical = canonicalUrl
+  ? (canonicalUrl.startsWith('http') ? canonicalUrl : `${siteOrigin}${canonicalUrl.startsWith('/') ? '' : '/'}${canonicalUrl}`)
+  : getCanonicalUrl(Astro.url.pathname, lang, siteOrigin);
+
+const hreflangs = getHreflangTags(Astro.url.pathname, siteOrigin);
 
 const absoluteOgImage = ogImage.startsWith('http')
   ? ogImage
@@ -44,6 +50,12 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
   <meta name="robots" content="index, follow" />
 )}
 <link rel="canonical" href={absoluteCanonical} />
+
+<!-- Reciprocal hreflang tags for all 8 supported languages + x-default -->
+{hreflangs.map((entry) => (
+  <link rel="alternate" hreflang={entry.lang} href={entry.href} />
+))}
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <!-- Open Graph / Facebook / WhatsApp / LinkedIn / Slack / Discord -->
@@ -97,15 +109,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
         "url": "https://profontfinder.com/",
         "name": "ProFontFinder",
         "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder"],
-        "description": "Free image font finder and open-source Google Fonts identifier.",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://profontfinder.com/fonts?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Free image font finder and open-source Google Fonts identifier."
       },
       {
         "@type": "Organization",

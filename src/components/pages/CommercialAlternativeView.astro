@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FontFinderApp from '../../components/FontFinderApp.astro';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import type { SupportedLocale } from '../../i18n/languages';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
+const currentLocale = lang as SupportedLocale;
+const t = useTranslations(lang);
+const cT = t.commercialAlternative;
+const toolsHref = getLocalizedPath('/tools', currentLocale);
+---
+
+<BaseLayout
+  title={cT.meta.title}
+  description={cT.meta.description}
+  lang={lang}
+>
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
+    <div class="max-w-[1200px] mx-auto text-center">
+      
+      <!-- Breadcrumb & Badge -->
+      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#161718] border border-[#23252a]">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
+        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
+        <span class="text-xs text-[#383b3f]">/</span>
+        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">{cT.breadcrumb}</span>
+      </div>
+
+      <!-- Hero Header -->
+      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto">
+        {cT.title}
+      </h1>
+      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto">
+        {cT.subtitle}
+      </p>
+
+      <!-- Upload Sample Image UI -->
+      <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
+        <FontFinderApp
+          lang={lang}
+          dropzoneTitle={cT.dropzoneTitle}
+          dropzoneSubtitle={cT.dropzoneSubtitle}
+          buttonText={cT.buttonText}
+        />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

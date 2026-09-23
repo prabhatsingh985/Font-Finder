@@ -1,5 +1,22 @@
 ---
+import LanguagePicker from './LanguagePicker.astro';
+import { useTranslations, getLocalizedPath, getCleanPath } from '../i18n/utils';
+import type { SupportedLocale } from '../i18n/languages';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentPath = Astro.url.pathname;
+const cleanPath = getCleanPath(currentPath);
+const t = useTranslations(lang);
+const navT = t.common.nav;
+
+const homeHref = getLocalizedPath('/', lang as SupportedLocale);
+const toolsHref = getLocalizedPath('/tools', lang as SupportedLocale);
+const aboutHref = getLocalizedPath('/about', lang as SupportedLocale);
+const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
 ---
 
 <!-- Linear Precision Top Nav Bar -->
@@ -7,58 +24,53 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
     
     <!-- Left: Geometric Logo + Wordmark -->
-    <a href="/" class="flex items-center gap-2.5 group">
+    <a href={homeHref} class="flex items-center gap-2.5 group">
       <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#383b44] flex items-center justify-center text-[#08090a] dark:text-[#ffffff] group-hover:border-[#ff4d00] dark:group-hover:border-[#64748b] transition-colors">
         <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
       </div>
-      <span class="font-[510] tracking-[-0.015em] text-[14px] text-[#08090a] dark:text-[#ffffff]">Pro Font Finder</span>
+      <span class="font-[510] tracking-[-0.015em] text-[14px] text-[#08090a] dark:text-[#ffffff]">{t.common.brandName}</span>
     </a>
 
     <!-- Center: Main Navigation Links (Pure Typographic Nav) -->
     <nav class="hidden md:flex items-center gap-1 text-[13px]" aria-label="Main Navigation">
       <a
-        href="/"
+        href={homeHref}
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
+          cleanPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
-        Finder
+        {navT.finder}
       </a>
       <a
-        href="/tools"
+        href={toolsHref}
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
+          cleanPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
-        Tools
+        {navT.tools}
       </a>
       <a
-        href="/fonts"
+        href={aboutHref}
         class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath.startsWith('/fonts') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
+          cleanPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
         }`}
       >
-        Browse Fonts
-      </a>
-      <a
-        href="/about"
-        class={`px-3 py-1.5 rounded-[6px] transition-colors ${
-          currentPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
-        }`}
-      >
-        About
+        {navT.about}
       </a>
     </nav>
 
-    <!-- Right: Theme Switcher & High-emphasis Rounded Pill CTA -->
+    <!-- Right: Language Switcher, Theme Switcher & High-emphasis CTA -->
     <div class="flex items-center gap-2 sm:gap-2.5">
+      <!-- Language Picker -->
+      <LanguagePicker currentLang={lang} />
+
       <!-- Theme Switcher Button -->
       <button
         id="theme-toggle"
         type="button"
-        aria-label="Toggle color theme"
+        aria-label={navT.toggleTheme}
         class="w-8 h-8 rounded-[6px] border border-[#e2e4e8] dark:border-[#383b44] bg-white dark:bg-[#161718] flex items-center justify-center text-[#475569] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#64748b] transition-colors cursor-pointer shadow-sm dark:shadow-[0_1px_3px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]"
         title="Toggle dark / light mode"
       >
@@ -74,10 +86,10 @@ const currentPath = Astro.url.pathname;
       </button>
 
       <a
-        href="/#finder"
+        href={finderHref}
         class="btn-white-pill inline-flex items-center justify-center px-4 py-1.5 text-[13px] font-[510] rounded-full bg-[#08090a] dark:bg-[#ffffff] text-white dark:text-[#08090a] hover:bg-[#23252a] dark:hover:bg-[#e5e5e6] transition-colors shadow-sm"
       >
-        Identify Font
+        {navT.identifyFont}
       </a>
     </div>
 
@@ -85,10 +97,9 @@ const currentPath = Astro.url.pathname;
 
   <!-- Mobile Secondary Menu Bar -->
   <div class="flex md:hidden items-center justify-around border-t border-[#e2e4e8] dark:border-[#383b44] py-2.5 px-4 text-[13px] font-normal text-[#64748b] dark:text-[#8a8f98] bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-md">
-    <a href="/" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Finder</a>
-    <a href="/tools" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Tools</a>
-    <a href="/fonts" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath.startsWith('/fonts') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>Browse</a>
-    <a href="/about" class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${currentPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>About</a>
+    <a href={homeHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.finder}</a>
+    <a href={toolsHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.tools}</a>
+    <a href={aboutHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.about}</a>
   </div>
 
   <style>

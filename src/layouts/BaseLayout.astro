@@ -11,13 +11,21 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   noindex?: boolean;
+  lang?: string;
 }
 
-const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage,
+  noindex = false,
+  lang = (Astro.currentLocale as string) || 'en'
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang={lang} class="dark scroll-smooth">
   <head>
     <!-- Google tag (gtag.js) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-W27LQVL235"></script>
@@ -51,6 +59,7 @@ const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.pro
       canonicalUrl={canonicalUrl}
       ogImage={ogImage}
       noindex={noindex}
+      lang={lang}
     />
   </head>
   <body class="min-h-screen flex flex-col bg-[#f7f8f9] dark:bg-[#08090a] text-[#374151] dark:text-[#d0d6e0] font-sans antialiased selection:bg-[#ff4d00] selection:text-white dark:selection:bg-[#e4f222] dark:selection:text-[#08090a] transition-colors duration-150">
@@ -61,13 +70,13 @@ const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.pro
       Skip to content
     </a>
 
-    <Navbar />
+    <Navbar lang={lang} />
 
     <main id="main" class="flex-1">
       <slot />
     </main>
 
     <NeonCursorTrail />
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
