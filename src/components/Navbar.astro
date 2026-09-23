@@ -15,6 +15,7 @@ const navT = t.common.nav;
 
 const homeHref = getLocalizedPath('/', lang as SupportedLocale);
 const toolsHref = getLocalizedPath('/tools', lang as SupportedLocale);
+const guidesHref = getLocalizedPath('/guides', lang as SupportedLocale);
 const aboutHref = getLocalizedPath('/about', lang as SupportedLocale);
 const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
 ---
@@ -50,6 +51,14 @@ const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
         }`}
       >
         {navT.tools}
+      </a>
+      <a
+        href={guidesHref}
+        class={`px-3 py-1.5 rounded-[6px] transition-colors ${
+          cleanPath.startsWith('/guides') ? 'text-[#08090a] dark:text-[#ffffff] font-[510] bg-black/[0.05] dark:bg-white/[0.05]' : 'text-[#475569] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:bg-black/[0.03] dark:hover:bg-white/[0.03]'
+        }`}
+      >
+        {navT.guides}
       </a>
       <a
         href={aboutHref}
@@ -99,6 +108,7 @@ const finderHref = `${homeHref === '/' ? '' : homeHref}/#finder`;
   <div class="flex md:hidden items-center justify-around border-t border-[#e2e4e8] dark:border-[#383b44] py-2.5 px-4 text-[13px] font-normal text-[#64748b] dark:text-[#8a8f98] bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-md">
     <a href={homeHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath === '/' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.finder}</a>
     <a href={toolsHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath.startsWith('/tools') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.tools}</a>
+    <a href={guidesHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath.startsWith('/guides') ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.guides}</a>
     <a href={aboutHref} class={`hover:text-[#08090a] dark:hover:text-[#ffffff] ${cleanPath === '/about' ? 'text-[#08090a] dark:text-[#ffffff] font-[510]' : ''}`}>{navT.about}</a>
   </div>
 

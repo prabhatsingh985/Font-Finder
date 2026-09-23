@@ -7,6 +7,7 @@ export const ja: TranslationSchema = {
     nav: {
       finder: '検索ツール',
       tools: 'ツール一覧',
+      guides: "ガイド",
       about: '概要',
       identifyFont: 'フォントを特定',
       toggleTheme: 'カラーテーマ切り替え',
@@ -29,6 +30,7 @@ export const ja: TranslationSchema = {
       companyTitle: '企業情報',
       aboutUs: '私たちについて',
       howItWorks: '仕組み',
+      guides: "ガイド・チュートリアル",
       allFontTools: '全フォントツール',
       contactSupport: 'お問い合わせ・サポート',
       trustLegalTitle: '信頼と法務',
@@ -654,6 +656,125 @@ export const ja: TranslationSchema = {
       q: 'プログラムから利用できるフォント識別APIは提供していますか？',
       a: '現在、開発者向けの自動フォント識別APIの提供を検討中です。具体的なユースケースがございましたら、ぜひご要望をお聞かせください。'
     }
+  },
+  guides: {
+    meta: {
+      title: "フォント特定＆タイポグラフィガイド — Pro Font Finder",
+      description: "画像からのフォント特定、フォントペアリング、商用代替フォントの選定、Webタイポグラフィに関する専門ガイドと実践チュートリアル。"
+    },
+    badge: "ガイド＆チュートリアル",
+    title: "フォント特定とタイポグラフィをマスターする",
+    subtitle: "デザイナー、エンジニア、クリエイターのための実践的な解説、テクニック、ワークフロー。",
+    allGuides: "すべてのガイド",
+    readTimeSuffix: "で読了",
+    tryTool: "このツールを試す",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "フォント特定",
+        tag: "基本ガイド",
+        title: "画像やスクリーンショットからフォントを高精度に特定する方法",
+        desc: "画像の事前処理、文字のベースライン切り抜き、コントラスト調整を行い、わずか数秒で未知のフォントを突き止めるテクニック。",
+        readTime: "4分",
+        steps: [
+          "コントラストが高く特徴的な文字（a、g、R、Qなど）の周囲をタイトにトリミング。",
+          "OCR文字認識精度を高めるため、水平ベースラインの角度を補正。",
+          "Pro Font Finderに直接アップロードし、形状ベクトルで即座に解析。"
+        ],
+        toolLink: "/",
+        toolName: "画像フォント特定ツールを開く"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "商用代替フォント",
+        tag: "コスト削減",
+        title: "高額な有料商用フォントを高品質な無料Googleフォントで代用する方法",
+        desc: "Helvetica、Futura、Gotham、Proxima Nova、DINなどを商用利用可能な完全無料オープンソースフォントに置き換えるチートシート。",
+        readTime: "5分",
+        steps: [
+          "ジオメトリック（幾何学）系とヒューマニスト系の特徴（x-height、開口部、端部）を把握。",
+          "専用代替エンジンで文字の太さやメトリクスを自動照合。",
+          "ライセンス料不要ですぐに使えるCSS @importコードを出力。"
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "商用代替フォントを見る"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "組み合わせとデザイン",
+        tag: "デザインのベストプラクティス",
+        title: "タイポグラフィの組み合わせ原則：コントラスト・階層・調和",
+        desc: "フォントの組み合わせで迷わない。実績あるデザイン理論に基づいて、印象的な見出しフォントと可読性の高い本文フォントを調和させる方法。",
+        readTime: "6分",
+        steps: [
+          "視覚的メリハリをつけるため、明朝・セリフ体の見出しとゴシック・サンセリフの本文をペアリング。",
+          "雰囲気やデザイン年代の統一感を意識（モダン見出し＋端正な本文）。",
+          "フォントペアリングスタジオでリアルタイムにプレビュー。"
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "ペアリングスタジオを開く"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "技術・Web開発",
+        tag: "開発者ワークフロー",
+        title: "公開中のWebサイトで使用されているフォントを抽出・調査する方法",
+        desc: "ブラウザの開発者ツールを開いたり圧縮CSSを解析したりすることなく、目的のサイトで使われているタイポグラフィを一瞬で検出。",
+        readTime: "3分",
+        steps: [
+          "調査したいWebサイトのURLをコピー。",
+          "URLフォントファインダーに貼り付けてメイン・本文フォントを抽出。",
+          "計算されたCSS変数、フォールバックチェーン、Googleフォントリンクを確認。"
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "URLフォントファインダーを試す"
+      },
+      {
+        id: "handwriting-identification",
+        category: "フォント特定",
+        tag: "手書き・筆記体",
+        title: "手書きの文字やサインに近いGoogle筆記体フォントを見つける方法",
+        desc: "手書き文字の崩し方や筆記体のつながりを分析し、同じニュアンスを持つ編集可能なGoogle筆記体フォントを素早く見つける手法。",
+        readTime: "4分",
+        steps: [
+          "つながった筆記体文字を認識しやすい単位に切り分け。",
+          "傾斜角、ループの比率、ストロークの太さの抑揚を解析。",
+          "認証済みGoogle筆記体フォントカタログから瞬時に類似候補を検出。"
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "手書きフォントを照合する"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "技術・Web開発",
+        tag: "アーキテクチャ",
+        title: "技術解説：ProFontFinderのブラウザ内OCRと形状ベクトルの仕組み",
+        desc: "クライアントサイド画像解析の全貌：Web Worker、エッジ検出、アスペクト比不変量、サーバー送信不要のプライバシー設計。",
+        readTime: "5分",
+        steps: [
+          "画像処理はすべてお使いの端末のブラウザRAM内で完結。",
+          "サーバーへの画像アップロード・保存・追跡ログは一切なし。",
+          "数百種類の厳選オープンソースフォントと100ms未満で高速照合。"
+        ],
+        toolLink: "/how-it-works",
+        toolName: "技術仕様を読む"
+      }
+    ],
+    faqTitle: "フォント特定に関するよくある質問",
+    faqs: [
+      {
+        q: "ピンボケや低解像度の画像からでもフォントを特定できますか？",
+        a: "はい！コントラスト正規化、適応的二値化、形態学的フィルタリングの前処理パイプラインにより、文字の輪郭を強調してから照合を行います。"
+      },
+      {
+        q: "提案された代替フォントはすべて商用利用できますか？",
+        a: "ProFontFinderに登録されているすべての代替フォントは、SIL Open Font LicenseまたはApache 2.0ライセンスで認証されており、商用・個人利用ともに100%無料です。"
+      },
+      {
+        q: "アップロードした画像はサーバーに保存されますか？",
+        a: "いいえ、一切保存されません。すべての画像解析・OCR処理・ベクトル計算はお客様のブラウザ内（メモリ上）でのみ実行されます。"
+      }
+    ]
   },
   error404: {
     meta: {

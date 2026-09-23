@@ -7,6 +7,7 @@ export const es: TranslationSchema = {
     nav: {
       finder: 'Buscador',
       tools: 'Herramientas',
+      guides: "Guías",
       about: 'Acerca de',
       identifyFont: 'Identificar Fuente',
       toggleTheme: 'Cambiar tema de color',
@@ -29,6 +30,7 @@ export const es: TranslationSchema = {
       companyTitle: 'Empresa',
       aboutUs: 'Acerca de Nosotros',
       howItWorks: 'Cómo Funciona',
+      guides: "Guías y Tutoriales",
       allFontTools: 'Todas las Herramientas',
       contactSupport: 'Contacto y Soporte',
       trustLegalTitle: 'Confianza y Legal',
@@ -654,6 +656,125 @@ export const es: TranslationSchema = {
       q: '¿Ofrecen una API para identificación tipográfica automatizada?',
       a: 'Actualmente estamos evaluando una API para desarrolladores para flujos de trabajo automatizados. ¡No dudes en contactarnos con tu caso de uso!'
     }
+  },
+  guides: {
+    meta: {
+      title: "Guías de Tipografía e Identificación de Fuentes — Pro Font Finder",
+      description: "Guías de expertos, tutoriales prácticos y mejores prácticas para identificar fuentes a partir de imágenes, combinar fuentes y encontrar alternativas comerciales."
+    },
+    badge: "Guías y Tutoriales",
+    title: "Domina la Identificación de Fuentes y Tipografía",
+    subtitle: "Guías completas, consejos prácticos y flujos de trabajo para diseñadores, desarrolladores y creadores.",
+    allGuides: "Todas las Guías",
+    readTimeSuffix: "de lectura",
+    tryTool: "Probar Esta Herramienta",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "Identificación de Fuentes",
+        tag: "Guía Esencial",
+        title: "Cómo Identificar con Precisión Cualquier Fuente desde una Imagen o Captura",
+        desc: "Aprende técnicas de alta precisión para preparar imágenes, recortar líneas base de glifos y encontrar fuentes oscuras en segundos.",
+        readTime: "4 min",
+        steps: [
+          "Recorta ajustadamente alrededor de caracteres nítidos y de alto contraste (como a, g, R, Q).",
+          "Asegura la alineación horizontal de la línea base para un reconocimiento óptico óptimo.",
+          "Sube la imagen directamente a Pro Font Finder para un análisis instantáneo por vectores."
+        ],
+        toolLink: "/",
+        toolName: "Abrir Buscador de Fuentes por Imagen"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "Alternativas Comerciales",
+        tag: "Ahorro de Costes",
+        title: "Encontrar Fuentes de Google Gratuitas para Reemplazar Tipografías Comerciales Costosas",
+        desc: "Hoja de trucos para diseñadores: reemplaza Helvetica, Futura, Gotham, Proxima Nova y DIN por fuentes de código abierto 100% gratuitas.",
+        readTime: "5 min",
+        steps: [
+          "Identifica rasgos geométricos frente a humanistas (altura de x, apertura, terminales).",
+          "Usa nuestro motor especializado para hacer coincidir grosor de trazo y proporciones.",
+          "Exporta reglas CSS @import listas para usar sin pagar tarifas de licencia."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "Explorar Alternativas Comerciales"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "Combinación y Diseño",
+        tag: "Mejores Prácticas",
+        title: "Las Reglas de Oro para Combinar Tipografías: Contraste, Jerarquía y Armonía",
+        desc: "No vuelvas a dudar al combinar fuentes. Aprende a asociar títulos llamativos con texto de párrafo nítido usando teoría probada de diseño.",
+        readTime: "6 min",
+        steps: [
+          "Combina títulos con Serif y cuerpo Sans-Serif (o viceversa) para una distinción visual clara.",
+          "Mantén coherencia en el tono y la época (ej. títulos geométricos con cuerpo sans moderno).",
+          "Prueba combinaciones en tiempo real con nuestro Estudio de Combinación de Fuentes."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "Abrir Estudio de Combinación"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "Técnico y Web",
+        tag: "Flujo de Desarrollador",
+        title: "Cómo Extraer e Inspeccionar Fuentes de Cualquier Sitio Web Activo",
+        desc: "Descubre qué tipografía utiliza cualquier página web sin abrir las herramientas para desarrolladores ni bucear en CSS minificado.",
+        readTime: "3 min",
+        steps: [
+          "Copia la URL del sitio web de destino.",
+          "Pégala en nuestro Buscador de Fuentes por URL para extraer las familias tipográficas.",
+          "Inspecciona variables CSS computadas, fuentes de respaldo y enlaces a Google Fonts."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "Probar Buscador de Fuentes por URL"
+      },
+      {
+        id: "handwriting-identification",
+        category: "Identificación de Fuentes",
+        tag: "Manuscrita y Caligrafía",
+        title: "Cómo Emparejar Notas Manuscritas y Firmas con Fuentes Digitales de Script",
+        desc: "Técnicas para descifrar letras hechas a mano, ligaduras cursivas y encontrar fuentes Google Script editables con el mismo encanto.",
+        readTime: "4 min",
+        steps: [
+          "Segmenta caracteres cursivos conectados en raíces de letras identificables.",
+          "Analiza el ángulo de inclinación, las proporciones de bucles y la variación de presión.",
+          "Encuentra coincidencias entre fuentes cursivas verificadas de Google Fonts."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "Emparejar Fuentes Manuscritas"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "Técnico y Web",
+        tag: "Arquitectura",
+        title: "Bambalinas: Cómo ProFontFinder Utiliza OCR en el Navegador y Matemáticas Vectoriales",
+        desc: "Descubre el procesamiento de imágenes en el cliente: Web Workers, detección de bordes, invariantes de forma y privacidad total sin servidores.",
+        readTime: "5 min",
+        steps: [
+          "Toda la manipulación de imágenes se ejecuta 100% en la memoria RAM de tu dispositivo.",
+          "Cero subidas de imágenes, cero almacenamiento en servidores, cero telemetría.",
+          "Comparación de vectores en menos de 100 ms contra cientos de fuentes abiertas."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "Leer Arquitectura Técnica"
+      }
+    ],
+    faqTitle: "Preguntas Frecuentes sobre Identificación de Fuentes",
+    faqs: [
+      {
+        q: "¿Puede ProFontFinder identificar fuentes en imágenes borrosas o de baja resolución?",
+        a: "¡Sí! Nuestro preprocesamiento incluye normalización de contraste, umbralización y filtros morfológicos para realzar los contornos antes de comparar."
+      },
+      {
+        q: "¿Todas las alternativas recomendadas son gratuitas para uso comercial?",
+        a: "Cada una de las fuentes catalogadas en ProFontFinder cuenta con licencias de código abierto (SIL OFL o Apache 2.0), haciéndolas 100% gratuitas para proyectos comerciales y personales."
+      },
+      {
+        q: "¿Se almacenan mis imágenes subidas en sus servidores?",
+        a: "Nunca. Todo el análisis de fuentes, procesamiento OCR y comparación vectorial ocurre localmente en la memoria de tu navegador. Jamás transmitimos ni guardamos tus imágenes."
+      }
+    ]
   },
   error404: {
     meta: {

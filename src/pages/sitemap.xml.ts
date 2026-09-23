@@ -12,6 +12,7 @@ export const GET: APIRoute = async () => {
     '/tools/screenshot-font-finder',
     '/tools/handwriting-font-finder',
     '/tools/font-pairing',
+    '/guides',
     '/how-it-works',
     '/about',
     '/privacy',
@@ -19,7 +20,7 @@ export const GET: APIRoute = async () => {
     '/contact'
   ];
 
-  // Total URLs = 13 pages * 8 languages = 104 URLs
+  // Total URLs = 14 pages * 8 languages = 112 URLs
   const urlEntries: { loc: string; priority: string }[] = [];
 
   for (const pagePath of staticPages) {

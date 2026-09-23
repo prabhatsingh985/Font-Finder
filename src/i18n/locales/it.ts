@@ -7,6 +7,7 @@ export const it: TranslationSchema = {
     nav: {
       finder: 'Identificatore',
       tools: 'Strumenti',
+      guides: "Guide",
       about: 'Chi siamo',
       identifyFont: 'Identifica Font',
       toggleTheme: 'Cambia tema colore',
@@ -29,6 +30,7 @@ export const it: TranslationSchema = {
       companyTitle: 'Azienda',
       aboutUs: 'Chi Siamo',
       howItWorks: 'Come Funziona',
+      guides: "Guide e Tutorial",
       allFontTools: 'Tutti gli Strumenti Font',
       contactSupport: 'Contatti e Supporto',
       trustLegalTitle: 'Fiducia e Note Legali',
@@ -654,6 +656,125 @@ export const it: TranslationSchema = {
       q: 'Mettete a disposizione un\'API per l\'identificazione automatica?',
       a: 'Stiamo vagliando l\'introduzione di un\'API dedicata a flussi automatizzati per sviluppatori. Raccontaci pure le tue necessità d\'uso!'
     }
+  },
+  guides: {
+    meta: {
+      title: "Guide di Tipografia e Identificazione Font — Pro Font Finder",
+      description: "Guide per esperti, tutorial pratici e best practice per identificare font da immagini, combinare caratteri tipografici e trovare alternative commerciali gratuite."
+    },
+    badge: "Guide & Tutorial",
+    title: "Padroneggia l'Identificazione dei Font e la Tipografia",
+    subtitle: "Tutorial approfonditi, consigli pratici e flussi di lavoro per designer, sviluppatori e appassionati di tipografia.",
+    allGuides: "Tutte le Guide",
+    readTimeSuffix: "di lettura",
+    tryTool: "Prova Questo Strumento",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "Identificazione Font",
+        tag: "Guida Essenziale",
+        title: "Come Identificare con Precisione Qualsiasi Font da un'Immagine o Screenshot",
+        desc: "Tecniche ad alta precisione per preparare le immagini, ritagliare le linee di base dei glifi e identificare font rari in pochi secondi.",
+        readTime: "4 min",
+        steps: [
+          "Ritaglia accuratamente attorno a caratteri nitidi e ad alto contrasto (es. a, g, R, Q).",
+          "Allinea orizzontalmente la linea di base per migliorare la precisione OCR.",
+          "Carica direttamente su Pro Font Finder per un'analisi vettoriale immediata."
+        ],
+        toolLink: "/",
+        toolName: "Apri Trova Font da Immagine"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "Alternative Commerciali",
+        tag: "Risparmio Costi",
+        title: "Trovare Font Google Gratuiti per Sostituire Costosi Caratteri Commerciali",
+        desc: "La guida per designer: sostituisci Helvetica, Futura, Gotham, Proxima Nova e DIN con font open-source 100% gratuiti per uso commerciale.",
+        readTime: "5 min",
+        steps: [
+          "Individua tratti geometrici vs umanisti (altezza x, aperture, terminali).",
+          "Usa il nostro motore per confrontare spessore dei tratti e proporzioni.",
+          "Esporta regole CSS @import pronte per la produzione a costo zero."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "Esplora Alternative Commerciali"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "Abbinamento e Design",
+        tag: "Migliori Pratiche",
+        title: "Le Regole d'Oro dell'Abbinamento Tipografico: Contrasto, Gerarchia e Armonia",
+        desc: "Elimina ogni dubbio nell'abbinamento dei caratteri. Impara a combinare titoli d'impatto con testi di lettura chiari e leggibili.",
+        readTime: "6 min",
+        steps: [
+          "Abbina titoli Serif a testi Sans-Serif (o viceversa) per un contrasto visivo garantito.",
+          "Mantieni armonia stilistica ed epoca del font.",
+          "Testa gli abbinamenti in tempo reale nel nostro Studio di Abbinamento Font."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "Apri Studio di Abbinamento"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "Tecnico e Web",
+        tag: "Flusso Sviluppatore",
+        title: "Come Estrarre e Ispezionare i Font da Qualsiasi Sito Web Online",
+        desc: "Scopri quale tipografia usa un sito web senza aprire Chrome DevTools o frugare nei file CSS minificati.",
+        readTime: "3 min",
+        steps: [
+          "Copia l'URL del sito web da analizzare.",
+          "Incolla nello strumento Trova Font da URL per estrarre le famiglie di caratteri.",
+          "Ispeziona variabili CSS calcolate, catene di fallback e link Google Fonts."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "Prova Trova Font da URL"
+      },
+      {
+        id: "handwriting-identification",
+        category: "Identificazione Font",
+        tag: "Manoscritto & Calligrafia",
+        title: "Come Associare Note Scritte a Mano a Font Corsivi Digitali",
+        desc: "Tecniche per decifrare lettere manoscritte e trovare font corsivi Google modificabili con lo stesso fascino espressivo.",
+        readTime: "4 min",
+        steps: [
+          "Isola i caratteri corsivi uniti in radici di lettere riconoscibili.",
+          "Analizza angolo di inclinazione, proporzioni dei tratti e variazione di pressione.",
+          "Confronta istantaneamente con il catalogo dei font corsivi verificati di Google."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "Abbina Font Manoscritti"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "Tecnico e Web",
+        tag: "Architettura",
+        title: "Dietro le Quinte: Come Funziona l'OCR nel Browser e la Matematica Vettoriale",
+        desc: "Panoramica sull'elaborazione lato client: Web Workers, rilevamento dei bordi, invarianti di forma e massima privacy senza server.",
+        readTime: "5 min",
+        steps: [
+          "Tutta l'elaborazione dell'immagine avviene al 100% nella memoria del tuo browser.",
+          "Nessun caricamento su server, nessun salvataggio, nessun tracciamento.",
+          "Confronto vettoriale in meno di 100 ms su centinaie di font open-source."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "Leggi Architettura Tecnica"
+      }
+    ],
+    faqTitle: "Domande Frequenti sull'Identificazione dei Font",
+    faqs: [
+      {
+        q: "ProFontFinder può identificare font da immagini sfocate o a bassa risoluzione?",
+        a: "Sì! La pipeline include normalizzazione del contrasto, binarizzazione adattiva e filtri morfologici per risaltare i contorni prima del confronto."
+      },
+      {
+        q: "Tutti i font alternativi consigliati sono gratuiti per uso commerciale?",
+        a: "Tutti i font alternativi catalogati sono distribuiti con licenze open-source (SIL OFL o Apache 2.0), rendendoli 100% gratuiti anche per progetti commerciali."
+      },
+      {
+        q: "Le immagini caricate vengono salvate sui vostri server?",
+        a: "Mai. Tutte le operazioni di analisi, OCR e calcolo vettoriale si svolgono in locale nella memoria del tuo browser."
+      }
+    ]
   },
   error404: {
     meta: {

@@ -7,6 +7,7 @@ export const ko: TranslationSchema = {
     nav: {
       finder: '폰트 찾기',
       tools: '도구 모음',
+      guides: "가이드",
       about: '소개',
       identifyFont: '폰트 식별하기',
       toggleTheme: '색상 테마 전환',
@@ -29,6 +30,7 @@ export const ko: TranslationSchema = {
       companyTitle: '회사',
       aboutUs: '회사 소개',
       howItWorks: '작동 원리',
+      guides: "가이드 및 튜토리얼",
       allFontTools: '모든 폰트 도구',
       contactSupport: '문의 및 지원',
       trustLegalTitle: '신뢰 및 약관',
@@ -654,6 +656,125 @@ export const ko: TranslationSchema = {
       q: '자동화 폰트 식별을 위한 API를 제공하나요?',
       a: '현재 개발자를 위한 폰트 식별 API 도입을 긍정적으로 검토 중입니다. 필요하신 활용 방안이 있으시다면 언제든 문의해 주세요!'
     }
+  },
+  guides: {
+    meta: {
+      title: "폰트 식별 및 타이포그래피 가이드 — Pro Font Finder",
+      description: "이미지에서 폰트 찾기, 폰트 페어링, 상용 폰트 무료 대체제 찾기, 웹 타이포그래피를 위한 실전 가이드와 튜토리얼."
+    },
+    badge: "가이드 & 튜토리얼",
+    title: "폰트 식별과 타이포그래피 마스터하기",
+    subtitle: "디자이너, 개발자, 크리에이터를 위한 완벽한 실무 팁과 워크플로우.",
+    allGuides: "모든 가이드",
+    readTimeSuffix: "읽기",
+    tryTool: "이 도구 사용해보기",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "폰트 식별",
+        tag: "필수 가이드",
+        title: "이미지나 캡처 화면에서 어떤 폰트든 정확하게 찾아내는 방법",
+        desc: "이미지 전처리, 글자 기준선 자르기, 대비 조절을 통해 잘 알려지지 않은 폰트도 몇 초 만에 찾아내는 고정밀 기법.",
+        readTime: "4분",
+        steps: [
+          "선명하고 대비가 뚜렷한 글자(예: a, g, R, Q) 주변을 여백 없이 타이트하게 크롭합니다.",
+          "OCR 인식률을 극대화하기 위해 글자 기준선이 수평이 되도록 정렬합니다.",
+          "Pro Font Finder에 업로드하여 즉각적인 형상 벡터 분석을 실행합니다."
+        ],
+        toolLink: "/",
+        toolName: "이미지 폰트 찾기 열기"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "상용 폰트 대체제",
+        tag: "비용 절감",
+        title: "비싼 유료 상용 폰트를 완벽한 무료 Google 폰트로 대체하는 방법",
+        desc: "Helvetica, Futura, Gotham, Proxima Nova, DIN을 100% 상업적 이용 가능한 오픈소스 Google 폰트로 교체하는 디자이너 치트시트.",
+        readTime: "5분",
+        steps: [
+          "기하학적(Geometric) 및 인문주의적(Humanist) 특징(x-height, 열림 정도)을 파악합니다.",
+          "전용 대체 폰트 엔진으로 굵기와 비율이 가장 흡사한 폰트를 매칭합니다.",
+          "라이선스 비용 없이 즉시 배포할 수 있는 CSS @import 코드를 복사합니다."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "상용 폰트 대체제 탐색"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "페어링 및 디자인",
+        tag: "디자인 모범 사례",
+        title: "타이포그래피 폰트 조합의 황금률: 대비, 계층 구조, 조화",
+        desc: "더 이상 폰트 조합으로 고민하지 마세요. 검증된 디자인 원리를 바탕으로 제목 폰트와 본문 폰트를 이상적으로 매치하는 방법.",
+        readTime: "6분",
+        steps: [
+          "명확한 시각적 구분을 위해 세리프 제목과 산세리프 본문(또는 그 반대)을 조합합니다.",
+          "무드와 서체 출시 시대를 일관되게 맞춥니다.",
+          "실시간 폰트 페어링 스튜디오에서 바로 결과를 확인합니다."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "폰트 페어링 스튜디오 열기"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "기술 및 웹",
+        tag: "개발자 워크플로우",
+        title: "실제 운영 중인 웹사이트에서 폰트를 추출하고 분석하는 방법",
+        desc: "브라우저 개발자 도구를 열거나 압축된 CSS를 뒤지지 않고도 모든 웹사이트의 서체를 즉시 파악하는 방법.",
+        readTime: "3분",
+        steps: [
+          "분석하려는 웹사이트 URL을 복사합니다.",
+          "URL 폰트 찾기에 붙여넣어 메인 및 본문 폰트 패밀리를 추출합니다.",
+          "계산된 CSS 변수, 폴백 폰트 체인, Google Fonts 링크를 확인합니다."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "URL 폰트 찾기 사용"
+      },
+      {
+        id: "handwriting-identification",
+        category: "폰트 식별",
+        tag: "손글씨 & 캘리그래피",
+        title: "손글씨 메모와 서명을 감성적인 디지털 필기체 폰트로 매칭하기",
+        desc: "자연스러운 손글씨의 획과 연결 부위를 분석하여 동일한 감성을 지닌 편집 가능한 Google 필기체 폰트를 찾아냅니다.",
+        readTime: "4분",
+        steps: [
+          "이어지는 필기체 글자를 식별 가능한 글자 단위로 분리합니다.",
+          "기울기 각도, 루프 비율, 획의 굵기 변화를 분석합니다.",
+          "검증된 Google 필기체 서체 카탈로그에서 최적의 후보를 검색합니다."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "손글씨 폰트 매칭하기"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "기술 및 웹",
+        tag: "아키텍처",
+        title: "엔진 작동 원리: 브라우저 내부 OCR과 형상 벡터 수학의 조화",
+        desc: "클라이언트 측 이미지 처리 심층 분석: Web Worker, 윤곽선 감지, 가로세로 비율 불변성, 서버가 전혀 필요 없는 프라이버시 설계.",
+        readTime: "5분",
+        steps: [
+          "모든 이미지 처리는 기기의 브라우저 RAM 내에서 100% 처리됩니다.",
+          "서버 이미지 업로드, 저장, 원격 전송이 전혀 발생하지 않습니다.",
+          "수백 개의 오픈소스 서체와 100ms 미만으로 초고속 벡터 매칭이 이루어집니다."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "기술 아키텍처 보기"
+      }
+    ],
+    faqTitle: "폰트 식별 자주 묻는 질문",
+    faqs: [
+      {
+        q: "흐릿하거나 저해상도 이미지에서도 폰트를 찾을 수 있나요?",
+        a: "네! 대비 정규화, 적응형 임계값 처리 및 형태학적 필터링을 통해 글자 윤곽선을 뚜렷하게 보정한 후 매칭합니다."
+      },
+      {
+        q: "추천된 대체 폰트는 모두 상업적으로 무료인가요?",
+        a: "ProFontFinder에 등록된 모든 대체 폰트는 SIL OFL 또는 Apache 2.0 오픈소스 라이선스로 검증되어 상업적 프로젝트에서도 완전 무료입니다."
+      },
+      {
+        q: "업로드한 이미지가 서버에 저장되나요?",
+        a: "절대 저장되지 않습니다. 모든 이미지 분석, OCR 처리, 벡터 매칭은 사용자의 브라우저 메모리 내에서만 로컬로 실행됩니다."
+      }
+    ]
   },
   error404: {
     meta: {

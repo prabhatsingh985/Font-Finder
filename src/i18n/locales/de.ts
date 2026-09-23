@@ -7,6 +7,7 @@ export const de: TranslationSchema = {
     nav: {
       finder: 'Finder',
       tools: 'Werkzeuge',
+      guides: "Anleitungen",
       about: 'Über uns',
       identifyFont: 'Schriftart erkennen',
       toggleTheme: 'Farbdesign wechseln',
@@ -29,6 +30,7 @@ export const de: TranslationSchema = {
       companyTitle: 'Unternehmen',
       aboutUs: 'Über uns',
       howItWorks: 'Funktionsweise',
+      guides: "Anleitungen & Ratgeber",
       allFontTools: 'Alle Schrift-Werkzeuge',
       contactSupport: 'Kontakt & Support',
       trustLegalTitle: 'Vertrauen & Rechtliches',
@@ -654,6 +656,125 @@ export const de: TranslationSchema = {
       q: 'Bieten Sie eine API zur automatisierten Schrifterkennung an?',
       a: 'Wir prüfen derzeit die Bereitstellung einer Entwickler-API für automatisierte Workflows. Teilen Sie uns gerne Ihren konkreten Anwendungsfall mit!'
     }
+  },
+  guides: {
+    meta: {
+      title: "Typografie- & Schriftarten-Ratgeber — Pro Font Finder",
+      description: "Experten-Leitfäden, praxisnahe Anleitungen und Best Practices zur Schriftarterkennung aus Bildern, Schriftkombinationen und kommerziellen Alternativen."
+    },
+    badge: "Anleitungen & Ratgeber",
+    title: "Schrifterkennung und Typografie meistern",
+    subtitle: "Umfassende Schritt-für-Schritt-Anleitungen und Workflows für Designer, Entwickler und Typografie-Begeisterte.",
+    allGuides: "Alle Anleitungen",
+    readTimeSuffix: "Lesezeit",
+    tryTool: "Dieses Tool ausprobieren",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "Schrifterkennung",
+        tag: "Grundlagen",
+        title: "So erkennen Sie jede Schriftart präzise aus einem Bild oder Screenshot",
+        desc: "Erfahren Sie praxiserprobte Techniken zur Bildvorbereitung, Grundlinien-Zuschnitt und Kontrastverstärkung für sekundenschnelle Treffer.",
+        readTime: "4 Min.",
+        steps: [
+          "Schneiden Sie markante Zeichen mit hohem Kontrast (wie a, g, R, Q) passgenau zu.",
+          "Achten Sie auf eine horizontale Grundlinie für optimale OCR-Erkennungsraten.",
+          "Laden Sie das Bild direkt in Pro Font Finder zur sofortigen Vektoranalyse hoch."
+        ],
+        toolLink: "/",
+        toolName: "Bild-Schriftartenfinder öffnen"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "Kommerzielle Alternativen",
+        tag: "Kostensparend",
+        title: "Echte kostenlose Google Fonts als Ersatz für teure kommerzielle Schriften",
+        desc: "Der Spickzettel für Designer: Helvetica, Futura, Gotham, Proxima Nova und DIN durch 100% kostenlose Open-Source-Schriften ersetzen.",
+        readTime: "5 Min.",
+        steps: [
+          "Geometrische vs. humanistische Merkmale (x-Höhe, Öffnungen, Endungen) bestimmen.",
+          "Mit unserer Alternativen-Engine Strichstärke und Proportionen abgleichen.",
+          "Fertigen CSS @import-Code lizenzkostenfrei für die Produktion exportieren."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "Kommerzielle Alternativen durchsuchen"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "Kombination & Design",
+        tag: "Best Practice",
+        title: "Die goldenen Regeln der Schriftkombination: Kontrast, Hierarchie und Harmonie",
+        desc: "Nie wieder unsicher beim Kombinieren von Schriften. Verbinden Sie ausdrucksstarke Überschriften mit kristallklarem Fließtext nach bewährten Gestaltungsregeln.",
+        readTime: "6 Min.",
+        steps: [
+          "Serifen-Überschriften mit serifenlosem Fließtext (oder umgekehrt) für klaren Kontrast kombinieren.",
+          "Stimmung und Entstehungszeit abstimmen (z. B. geometrische Titel mit zeitloser Sans).",
+          "Kombinationen live in unserem Schriftarten-Kombinationstool ausprobieren."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "Kombinationstool öffnen"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "Technik & Web",
+        tag: "Entwickler-Workflow",
+        title: "Schriftarten jeder Live-Website schnell ermitteln und untersuchen",
+        desc: "Finden Sie heraus, welche Typografie eine beliebige Website verwendet, ohne DevTools zu öffnen oder minifiziertes CSS zu durchsuchen.",
+        readTime: "3 Min.",
+        steps: [
+          "Ziel-URL der gewünschten Website kopieren.",
+          "In unseren URL Font Finder einfügen, um primäre Schriftfamilien zu extrahieren.",
+          "Berechnete CSS-Variablen, Fallback-Ketten und Google Fonts-Links einsehen."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "URL Font Finder testen"
+      },
+      {
+        id: "handwriting-identification",
+        category: "Schrifterkennung",
+        tag: "Handschrift & Script",
+        title: "Handschriftliche Notizen und Unterschriften digitalen Schreibschriften zuordnen",
+        desc: "Techniken zum Entziffern handschriftlicher Glyphen und Auffinden editierbarer Google Script-Schriften mit gleichem manuellem Charme.",
+        readTime: "4 Min.",
+        steps: [
+          "Verbundene Schreibschriftzeichen in erkennbare Wortstämme segmentieren.",
+          "Neigungswinkel, Schleifenproportionen und Strichstärkenunterschiede analysieren.",
+          "Automatisch mit verifizierten Google Schreibschriften abgleichen."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "Handschriften abgleichen"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "Technik & Web",
+        tag: "Architektur",
+        title: "Hinter den Kulissen: So nutzt ProFontFinder clientseitiges OCR & Vektormathematik",
+        desc: "Einblick in die browserbasierte Bildverarbeitung: Web Worker, Kantenerkennung, Forminvarianten und kompromisslose Privatsphäre ohne Server.",
+        readTime: "5 Min.",
+        steps: [
+          "Sämtliche Bildverarbeitung läuft zu 100% im Arbeitsspeicher Ihres Browsers.",
+          "Keine Bilduploads auf Server, keine Speicherung, kein Tracking.",
+          "Blitzschneller Vektorabgleich in unter 100 ms gegen Hunderte freie Schriften."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "Technische Architektur lesen"
+      }
+    ],
+    faqTitle: "Häufig gestellte Fragen zur Schriftarterkennung",
+    faqs: [
+      {
+        q: "Kann ProFontFinder Schriftarten aus unscharfen Bildern erkennen?",
+        a: "Ja! Unsere Vorverarbeitung umfasst Kontrastanpassung, adaptive Schwellenwertbildung und morphologische Filterung zur Konturschärfung vor dem Abgleich."
+      },
+      {
+        q: "Dürfen alle empfohlenen Ersatzschriftarten kommerziell genutzt werden?",
+        a: "Jede gelistete Alternative ist unter anerkannten Open-Source-Lizenzen (SIL OFL oder Apache 2.0) verifiziert und für gewerbliche Zwecke zu 100% kostenfrei."
+      },
+      {
+        q: "Werden meine hochgeladenen Bilder auf Servern gespeichert?",
+        a: "Niemals. Die gesamte Analyse, Texterkennung und der Vektorabgleich finden ausschließlich lokal in Ihrem Browser statt."
+      }
+    ]
   },
   error404: {
     meta: {

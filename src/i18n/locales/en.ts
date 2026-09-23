@@ -5,6 +5,7 @@ export const en = {
     nav: {
       finder: 'Finder',
       tools: 'Tools',
+      guides: "Guides",
       about: 'About',
       identifyFont: 'Identify Font',
       toggleTheme: 'Toggle color theme',
@@ -27,6 +28,7 @@ export const en = {
       companyTitle: 'Company',
       aboutUs: 'About Us',
       howItWorks: 'How It Works',
+      guides: "Guides & Tutorials",
       allFontTools: 'All Font Tools',
       contactSupport: 'Contact Support',
       trustLegalTitle: 'Trust & Legal',
@@ -651,6 +653,125 @@ export const en = {
       q: 'Do you offer an API for programmatic font identification?',
       a: 'We are currently evaluating a developer API for automated font recognition workflows. Feel free to contact us with your use case!'
     }
+  },
+  guides: {
+    meta: {
+      title: "Typography & Font Identification Guides — Pro Font Finder",
+      description: "Expert guides, actionable tutorials, and best practices for identifying fonts from images, font pairing, finding commercial alternatives, and web typography."
+    },
+    badge: "Guides & Tutorials",
+    title: "Master Font Identification & Typography",
+    subtitle: "Comprehensive walkthroughs, practical tips, and workflows for designers, developers, and typography enthusiasts.",
+    allGuides: "All Guides",
+    readTimeSuffix: "read",
+    tryTool: "Try This Tool",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "Font Identification",
+        tag: "Essential Guide",
+        title: "How to Accurately Identify Any Font from an Image or Screenshot",
+        desc: "Learn high-precision techniques to prepare images, crop individual glyph baselines, enhance contrast, and identify obscure fonts in seconds.",
+        readTime: "4 min",
+        steps: [
+          "Crop tightly around distinct high-contrast characters (like a, g, R, Q).",
+          "Ensure horizontal baseline alignment for optimal optical character recognition.",
+          "Upload directly to Pro Font Finder for instant neural shape vector analysis."
+        ],
+        toolLink: "/",
+        toolName: "Open Image Font Finder"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "Commercial Alternatives",
+        tag: "Cost Saver",
+        title: "Finding Authentic Free Google Fonts to Replace Expensive Commercial Typefaces",
+        desc: "A designer cheat sheet for swapping Helvetica, Futura, Gotham, Proxima Nova, and DIN with 100% free, commercially-licensed open-source Google Fonts.",
+        readTime: "5 min",
+        steps: [
+          "Identify geometric vs humanist traits (x-height, aperture, terminals).",
+          "Use our specialized alternative engine to match stem thickness and metrics.",
+          "Export ready-to-use CSS @import rules for zero-license-fee web deployment."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "Browse Commercial Alternatives"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "Pairing & Design",
+        tag: "Design Best Practice",
+        title: "The Golden Rules of Typography Pairing: Contrast, Hierarchy, and Harmony",
+        desc: "Never struggle with pairing fonts again. Learn how to combine bold display typefaces with crystal-clear body copy using proven design theory.",
+        readTime: "6 min",
+        steps: [
+          "Pair Serif headings with Sans-Serif body (or vice versa) for guaranteed visual distinction.",
+          "Keep mood and era aligned (e.g. geometric headings with modern sans body).",
+          "Test pairings live with our interactive Font Pairing Studio."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "Open Font Pairing Studio"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "Technical & Web",
+        tag: "Developer Workflow",
+        title: "How to Extract and Inspect Fonts from Any Live Website",
+        desc: "Discover which typography any website is using without opening Chrome DevTools or digging through minified CSS stylesheets.",
+        readTime: "3 min",
+        steps: [
+          "Copy the target website URL.",
+          "Paste into our URL Font Finder to extract primary and body font-families.",
+          "Inspect computed CSS variables, fallback chains, and Google Font links."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "Try URL Font Finder"
+      },
+      {
+        id: "handwriting-identification",
+        category: "Font Identification",
+        tag: "Script & Calligraphy",
+        title: "How to Match Handwritten Notes & Signatures to Digital Script Fonts",
+        desc: "Techniques for deciphering handwritten letterforms, cursive ligatures, and finding editable Google Script fonts with identical aesthetic charm.",
+        readTime: "4 min",
+        steps: [
+          "Segment connected cursive characters into identifiable letter roots.",
+          "Analyze slant angle, loop proportions, and stroke pressure variation.",
+          "Match against verified Google cursive typefaces instantly."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "Match Handwriting Fonts"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "Technical & Web",
+        tag: "Architecture",
+        title: "Behind the Scenes: How ProFontFinder Uses In-Browser OCR & Shape Math",
+        desc: "Deep-dive into client-side image processing: Web Workers, edge detection, aspect-ratio invariants, and zero-server privacy architecture.",
+        readTime: "5 min",
+        steps: [
+          "All image manipulation runs 100% in-browser in your device RAM.",
+          "Zero image uploads, zero server storage, zero telemetry.",
+          "Sub-100ms vector matching across hundreds of curated open-source typefaces."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "Read Architecture Deep-Dive"
+      }
+    ],
+    faqTitle: "Frequently Asked Questions About Font Identification",
+    faqs: [
+      {
+        q: "Can ProFontFinder identify fonts from blurry or low-resolution images?",
+        a: "Yes! Our preprocessing pipeline includes contrast normalization, thresholding, and morphological filtering to enhance character outlines before comparison."
+      },
+      {
+        q: "Are all recommended font alternatives free for commercial use?",
+        a: "Every single alternative font cataloged on ProFontFinder is verified under open-source licenses (SIL Open Font License or Apache 2.0), making them 100% free for commercial and personal projects."
+      },
+      {
+        q: "Are my uploaded images stored on your servers?",
+        a: "Never. All font analysis, OCR processing, and vector comparisons happen locally inside your browser memory. We never store or transmit your images."
+      }
+    ]
   },
   error404: {
     meta: {

@@ -7,6 +7,7 @@ export const fr: TranslationSchema = {
     nav: {
       finder: 'Identificateur',
       tools: 'Outils',
+      guides: "Guides",
       about: 'À propos',
       identifyFont: 'Identifier la police',
       toggleTheme: 'Changer de thème de couleur',
@@ -29,6 +30,7 @@ export const fr: TranslationSchema = {
       companyTitle: 'Entreprise',
       aboutUs: 'À Propos de Nous',
       howItWorks: 'Comment Ça Marche',
+      guides: "Guides & Tutoriels",
       allFontTools: 'Tous les Outils Typographiques',
       contactSupport: 'Contact et Support',
       trustLegalTitle: 'Confiance et Légal',
@@ -654,6 +656,125 @@ export const fr: TranslationSchema = {
       q: 'Proposez-vous une API pour l\'identification programmatique de polices ?',
       a: 'Nous étudions actuellement la mise en place d\'une API pour développeurs destinée aux flux automatisés. N\'hésitez pas à nous faire part de vos besoins !'
     }
+  },
+  guides: {
+    meta: {
+      title: "Guides de Typographie et d'Identification de Polices — Pro Font Finder",
+      description: "Guides d'experts, tutoriels pratiques et meilleures pratiques pour identifier les polices à partir d'images, associer des polices et trouver des alternatives commerciales."
+    },
+    badge: "Guides & Tutoriels",
+    title: "Maîtrisez l'Identification de Polices et la Typographie",
+    subtitle: "Tutoriels complets, astuces pratiques et méthodes de travail pour designers, développeurs et créatifs.",
+    allGuides: "Tous les Guides",
+    readTimeSuffix: "de lecture",
+    tryTool: "Tester cet outil",
+    items: [
+      {
+        id: "image-identification-guide",
+        category: "Identification de Polices",
+        tag: "Guide Essentiel",
+        title: "Comment Identifier Précisément une Police à partir d'une Image ou Capture",
+        desc: "Apprenez des techniques de haute précision pour préparer vos images, recadrer les glyphes et identifier des polices rares en quelques secondes.",
+        readTime: "4 min",
+        steps: [
+          "Recadrez au plus près des caractères nets et contrastés (ex: a, g, R, Q).",
+          "Alignez la ligne de base horizontalement pour une reconnaissance optimale.",
+          "Importez directement dans Pro Font Finder pour une analyse vectorielle instantanée."
+        ],
+        toolLink: "/",
+        toolName: "Ouvrir l'Identificateur d'Image"
+      },
+      {
+        id: "commercial-alternatives-guide",
+        category: "Alternatives Commerciales",
+        tag: "Économie de Coûts",
+        title: "Trouver des Polices Google Gratuites pour Remplacer des Polices Commerciales Chères",
+        desc: "Le pense-bête des designers pour substituer Helvetica, Futura, Gotham, Proxima Nova et DIN par des fontes open-source 100% gratuites.",
+        readTime: "5 min",
+        steps: [
+          "Identifiez les traits géométriques vs humanistes (hauteur d'x, ouvertures).",
+          "Utilisez notre moteur dédié pour faire correspondre épaisseurs et proportions.",
+          "Exportez vos règles CSS @import prêtes pour la production sans frais de licence."
+        ],
+        toolLink: "/tools/commercial-alternative",
+        toolName: "Voir les Alternatives Commerciales"
+      },
+      {
+        id: "font-pairing-principles",
+        category: "Association & Design",
+        tag: "Bonnes Pratiques",
+        title: "Les Règles d'Or de l'Association Typographique : Contraste, Hiérarchie et Harmonie",
+        desc: "Ne doutez plus lors de l'association de vos fontes. Apprenez à marier titres audacieux et corps de texte ultra lisible.",
+        readTime: "6 min",
+        steps: [
+          "Associez des titres avec empattements (Serif) à un texte Sans-Serif pour un contraste garanti.",
+          "Conservez la même cohérence d'époque et d'ambiance.",
+          "Testez vos combinaisons en direct dans notre Studio d'Association."
+        ],
+        toolLink: "/tools/font-pairing",
+        toolName: "Ouvrir le Studio d'Association"
+      },
+      {
+        id: "inspect-web-fonts",
+        category: "Technique & Web",
+        tag: "Flux Développeur",
+        title: "Comment Extraire et Inspecter les Polices de N'importe quel Site Web en Ligne",
+        desc: "Découvrez la typographie exacte d'un site sans ouvrir les outils DevTools de Chrome ni fouiller dans des feuilles CSS minifiées.",
+        readTime: "3 min",
+        steps: [
+          "Copiez l'URL du site souhaité.",
+          "Collez-la dans notre outil URL Font Finder pour extraire les familles typographiques.",
+          "Consultez les variables CSS calculées et les polices Google associées."
+        ],
+        toolLink: "/tools/url-font-finder",
+        toolName: "Essayer URL Font Finder"
+      },
+      {
+        id: "handwriting-identification",
+        category: "Identification de Polices",
+        tag: "Manuscrite & Script",
+        title: "Comment Faire Correspondre des Notes Manuscrites à des Polices Cursives Digitales",
+        desc: "Méthodes pour déchiffrer les lettres manuscrites et dénicher des polices Google Script modifiables avec le même charme authentique.",
+        readTime: "4 min",
+        steps: [
+          "Isolez les lettres cursives connectées en racines identifiables.",
+          "Analysez l'angle d'inclinaison, les proportions des boucles et la pression du trait.",
+          "Faites correspondre instantanément avec notre catalogue de polices cursives Google."
+        ],
+        toolLink: "/tools/handwriting-font-finder",
+        toolName: "Identifier des Polices Manuscrites"
+      },
+      {
+        id: "how-engine-works-guide",
+        category: "Technique & Web",
+        tag: "Architecture",
+        title: "Dans les Coulisses : Comment ProFontFinder Combine OCR et Mathématiques Vectorielles",
+        desc: "Plongez dans le traitement d'image côté client : Web Workers, détection de contours, invariants de forme et respect absolu de la vie privée.",
+        readTime: "5 min",
+        steps: [
+          "Tous les calculs s'exécutent 100% dans la mémoire vive de votre navigateur.",
+          "Zéro envoi d'image sur serveur, zéro stockage, zéro pistage.",
+          "Comparaison vectorielle en moins de 100 ms parmi des centaines de polices ouvertes."
+        ],
+        toolLink: "/how-it-works",
+        toolName: "Lire l'Architecture Technique"
+      }
+    ],
+    faqTitle: "Foire Aux Questions sur l'Identification de Polices",
+    faqs: [
+      {
+        q: "ProFontFinder peut-il identifier des polices sur des images floues ?",
+        a: "Oui ! Notre pipeline de prétraitement effectue une normalisation du contraste, un seuillage adaptatif et un filtrage morphologique pour accentuer les contours."
+      },
+      {
+        q: "Toutes les polices alternatives suggérées sont-elles gratuites pour un usage commercial ?",
+        a: "Chaque alternative répertoriée est vérifiée sous licence open-source (SIL OFL ou Apache 2.0), ce qui les rend 100% gratuites pour vos projets commerciaux et personnels."
+      },
+      {
+        q: "Mes images importées sont-elles conservées sur vos serveurs ?",
+        a: "Jamais. Tout le traitement d'image, l'OCR et l'analyse vectorielle se font exclusivement en mémoire dans votre navigateur web."
+      }
+    ]
   },
   error404: {
     meta: {
