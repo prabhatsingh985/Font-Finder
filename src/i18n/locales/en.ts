@@ -63,7 +63,10 @@ export const en = {
       "letterGlyphsLabel": "Letter Glyphs (Fix individual characters or clear non-letters):",
       "identifyFont": "Identify font",
       "identifyFontFor": "Identify \"{word}\"",
+      "ocrBadge": "Optical Character Recognition",
+      "fetchingText": "Fetching text...",
       "detectingText": "Detecting text and letterforms...",
+      "cancelAndChooseAnother": "Cancel & choose another image",
       "distinctFont": "Distinct Font",
       "comparingLetterShapes": "COMPARING LETTER SHAPES",
       "matchingFontsProgress": "Matching against {count} fonts in your browser...",
@@ -459,6 +462,7 @@ export const en = {
     zeroLatency: "Zero Latency",
     zeroLatencyDesc: "Local Web Worker processing.",
     openLicense: "Open License",
+    commercialFree: "Commercial Free",
     silOpenFontLicense: "SIL Open Font License.",
 
     meta: {
