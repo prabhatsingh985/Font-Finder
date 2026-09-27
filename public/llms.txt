@@ -16,8 +16,9 @@
 - [URL Font Finder](https://profontfinder.com/tools/url-font-finder): Analyzes live web pages to identify active typography, loaded `@font-face` rules, Google Fonts stylesheets, and font pairings.
 - [Commercial Font Alternatives](https://profontfinder.com/tools/commercial-alternative): Curated legal free Google Font alternatives to expensive commercial typefaces.
 - [Font Pairing Playground](https://profontfinder.com/tools/font-pairing): Interactive tool for testing complementary heading and body typography pairings.
+- [Verified Font Directory](https://profontfinder.com/fonts): Complete directory of verified open-source Google Fonts with live specimen testers and copy-ready CSS declarations.
 - [How It Works](https://profontfinder.com/how-it-works): Technical architecture of client-side canvas vectorization and geometric glyph scoring.
-- [Sitemap](https://profontfinder.com/sitemap.xml): Complete XML sitemap of all typography tools and documentation pages.
+- [Sitemap](https://profontfinder.com/sitemap.xml): Complete XML sitemap of all typography tools, font specimens, and documentation pages.
 
 ## Popular Commercial Fonts & Their Free Google Font Alternatives
 
