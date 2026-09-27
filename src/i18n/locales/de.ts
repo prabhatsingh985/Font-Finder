@@ -7,8 +7,9 @@ export const de: TranslationSchema = {
     nav: {
       finder: 'Finder',
       tools: 'Werkzeuge',
-      browseFonts: 'Schriftarten Durchsuchen',
-      browse: 'Durchsuchen',
+      fonts: 'Schriftarten',
+      browseFonts: 'Schriftarten',
+      browse: 'Schriftarten',
       guides: "Anleitungen",
       about: 'Über uns',
       identifyFont: 'Erkennen',
@@ -28,7 +29,8 @@ export const de: TranslationSchema = {
         fontPairing: 'Schriftkombinations-Tool',
         handwritingMatcher: 'Handschrifterkennung',
         commercialAlternatives: 'Kommerzielle Schrift-Alternativen',
-        verifiedFontCatalog: 'Verifizierter Schriftarten-Katalog'
+        verifiedFontCatalog: 'Schriftarten',
+        fonts: 'Schriftarten',
       },
       companyTitle: 'Unternehmen',
       aboutUs: 'Über uns',

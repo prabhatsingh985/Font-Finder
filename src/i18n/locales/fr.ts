@@ -7,8 +7,9 @@ export const fr: TranslationSchema = {
     nav: {
       finder: 'Identificateur',
       tools: 'Outils',
-      browseFonts: 'Parcourir les Polices',
-      browse: 'Parcourir',
+      fonts: 'Polices',
+      browseFonts: 'Polices',
+      browse: 'Polices',
       guides: "Guides",
       about: 'À propos',
       identifyFont: 'Identifier',
@@ -28,7 +29,8 @@ export const fr: TranslationSchema = {
         fontPairing: 'Outil d\'Association de Polices',
         handwritingMatcher: 'Reconnaissance d\'Écriture Manuscrite',
         commercialAlternatives: 'Alternatives aux Polices Commerciales',
-        verifiedFontCatalog: 'Catalogue de Polices Vérifiées'
+        verifiedFontCatalog: 'Polices',
+        fonts: 'Polices',
       },
       companyTitle: 'Entreprise',
       aboutUs: 'À Propos de Nous',

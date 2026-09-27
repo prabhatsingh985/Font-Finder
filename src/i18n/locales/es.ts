@@ -7,8 +7,9 @@ export const es: TranslationSchema = {
     nav: {
       finder: 'Buscador',
       tools: 'Herramientas',
-      browseFonts: 'Explorar Fuentes',
-      browse: 'Explorar',
+      fonts: 'Fuentes',
+      browseFonts: 'Fuentes',
+      browse: 'Fuentes',
       guides: "Guías",
       about: 'Acerca de',
       identifyFont: 'Identificar',
@@ -28,7 +29,8 @@ export const es: TranslationSchema = {
         fontPairing: 'Herramienta de Combinación de Fuentes',
         handwritingMatcher: 'Buscador de Fuentes Manuscritas',
         commercialAlternatives: 'Alternativas Comerciales Gratuitas',
-        verifiedFontCatalog: 'Catálogo de Fuentes Verificadas'
+        verifiedFontCatalog: 'Fuentes',
+        fonts: 'Fuentes',
       },
       companyTitle: 'Empresa',
       aboutUs: 'Acerca de Nosotros',

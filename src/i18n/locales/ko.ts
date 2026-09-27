@@ -7,8 +7,9 @@ export const ko: TranslationSchema = {
     nav: {
       finder: '폰트 찾기',
       tools: '도구 모음',
-      browseFonts: '폰트 탐색',
-      browse: '탐색',
+      fonts: '폰트',
+      browseFonts: '폰트',
+      browse: '폰트',
       guides: "가이드",
       about: '소개',
       identifyFont: '식별하기',
@@ -28,7 +29,8 @@ export const ko: TranslationSchema = {
         fontPairing: '폰트 페어링 도구',
         handwritingMatcher: '손글씨 폰트 매칭',
         commercialAlternatives: '유료 폰트 무료 대체제',
-        verifiedFontCatalog: '인증된 폰트 카탈로그'
+        verifiedFontCatalog: '폰트',
+        fonts: '폰트',
       },
       companyTitle: '회사',
       aboutUs: '회사 소개',
