@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../FontFinderApp.astro';
+import FontCard from '../FontCard.astro';
+import { VERIFIED_GOOGLE_FONTS } from '../../services/googleFonts/data';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import type { SupportedLocale } from '../../i18n/languages';
 
@@ -14,6 +16,7 @@ const t = useTranslations(lang);
 const hT = t.home;
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 const finderAnchor = `${p('/') === '/' ? '' : p('/')}/#finder`;
+const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
 ---
 
 <BaseLayout
@@ -627,6 +630,32 @@ const finderAnchor = `${p('/') === '/' ? '' : p('/')}/#finder`;
     </div>
   </section>
 
+  <!-- Section: Popular Typefaces Catalog -->
+  <section class="py-20 sm:py-24 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></div>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#475569] dark:text-[#8a8f98]">VERIFIED REPOSITORY</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-[510] tracking-[-0.022em] text-[#08090a] dark:text-[#ffffff]">
+          Popular open-source typefaces
+        </h2>
+        <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-1 font-normal">Ready to browse, test, and copy for your projects.</p>
+      </div>
+      <a
+        href={p('/fonts')}
+        class="font-normal text-[13px] text-[#334155] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] inline-flex items-center gap-1 transition-colors"
+      >
+        <span>View all verified fonts</span> &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {featuredFonts.map((font) => <FontCard font={font} />)}
+    </div>
+  </section>
+
   <!-- Section: Frequently Asked Questions -->
   <section class="py-20 sm:py-24 border-t border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#08090a] transition-colors">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -730,6 +759,14 @@ const finderAnchor = `${p('/') === '/' ? '' : p('/')}/#finder`;
             <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" viewBox="0 0 16 16" fill="none">
               <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
+          </a>
+
+          <a
+            href={p('/fonts')}
+            class="cta-secondary-btn inline-flex items-center gap-1.5 px-4 py-2.5 rounded-[8px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#141518] hover:bg-[#f8f9fa] dark:hover:bg-[#1a1b1f] hover:border-[#cbd5e1] dark:hover:border-[#383b42] text-[#334155] dark:text-[#c9ced6] text-[13px] font-[450] transition-all cursor-pointer group/sec shadow-sm"
+          >
+            <span>Browse Font Catalog</span>
+            <span class="text-[#64748b] group-hover/sec:translate-x-0.5 transition-transform">&rarr;</span>
           </a>
 
           <a

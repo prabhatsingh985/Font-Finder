@@ -7,6 +7,8 @@ export const ja: TranslationSchema = {
     nav: {
       finder: '検索ツール',
       tools: 'ツール一覧',
+      browseFonts: 'フォント一覧',
+      browse: '一覧',
       guides: "ガイド",
       about: '概要',
       identifyFont: '特定する',
@@ -25,7 +27,8 @@ export const ja: TranslationSchema = {
         screenshotFontFinder: 'スクリーンショットフォント検索',
         fontPairing: 'フォントペアリングツール',
         handwritingMatcher: '手書きフォント照合ツール',
-        commercialAlternatives: '商用フォントの無料代替'
+        commercialAlternatives: '商用フォントの無料代替',
+        verifiedFontCatalog: '検証済みフォント一覧'
       },
       companyTitle: '企業情報',
       aboutUs: '私たちについて',

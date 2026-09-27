@@ -7,6 +7,8 @@ export const pt: TranslationSchema = {
     nav: {
       finder: 'Localizador',
       tools: 'Ferramentas',
+      browseFonts: 'Explorar Fontes',
+      browse: 'Explorar',
       guides: "Guias",
       about: 'Sobre',
       identifyFont: 'Identificar',
@@ -25,7 +27,8 @@ export const pt: TranslationSchema = {
         screenshotFontFinder: 'Identificador em Captura de Tela',
         fontPairing: 'Ferramenta de Combinação de Fontes',
         handwritingMatcher: 'Reconhecimento de Manuscrito',
-        commercialAlternatives: 'Alternativas a Fontes Comerciais'
+        commercialAlternatives: 'Alternativas a Fontes Comerciais',
+        verifiedFontCatalog: 'Catálogo de Fontes Verificadas'
       },
       companyTitle: 'Empresa',
       aboutUs: 'Sobre Nós',

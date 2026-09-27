@@ -1,0 +1,13 @@
+---
+import { NON_DEFAULT_LOCALES } from '../../../i18n/languages';
+import FontsIndexView from '../../../components/pages/FontsIndexView.astro';
+
+export function getStaticPaths() {
+  return NON_DEFAULT_LOCALES.map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+---
+<FontsIndexView lang={lang} />

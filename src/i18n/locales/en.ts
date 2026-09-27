@@ -5,6 +5,8 @@ export const en = {
     nav: {
       finder: 'Finder',
       tools: 'Tools',
+      browseFonts: 'Browse Fonts',
+      browse: 'Browse',
       guides: "Guides",
       about: 'About',
       identifyFont: 'Identify',
@@ -23,7 +25,8 @@ export const en = {
         screenshotFontFinder: 'Screenshot Font Finder',
         fontPairing: 'Font Pairing Tool',
         handwritingMatcher: 'Handwriting Matcher',
-        commercialAlternatives: 'Commercial Alternatives'
+        commercialAlternatives: 'Commercial Alternatives',
+        verifiedFontCatalog: 'Verified Font Catalog'
       },
       companyTitle: 'Company',
       aboutUs: 'About Us',
