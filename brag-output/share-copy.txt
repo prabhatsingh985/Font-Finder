@@ -1,0 +1,3 @@
+Ever saw a font in an image and spent 30 minutes scrolling type foundries?
+Pro Font Finder runs client-side OCR and instant visual matching to find identical & free Google Font alternatives in seconds.
+100% free, privacy-first, zero server uploads.
