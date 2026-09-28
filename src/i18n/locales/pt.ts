@@ -310,6 +310,26 @@ export const pt: TranslationSchema = {
         {
           "q": "Quais estilos de fontes o ProFontFinder suporta?",
           "a": "Suporta todos os principais gêneros: Sans-Serif, Serif, Monoespaçada, Display e Cursivas em todo o acervo verificado do Google Fonts."
+        },
+        {
+          "q": "Ele também consegue encontrar fontes pagas?",
+          "a": "Sim! Embora o ProFontFinder foque em tipografia 100% gratuita, ao enviar uma imagem com uma fonte comercial paga (como Helvetica, Futura ou Gotham), nosso motor óptico identifica o equivalente de código aberto mais próximo no Google Fonts que replica legalmente o mesmo estilo e peso."
+        },
+        {
+          "q": "Como verifico quais fontes tenho instaladas?",
+          "a": "Para ver as fontes no seu computador: No Windows, acesse Configurações > Personalização > Fontes (ou C:\\Windows\\Fonts). No macOS, abra o aplicativo 'Catálogo de Fontes' (Font Book via Cmd+Espaço)."
+        },
+        {
+          "q": "Como identifico um tipo de texto ou fonte?",
+          "a": "Para classificar um estilo de texto, analise: (1) Serifas — pés nas hastes (Serif) ou traços retos (Sans-Serif). (2) Contraste de espessura de traço. (3) Proporções — largura fixa (Monoespaçada) ou proporcional. O ProFontFinder calcula essas propriedades automaticamente ao receber sua imagem."
+        },
+        {
+          "q": "Que fonte eu sou?",
+          "a": "'Que fonte eu sou?' é uma exploração criativa sobre qual estilo tipográfico combina com sua identidade ou marca: fontes sem serifa geométricas como Inter transmitem clareza moderna; serifadas como Playfair Display expressam sofisticação editorial; fontes monoespaçadas refletem precisão técnica."
+        },
+        {
+          "q": "Posso usar o identificador de fontes enviando uma imagem?",
+          "a": "Sim, com certeza! O envio de imagens é a forma principal de usar o ProFontFinder. Você pode arrastar e soltar arquivos (PNG, JPG, WebP), colar da área de transferência com Ctrl+V (Cmd+V no Mac) ou selecionar um arquivo. O processamento é 100% local no seu navegador com total privacidade."
         }
       ]
     },

@@ -308,6 +308,26 @@ export const en = {
         {
           q: 'What font types does it cover?',
           a: 'ProFontFinder covers all major typographic genres: Sans-Serif (Geometric, Neo-Grotesque, Humanist), Serif (Old Style, Transitional, Slab Serif), Monospace (Developer and Terminal fonts), Display (Poster and Headline fonts), and Script/Cursive typefaces across the entire verified Google Fonts collection.'
+        },
+        {
+          q: 'Can it find paid fonts too?',
+          a: 'Yes! While ProFontFinder focuses on delivering 100% free typography, when you upload an image containing a paid or proprietary commercial font (such as Helvetica, Futura, Gotham, or Proxima Nova), our optical engine analyzes its geometric characteristics and identifies the closest free, open-source Google Font twin that legally replicates its look, feel, and weight.'
+        },
+        {
+          q: 'How do I check what fonts I have?',
+          a: 'To check the fonts installed on your computer: On Windows, open Settings > Personalization > Fonts (or navigate to C:\\Windows\\Fonts). On macOS, open the built-in Font Book application (Cmd+Space, type \'Font Book\'). You can view all active font families, inspect individual weights, and see system-installed typefaces available in your design software.'
+        },
+        {
+          q: 'How do I identify a text type?',
+          a: 'To identify a text type or font classification, examine the fundamental structural elements of the letterforms: (1) Serifs — look for decorative feet at stroke ends (Serif) or clean straight ends (Sans-Serif). (2) Weight and Contrast — note the ratio between thick and thin stems. (3) Proportions — check if letter widths are uniform (Monospace) or variable (Proportional). (4) Terminals and Terminations — inspect how curved letters like \'c\', \'e\', and \'s\' terminate. Uploading your sample to ProFontFinder automatically breaks down these geometric properties.'
+        },
+        {
+          q: 'What font am I?',
+          a: '\'What font am I?\' is a popular typography discovery question exploring which typeface family matches your personal aesthetic or brand identity. Geometric sans-serifs like Inter and Montserrat convey modern clarity and tech minimalism; classical serifs like Playfair Display and Merriweather evoke timeless editorial elegance; dynamic scripts suggest creative flair; and monospace fonts reflect structured engineering precision. You can upload any sample of your favorite text or branding to ProFontFinder to discover its exact typographic personality.'
+        },
+        {
+          q: 'Can I use the font finder by uploading an image?',
+          a: 'Yes, absolutely! Uploading an image is the primary way to use ProFontFinder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
         }
       ]
     },

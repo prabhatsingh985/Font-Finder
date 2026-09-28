@@ -310,6 +310,26 @@ export const es: TranslationSchema = {
         {
           "q": "¿Qué tipos de fuentes cubre ProFontFinder?",
           "a": "Cubre todos los géneros: Sans-Serif, Serif, Monoespaciadas, Display y Cursivas en toda la colección verificada de Google Fonts."
+        },
+        {
+          "q": "¿Puede encontrar fuentes de pago también?",
+          "a": "¡Sí! Aunque ProFontFinder se enfoca en tipografía 100% gratuita, cuando subes una imagen con una fuente comercial de pago (como Helvetica, Futura o Gotham), nuestro motor óptico analiza sus rasgos geométricos y encuentra la alternativa de código abierto más cercana en Google Fonts que replica legalmente su estilo y peso."
+        },
+        {
+          "q": "¿Cómo verifico qué fuentes tengo instaladas?",
+          "a": "Para ver las fuentes en tu equipo: En Windows, ve a Configuración > Personalización > Fuentes (o C:\\Windows\\Fonts). En macOS, abre la aplicación Catálogo Tipográfico (Font Book con Cmd+Espacio). Allí podrás explorar todas las familias instaladas y sus pesos disponibles."
+        },
+        {
+          "q": "¿Cómo identifico un tipo de texto o letra?",
+          "a": "Para identificar la clasificación de un texto, observa los elementos clave: (1) Serifas: presencia de remates (Serif) o trazos limpios (Sans-Serif). (2) Contraste de trazo: diferencia entre partes gruesas y delgadas. (3) Proporciones: espaciado uniforme (Monoespaciada) o variable. Subir tu muestra a ProFontFinder calcula automáticamente estas propiedades ópticas."
+        },
+        {
+          "q": "¿Qué fuente soy yo?",
+          "a": "'¿Qué fuente soy?' es una exploración creativa sobre qué estilo tipográfico refleja mejor tu personalidad o identidad de marca: las sans-serif geométricas como Inter transmiten modernidad y tecnología; las serifas elegantes como Playfair Display reflejan sofisticación editorial; y las monoespaciadas representan precisión de ingeniería. Sube una muestra a ProFontFinder para descubrir la personalidad de tu tipografía favorita."
+        },
+        {
+          "q": "¿Puedo usar el buscador de fuentes subiendo una imagen?",
+          "a": "¡Sí, totalmente! Subir una imagen es la forma principal de usar ProFontFinder. Puedes arrastrar y soltar cualquier archivo (PNG, JPG, WebP), pegar desde el portapapeles con Ctrl+V (o Cmd+V) o hacer clic en 'Seleccionar archivo'. Todo se procesa 100% localmente en tu navegador sin subir nada a servidores."
         }
       ]
     },

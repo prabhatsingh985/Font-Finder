@@ -310,6 +310,26 @@ export const fr: TranslationSchema = {
         {
           "q": "Quels styles typographiques sont pris en charge ?",
           "a": "Tous les styles majeurs : Sans-Serif, Serif, Monospace, Display et Cursives dans l'intégralité du catalogue officiel vérifié de Google Fonts."
+        },
+        {
+          "q": "Peut-il aussi trouver des polices payantes ?",
+          "a": "Oui ! Bien que ProFontFinder se concentre sur les polices 100 % gratuites, si vous importez une image contenant une police commerciale payante (comme Helvetica, Futura ou Gotham), notre moteur optique identifie la police Google Fonts gratuite la plus proche qui reproduit fidèlement son style."
+        },
+        {
+          "q": "Comment vérifier les polices installées sur mon ordinateur ?",
+          "a": "Pour voir vos polices : sous Windows, ouvrez Paramètres > Personnalisation > Polices (ou C:\\Windows\\Fonts). Sous macOS, ouvrez l'application 'Livre des polices' (Font Book via Cmd+Espace)."
+        },
+        {
+          "q": "Comment identifier un style ou type de texte ?",
+          "a": "Pour identifier une catégorie typographique, observez : (1) Les empattements (Serif ou Sans-Serif). (2) Le contraste des traits (différence entre pleins et déliés). (3) Les proportions (Monospace ou proportionnelle). ProFontFinder analyse automatiquement ces critères géométriques."
+        },
+        {
+          "q": "Quelle police suis-je ?",
+          "a": "'Quelle police suis-je ?' est une question populaire explorant quel style de caractère correspond à votre personnalité : les sans-serif épurées comme Inter incarnent la modernité ; les sérifs comme Playfair Display évoquent l'élégance éditoriale ; les polices à chasse fixe reflètent la rigueur technique."
+        },
+        {
+          "q": "Puis-je utiliser le détecteur de polices en important une image ?",
+          "a": "Oui, tout à fait ! L'importation d'image est la méthode principale de ProFontFinder. Glissez-déposez une image (PNG, JPG, WebP), collez-la avec Ctrl+V (ou Cmd+V) ou cliquez sur 'Sélectionner un fichier'. Tout est traité en local dans votre navigateur en toute confidentialité."
         }
       ]
     },

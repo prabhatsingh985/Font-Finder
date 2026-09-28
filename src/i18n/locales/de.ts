@@ -310,6 +310,26 @@ export const de: TranslationSchema = {
         {
           "q": "Welche Schriftarten deckt ProFontFinder ab?",
           "a": "ProFontFinder deckt alle wichtigen Genres ab: Sans-Serif (geometrisch, humanistisch), Serif (Klassizistisch, Antiqua), Monospace (Code-Schriften), Display-Schriften sowie Schreib- und Pinselschriften aus der gesamten verifizierten Google Fonts-Sammlung."
+        },
+        {
+          "q": "Kann es auch kostenpflichtige Schriftarten finden?",
+          "a": "Ja! Obwohl ProFontFinder sich auf 100 % freie Typografie konzentriert, analysiert unsere Engine beim Hochladen eines Bildes mit einer kostenpflichtigen kommerziellen Schriftart (wie Helvetica, Futura oder Gotham) die geometrischen Konturen und ermittelt die engste lizenzfreie Google Fonts-Alternative."
+        },
+        {
+          "q": "Wie überprüfe ich, welche Schriftarten ich installiert habe?",
+          "a": "So überprüfen Sie Ihre installierten Schriften: Unter Windows öffnen Sie Einstellungen > Personalisierung > Schriftarten (oder C:\\Windows\\Fonts). Auf dem Mac öffnen Sie die App 'Schriftsammlung' (Font Book mit Befehlstaste+Leertaste)."
+        },
+        {
+          "q": "Wie identifiziere ich eine Schriftart oder Textkategorie?",
+          "a": "Zur Bestimmung der Schriftartklasse analysieren Sie: (1) Serifen – mit Füßchen (Serif) oder ohne (Sans-Serif). (2) Strichstärkenkontrast – Unterschied zwischen dicken und dünnen Linien. (3) Proportionen – feste Zeichenbreite (Monospace) oder proportional. Das Hochladen zu ProFontFinder erkennt diese Merkmale automatisch."
+        },
+        {
+          "q": "Welche Schriftart bin ich?",
+          "a": "'Welche Schriftart bin ich?' erforscht, welcher Typografiestil am besten zu Ihrer Persönlichkeit oder Markenidentität passt: Geometrische Sans-Serifs wie Inter stehen für moderne Klarheit; Serifenschriften wie Playfair Display verkörpern klassische Eleganz; und Monospace-Schriften spiegeln technische Präzision wider."
+        },
+        {
+          "q": "Kann ich den Schriftartenfinder durch Hochladen eines Bildes nutzen?",
+          "a": "Ja, absolut! Das Hochladen eines Bildes ist die Kernfunktion von ProFontFinder. Sie können jede Bilddatei (PNG, JPG, WebP) per Drag & Drop hineinziehen, per Strg+V (Cmd+V) aus der Zwischenablage einfügen oder eine Datei auswählen. Die Analyse läuft vollständig lokal in Ihrem Browser."
         }
       ]
     },

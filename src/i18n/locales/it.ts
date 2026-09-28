@@ -310,6 +310,26 @@ export const it: TranslationSchema = {
         {
           "q": "Quali stili di font supporta ProFontFinder?",
           "a": "Supporta tutti i generi principali: Sans-Serif, Serif, Monospace, Display e Corsivi nell'intera collezione ufficiale di Google Fonts."
+        },
+        {
+          "q": "Può trovare anche font a pagamento?",
+          "a": "Sì! Sebbene ProFontFinder sia dedicato ai font 100% gratuiti, quando carichi un'immagine contenente un font commerciale a pagamento (come Helvetica o Gotham), il nostro motore ottico individua la più simile alternativa open-source di Google Fonts che ne riproduce legalmente lo stile."
+        },
+        {
+          "q": "Come posso controllare quali font ho installati?",
+          "a": "Per verificare i font installati: su Windows apri Impostazioni > Personalizzazione > Caratteri (o C:\\Windows\\Fonts). Su macOS apri l'app 'Libro Font' (Font Book premendo Cmd+Spazio)."
+        },
+        {
+          "q": "Come identifico un tipo di testo o carattere?",
+          "a": "Per classificare un testo osserva: (1) Grazie (Serif o Sans-Serif). (2) Contrasto dello spessore del tratto. (3) Proporzioni (Monospazio o proporzionale). Caricando il campione su ProFontFinder, il motore ottico calcola automaticamente queste caratteristiche geometriche."
+        },
+        {
+          "q": "Che font sono?",
+          "a": "'Che font sono?' è una riflessione creativa su quale stile tipografico rispecchia la tua identità: i caratteri geometrici come Inter esprimono modernità e pulizia; i serif come Playfair Display comunicano eleganza editoriale; i monospazio precisione ingegneristica."
+        },
+        {
+          "q": "Posso usare il trova font caricando un'immagine?",
+          "a": "Sì, assolutamente! Il caricamento di immagini è il modo principale per utilizzare ProFontFinder. Puoi trascinare qualsiasi file (PNG, JPG, WebP), incollare con Ctrl+V (o Cmd+V) o selezionare un file dal tuo dispositivo. L'elaborazione avviene al 100% in locale nel tuo browser."
         }
       ]
     },
