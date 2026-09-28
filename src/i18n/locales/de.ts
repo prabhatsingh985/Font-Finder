@@ -317,15 +317,15 @@ export const de: TranslationSchema = {
         },
         {
           "q": "Wie überprüfe ich, welche Schriftarten ich installiert habe?",
-          "a": "So überprüfen Sie Ihre installierten Schriften: Unter Windows öffnen Sie Einstellungen > Personalisierung > Schriftarten (oder C:\\Windows\\Fonts). Auf dem Mac öffnen Sie die App 'Schriftsammlung' (Font Book mit Befehlstaste+Leertaste)."
+          "a": "Während Sie installierte Schriftarten über das Betriebssystem einsehen können (unter Windows in den Einstellungen > Personalisierung > Schriftarten oder auf dem Mac via Schriftsammlung), bieten Systemordner weder interaktive Web-Vorschauen noch fertigen CSS-Code. Wenn Sie ein Bild oder Design mit einer unbekannten Schriftart haben, sparen Sie sich die mühsame manuelle Suche: Laden Sie einfach einen Screenshot bei ProFontFinder hoch! Unsere kostenlose optische Engine erkennt die Schriftart sofort, gleicht sie mit über 1.935 verifizierten Google Fonts ab und liefert einsatzbereite CSS-Snippets. Entdecken Sie außerdem unser kuratiertes Schriften-Verzeichnis, um erstklassige freie Typografie zu finden."
         },
         {
           "q": "Wie identifiziere ich eine Schriftart oder Textkategorie?",
-          "a": "Zur Bestimmung der Schriftartklasse analysieren Sie: (1) Serifen – mit Füßchen (Serif) oder ohne (Sans-Serif). (2) Strichstärkenkontrast – Unterschied zwischen dicken und dünnen Linien. (3) Proportionen – feste Zeichenbreite (Monospace) oder proportional. Das Hochladen zu ProFontFinder erkennt diese Merkmale automatisch."
+          "a": "Die manuelle Bestimmung einer Schriftartklasse (wie geometrische Sans-Serif, humanistische Serif, Slab-Serif oder Monospace) erfordert das aufwendige Prüfen von Serifen, Strichkontrasten, x-Höhen und Endungen. Statt auf Schätzungen oder teure Erkennungstools angewiesen zu sein, automatisiert ProFontFinder den gesamten Vorgang in unter 80 Millisekunden! Laden Sie einfach ein beliebiges Bild, Logo oder einen Screenshot hoch: Unsere clientseitige KI scannt 16×16-Glyphen-Vektoren, berechnet Konturgeometrien, ordnet die Schriftartkategorie exakt zu und liefert passende, lizenzfreie Google Fonts mit vollständigem Datenschutz."
         },
         {
           "q": "Welche Schriftart bin ich?",
-          "a": "'Welche Schriftart bin ich?' erforscht, welcher Typografiestil am besten zu Ihrer Persönlichkeit oder Markenidentität passt: Geometrische Sans-Serifs wie Inter stehen für moderne Klarheit; Serifenschriften wie Playfair Display verkörpern klassische Eleganz; und Monospace-Schriften spiegeln technische Präzision wider."
+          "a": "\"Welche Schriftart bin ich?\" ist weit mehr als ein unterhaltsames Quiz – es ist die visuelle Grundlage moderner Markenidentität. Verschiedene Schriftarten transportieren klare Charaktereigenschaften: Geometrische Sans-Serifs wie Inter stehen für technologische Spitzenleistung und Klarheit; edle Serifenschriften wie Playfair Display strahlen journalistische Eleganz aus; und Monospace-Schriften verkörpern analytische Ingenieurskunst. Mit ProFontFinder machen Sie aus Neugier handfestes Design: Laden Sie einen Screenshot Ihrer Lieblingswebsite oder Ihres Portfolios hoch, entschlüsseln Sie die typografische DNA und erhalten Sie sofort einsatzbereite CSS-Snippets für Ihren eigenen Auftritt."
         },
         {
           "q": "Kann ich den Schriftartenfinder durch Hochladen eines Bildes nutzen?",

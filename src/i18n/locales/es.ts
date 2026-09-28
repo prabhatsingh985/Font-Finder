@@ -317,15 +317,15 @@ export const es: TranslationSchema = {
         },
         {
           "q": "¿Cómo verifico qué fuentes tengo instaladas?",
-          "a": "Para ver las fuentes en tu equipo: En Windows, ve a Configuración > Personalización > Fuentes (o C:\\Windows\\Fonts). En macOS, abre la aplicación Catálogo Tipográfico (Font Book con Cmd+Espacio). Allí podrás explorar todas las familias instaladas y sus pesos disponibles."
+          "a": "Aunque puedes consultar las fuentes instaladas en tu sistema (Configuración > Personalización > Fuentes en Windows o Catálogo Tipográfico en macOS), las carpetas del sistema no ofrecen vistas previas web en vivo, código CSS ni equivalencias directas. Si tienes una imagen o diseño con una tipografía que no logras identificar, olvídate de buscar manualmente entre cientos de archivos: ¡sube una captura a ProFontFinder! Nuestro motor óptico gratuito identifica la tipografía al instante, la compara con más de 1.935 Google Fonts verificadas y te proporciona código CSS @import listo para usar. También puedes explorar nuestro catálogo interactivo de Fuentes para descubrir las mejores alternativas web gratuitas."
         },
         {
           "q": "¿Cómo identifico un tipo de texto o letra?",
-          "a": "Para identificar la clasificación de un texto, observa los elementos clave: (1) Serifas: presencia de remates (Serif) o trazos limpios (Sans-Serif). (2) Contraste de trazo: diferencia entre partes gruesas y delgadas. (3) Proporciones: espaciado uniforme (Monoespaciada) o variable. Subir tu muestra a ProFontFinder calcula automáticamente estas propiedades ópticas."
+          "a": "Identificar manualmente la clasificación de un texto (como Sans-Serif Geométrica, Serif Humanista, Egipcia o Monoespaciada) exige analizar detalles técnicos como remates, contraste de trazo, altura de la x y apertura de curvas. En lugar de depender de suposiciones o software de pago, ProFontFinder automatiza todo el proceso en menos de 80 milisegundos. Solo sube una imagen, captura o logo a ProFontFinder: nuestra IA del lado del cliente analiza los vectores de los glifos, mide la geometría de los contornos, clasifica el tipo de texto y te conecta al instante con alternativas 100% gratuitas de Google Fonts listas para producción."
         },
         {
           "q": "¿Qué fuente soy yo?",
-          "a": "'¿Qué fuente soy?' es una exploración creativa sobre qué estilo tipográfico refleja mejor tu personalidad o identidad de marca: las sans-serif geométricas como Inter transmiten modernidad y tecnología; las serifas elegantes como Playfair Display reflejan sofisticación editorial; y las monoespaciadas representan precisión de ingeniería. Sube una muestra a ProFontFinder para descubrir la personalidad de tu tipografía favorita."
+          "a": "\"¿Qué fuente soy yo?\" no es solo una curiosidad creativa, sino la forma en que diseñadores, marcas y creadores definen su identidad visual. Cada tipografía proyecta una personalidad única: sans-serifs como Inter y Montserrat transmiten modernidad y agilidad tecnológica; serifas elegantes como Playfair Display reflejan sofisticación editorial; y las monoespaciadas representan precisión e ingenio de desarrollo. Con ProFontFinder, puedes transformar esta inspiración en realidad: sube una captura de tu marca, portafolio o texto favorito para descubrir su ADN tipográfico, encontrar la fuente que mejor te define y obtener código CSS listo para usar en tus proyectos."
         },
         {
           "q": "¿Puedo usar el buscador de fuentes subiendo una imagen?",

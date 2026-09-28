@@ -317,15 +317,15 @@ export const fr: TranslationSchema = {
         },
         {
           "q": "Comment vérifier les polices installées sur mon ordinateur ?",
-          "a": "Pour voir vos polices : sous Windows, ouvrez Paramètres > Personnalisation > Polices (ou C:\\Windows\\Fonts). Sous macOS, ouvrez l'application 'Livre des polices' (Font Book via Cmd+Espace)."
+          "a": "Bien que vous puissiez vérifier vos polices installées via le système (Paramètres > Personnalisation > Polices sur Windows ou Livre des polices sur macOS), les dossiers système n'offrent ni aperçus web interactifs ni code CSS. Si vous avez une image ou un design contenant une police non identifiée, évitez la recherche manuelle fastidieuse : téléversez simplement une capture sur ProFontFinder ! Notre moteur optique gratuit détecte la typographie en un clin d'œil, la fait correspondre à plus de 1 935 polices Google Fonts vérifiées et génère le code CSS @import prêt à l'emploi. Explorez également notre Catalogue de polices pour tester les meilleures alternatives gratuites."
         },
         {
           "q": "Comment identifier un style ou type de texte ?",
-          "a": "Pour identifier une catégorie typographique, observez : (1) Les empattements (Serif ou Sans-Serif). (2) Le contraste des traits (différence entre pleins et déliés). (3) Les proportions (Monospace ou proportionnelle). ProFontFinder analyse automatiquement ces critères géométriques."
+          "a": "Identifier manuellement une catégorie typographique (comme les Sans-Serif géométriques, les Sérifs humanistes ou les polices à chasse fixe) exige d'analyser minutieusement empattements, contrastes de graisse, hauteur d'x et terminaisons. Au lieu d'hésiter ou de payer des outils onéreux, ProFontFinder automatise cette analyse en moins de 80 millisecondes ! Importez simplement une image, un logo ou une capture sur ProFontFinder : notre IA locale analyse les vecteurs 16×16 de chaque glyphe, mesure la géométrie des contours, classe le style de police et vous propose instantanément des équivalents Google Fonts 100 % gratuits pour vos projets."
         },
         {
           "q": "Quelle police suis-je ?",
-          "a": "'Quelle police suis-je ?' est une question populaire explorant quel style de caractère correspond à votre personnalité : les sans-serif épurées comme Inter incarnent la modernité ; les sérifs comme Playfair Display évoquent l'élégance éditoriale ; les polices à chasse fixe reflètent la rigueur technique."
+          "a": "\"Quelle police suis-je ?\" dépasse le simple quiz : c'est la clé de voûte de votre identité visuelle et de votre image de marque. Chaque typographie dégage une énergie singulière : les sans-serif épurées comme Inter incarnent l'innovation technologique ; les sérifs raffinées comme Playfair Display évoquent le prestige éditorial ; et les polices monospaces reflètent la rigueur des développeurs. Grâce à ProFontFinder, transformez votre inspiration en création concrète : importez une capture de votre portfolio, de votre logo ou de vos visuels préférés pour révéler leur signature typographique et copier immédiatement les règles CSS adaptées à votre style."
         },
         {
           "q": "Puis-je utiliser le détecteur de polices en important une image ?",

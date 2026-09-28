@@ -317,15 +317,15 @@ export const it: TranslationSchema = {
         },
         {
           "q": "Come posso controllare quali font ho installati?",
-          "a": "Per verificare i font installati: su Windows apri Impostazioni > Personalizzazione > Caratteri (o C:\\Windows\\Fonts). Su macOS apri l'app 'Libro Font' (Font Book premendo Cmd+Spazio)."
+          "a": "Sebbene sia possibile visualizzare i font installati nel sistema operativo (in Impostazioni > Personalizzazione > Caratteri su Windows o Libro Font su macOS), le cartelle di sistema non offrono anteprime web interattive né codice CSS pronto all'uso. Se hai un'immagine o una grafica con un font che non riesci a identificare, evita lunghe ricerche manuali: carica semplicemente uno screenshot su ProFontFinder! Il nostro motore ottico gratuito rileva il carattere all'istante, lo confronta con oltre 1.935 Google Fonts verificati e genera codice CSS @import pronto per la produzione. Esplora anche la nostra directory Font per trovare e testare le migliori alternative aperte."
         },
         {
           "q": "Come identifico un tipo di testo o carattere?",
-          "a": "Per classificare un testo osserva: (1) Grazie (Serif o Sans-Serif). (2) Contrasto dello spessore del tratto. (3) Proporzioni (Monospazio o proporzionale). Caricando il campione su ProFontFinder, il motore ottico calcola automaticamente queste caratteristiche geometriche."
+          "a": "Identificare manualmente la classificazione di un font (come Sans-Serif Geometrico, Serif Umanistico, Slab o Monospazio) richiede l'analisi di dettagli microscopici come grazie, contrasto di spessore, altezza della x e aperture dei tratti. Anziché affidarsi a supposizioni o a software a pagamento, ProFontFinder automatizza l'intero processo in meno di 80 millisecondi! Carica un'immagine, un logo o uno screenshot su ProFontFinder: la nostra IA lato client analizza i contorni vettoriali dei glifi a 16×16, classifica il tipo di testo e ti suggerisce alternative Google Fonts 100% gratuite e pronte per il web."
         },
         {
           "q": "Che font sono?",
-          "a": "'Che font sono?' è una riflessione creativa su quale stile tipografico rispecchia la tua identità: i caratteri geometrici come Inter esprimono modernità e pulizia; i serif come Playfair Display comunicano eleganza editoriale; i monospazio precisione ingegneristica."
+          "a": "\"Che font sono?\" non è soltanto un gioco creativo, ma il fondamento con cui creativi e brand definiscono la propria voce visiva. Ogni carattere trasmette un'energia unica: i sans-serif geometrici come Inter e Montserrat comunicano modernità digitale e chiarezza; i serif eleganti come Playfair Display esprimono raffinatezza editoriale; i monospazio incarnano precisione analitica. Con ProFontFinder, puoi trasformare la curiosità in progetti concreti: carica uno screenshot del tuo portfolio, del tuo logo o della tua tipografia preferita su ProFontFinder per svelarne il DNA tipografico e copiare subito il codice CSS perfetto per il tuo stile."
         },
         {
           "q": "Posso usare il trova font caricando un'immagine?",
