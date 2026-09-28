@@ -790,18 +790,86 @@ export const es: TranslationSchema = {
     ],
     faqTitle: "Preguntas Frecuentes sobre Identificación de Fuentes",
     faqs: [
-      {
-        q: "¿Puede ProFontFinder identificar fuentes en imágenes borrosas o de baja resolución?",
-        a: "¡Sí! Nuestro preprocesamiento incluye normalización de contraste, umbralización y filtros morfológicos para realzar los contornos antes de comparar."
-      },
-      {
-        q: "¿Todas las alternativas recomendadas son gratuitas para uso comercial?",
-        a: "Cada una de las fuentes catalogadas en ProFontFinder cuenta con licencias de código abierto (SIL OFL o Apache 2.0), haciéndolas 100% gratuitas para proyectos comerciales y personales."
-      },
-      {
-        q: "¿Se almacenan mis imágenes subidas en sus servidores?",
-        a: "Nunca. Todo el análisis de fuentes, procesamiento OCR y comparación vectorial ocurre localmente en la memoria de tu navegador. Jamás transmitimos ni guardamos tus imágenes."
-      }
+        {
+          "q": "¿Qué es What The Font Finder y cómo funciona?",
+          "a": "What The Font Finder es una herramienta tipográfica gratuita en línea que analiza texto en imágenes, fotos y capturas para identificar la fuente exacta o la alternativa de Google Fonts de código abierto más cercana."
+        },
+        {
+          "q": "¿Puede Google identificar una fuente?",
+          "a": "Aunque Google Lens reconoce texto, no está especializado en pesos tipográficos ni declaraciones exactas de font-family. ProFontFinder está optimizado para diseñadores y desarrolladores."
+        },
+        {
+          "q": "¿Cómo puedo identificar un tipo de fuente?",
+          "a": "Examina si tiene serifas o es sans-serif, observa la forma de letras como la \"a\" o la \"g\", y sube una captura a ProFontFinder para obtener coincidencia óptica automática."
+        },
+        {
+          "q": "¿Cómo ver qué fuente se está usando?",
+          "a": "Haz clic derecho en una web y pulsa \"Inspeccionar\" (F12) para ver font-family en DevTools. Si está dentro de una imagen o logotipo, captura la pantalla y súbela a ProFontFinder."
+        },
+        {
+          "q": "¿Puedo usar IA para identificar una fuente?",
+          "a": "Sí. Los identificadores modernos como ProFontFinder utilizan visión artificial y comparación vectorial en el navegador sin subir tus imágenes a ningún servidor."
+        },
+        {
+          "q": "¿Existe un identificador de fuentes gratuito?",
+          "a": "Sí, ProFontFinder es 100% gratuito sin límites de escaneo ni muros de pago. Todos los resultados son fuentes libres bajo la licencia SIL Open Font License."
+        },
+        {
+          "q": "¿Cómo hacer coincidir una fuente?",
+          "a": "Captura una imagen nítida, súbela a ProFontFinder, verifica los caracteres detectados y revisa las fuentes sugeridas con el comparador interactivo."
+        },
+        {
+          "q": "¿Puedo tomar una foto de una fuente y encontrarla?",
+          "a": "¡Sí! Puedes fotografiar cualquier cartel, libro o menú con tu móvil y subirlo directamente. Asegúrate de que tenga buena iluminación y esté enfocado."
+        },
+        {
+          "q": "¿Dónde puedo encontrar fuentes gratuitas?",
+          "a": "La fuente principal de tipografías web gratuitas con licencia comercial es Google Fonts (fonts.google.com). También puedes usar nuestra suite de herramientas tipográficas."
+        },
+        {
+          "q": "¿Cómo encontrar una fuente de texto específica?",
+          "a": "Recorta de forma ajustada una palabra de 3 a 6 letras distintivas (como \"R\", \"g\", \"a\" o \"e\") y súbela a ProFontFinder."
+        },
+        {
+          "q": "¿Cómo uso Google Fonts?",
+          "a": "Elige tu fuente identificada, copia el enlace @import o la etiqueta <link> en tu web y aplica la regla CSS: font-family: \"Inter\", sans-serif;."
+        },
+        {
+          "q": "¿Cómo identificar una fuente en un PDF?",
+          "a": "Abre el PDF y consulta Archivo > Propiedades > Fuentes. Si el texto está rasterizado, haz una captura (Win+Shift+S o Cmd+Shift+4) y pégala en ProFontFinder."
+        },
+        {
+          "q": "¿Puedo crear una fuente usando IA?",
+          "a": "ProFontFinder identifica fuentes existentes; herramientas generativas (como Calligraphr o Fontjoy) permiten generar archivos de fuentes a partir de bocetos."
+        },
+        {
+          "q": "¿El identificador reconoce fuentes cursivas?",
+          "a": "Sí, ProFontFinder reconoce estilos cursivos y caligráficos. Usar una imagen de alta resolución ayuda al motor a trazar los trazos continuos."
+        },
+        {
+          "q": "¿Qué tipos de fuentes cubre ProFontFinder?",
+          "a": "Cubre todos los géneros: Sans-Serif, Serif, Monoespaciadas, Display y Cursivas en toda la colección verificada de Google Fonts."
+        },
+        {
+          "q": "¿Puede encontrar fuentes de pago también?",
+          "a": "¡Sí! Aunque ProFontFinder se enfoca en tipografía 100% gratuita, cuando subes una imagen con una fuente comercial de pago (como Helvetica, Futura o Gotham), nuestro motor óptico analiza sus rasgos geométricos y encuentra la alternativa de código abierto más cercana en Google Fonts que replica legalmente su estilo y peso."
+        },
+        {
+          "q": "¿Cómo verifico qué fuentes tengo instaladas?",
+          "a": "Aunque puedes consultar las fuentes instaladas en tu sistema (Configuración > Personalización > Fuentes en Windows o Catálogo Tipográfico en macOS), las carpetas del sistema no ofrecen vistas previas web en vivo, código CSS ni equivalencias directas. Si tienes una imagen o diseño con una tipografía que no logras identificar, olvídate de buscar manualmente entre cientos de archivos: ¡sube una captura a ProFontFinder! Nuestro motor óptico gratuito identifica la tipografía al instante, la compara con más de 1.935 Google Fonts verificadas y te proporciona código CSS @import listo para usar. También puedes explorar nuestro catálogo interactivo de Fuentes para descubrir las mejores alternativas web gratuitas."
+        },
+        {
+          "q": "¿Cómo identifico un tipo de texto o letra?",
+          "a": "Identificar manualmente la clasificación de un texto (como Sans-Serif Geométrica, Serif Humanista, Egipcia o Monoespaciada) exige analizar detalles técnicos como remates, contraste de trazo, altura de la x y apertura de curvas. En lugar de depender de suposiciones o software de pago, ProFontFinder automatiza todo el proceso en menos de 80 milisegundos. Solo sube una imagen, captura o logo a ProFontFinder: nuestra IA del lado del cliente analiza los vectores de los glifos, mide la geometría de los contornos, clasifica el tipo de texto y te conecta al instante con alternativas 100% gratuitas de Google Fonts listas para producción."
+        },
+        {
+          "q": "¿Qué fuente soy yo?",
+          "a": "\"¿Qué fuente soy yo?\" no es solo una curiosidad creativa, sino la forma en que diseñadores, marcas y creadores definen su identidad visual. Cada tipografía proyecta una personalidad única: sans-serifs como Inter y Montserrat transmiten modernidad y agilidad tecnológica; serifas elegantes como Playfair Display reflejan sofisticación editorial; y las monoespaciadas representan precisión e ingenio de desarrollo. Con ProFontFinder, puedes transformar esta inspiración en realidad: sube una captura de tu marca, portafolio o texto favorito para descubrir su ADN tipográfico, encontrar la fuente que mejor te define y obtener código CSS listo para usar en tus proyectos."
+        },
+        {
+          "q": "¿Puedo usar el buscador de fuentes subiendo una imagen?",
+          "a": "¡Sí, totalmente! Subir una imagen es la forma principal de usar ProFontFinder. Puedes arrastrar y soltar cualquier archivo (PNG, JPG, WebP), pegar desde el portapapeles con Ctrl+V (o Cmd+V) o hacer clic en 'Seleccionar archivo'. Todo se procesa 100% localmente en tu navegador sin subir nada a servidores."
+        }
     ]
   },
   error404: {

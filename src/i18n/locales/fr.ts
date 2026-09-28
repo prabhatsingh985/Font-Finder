@@ -790,18 +790,86 @@ export const fr: TranslationSchema = {
     ],
     faqTitle: "Foire Aux Questions sur l'Identification de Polices",
     faqs: [
-      {
-        q: "ProFontFinder peut-il identifier des polices sur des images floues ?",
-        a: "Oui ! Notre pipeline de prétraitement effectue une normalisation du contraste, un seuillage adaptatif et un filtrage morphologique pour accentuer les contours."
-      },
-      {
-        q: "Toutes les polices alternatives suggérées sont-elles gratuites pour un usage commercial ?",
-        a: "Chaque alternative répertoriée est vérifiée sous licence open-source (SIL OFL ou Apache 2.0), ce qui les rend 100% gratuites pour vos projets commerciaux et personnels."
-      },
-      {
-        q: "Mes images importées sont-elles conservées sur vos serveurs ?",
-        a: "Jamais. Tout le traitement d'image, l'OCR et l'analyse vectorielle se font exclusivement en mémoire dans votre navigateur web."
-      }
+        {
+          "q": "Qu'est-ce que What The Font Finder et comment cela fonctionne-t-il ?",
+          "a": "C'est un outil typographique gratuit qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
+        },
+        {
+          "q": "Google peut-il identifier une police ?",
+          "a": "Google Lens sait lire du texte, mais ne gère pas les finesses typographiques ni les règles CSS font-family exactes. ProFontFinder a été conçu pour répondre à ce besoin."
+        },
+        {
+          "q": "Comment reconnaître un type de police ?",
+          "a": "Examinez la présence d'empattements, la forme des lettres \"a\" et \"g\", le contraste des traits, et téléversez une image sur ProFontFinder pour un scan automatique."
+        },
+        {
+          "q": "Comment savoir quelle police est utilisée sur un site ?",
+          "a": "Faites un clic droit puis \"Inspecter\" (F12) pour vérifier font-family. Si la police est incrustée dans une image, faites une capture et déposez-la sur ProFontFinder."
+        },
+        {
+          "q": "Puis-je utiliser l'IA pour identifier une police ?",
+          "a": "Oui. ProFontFinder utilise la vision par ordinateur et la similarité vectorielle directement dans votre navigateur sans téléverser vos fichiers sur un serveur."
+        },
+        {
+          "q": "Existe-t-il un identificateur de polices gratuit ?",
+          "a": "Oui, ProFontFinder est 100% gratuit, sans abonnement ni limites d'analyse. Toutes les polices suggérées sont libres d'usage commercial (licence SIL OFL)."
+        },
+        {
+          "q": "Comment faire correspondre une police efficacement ?",
+          "a": "Capturez une image nette et contrastée, déposez-la sur le site, validez les lettres détectées et comparez les résultats grâce au curseur interactif."
+        },
+        {
+          "q": "Puis-je prendre en photo un texte pour trouver sa police ?",
+          "a": "Oui ! Prenez en photo une affiche, un livre ou une enseigne bien éclairée et téléversez-la directement."
+        },
+        {
+          "q": "Où puis-je trouver des polices gratuites ?",
+          "a": "La référence mondiale pour les polices web gratuites est Google Fonts (fonts.google.com). Vous pouvez aussi utiliser l'ensemble de nos outils typographiques."
+        },
+        {
+          "q": "Comment isoler une police spécifique ?",
+          "a": "Cadrez un mot de 3 à 6 lettres caractéristiques (comme \"R\", \"g\", \"a\" ou \"e\") et soumettez cet extrait à ProFontFinder."
+        },
+        {
+          "q": "Comment intégrer une police Google Fonts ?",
+          "a": "Copiez le lien @import fourni dans votre feuille de style et appliquez la règle CSS correspondante, par exemple font-family: \"Inter\", sans-serif;."
+        },
+        {
+          "q": "Comment identifier une police dans un PDF ?",
+          "a": "Consultez Fichier > Propriétés > Polices. Si le texte est aplati en image, effectuez une capture d'écran et collez-la dans ProFontFinder."
+        },
+        {
+          "q": "Peut-on créer une police avec l'IA ?",
+          "a": "ProFontFinder identifie les polices existantes ; des outils génératifs comme Calligraphr ou Fontjoy permettent de concevoir de nouveaux glyphes à partir de croquis."
+        },
+        {
+          "q": "L'outil reconnaît-il les polices manuscrites et cursives ?",
+          "a": "Oui, ProFontFinder prend en charge les écritures cursives et calligraphiques. Une image nette facilite le suivi des traits liés."
+        },
+        {
+          "q": "Quels styles typographiques sont pris en charge ?",
+          "a": "Tous les styles majeurs : Sans-Serif, Serif, Monospace, Display et Cursives dans l'intégralité du catalogue officiel vérifié de Google Fonts."
+        },
+        {
+          "q": "Peut-il aussi trouver des polices payantes ?",
+          "a": "Oui ! Bien que ProFontFinder se concentre sur les polices 100 % gratuites, si vous importez une image contenant une police commerciale payante (comme Helvetica, Futura ou Gotham), notre moteur optique identifie la police Google Fonts gratuite la plus proche qui reproduit fidèlement son style."
+        },
+        {
+          "q": "Comment vérifier les polices installées sur mon ordinateur ?",
+          "a": "Bien que vous puissiez vérifier vos polices installées via le système (Paramètres > Personnalisation > Polices sur Windows ou Livre des polices sur macOS), les dossiers système n'offrent ni aperçus web interactifs ni code CSS. Si vous avez une image ou un design contenant une police non identifiée, évitez la recherche manuelle fastidieuse : téléversez simplement une capture sur ProFontFinder ! Notre moteur optique gratuit détecte la typographie en un clin d'œil, la fait correspondre à plus de 1 935 polices Google Fonts vérifiées et génère le code CSS @import prêt à l'emploi. Explorez également notre Catalogue de polices pour tester les meilleures alternatives gratuites."
+        },
+        {
+          "q": "Comment identifier un style ou type de texte ?",
+          "a": "Identifier manuellement une catégorie typographique (comme les Sans-Serif géométriques, les Sérifs humanistes ou les polices à chasse fixe) exige d'analyser minutieusement empattements, contrastes de graisse, hauteur d'x et terminaisons. Au lieu d'hésiter ou de payer des outils onéreux, ProFontFinder automatise cette analyse en moins de 80 millisecondes ! Importez simplement une image, un logo ou une capture sur ProFontFinder : notre IA locale analyse les vecteurs 16×16 de chaque glyphe, mesure la géométrie des contours, classe le style de police et vous propose instantanément des équivalents Google Fonts 100 % gratuits pour vos projets."
+        },
+        {
+          "q": "Quelle police suis-je ?",
+          "a": "\"Quelle police suis-je ?\" dépasse le simple quiz : c'est la clé de voûte de votre identité visuelle et de votre image de marque. Chaque typographie dégage une énergie singulière : les sans-serif épurées comme Inter incarnent l'innovation technologique ; les sérifs raffinées comme Playfair Display évoquent le prestige éditorial ; et les polices monospaces reflètent la rigueur des développeurs. Grâce à ProFontFinder, transformez votre inspiration en création concrète : importez une capture de votre portfolio, de votre logo ou de vos visuels préférés pour révéler leur signature typographique et copier immédiatement les règles CSS adaptées à votre style."
+        },
+        {
+          "q": "Puis-je utiliser le détecteur de polices en important une image ?",
+          "a": "Oui, tout à fait ! L'importation d'image est la méthode principale de ProFontFinder. Glissez-déposez une image (PNG, JPG, WebP), collez-la avec Ctrl+V (ou Cmd+V) ou cliquez sur 'Sélectionner un fichier'. Tout est traité en local dans votre navigateur en toute confidentialité."
+        }
     ]
   },
   error404: {

@@ -788,18 +788,86 @@ export const en = {
     ],
     faqTitle: "Frequently Asked Questions About Font Identification",
     faqs: [
-      {
-        q: "Can ProFontFinder identify fonts from blurry or low-resolution images?",
-        a: "Yes! Our preprocessing pipeline includes contrast normalization, thresholding, and morphological filtering to enhance character outlines before comparison."
-      },
-      {
-        q: "Are all recommended font alternatives free for commercial use?",
-        a: "Every single alternative font cataloged on ProFontFinder is verified under open-source licenses (SIL Open Font License or Apache 2.0), making them 100% free for commercial and personal projects."
-      },
-      {
-        q: "Are my uploaded images stored on your servers?",
-        a: "Never. All font analysis, OCR processing, and vector comparisons happen locally inside your browser memory. We never store or transmit your images."
-      }
+        {
+          q: 'What the font finder: What is a font finder and how does it work?',
+          a: 'What The Font Finder is a free online typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and CSS embed codes.'
+        },
+        {
+          q: 'Can Google identify a font?',
+          a: "While Google Lens can recognize words in an image, it does not specialize in typographic identification, font weights, or matching exact CSS font-family declarations. ProFontFinder is built specifically for designers and developers to match letterforms against the full Google Fonts library with 100% verified CSS embed codes."
+        },
+        {
+          q: 'How can I identify a type of font?',
+          a: "To identify a type of font, examine key typographic traits: check whether it has serifs (feet on strokes) or is sans-serif, observe the x-height and terminal shapes of letters like 'a' and 'g', note stroke weight contrast, and upload a clear screenshot to ProFontFinder for automatic optical contour matching."
+        },
+        {
+          q: 'How to see which font is used?',
+          a: "To see which font is used on a live website, right-click the text and select 'Inspect' (or press F12) to examine the CSS font-family property in DevTools. If the font is rendered inside an image, logo, graphic banner, or PDF, take a screenshot and upload it to ProFontFinder to detect the exact font family."
+        },
+        {
+          q: 'Can I use AI to identify a font?',
+          a: 'Yes. Modern AI font identifiers like ProFontFinder use client-side computer vision, optical character segmentation, and geometric vector similarity to compare glyph letterforms against pre-computed font datasets in milliseconds right in your browser without uploading your private images to any cloud server.'
+        },
+        {
+          q: 'Is there a free font finder?',
+          a: 'Yes, ProFontFinder is completely free with no scan limits, paywalls, or registrations required. Unlike paid services that charge per lookup or promote costly commercial licenses, all matched results are 100% verified, free, open-source Google Fonts safe for commercial and personal use under the SIL Open Font License.'
+        },
+        {
+          q: 'How to match a font?',
+          a: 'To match a font: (1) Capture a crisp, high-contrast image or screenshot of the text. (2) Upload or paste the image into ProFontFinder. (3) Verify the detected characters in the letter verification stage. (4) Review the ranked font matches using the interactive side-by-side comparison slider and live specimen tester.'
+        },
+        {
+          q: 'Can I take a picture of a font and find it?',
+          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
+        },
+        {
+          q: 'Where can I find free fonts?',
+          a: 'The premier source for free, commercially licensed web fonts is Google Fonts (fonts.google.com). You can also explore our suite of specialized Typography Tools for pairing guides, font identification, and commercial alternatives.'
+        },
+        {
+          q: 'How to find a specific text font?',
+          a: "To identify a specific text font, crop tightly around a clean word containing 3 to 6 distinct characters (like 'R', 'g', 'a', or 'e' which have unique structural traits). Upload the cropped sample to ProFontFinder to isolate and match that specific typeface style and weight."
+        },
+        {
+          q: 'How do I use Google Fonts?',
+          a: "Using Google Fonts is simple: (1) Pick your matched font. (2) Copy the provided CSS @import link or HTML <link> tag and paste it into your stylesheet or website <head>. (3) Apply the CSS rule, for example: font-family: 'Inter', sans-serif;. Google Fonts are hosted on high-speed global CDNs for free."
+        },
+        {
+          q: 'How to identify a font in a PDF?',
+          a: 'To identify fonts in a PDF document: (1) Open the PDF in Adobe Acrobat or browser and check File > Properties > Fonts to see embedded font names. (2) If the PDF contains flattened vector or rasterized text, take a screenshot (Win+Shift+S or Cmd+Shift+4) and paste it into ProFontFinder for instant optical recognition.'
+        },
+        {
+          q: 'Can I create a font using AI?',
+          a: 'While ProFontFinder is designed to identify existing fonts and find free open-source matches, generative AI tools (such as Calligraphr, Fontjoy, or custom vector AI models) can help generate custom typography and font files from user drawings or prompt sketches.'
+        },
+        {
+          q: 'Can the font identifier match cursive fonts?',
+          a: 'Yes. ProFontFinder recognizes cursive, script, handwritten, and calligraphic font styles. Because cursive letters often connect, using a sharp, high-resolution image helps the optical engine trace interconnected strokes accurately. You can also test dedicated script fonts with our Handwriting Font Finder tool.'
+        },
+        {
+          q: 'What font types does it cover?',
+          a: 'ProFontFinder covers all major typographic genres: Sans-Serif (Geometric, Neo-Grotesque, Humanist), Serif (Old Style, Transitional, Slab Serif), Monospace (Developer and Terminal fonts), Display (Poster and Headline fonts), and Script/Cursive typefaces across the entire verified Google Fonts collection.'
+        },
+        {
+          q: 'Can it find paid fonts too?',
+          a: 'Yes! While ProFontFinder focuses on delivering 100% free typography, when you upload an image containing a paid or proprietary commercial font (such as Helvetica, Futura, Gotham, or Proxima Nova), our optical engine analyzes its geometric characteristics and identifies the closest free, open-source Google Font twin that legally replicates its look, feel, and weight.'
+        },
+        {
+          q: 'How do I check what fonts I have?',
+          a: 'While you can check installed fonts in your operating system (via Settings > Personalization > Fonts on Windows, or Font Book on macOS), system folders don\'t provide live web previews, CSS snippets, or Google Font equivalents. If you have an image, graphic, or website utilizing a font on your device that you can\'t name, skip the tedious manual search: simply upload a screenshot to ProFontFinder! Our free optical engine instantly detects the typeface, matches it against 1,935+ verified Google Fonts, and gives you instant web specimens with copy-paste ready CSS @import codes. You can also explore our curated Fonts Directory to discover, filter, and test the best typography on the web.'
+        },
+        {
+          q: 'How do I identify a text type?',
+          a: 'Manually identifying a text type or font classification (such as Geometric Sans, Humanist Serif, Slab, or Monospace) requires analyzing subtle letterform geometry—serif structures, stroke weight contrast, x-height, and terminal apertures. Instead of relying on manual guesswork or expensive typography software, ProFontFinder automates the entire process in under 80 milliseconds! Just upload any image, screenshot, or logo to ProFontFinder. Our client-side AI analyzes 16×16 glyph vectors, measures contour geometries, accurately categorizes the text classification, and instantly pairs you with 100% free, commercially-licensed Google Font alternatives with zero image storage and full privacy.'
+        },
+        {
+          q: 'What font am I?',
+          a: '"What font am I?" isn\'t just a fun personality quiz—it\'s how modern designers, founders, and creators define their visual branding identity. Different typefaces project distinct human energies: geometric sans-serifs like Inter and Montserrat convey sleek digital modernity and precision; elegant serifs like Playfair Display and Merriweather exude editorial prestige and warmth; while clean monospaces embody focused developer intellect. With ProFontFinder, you can turn curiosity into actionable design! Upload a snapshot of your portfolio, personal website, or favorite design sample to ProFontFinder to decode its typographic fingerprint, reveal the exact fonts that represent your unique identity, and get immediate production-ready CSS to power your personal brand.'
+        },
+        {
+          q: 'Can I use the font finder by uploading an image?',
+          a: 'Yes, absolutely! Uploading an image is the primary way to use ProFontFinder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
+        }
     ]
   },
   error404: {

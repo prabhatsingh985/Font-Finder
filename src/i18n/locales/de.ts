@@ -790,18 +790,86 @@ export const de: TranslationSchema = {
     ],
     faqTitle: "Häufig gestellte Fragen zur Schriftarterkennung",
     faqs: [
-      {
-        q: "Kann ProFontFinder Schriftarten aus unscharfen Bildern erkennen?",
-        a: "Ja! Unsere Vorverarbeitung umfasst Kontrastanpassung, adaptive Schwellenwertbildung und morphologische Filterung zur Konturschärfung vor dem Abgleich."
-      },
-      {
-        q: "Dürfen alle empfohlenen Ersatzschriftarten kommerziell genutzt werden?",
-        a: "Jede gelistete Alternative ist unter anerkannten Open-Source-Lizenzen (SIL OFL oder Apache 2.0) verifiziert und für gewerbliche Zwecke zu 100% kostenfrei."
-      },
-      {
-        q: "Werden meine hochgeladenen Bilder auf Servern gespeichert?",
-        a: "Niemals. Die gesamte Analyse, Texterkennung und der Vektorabgleich finden ausschließlich lokal in Ihrem Browser statt."
-      }
+        {
+          "q": "Was ist What The Font Finder und wie funktioniert es?",
+          "a": "What The Font Finder ist ein kostenloses Online-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
+        },
+        {
+          "q": "Kann Google eine Schriftart identifizieren?",
+          "a": "Während Google Lens Wörter in einem Bild erkennen kann, ist es nicht auf typografische Erkennung, Schriftstärken oder exakte CSS-font-family-Deklarationen spezialisiert. ProFontFinder wurde speziell für Designer und Entwickler entwickelt, um Schriftformen mit der vollständigen Google Fonts-Bibliothek abzugleichen."
+        },
+        {
+          "q": "Wie kann ich einen Schriftstil erkennen?",
+          "a": "Um eine Schriftart zu bestimmen, prüfen Sie typografische Schlüsselmerkmale: Gibt es Serifen oder ist es eine serifenlose Schrift, wie sehen die Endungen von Buchstaben wie \"a\" und \"g\" aus, und laden Sie einen Screenshot in ProFontFinder hoch."
+        },
+        {
+          "q": "Wie finde ich heraus, welche Schriftart verwendet wird?",
+          "a": "Klicken Sie auf einer Website mit der rechten Maustaste auf den Text und wählen Sie \"Untersuchen\" (F12), um die CSS-Eigenschaft font-family zu prüfen. Befindet sich der Text in einem Bild oder Logo, machen Sie einen Screenshot und laden Sie ihn in ProFontFinder hoch."
+        },
+        {
+          "q": "Kann ich KI zur Schrifterkennung verwenden?",
+          "a": "Ja. Moderne KI-Schrifterkenner wie ProFontFinder nutzen clientseitige Bildverarbeitung und Vektorähnlichkeit, um Glyphen in Millisekunden direkt in Ihrem Browser abzugleichen, ohne private Bilder auf Server hochzuladen."
+        },
+        {
+          "q": "Gibt es einen kostenlosen Font Finder?",
+          "a": "Ja, ProFontFinder ist vollkommen kostenlos ohne Scan-Limits, Bezahlschranken oder Registrierung. Alle Übereinstimmungen sind zu 100% geprüfte, freie Open-Source-Schriften unter der SIL Open Font License."
+        },
+        {
+          "q": "Wie ordne ich eine Schriftart zu?",
+          "a": "Erstellen Sie ein scharfes Bild des Textes, laden Sie es in ProFontFinder hoch, überprüfen Sie die erkannten Buchstaben und nutzen Sie den Schieberegler zum direkten visuellen Vergleich mit den Treffern."
+        },
+        {
+          "q": "Kann ich ein Foto einer Schriftart machen und sie finden?",
+          "a": "Ja! Fotografieren Sie Plakate, Schilder oder Buchcover gerade von vorn und laden Sie das Bild direkt hoch. Bei guter Ausleuchtung erzielt die optische Erkennung höchste Genauigkeit."
+        },
+        {
+          "q": "Wo finde ich kostenlose Schriften?",
+          "a": "Die führende Plattform für freie, kommerziell nutzbare Web-Schriftarten ist Google Fonts (fonts.google.com). Nutzen Sie auch unsere Suite von Typografie-Werkzeugen."
+        },
+        {
+          "q": "Wie finde ich eine ganz bestimmte Textschrift?",
+          "a": "Schneiden Sie ein prägnantes Wort mit 3 bis 6 charakteristischen Buchstaben (wie \"R\", \"g\", \"a\" oder \"e\") eng zu und laden Sie diesen Ausschnitt in ProFontFinder hoch."
+        },
+        {
+          "q": "Wie verwende ich Google Fonts?",
+          "a": "Wählen Sie die gefundene Schriftart aus, kopieren Sie den bereitgestellten CSS-@import-Link oder das HTML-<link>-Tag in Ihre Website und wenden Sie font-family: \"Inter\", sans-serif; in Ihrem Stylesheet an."
+        },
+        {
+          "q": "Wie identifiziere ich eine Schriftart in einer PDF-Datei?",
+          "a": "Öffnen Sie das PDF und prüfen Sie unter Datei > Eigenschaften > Schriften die eingebetteten Namen. Handelt es sich um gerasterten Text, erstellen Sie einen Screenshot (Win+Shift+S oder Cmd+Shift+4) und fügen Sie ihn in ProFontFinder ein."
+        },
+        {
+          "q": "Kann ich mit KI eine eigene Schriftart erstellen?",
+          "a": "Während ProFontFinder bestehende Schriften erkennt, können generative KI-Tools (wie Calligraphr oder Fontjoy) dabei helfen, eigene Schriftdaten aus Skizzen zu erzeugen."
+        },
+        {
+          "q": "Erkennt das Tool auch Schreibschriften und Kursivschriften?",
+          "a": "Ja, ProFontFinder erkennt Schreib-, Kursiv- und Kalligrafieschriften. Da verbundene Buchstaben anspruchsvoller sind, hilft ein hochauflösendes Bild dem Kontur-Algorithmus besonders."
+        },
+        {
+          "q": "Welche Schriftarten deckt ProFontFinder ab?",
+          "a": "ProFontFinder deckt alle wichtigen Genres ab: Sans-Serif (geometrisch, humanistisch), Serif (Klassizistisch, Antiqua), Monospace (Code-Schriften), Display-Schriften sowie Schreib- und Pinselschriften aus der gesamten verifizierten Google Fonts-Sammlung."
+        },
+        {
+          "q": "Kann es auch kostenpflichtige Schriftarten finden?",
+          "a": "Ja! Obwohl ProFontFinder sich auf 100 % freie Typografie konzentriert, analysiert unsere Engine beim Hochladen eines Bildes mit einer kostenpflichtigen kommerziellen Schriftart (wie Helvetica, Futura oder Gotham) die geometrischen Konturen und ermittelt die engste lizenzfreie Google Fonts-Alternative."
+        },
+        {
+          "q": "Wie überprüfe ich, welche Schriftarten ich installiert habe?",
+          "a": "Während Sie installierte Schriftarten über das Betriebssystem einsehen können (unter Windows in den Einstellungen > Personalisierung > Schriftarten oder auf dem Mac via Schriftsammlung), bieten Systemordner weder interaktive Web-Vorschauen noch fertigen CSS-Code. Wenn Sie ein Bild oder Design mit einer unbekannten Schriftart haben, sparen Sie sich die mühsame manuelle Suche: Laden Sie einfach einen Screenshot bei ProFontFinder hoch! Unsere kostenlose optische Engine erkennt die Schriftart sofort, gleicht sie mit über 1.935 verifizierten Google Fonts ab und liefert einsatzbereite CSS-Snippets. Entdecken Sie außerdem unser kuratiertes Schriften-Verzeichnis, um erstklassige freie Typografie zu finden."
+        },
+        {
+          "q": "Wie identifiziere ich eine Schriftart oder Textkategorie?",
+          "a": "Die manuelle Bestimmung einer Schriftartklasse (wie geometrische Sans-Serif, humanistische Serif, Slab-Serif oder Monospace) erfordert das aufwendige Prüfen von Serifen, Strichkontrasten, x-Höhen und Endungen. Statt auf Schätzungen oder teure Erkennungstools angewiesen zu sein, automatisiert ProFontFinder den gesamten Vorgang in unter 80 Millisekunden! Laden Sie einfach ein beliebiges Bild, Logo oder einen Screenshot hoch: Unsere clientseitige KI scannt 16×16-Glyphen-Vektoren, berechnet Konturgeometrien, ordnet die Schriftartkategorie exakt zu und liefert passende, lizenzfreie Google Fonts mit vollständigem Datenschutz."
+        },
+        {
+          "q": "Welche Schriftart bin ich?",
+          "a": "\"Welche Schriftart bin ich?\" ist weit mehr als ein unterhaltsames Quiz – es ist die visuelle Grundlage moderner Markenidentität. Verschiedene Schriftarten transportieren klare Charaktereigenschaften: Geometrische Sans-Serifs wie Inter stehen für technologische Spitzenleistung und Klarheit; edle Serifenschriften wie Playfair Display strahlen journalistische Eleganz aus; und Monospace-Schriften verkörpern analytische Ingenieurskunst. Mit ProFontFinder machen Sie aus Neugier handfestes Design: Laden Sie einen Screenshot Ihrer Lieblingswebsite oder Ihres Portfolios hoch, entschlüsseln Sie die typografische DNA und erhalten Sie sofort einsatzbereite CSS-Snippets für Ihren eigenen Auftritt."
+        },
+        {
+          "q": "Kann ich den Schriftartenfinder durch Hochladen eines Bildes nutzen?",
+          "a": "Ja, absolut! Das Hochladen eines Bildes ist die Kernfunktion von ProFontFinder. Sie können jede Bilddatei (PNG, JPG, WebP) per Drag & Drop hineinziehen, per Strg+V (Cmd+V) aus der Zwischenablage einfügen oder eine Datei auswählen. Die Analyse läuft vollständig lokal in Ihrem Browser."
+        }
     ]
   },
   error404: {

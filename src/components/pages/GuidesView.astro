@@ -93,6 +93,20 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
 
     <!-- FAQ Section -->
     <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-9 mb-14 shadow-sm">
+      <!-- Schema.org JSON-LD FAQPage Schema for Search Engine Rich Snippets -->
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": gT.faqs.map(item => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+          }
+        }))
+      })} />
+
       <div class="mb-6">
         <h2 class="text-xl sm:text-2xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em]">
           {gT.faqTitle}
