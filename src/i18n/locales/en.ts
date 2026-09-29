@@ -131,7 +131,7 @@ export const en = {
     },
     hero: {
       headlinePrefix: 'What font is that?',
-      subtitle: 'Upload or paste any image to identify fonts instantly. Find the exact font from pictures and screenshots, or discover 100% free alternatives for commercial fonts.'
+      subtitle: 'Upload or paste any image to identify fonts instantly. Find the exact font match from pictures, logos, and screenshots — 100% free and private.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',
