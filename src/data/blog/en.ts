@@ -553,7 +553,3 @@ font-family: 'Cabin', sans-serif;</code></pre>
     `
   }
 ];
-
-export function getBlogArticleBySlug(slug: string): BlogArticle | undefined {
-  return BLOG_ARTICLES.find((a) => a.slug === slug);
-}
