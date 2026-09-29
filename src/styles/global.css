@@ -245,6 +245,26 @@ html.dark .hero-gradient-floor {
   transform: scale(0.99);
 }
 
+html.dark .btn-ghost-linear {
+  background: linear-gradient(180deg, #20242e 0%, #14161c 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 
+    -1px 3px 8px rgba(0, 0, 0, 0.8),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .btn-ghost-linear:hover {
+  background: linear-gradient(180deg, #262b37 0%, #191c24 100%) !important;
+  border-top-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 
+    -2px 5px 12px rgba(0, 0, 0, 0.9),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px);
+}
+
 /* Sign-up Pill (High Emphasis) */
 .btn-white-pill {
   background-color: var(--color-paper);
@@ -749,17 +769,38 @@ html:not(.dark) ::selection {
   background-color: #08090a;
 }
 
+/* ========================================================================= */
+/* ECOSYSTEM CARDS (TACTILE 3D IN DARK MODE)                                 */
+/* ========================================================================= */
 .ecosystem-card {
+  position: relative;
   background-color: #0c0d10;
   border: 1px solid #383b44;
+  border-radius: 12px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ecosystem-card:hover {
-  border-color: #555964;
-  background-color: #111317;
+html.dark .ecosystem-card {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -2px 6px 20px -2px rgba(0, 0, 0, 0.85),
+    0 3px 0 0 #000000,
+    0 16px 36px -6px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .ecosystem-card:hover {
+  border-color: rgba(228, 242, 34, 0.4) !important;
+  border-top-color: rgba(228, 242, 34, 0.65) !important;
+  background: linear-gradient(180deg, #181b22 0%, #101217 100%) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    -3px 12px 28px -3px rgba(0, 0, 0, 0.95),
+    0 4px 0 0 #000000,
+    0 0 20px -2px rgba(228, 242, 34, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18) !important;
 }
 
 .ecosystem-icon-box {
@@ -769,9 +810,17 @@ html:not(.dark) ::selection {
   transition: all 0.2s ease;
 }
 
-.ecosystem-card:hover .ecosystem-icon-box {
-  border-color: rgba(228, 242, 34, 0.4);
-  color: #e4f222;
+html.dark .ecosystem-icon-box {
+  background: linear-gradient(180deg, #22252e 0%, #16181f 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  color: #ffffff !important;
+  box-shadow: -1px 2px 6px rgba(0, 0, 0, 0.7), 0 2px 0 0 #000000, inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .ecosystem-card:hover .ecosystem-icon-box {
+  border-color: rgba(228, 242, 34, 0.4) !important;
+  color: #e4f222 !important;
 }
 
 .ecosystem-pill {
@@ -780,8 +829,16 @@ html:not(.dark) ::selection {
   color: #8a8f98;
 }
 
+html.dark .ecosystem-pill {
+  background: linear-gradient(180deg, #1c1e25 0%, #131418 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #8a8f98 !important;
+  box-shadow: -1px 2px 4px rgba(0, 0, 0, 0.6), 0 1px 0 0 #000000, inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
 /* ========================================================================= */
-/* THREE-STEP RECOGNITION PIPELINE (CREATIVE HOVER & LIGHTING)             */
+/* THREE-STEP RECOGNITION PIPELINE (TACTILE 3D IN DARK MODE)                */
 /* ========================================================================= */
 .pipeline-step-card {
   position: relative;
@@ -792,18 +849,34 @@ html:not(.dark) ::selection {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pipeline-step-card:hover {
+html.dark .pipeline-step-card {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.92),
+    0 4px 0 0 #000000,
+    0 20px 48px -8px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark .pipeline-step-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(228, 242, 34, 0.35);
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), 0 0 24px -4px rgba(228, 242, 34, 0.08);
+  border-color: rgba(228, 242, 34, 0.45) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -4px 16px 36px -4px rgba(0, 0, 0, 0.98), 
+    0 6px 0 0 #000000,
+    0 0 32px -4px rgba(228, 242, 34, 0.18),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.24) !important;
 }
 
 .pipeline-step-card .step-watermark {
   transition: all 0.35s ease;
 }
 
-.pipeline-step-card:hover .step-watermark {
-  color: rgba(228, 242, 34, 0.12);
+html.dark .pipeline-step-card:hover .step-watermark {
+  color: rgba(228, 242, 34, 0.12) !important;
   transform: scale(1.08) translateY(-2px);
 }
 
@@ -811,10 +884,244 @@ html:not(.dark) ::selection {
   transition: all 0.25s ease;
 }
 
-.pipeline-step-card:hover .step-badge-pill {
-  border-color: rgba(228, 242, 34, 0.4);
-  background-color: rgba(228, 242, 34, 0.08);
-  color: #e4f222;
+html.dark .pipeline-step-card .step-badge-pill {
+  background: linear-gradient(180deg, #222632 0%, #161821 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 
+    -1px 2px 6px rgba(0, 0, 0, 0.8),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark .pipeline-step-card:hover .step-badge-pill {
+  border-color: rgba(228, 242, 34, 0.5) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  background: linear-gradient(180deg, rgba(228, 242, 34, 0.18) 0%, rgba(228, 242, 34, 0.06) 100%) !important;
+  color: #e4f222 !important;
+}
+
+html.dark .pipeline-preview-box {
+  background: linear-gradient(180deg, #1c1f28 0%, #12141a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    -2px 4px 12px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .pipeline-step-card:hover .pipeline-preview-box {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 
+    -2px 6px 18px -2px rgba(0, 0, 0, 0.95),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark .crop-detect-pill {
+  background: linear-gradient(180deg, #242936 0%, #181b24 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 
+    -1px 3px 8px rgba(0, 0, 0, 0.8),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark .pipeline-tag {
+  background: linear-gradient(180deg, #1c1f27 0%, #13151b 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 
+    -1px 3px 8px rgba(0, 0, 0, 0.7),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .pipeline-assurance-badge {
+  background: linear-gradient(180deg, #161820 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    -2px 5px 16px -2px rgba(0, 0, 0, 0.8),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ========================================================================= */
+/* ENGINE SPECIFICATIONS & CODE BLUEPRINT 3D BOXES (DARK MODE)             */
+/* ========================================================================= */
+html.dark .engine-spec-box {
+  background: linear-gradient(180deg, #181b22 0%, #0f1014 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -2px 4px 12px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .engine-spec-box:hover {
+  transform: translateY(-1px);
+  border-top-color: rgba(228, 242, 34, 0.5) !important;
+  box-shadow: 
+    -2px 6px 16px -1px rgba(0, 0, 0, 0.95),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+html.dark .code-window-card {
+  background: linear-gradient(180deg, #181b22 0%, #0d0f13 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.92),
+    0 4px 0 0 #000000,
+    0 20px 44px -8px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .home-matrix-card {
+  background: linear-gradient(180deg, #181b22 0%, #0d0f13 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.9),
+    0 4px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .guide-content-card {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.9),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .commercial-pair-card {
+  background: linear-gradient(180deg, #1c1f28 0%, #12141a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    -2px 4px 12px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .commercial-pair-card:hover {
+  transform: translateY(-2px);
+  border-top-color: rgba(228, 242, 34, 0.5) !important;
+  box-shadow: 
+    -2px 6px 16px -1px rgba(0, 0, 0, 0.95),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+/* ========================================================================= */
+/* FONT EXPLORER SEARCH & FILTER 3D BOXES (DARK MODE)                        */
+/* ========================================================================= */
+html.dark .font-search-bar {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -2px 6px 20px -2px rgba(0, 0, 0, 0.9),
+    0 3px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark #font-search,
+html.dark #global-specimen-text {
+  background: #111318 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+}
+
+html.dark #font-search:focus,
+html.dark #global-specimen-text:focus {
+  border-color: rgba(228, 242, 34, 0.6) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 10px rgba(228, 242, 34, 0.15) !important;
+}
+
+html.dark .cat-tab {
+  background: linear-gradient(180deg, #222632 0%, #151720 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 
+    -1px 2px 6px rgba(0, 0, 0, 0.75),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .cat-tab:hover {
+  transform: translateY(-1px);
+  border-top-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 
+    -1px 3px 8px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark .cat-tab.active {
+  background: #ffffff !important;
+  color: #08090a !important;
+  border-color: #ffffff !important;
+  box-shadow: 
+    -1px 3px 10px rgba(255, 255, 255, 0.2),
+    0 2px 0 0 #b0b4bc,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Navbar Buttons 3D Elevation in Dark Mode */
+html.dark .language-picker-btn,
+html.dark #theme-toggle {
+  background: linear-gradient(180deg, #222530 0%, #161820 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 
+    -1px 3px 8px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .language-picker-btn:hover,
+html.dark #theme-toggle:hover {
+  background: linear-gradient(180deg, #282d3b 0%, #1b1e28 100%) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  border-top-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 
+    -2px 5px 12px -1px rgba(0, 0, 0, 0.95),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22) !important;
+  transform: translateY(-1px);
+}
+
+html.dark .language-picker-btn:active,
+html.dark #theme-toggle:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.8),
+    0 1px 0 0 #000000 !important;
+}
+
+html.dark #lang-menu {
+  background: linear-gradient(180deg, #1a1c22 0%, #101216 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.26) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.9),
+    0 4px 0 0 #000000,
+    0 20px 40px -4px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
 }
 
 .pipeline-step-card .scan-laser {
@@ -884,8 +1191,9 @@ html:not(.dark) .ecosystem-sub {
 /* ========================================================================= */
 
 html:not(.dark) .pipeline-tag {
-  background-color: #f1f5f9 !important;
-  border-color: #e2e8f0 !important;
+  background: #f1f5f9 !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
 }
 
 html:not(.dark) .pipeline-tag span:first-child {
@@ -907,8 +1215,9 @@ html:not(.dark) .pipeline-subheading {
 
 /* Header Live Speed & Privacy Assurance Badge */
 html:not(.dark) .pipeline-assurance-badge {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
@@ -935,14 +1244,20 @@ html:not(.dark) .pipeline-connecting-line {
 
 /* Cards in Light Mode */
 html:not(.dark) .pipeline-step-card {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 html:not(.dark) .pipeline-step-card:hover {
-  border-color: rgba(255, 77, 0, 0.35) !important;
-  box-shadow: 0 16px 36px -8px rgba(255, 77, 0, 0.12), 0 0 20px -4px rgba(255, 77, 0, 0.05) !important;
+  transform: translateY(-4px) !important;
+  border-color: rgba(255, 77, 0, 0.45) !important;
+  box-shadow: 
+    0 16px 36px -6px rgba(0, 0, 0, 0.12),
+    0 6px 16px -2px rgba(0, 0, 0, 0.06),
+    0 0 24px -4px rgba(255, 77, 0, 0.12) !important;
 }
 
 /* Giant Creative Number Watermarks */
@@ -956,8 +1271,9 @@ html:not(.dark) .pipeline-step-card:hover .step-watermark {
 
 /* Step Header Pill */
 html:not(.dark) .step-badge-pill {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  background: #f8fafc !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
   color: #475569 !important;
 }
 
@@ -971,7 +1287,7 @@ html:not(.dark) .step-badge-pill span span:last-child {
 
 html:not(.dark) .pipeline-step-card:hover .step-badge-pill {
   border-color: rgba(255, 77, 0, 0.35) !important;
-  background-color: rgba(255, 77, 0, 0.06) !important;
+  background: rgba(255, 77, 0, 0.06) !important;
   color: #ff4d00 !important;
 }
 
@@ -1011,12 +1327,83 @@ html:not(.dark) .pipeline-step-card .step-desc code {
 
 /* Preview Boxes General */
 html:not(.dark) .pipeline-preview-box {
-  background-color: #f8fafc !important;
-  border-color: #e2e8f0 !important;
+  background: #f8fafc !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
 }
 
 html:not(.dark) .pipeline-step-card:hover .pipeline-preview-box {
   border-color: #cbd5e1 !important;
+}
+
+/* Light Mode Overrides for Engine Specs & Comparison Matrix */
+html:not(.dark) .engine-spec-box {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html:not(.dark) .engine-spec-box:hover {
+  transform: translateY(-2px) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08) !important;
+}
+
+html:not(.dark) .code-window-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark) .home-matrix-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+}
+
+html:not(.dark) .guide-content-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+}
+
+html:not(.dark) .commercial-pair-card {
+  background: #f8f9fa !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html:not(.dark) .commercial-pair-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Light Mode Overrides for Font Explorer Toolbar */
+html:not(.dark) .font-search-bar {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+html:not(.dark) .cat-tab {
+  background: #f1f3f6 !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  color: #475569 !important;
+  box-shadow: none !important;
+}
+
+html:not(.dark) .cat-tab.active {
+  background: #08090a !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #08090a !important;
 }
 
 /* Card 1 - Crop Viewfinder */
@@ -1044,8 +1431,9 @@ html:not(.dark) .crop-badge-tag {
 }
 
 html:not(.dark) .crop-detect-pill {
-  background-color: #ffffff !important;
-  border-color: #e2e8f0 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e8f0 !important;
   color: #334155 !important;
 }
 
@@ -1163,14 +1551,31 @@ html:not(.dark) .step-card-footer span:last-child {
   border: 1px solid #383b44;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.font-catalog-card:hover {
-  transform: translateY(-2px);
-  border-color: #555964;
-  background-color: #101114;
-  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
+html.dark .font-catalog-card,
+html.dark .font-item {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -2px 6px 20px -2px rgba(0, 0, 0, 0.9),
+    0 3px 0 0 #000000,
+    0 16px 36px -6px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .font-catalog-card:hover,
+html.dark .font-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(228, 242, 34, 0.4) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -3px 12px 30px -4px rgba(0, 0, 0, 0.98),
+    0 5px 0 0 #000000,
+    0 0 24px -2px rgba(228, 242, 34, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22) !important;
 }
 
 .font-specimen-box {
@@ -1179,32 +1584,68 @@ html:not(.dark) .step-card-footer span:last-child {
   transition: all 0.2s ease;
 }
 
-.font-catalog-card:hover .font-specimen-box {
-  border-color: #454854;
-  background-color: #16171b;
+html.dark .font-specimen-box {
+  background: linear-gradient(180deg, #1c1f28 0%, #12141a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 
+    -1px 3px 8px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .font-catalog-card:hover .font-specimen-box {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  border-top-color: rgba(228, 242, 34, 0.45) !important;
+  box-shadow: 
+    -2px 5px 14px -1px rgba(0, 0, 0, 0.95),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .font-card-copy-btn {
+  background: linear-gradient(180deg, #282d3b 0%, #1a1c24 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    -1px 2px 6px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+html.dark .font-card-copy-btn:hover {
+  border-color: rgba(228, 242, 34, 0.5) !important;
+  color: #e4f222 !important;
 }
 
 /* Light Mode Overrides for Font Catalog Cards */
-html:not(.dark) .font-catalog-card {
-  background-color: #ffffff !important;
-  border-color: #e2e4e8 !important;
+html:not(.dark) .font-catalog-card,
+html:not(.dark) .font-item {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-html:not(.dark) .font-catalog-card:hover {
+html:not(.dark) .font-catalog-card:hover,
+html:not(.dark) .font-item:hover {
+  transform: translateY(-3px) !important;
   border-color: #cbd5e1 !important;
-  background-color: #ffffff !important;
-  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.07) !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.09) !important;
 }
 
 html:not(.dark) .font-specimen-box {
-  background-color: #f8f9fa !important;
-  border-color: #e2e4e8 !important;
+  background: #f8f9fa !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
 }
 
 html:not(.dark) .font-catalog-card:hover .font-specimen-box {
   border-color: #d1d5db !important;
-  background-color: #f4f5f7 !important;
+  background: #f4f5f7 !important;
+  background-image: none !important;
 }
 
 html:not(.dark) .font-catalog-card .font-card-name {
@@ -1216,13 +1657,15 @@ html:not(.dark) .font-catalog-card .font-specimen-text {
 }
 
 html:not(.dark) .font-catalog-card .font-card-copy-btn {
-  background-color: #ffffff !important;
+  background: #ffffff !important;
+  background-image: none !important;
   border-color: #d1d5db !important;
   color: #374151 !important;
 }
 
 html:not(.dark) .font-catalog-card .font-card-copy-btn:hover {
-  background-color: #f3f4f6 !important;
+  background: #f3f4f6 !important;
+  background-image: none !important;
   color: #111827 !important;
 }
 
@@ -1238,9 +1681,25 @@ html:not(.dark) .font-catalog-card .font-card-copy-btn:hover {
   overflow: hidden;
 }
 
-.cta-banner-card:hover {
-  border-color: #555964;
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.55), 0 0 28px -6px rgba(228, 242, 34, 0.07);
+html.dark .cta-banner-card {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.9),
+    0 4px 0 0 #000000,
+    0 20px 48px -8px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .cta-banner-card:hover {
+  border-color: rgba(228, 242, 34, 0.45) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -4px 16px 36px -4px rgba(0, 0, 0, 0.98),
+    0 6px 0 0 #000000,
+    0 0 28px -4px rgba(228, 242, 34, 0.14),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22) !important;
 }
 
 .cta-spotlight {
@@ -1249,8 +1708,9 @@ html:not(.dark) .font-catalog-card .font-card-copy-btn:hover {
 
 /* Light Mode Overrides for Final CTA Card */
 html:not(.dark) .cta-banner-card {
-  background-color: #ffffff !important;
-  border-color: #e2e4e8 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
 }
 
@@ -1320,10 +1780,26 @@ html:not(.dark) .cta-banner-card:hover .cta-watermark {
   overflow: hidden;
 }
 
-.tool-card:hover {
+html.dark .tool-card {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -3px 8px 24px -2px rgba(0, 0, 0, 0.9),
+    0 4px 0 0 #000000,
+    0 20px 48px -8px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark .tool-card:hover {
   transform: translateY(-3px);
-  border-color: #555964;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 0 24px -6px rgba(228, 242, 34, 0.06);
+  border-color: rgba(228, 242, 34, 0.4) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -4px 14px 32px -4px rgba(0, 0, 0, 0.98),
+    0 5px 0 0 #000000,
+    0 0 24px -2px rgba(228, 242, 34, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22) !important;
 }
 
 .tool-card-spotlight {
@@ -1332,13 +1808,16 @@ html:not(.dark) .cta-banner-card:hover .cta-watermark {
 
 /* Light Mode Overrides for Tool Suite Cards */
 html:not(.dark) .tool-card {
-  background-color: #ffffff !important;
-  border-color: #e2e4e8 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
 html:not(.dark) .tool-card:hover {
   border-color: rgba(255, 77, 0, 0.4) !important;
+  background: #ffffff !important;
+  background-image: none !important;
   box-shadow: 0 16px 36px -8px rgba(255, 77, 0, 0.12), 0 0 20px -4px rgba(255, 77, 0, 0.04) !important;
 }
 
@@ -1411,6 +1890,135 @@ html:not(.dark) .tool-action-btn {
 
 html:not(.dark) .tool-card:hover .tool-action-btn {
   color: #ff4d00 !important;
+}
+
+/* ========================================================================= */
+/* 3D TACTILE ELEVATION SYSTEM: HOME, GUIDES, ABOUT, BLOG & UTILITY CARDS    */
+/* ========================================================================= */
+
+/* Dark Mode 3D Tactile Surface for Primary Cards & Containers */
+html.dark .home-asset-card,
+html.dark .home-style-card,
+html.dark .home-utility-card,
+html.dark .guides-featured-container,
+html.dark .guide-grid-card,
+html.dark .guide-faq-card,
+html.dark .guide-cta-card,
+html.dark .blog-grid-card,
+html.dark .blog-cta-card,
+html.dark .about-card,
+html.dark .contact-card,
+html.dark .font-twin-card,
+html.dark .commercial-faq-card,
+html.dark .pair-card,
+html.dark #studio {
+  background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 
+    -2px 6px 20px -2px rgba(0, 0, 0, 0.9),
+    0 3px 0 0 #000000,
+    0 16px 36px -6px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Interactive Hover Lift & Spotlight for Dark Mode Cards */
+html.dark .home-asset-card:hover,
+html.dark .home-style-card:hover,
+html.dark .home-utility-card:hover,
+html.dark .guide-grid-card:hover,
+html.dark .blog-grid-card:hover,
+html.dark .about-pillar-card:hover,
+html.dark .font-twin-card:hover,
+html.dark .pair-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(228, 242, 34, 0.4) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -3px 12px 30px -4px rgba(0, 0, 0, 0.98),
+    0 5px 0 0 #000000,
+    0 0 24px -2px rgba(228, 242, 34, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+/* Sub-card / Inner Highlight Boxes in Dark Mode */
+html.dark .guides-article-card,
+html.dark .font-twin-standin-box {
+  background: linear-gradient(180deg, #1c1f28 0%, #12141a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    -1px 4px 12px -1px rgba(0, 0, 0, 0.85),
+    0 2px 0 0 #000000,
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .guides-article-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(228, 242, 34, 0.45) !important;
+  border-top-color: rgba(228, 242, 34, 0.7) !important;
+  box-shadow: 
+    -2px 8px 20px -2px rgba(0, 0, 0, 0.95),
+    0 4px 0 0 #000000,
+    0 0 18px -2px rgba(228, 242, 34, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* ========================================================================= */
+/* LIGHT MODE STRICT PROTECTION & SMOOTH HOVER LIFT                          */
+/* ========================================================================= */
+html:not(.dark) .home-asset-card,
+html:not(.dark) .home-style-card,
+html:not(.dark) .home-utility-card,
+html:not(.dark) .guides-featured-container,
+html:not(.dark) .guides-article-card,
+html:not(.dark) .guide-grid-card,
+html:not(.dark) .guide-faq-card,
+html:not(.dark) .guide-cta-card,
+html:not(.dark) .blog-grid-card,
+html:not(.dark) .blog-cta-card,
+html:not(.dark) .about-card,
+html:not(.dark) .contact-card,
+html:not(.dark) .font-twin-card,
+html:not(.dark) .commercial-faq-card,
+html:not(.dark) .pair-card,
+html:not(.dark) #studio {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html:not(.dark) .font-twin-standin-box {
+  background: #f8f9fa !important;
+  background-image: none !important;
+  border: 1px solid #e2e4e8 !important;
+}
+
+html:not(.dark) .home-asset-card:hover,
+html:not(.dark) .home-style-card:hover,
+html:not(.dark) .home-utility-card:hover,
+html:not(.dark) .guide-grid-card:hover,
+html:not(.dark) .blog-grid-card:hover,
+html:not(.dark) .about-pillar-card:hover,
+html:not(.dark) .font-twin-card:hover,
+html:not(.dark) .pair-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: #cbd5e1 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.09) !important;
+}
+
+html:not(.dark) .guides-article-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: #ff4d00 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  box-shadow: 0 10px 24px -4px rgba(255, 77, 0, 0.1) !important;
 }
 
 /* ========================================================================= */

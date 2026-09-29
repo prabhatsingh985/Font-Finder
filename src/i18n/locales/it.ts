@@ -132,7 +132,7 @@ export const it: TranslationSchema = {
       "description": "Identifica qualsiasi font da immagini e screenshot all'istante con Font Finder. Trova alternative Google Fonts 100% gratuite e verificate."
     },
     "hero": {
-      "headlinePrefix": "Identifica i font in",
+      "headlinePrefix": "Identifica qualsiasi font in pochi secondi",
       "subtitle": "Carica o incolla qualsiasi immagine per riconoscere i font all'istante. Trova il font esatto da foto, loghi e screenshot — 100% gratuito e privato."
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const it: TranslationSchema = {
         description: 'I font corsivi e calligrafici sono complessi da classificare: ecco come ottenere risultati attendibili.'
       },
       fontPairing: {
-                                                    title: 'Trova il perfetto abbinamento di font',
-        description: 'Seleziona un font e scopri i caratteri complementari che si sposano con naturalezza ed equilibrio.'
+        title: 'Generatore di Abbinamenti',
+        description: 'Trova i migliori abbinamenti di font per titoli e paragrafi.'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const it: TranslationSchema = {
 
     meta: {
       title: 'Strumento Abbinamento Font — Armonie Tipografiche su Google Fonts',
-      description: 'Esplora 31 combinazioni di Google Fonts realizzate da designer. Verifica la coerenza visiva tra titoli e paragrafi in tempo reale e copia le regole CSS.'
+      description: 'Carica un\'immagine per riconoscere i font e trovare combinazioni Google Fonts ideali per titoli e testi.'
     },
-    badge: 'PROGETTAZIONE DI SISTEMI TIPOGRAFICI',
-    title: 'Trova il perfetto abbinamento di font',
-    subtitle: 'Esplora 31 combinazioni di Google Fonts realizzate da designer. Verifica la coerenza visiva tra titoli e paragrafi in tempo reale e copia le regole CSS.',
+    badge: 'ABBINAMENTI FONT',
+    title: 'Generatore di Abbinamenti Font',
+    subtitle: 'Carica un\'immagine per trovare abbinamenti tipografici ideali per titoli e testi.',
+    dropzoneTitle: 'Carica un\'immagine per trovare font abbinati',
+    dropzoneSubtitle: 'Riconosciamo il font nella tua immagine e ti suggeriamo gli abbinamenti migliori per titoli e testo.',
+    buttonText: 'Carica immagine',
+    studioBadge: 'STUDIO DAL VIVO & DIRECTORY',
+    studioHeading: 'Esplora 31 abbinamenti di font curati da designer',
+    studioDesc: 'Verifica l’armonia tra titoli e testo dal vivo, regola le dimensioni e copia le regole CSS.',
+    viewPairingsFor: 'Vedi abbinamenti consigliati per {font}',
     filterAll: 'Tutti gli Abbinamenti',
     filterSaas: 'SaaS e Tech',
     filterEditorial: 'Editoria e Lusso',

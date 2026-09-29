@@ -132,7 +132,7 @@ export const ko: TranslationSchema = {
       "description": "Font Finder를 사용해 이미지와 스크린샷에서 모든 글꼴을 즉시 식별하세요. 글자 형태를 분석하여 검증된 100% 무료 Google Fonts 대안을 찾습니다."
     },
     "hero": {
-      "headlinePrefix": "이미지 속 폰트 즉시 식별",
+      "headlinePrefix": "모든 폰트를 단 몇 초 만에 식별",
       "subtitle": "이미지를 업로드하거나 붙여넣어 폰트를 즉시 찾아보세요. 사진, 로고, 스크린샷에서 일치하는 정확한 폰트를 검색 — 100% 무료 및 완벽한 보안."
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const ko: TranslationSchema = {
         description: '필기체 폰트는 식별하기 까다롭지만, 정밀 알고리즘으로 최적의 무료 서체를 추천해 드립니다.'
       },
       fontPairing: {
-                                                    title: '어울리는 폰트 조합 찾기',
-        description: '하나의 폰트를 선택하면 함께 어우러지는 조화로운 파트너 폰트를 추천합니다.'
+        title: '폰트 페어링 생성기',
+        description: '제목과 본문에 가장 잘 어울리는 폰트 조합을 찾아보세요.'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const ko: TranslationSchema = {
 
     meta: {
       title: '폰트 페어링 도구 — 조화로운 무료 Google Fonts 조합 추천',
-      description: '디자이너가 엄선한 31가지 Google Fonts 조합을 살펴보세요. 제목과 본문의 조화를 실시간으로 테스트하고, 크기를 조정하며, 완성된 CSS를 복사하세요.'
+      description: '이미지를 업로드하여 폰트를 감지하고 제목과 본문에 어울리는 Google Fonts 조합을 찾아보세요.'
     },
-    badge: '타이포그래피 시스템 디자인',
-    title: '어울리는 폰트 조합 찾기',
-    subtitle: '디자이너가 엄선한 31가지 Google Fonts 조합을 살펴보세요. 제목과 본문의 조화를 실시간으로 테스트하고, 크기를 조정하며, 완성된 CSS를 복사하세요.',
+    badge: '폰트 페어링',
+    title: '폰트 페어링 생성기',
+    subtitle: '이미지를 업로드하여 제목과 본문에 잘 어울리는 폰트 조합을 찾아보세요.',
+    dropzoneTitle: '이미지를 업로드하여 어울리는 폰트 찾기',
+    dropzoneSubtitle: '이미지 속 폰트를 인식하여 제목과 본문에 어울리는 최적의 폰트를 추천합니다.',
+    buttonText: '이미지 업로드',
+    studioBadge: '라이브 캔버스 및 디렉토리',
+    studioHeading: '디자이너가 선별한 31가지 폰트 페어링 조합',
+    studioDesc: '제목과 본문의 조화를 실시간으로 테스트하고 준비된 CSS 코드를 복사하세요.',
+    viewPairingsFor: '{font} 추천 페어링 보기',
     filterAll: '전체 조합',
     filterSaas: 'SaaS 및 테크',
     filterEditorial: '에디토리얼 및 럭셔리',

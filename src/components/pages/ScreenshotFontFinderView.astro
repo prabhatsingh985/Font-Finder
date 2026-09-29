@@ -12,7 +12,6 @@ const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const sT = t.screenshotFontFinder;
-const toolsHref = getLocalizedPath('/tools', currentLocale);
 ---
 
 <BaseLayout
@@ -23,13 +22,6 @@ const toolsHref = getLocalizedPath('/tools', currentLocale);
   <section class="relative pt-12 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
     <div class="max-w-[1200px] mx-auto text-center">
       
-      <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
-        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">{t.common.nav.tools}</a>
-        <span class="text-xs text-[#62666d]">/</span>
-        <span class="text-xs font-mono text-[#d0d6e0] uppercase tracking-wider">{sT.breadcrumb}</span>
-      </div>
 
       <!-- Hero Header -->
       <h1 class="text-3xl sm:text-5xl font-[510] text-[#ffffff] tracking-[-0.022em] max-w-2xl mx-auto">

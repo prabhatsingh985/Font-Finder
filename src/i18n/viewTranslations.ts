@@ -246,7 +246,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'PDF FONT DETECTOR',
       heroTitle: 'Identify Fonts in',
-      heroHighlight: 'PDF Documents',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Capture a screenshot from any PDF invoice, contract, or ebook. Match fonts against 1,935+ verified Google Fonts with 100% in-browser privacy.',
       dropzoneTitle: 'Paste PDF screenshot (⌘V / Ctrl+V) or drop image',
       dropzoneSubtitle: 'Take a snip of your PDF page and paste directly here',
@@ -294,8 +294,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min read'
     },
     home: {
-      heroTitle: 'What font is that?',
-      heroHighlight: 'Find out in seconds',
+      heroTitle: 'Identify Any Font',
+      heroHighlight: 'In Seconds',
       matrixBadge: 'COMPREHENSIVE CAPABILITY MATRIX',
       matrixTitle: 'Engineered for Speed, Privacy & Precision',
       matrixSubtitle: 'See how ProFontFinder’s client-side dual matching engine compares against traditional competitors and legacy paywalled tools.',
@@ -435,7 +435,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'DETECTOR DE FUENTES EN PDF',
       heroTitle: 'Identifica Fuentes en',
-      heroHighlight: 'Documentos PDF',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Captura una pantalla de cualquier factura, contrato o libro en PDF. Identifica fuentes entre más de 1,935 fuentes de Google con 100% de privacidad en el navegador.',
       dropzoneTitle: 'Pega captura de PDF (⌘V / Ctrl+V) o arrastra imagen',
       dropzoneSubtitle: 'Haz un recorte de tu página PDF y pégalo directamente aquí',
@@ -483,8 +483,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min de lectura'
     },
     home: {
-      heroTitle: '¿Qué fuente es esa?',
-      heroHighlight: 'Descúbrelo en segundos',
+      heroTitle: 'Identifica Cualquier Fuente',
+      heroHighlight: 'En Segundos',
       matrixBadge: 'MATRIZ DE CAPACIDADES COMPARATIVA',
       matrixTitle: 'Diseñado para Velocidad, Privacidad y Precisión',
       matrixSubtitle: 'Compara el motor dual en navegador de ProFontFinder frente a competidores tradicionales y herramientas de pago.',
@@ -624,7 +624,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'PDF-SCHRIFT-DETEKTOR',
       heroTitle: 'Schriftarten in',
-      heroHighlight: 'PDF-Dokumenten erkennen',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Erstellen Sie einen Screenshot aus Rechnungen, Verträgen oder PDFs. Gleichen Sie Schriften mit 1.935+ Google Fonts mit 100% Privatsphäre ab.',
       dropzoneTitle: 'PDF-Screenshot einfügen (⌘V / Ctrl+V) oder ablegen',
       dropzoneSubtitle: 'Erstellen Sie einen Bildschirmausschnitt Ihrer PDF-Seite und fügen Sie ihn direkt ein',
@@ -672,8 +672,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'Min. Lesezeit'
     },
     home: {
-      heroTitle: 'Welche Schriftart ist das?',
-      heroHighlight: 'In Sekundenschnelle erkennen',
+      heroTitle: 'Jede Schriftart erkennen',
+      heroHighlight: 'In Sekundenschnelle',
       matrixBadge: 'VERGLEICHENDE FUNKTIONSMATRIX',
       matrixTitle: 'Entwickelt für Geschwindigkeit, Datenschutz & Präzision',
       matrixSubtitle: 'Erfahren Sie, wie sich die clientseitige Dual-Engine von ProFontFinder im Vergleich zu herkömmlichen Tools und Bezahlschranken schlägt.',
@@ -813,7 +813,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'DÉTECTEUR DE POLICES DANS LES PDF',
       heroTitle: 'Identifiez les Polices de',
-      heroHighlight: 'Documents PDF',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Capturez une capture d’écran de n’importe quelle facture ou contrat PDF. Comparez avec 1 935+ polices Google Fonts en toute confidentialité.',
       dropzoneTitle: 'Collez une capture PDF (⌘V / Ctrl+V) ou déposez l’image',
       dropzoneSubtitle: 'Faites une capture de votre page PDF et collez-la directement ici',
@@ -861,8 +861,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min de lecture'
     },
     home: {
-      heroTitle: 'Quelle est cette police ?',
-      heroHighlight: 'Identifiez-la en quelques secondes',
+      heroTitle: 'Identifiez N’importe Quelle Police',
+      heroHighlight: 'En Quelques Secondes',
       matrixBadge: 'MATRICE COMPLÈTE DES FONCTIONNALITÉS',
       matrixTitle: 'Conçu pour la Rapidité, la Confidentialité et la Précision',
       matrixSubtitle: 'Découvrez comment le moteur dual de ProFontFinder surpasse les outils génériques et les solutions payantes traditionnelles.',
@@ -1002,7 +1002,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'RILEVATORE FONT IN DOCUMENTI PDF',
       heroTitle: 'Identifica i Font nei',
-      heroHighlight: 'Documenti PDF',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Cattura uno screenshot da fatture, contratti o PDF. Trova corrispondenze tra oltre 1.935 Google Fonts con la massima privacy nel browser.',
       dropzoneTitle: 'Incolla screenshot PDF (⌘V / Ctrl+V) o trascina immagine',
       dropzoneSubtitle: 'Cattura un ritaglio della pagina PDF e incollalo direttamente qui',
@@ -1050,8 +1050,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min di lettura'
     },
     home: {
-      heroTitle: 'Che font è questo?',
-      heroHighlight: 'Scoprilo in pochi secondi',
+      heroTitle: 'Identifica Qualsiasi Font',
+      heroHighlight: 'In Pochi Secondi',
       matrixBadge: 'MATRICE COMPARATIVA DELLE FUNZIONALITÀ',
       matrixTitle: 'Progettato per Velocità, Privacy e Precisione',
       matrixSubtitle: 'Scopri come il motore di corrispondenza duale di ProFontFinder supera i concorrenti tradizionali e i servizi a pagamento.',
@@ -1190,8 +1190,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     pdf: {
       badge: 'PDFフォント検出ツール',
-      heroTitle: 'PDFドキュメントの',
-      heroHighlight: '使用フォントを特定',
+      heroTitle: 'PDFのフォントを特定',
+      heroHighlight: '',
       heroSubtitle: 'PDFの請求書、契約書、電子書籍のスクリーンショットを撮って貼り付けるだけ。1,935以上のGoogle Fontsと100%ローカル照合。',
       dropzoneTitle: 'PDFスクリーンショットを貼り付け (⌘V / Ctrl+V) またはドロップ',
       dropzoneSubtitle: 'PDF画面をキャプチャしてここに直接貼り付けてください',
@@ -1239,7 +1239,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: '分で読めます'
     },
     home: {
-      heroTitle: 'このフォントは何？',
+      heroTitle: 'あらゆるフォントを',
       heroHighlight: '数秒で瞬時に特定',
       matrixBadge: '総合機能比較マトリックス',
       matrixTitle: '速度・プライバシー・高精度を追求した設計',
@@ -1379,8 +1379,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     pdf: {
       badge: 'PDF 폰트 감지기',
-      heroTitle: 'PDF 문서 속',
-      heroHighlight: '폰트 식별',
+      heroTitle: 'PDF 폰트 식별',
+      heroHighlight: '',
       heroSubtitle: 'PDF 청구서, 계약서, 전자책 캡처 이미지를 붙여넣으세요. 1,935개 이상의 Google Fonts와 100% 브라우저 내 비공개 대조.',
       dropzoneTitle: 'PDF 스크린샷 붙여넣기 (⌘V / Ctrl+V) 또는 파일 드롭',
       dropzoneSubtitle: 'PDF 페이지를 캡처하여 여기에 바로 붙여넣으세요',
@@ -1428,8 +1428,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: '분 소요'
     },
     home: {
-      heroTitle: '이 폰트는 무엇일까요?',
-      heroHighlight: '단 몇 초 만에 확인하세요',
+      heroTitle: '모든 폰트를',
+      heroHighlight: '단 몇 초 만에 식별',
       matrixBadge: '종합 기능 비교 매트릭스',
       matrixTitle: '속도, 프라이버시, 정확도를 위한 엔지니어링',
       matrixSubtitle: 'ProFontFinder의 브라우저 내 듀얼 매칭 엔진이 기존 유료 툴 및 일반 온라인 도구와 어떻게 다른지 확인해 보세요.',
@@ -1569,7 +1569,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     pdf: {
       badge: 'DETECTOR DE FONTES EM PDF',
       heroTitle: 'Identifique Fontes em',
-      heroHighlight: 'Documentos PDF',
+      heroHighlight: 'PDF',
       heroSubtitle: 'Capture uma tela de qualquer fatura ou contrato em PDF. Compare com mais de 1.935 Google Fonts com 100% de privacidade no navegador.',
       dropzoneTitle: 'Cole a captura do PDF (⌘V / Ctrl+V) ou solte a imagem',
       dropzoneSubtitle: 'Faça um recorte da sua página PDF e cole diretamente aqui',
@@ -1617,8 +1617,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min de leitura'
     },
     home: {
-      heroTitle: 'Que fonte é essa?',
-      heroHighlight: 'Descubra em poucos segundos',
+      heroTitle: 'Identifique Qualquer Fonte',
+      heroHighlight: 'Em Poucos Segundos',
       matrixBadge: 'MATRIZ COMPARATIVA DE RECURSOS',
       matrixTitle: 'Projetado para Velocidade, Privacidade e Precisão',
       matrixSubtitle: 'Veja como o motor dual no navegador do ProFontFinder se compara aos concorrentes tradicionais e ferramentas pagas.',

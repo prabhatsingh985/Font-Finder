@@ -14,7 +14,6 @@ const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const lT = t.logoFontFinder;
 const vT = getViewTranslations(lang).logo;
-const toolsHref = getLocalizedPath('/tools', currentLocale);
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 
 // Famous Brand Logos Typography Database
@@ -268,13 +267,6 @@ const faqs = [
   <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-20 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a]">
     <div class="max-w-[1200px] mx-auto text-center">
       
-      <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#161718] border border-[#23252a]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
-        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
-        <span class="text-xs text-[#383b3f]">/</span>
-        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">{lT.breadcrumb}</span>
-      </div>
 
       <!-- Hero Header -->
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-[510] text-[#ffffff] tracking-tight max-w-3xl mx-auto leading-tight">

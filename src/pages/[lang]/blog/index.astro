@@ -55,7 +55,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     <!-- Featured Cornerstone Articles Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
       {articles.map((article) => (
-        <article class="flex flex-col justify-between rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] hover:shadow-md transition-all group">
+        <article class="blog-grid-card flex flex-col justify-between rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] hover:shadow-md transition-all group">
           <div>
             <!-- Category & Read Time -->
             <div class="flex items-center justify-between gap-3 mb-4">
@@ -97,7 +97,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     </div>
 
     <!-- Live Scanner CTA Banner -->
-    <section class="rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-gradient-to-r from-white to-[#f8f9fa] dark:from-[#0d0e12] dark:to-[#12141a] p-8 sm:p-12 text-center shadow-sm">
+    <section class="blog-cta-card rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-gradient-to-r from-white to-[#f8f9fa] dark:from-[#0d0e12] dark:to-[#12141a] p-8 sm:p-12 text-center shadow-sm">
       <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">{vT.tryLiveEngine}</span>
       <h2 class="text-2xl sm:text-3xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
         {vT.tryLiveEngineSubtitle}

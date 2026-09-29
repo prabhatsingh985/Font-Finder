@@ -130,7 +130,7 @@ export const en = {
       description: 'Identify any font instantly with the ultimate free font finder and font identifier. Perform a font search by image or search by text to match 1,935+ Google Fonts and commercial typefaces for free.'
     },
     hero: {
-      headlinePrefix: 'What font is that?',
+      headlinePrefix: 'Identify Any Font In Seconds',
       subtitle: 'Upload or paste any image to identify fonts instantly. Find the exact font match from pictures, logos, and screenshots — 100% free and private.'
     },
     dropzone: {
@@ -375,8 +375,8 @@ export const en = {
         description: 'Script fonts are the hardest to identify. Here is how to get a usable answer anyway.'
       },
       fontPairing: {
-                                                title: 'Find a font pairing',
-        description: 'Identify one font, then get the companions that work alongside it.'
+        title: 'Font Pairing Generator',
+        description: 'Find the best matching fonts for headings and body text from an image or curated list.'
       }
     },
     bottomBanner: {
@@ -492,11 +492,18 @@ export const en = {
 
     meta: {
       title: 'Font Pairing Tool — Free Google Font Combinations & Typography Harmonies',
-      description: 'Explore 31 designer-engineered combinations of Google Fonts. Test heading and body harmony live, adjust scale, and copy ready-to-use CSS rules.'
+      description: 'Upload an image to detect fonts and find matching Google Font combinations for headings and body text.'
     },
-    badge: 'TYPOGRAPHIC SYSTEM DESIGN',
-    title: 'Find a font pairing',
-    subtitle: 'Explore 31 designer-engineered combinations of Google Fonts. Test heading and body harmony live, adjust scale, and copy ready-to-use CSS rules.',
+    badge: 'FONT PAIRINGS',
+    title: 'Font Pairing Generator',
+    subtitle: 'Upload an image to find matching heading and body font pairings.',
+    dropzoneTitle: 'Upload an image to find font pairings',
+    dropzoneSubtitle: 'We’ll detect the font in your image and suggest matching fonts for your headings and body text.',
+    buttonText: 'Choose an image',
+    studioBadge: 'LIVE CANVAS & CURATED DIRECTORY',
+    studioHeading: 'Explore 31 Designer-Curated Font Pairings',
+    studioDesc: 'Test heading and body harmony live, adjust scale, and copy ready-to-use CSS rules.',
+    viewPairingsFor: 'View recommended pairings for {font}',
     filterAll: 'All Pairings',
     filterSaas: 'SaaS & Tech',
     filterEditorial: 'Editorial & Luxury',

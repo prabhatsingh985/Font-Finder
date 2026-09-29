@@ -132,7 +132,7 @@ export const fr: TranslationSchema = {
       "description": "Identifiez instantanément n'importe quelle police à partir d'images et de captures d'écran avec Font Finder. Obtenez des alternatives Google Fonts 100% gratuites et vérifiées."
     },
     "hero": {
-      "headlinePrefix": "Identifiez les polices en",
+      "headlinePrefix": "Identifiez n’importe quelle police en quelques secondes",
       "subtitle": "Téléversez ou collez une image pour identifier des polices instantanément. Trouvez la police exacte à partir de photos, logos et captures d'écran — 100% gratuit et privé."
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const fr: TranslationSchema = {
         description: 'Les polices calligraphiques sont complexes à identifier. Voici comment obtenir un résultat précis.'
       },
       fontPairing: {
-                                                    title: 'Trouver une association de polices',
-        description: 'Identifiez une police, puis découvrez les typographies complémentaires qui s\'accordent parfaitement avec elle.'
+        title: 'Générateur d\'Associations',
+        description: 'Trouvez les meilleures combinaisons de polices pour vos titres et paragraphes.'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const fr: TranslationSchema = {
 
     meta: {
       title: 'Outil d\'Association de Polices — Harmonies Typographiques Google Fonts',
-      description: 'Explorez 31 associations de Google Fonts composées par des designers. Testez l\'harmonie entre titres et corps de texte en direct, ajustez l\'échelle et copiez les règles CSS.'
+      description: 'Importez une image pour détecter des polices et trouver des associations Google Fonts idéales pour vos titres et textes.'
     },
-    badge: 'CONCEPTION DE SYSTÈMES TYPOGRAPHIQUES',
-    title: 'Trouver une association de polices',
-    subtitle: 'Explorez 31 associations de Google Fonts composées par des designers. Testez l\'harmonie entre titres et corps de texte en direct, ajustez l\'échelle et copiez les règles CSS.',
+    badge: 'ASSOCIATIONS DE POLICES',
+    title: 'Générateur d\'Associations de Polices',
+    subtitle: 'Importez une image pour trouver des polices assorties pour vos titres et textes.',
+    dropzoneTitle: 'Importez une image pour trouver des polices assorties',
+    dropzoneSubtitle: 'Nous identifions la police de votre image et vous suggérons les meilleures polices pour vos titres et textes.',
+    buttonText: 'Choisir une image',
+    studioBadge: 'CANVAS EN DIRECT ET RÉPERTOIRE',
+    studioHeading: 'Explorez 31 associations de polices sélectionnées par des designers',
+    studioDesc: 'Testez l’harmonie des titres et du corps en direct, ajustez la taille et copiez les règles CSS.',
+    viewPairingsFor: 'Voir les associations recommandées pour {font}',
     filterAll: 'Toutes les Associations',
     filterSaas: 'SaaS et Tech',
     filterEditorial: 'Éditorial et Luxe',

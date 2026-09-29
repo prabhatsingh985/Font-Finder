@@ -132,7 +132,7 @@ export const ja: TranslationSchema = {
       "description": "Font Finderで画像やスクリーンショットからあらゆるフォントを瞬時に特定。文字形状を解析し、検証済みの100%無料Googleフォント代替候補を提示します。"
     },
     "hero": {
-      "headlinePrefix": "フォントをすばやく特定",
+      "headlinePrefix": "あらゆるフォントを数秒で特定",
       "subtitle": "画像をアップロードまたは貼り付けて、フォントを瞬時に特定。写真、ロゴ、スクリーンショットから一致するフォントを検出 — 完全無料・プライバシー保護。"
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const ja: TranslationSchema = {
         description: 'スクリプト系フォントは判別が困難ですが、最適な候補を導き出します。'
       },
       fontPairing: {
-                                                    title: 'フォントペアリングを探す',
-        description: '1つのフォントを指定し、美しく調和する組み合わせフォントを取得します。'
+        title: 'フォントペアリングジェネレーター',
+        description: '見出しと本文に最適なフォントの組み合わせを見つけます。'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const ja: TranslationSchema = {
 
     meta: {
       title: 'フォントペアリングツール — 無料Googleフォントの美しい組み合わせ',
-      description: 'プロが厳選した31種類のGoogleフォント組み合わせを探索。見出しと本文の調和をライブで確認し、スケールを調整してCSSルールをコピーできます。'
+      description: '画像をアップロードしてフォントを特定し、見出しや本文に最適なGoogle Fontsの組み合わせを見つけます。'
     },
-    badge: 'タイポグラフィシステム設計',
-    title: 'フォントペアリングを探す',
-    subtitle: 'プロが厳選した31種類のGoogleフォント組み合わせを探索。見出しと本文の調和をライブで確認し、スケールを調整してCSSルールをコピーできます。',
+    badge: 'フォントペアリング',
+    title: 'フォントペアリングジェネレーター',
+    subtitle: '画像をアップロードして、見出しや本文に最適なフォントの組み合わせを見つけましょう。',
+    dropzoneTitle: '画像をアップロードして合うフォントを探す',
+    dropzoneSubtitle: '画像内のフォントを特定し、見出しや本文にぴったりの組み合わせを提案します。',
+    buttonText: '画像をアップロード',
+    studioBadge: 'ライブキャンバス＆ディレクトリ',
+    studioHeading: 'デザイナー監修の31種類のフォントペアリング',
+    studioDesc: '見出しと本文の調和をリアルタイムでプレビューし、CSSコードを即座にコピーできます。',
+    viewPairingsFor: '{font} のおすすめペアリングを見る',
     filterAll: 'すべてのペア',
     filterSaas: 'SaaS・テック',
     filterEditorial: 'エディトリアル・ラグジュアリー',

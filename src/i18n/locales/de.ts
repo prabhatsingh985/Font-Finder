@@ -132,7 +132,7 @@ export const de: TranslationSchema = {
       "description": "Erkennen Sie jede Schriftart aus Bildern und Screenshots im Handumdrehen mit Font Finder. Analysieren Sie Buchstabenformen und erhalten Sie 100% kostenlose, verifizierte Google-Fonts-Alternativen."
     },
     "hero": {
-      "headlinePrefix": "Schriftarten erkennen in",
+      "headlinePrefix": "Jede Schriftart in Sekundenschnelle erkennen",
       "subtitle": "Laden Sie ein Bild hoch oder fügen Sie es ein, um Schriftarten sofort zu erkennen. Finden Sie die exakte Schrift aus Bildern, Logos und Screenshots — 100% kostenlos und privat."
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const de: TranslationSchema = {
         description: 'Schreibschriften sind oft knifflig zu identifizieren. So erhalten Sie trotzdem präzise Ergebnisse.'
       },
       fontPairing: {
-                                                    title: 'Passende Schriftkombination finden',
-        description: 'Bestimmen Sie eine Schriftart und entdecken Sie harmonisch abgestimmte Begleitschriften.'
+        title: 'Schriftkombinations-Generator',
+        description: 'Finden Sie die besten Schriftkombinationen für Überschriften und Fließtexte.'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const de: TranslationSchema = {
 
     meta: {
       title: 'Schriftkombinations-Tool — Harmonische Google-Fonts-Kombinationen',
-      description: 'Entdecken Sie 31 von Designern erstellte Kombinationen aus Google Fonts. Prüfen Sie das Zusammenspiel von Titel und Fließtext live und kopieren Sie fertige CSS-Regeln.'
+      description: 'Laden Sie ein Bild hoch, um Schriften zu erkennen und passende Google-Fonts-Kombinationen für Überschriften und Texte zu finden.'
     },
-    badge: 'TYPOGRAFISCHES SYSTEMDESIGN',
-    title: 'Passende Schriftkombination finden',
-    subtitle: 'Entdecken Sie 31 von Designern erstellte Kombinationen aus Google Fonts. Prüfen Sie das Zusammenspiel von Titel und Fließtext live und kopieren Sie fertige CSS-Regeln.',
+    badge: 'SCHRIFTKOMBINATIONEN',
+    title: 'Schriftkombinations-Generator',
+    subtitle: 'Laden Sie ein Bild hoch, um passende Schriftkombinationen für Titel und Texte zu finden.',
+    dropzoneTitle: 'Bild hochladen, um passende Schriften zu finden',
+    dropzoneSubtitle: 'Wir erkennen die Schriftart im Bild und empfehlen passende Schriften für Überschriften und Texte.',
+    buttonText: 'Bild auswählen',
+    studioBadge: 'LIVE-STUDIO & SCHRIFTKATALOG',
+    studioHeading: '31 von Designern kuratierte Schriftkombinationen entdecken',
+    studioDesc: 'Überschriften und Fließtext live testen, Größen anpassen und fertige CSS-Regeln kopieren.',
+    viewPairingsFor: 'Empfohlene Kombinationen für {font} anzeigen',
     filterAll: 'Alle Kombinationen',
     filterSaas: 'SaaS & Tech',
     filterEditorial: 'Editorial & Luxus',

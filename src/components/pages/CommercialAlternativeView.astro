@@ -14,7 +14,6 @@ const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const cT = t.commercialAlternative;
 const vT = getViewTranslations(lang).commercial;
-const toolsHref = getLocalizedPath('/tools', currentLocale);
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 
 // Curated High-Intent Commercial to Free Google Font Equivalents Database
@@ -320,13 +319,6 @@ const faqs = [
   <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-20 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a]">
     <div class="max-w-[1200px] mx-auto text-center">
       
-      <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#161718] border border-[#23252a]">
-        <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
-        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
-        <span class="text-xs text-[#383b3f]">/</span>
-        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">{cT.breadcrumb}</span>
-      </div>
 
       <!-- Hero Header -->
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-[510] text-[#ffffff] tracking-tight max-w-3xl mx-auto leading-tight">
@@ -435,7 +427,7 @@ const faqs = [
             </p>
 
             <!-- Free Stand-In Highlight Box -->
-            <div class="p-4 sm:p-5 rounded-xl bg-[#f8f9fa] dark:bg-[#14161a] border border-[#e2e4e8] dark:border-[#26282e] space-y-3">
+            <div class="font-twin-standin-box p-4 sm:p-5 rounded-xl bg-[#f8f9fa] dark:bg-[#14161a] border border-[#e2e4e8] dark:border-[#26282e] space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-[11px] font-mono uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold">
                   {vT.recommendedStandIn}
@@ -523,7 +515,7 @@ const faqs = [
 
       <div class="space-y-4">
         {vT.faqs.map((faq) => (
-          <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-2">
+          <div class="commercial-faq-card p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-2">
             <h3 class="text-base sm:text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">
               {faq.q}
             </h3>

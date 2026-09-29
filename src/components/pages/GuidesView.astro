@@ -42,7 +42,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     </div>
 
     <!-- CORNERSTONE RESEARCH ARTICLES ROW (HIGH INTENT SEARCH FUNNEL) -->
-    <div class="mb-14 p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm">
+    <div class="guides-featured-container mb-14 p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm">
       <div class="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-[#f1f3f6] dark:border-[#1a1b1e]">
         <div>
           <span class="font-mono text-[10px] uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-1">
@@ -61,7 +61,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
         {articles.map((article) => (
           <a
             href={p(`/blog/${article.slug}`)}
-            class="p-4 rounded-xl border border-[#e2e4e8] dark:border-[#202227] bg-[#f8f9fa] dark:bg-[#14161a] hover:border-[#ff4d00] dark:hover:border-[#e4f222] transition-all flex flex-col justify-between group"
+            class="guides-article-card p-4 rounded-xl border border-[#e2e4e8] dark:border-[#202227] bg-[#f8f9fa] dark:bg-[#14161a] hover:border-[#ff4d00] dark:hover:border-[#e4f222] transition-all flex flex-col justify-between group"
           >
             <div>
               <span class="text-[10px] font-mono text-[#64748b] dark:text-[#8a8f98] block mb-1.5">
@@ -83,7 +83,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     <!-- Guides Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
       {gT.items.map((item, idx) => (
-        <article class="flex flex-col justify-between rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-7 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-all group">
+        <article class="guide-grid-card flex flex-col justify-between rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-7 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-all group">
           <div>
             <!-- Top Badges -->
             <div class="flex items-center justify-between gap-3 mb-4">
@@ -137,7 +137,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     </div>
 
     <!-- FAQ Section -->
-    <section class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-9 mb-14 shadow-sm">
+    <section class="guide-faq-card rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-9 mb-14 shadow-sm">
       <!-- Schema.org JSON-LD FAQPage Schema for Search Engine Rich Snippets -->
       <script type="application/ld+json" set:html={JSON.stringify({
         "@context": "https://schema.org",
@@ -176,7 +176,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
     </section>
 
     <!-- Bottom Action Banner -->
-    <div class="rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0c0d0e] p-8 text-center sm:flex sm:items-center sm:justify-between sm:text-left">
+    <div class="guide-cta-card rounded-[14px] border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0c0d0e] p-8 text-center sm:flex sm:items-center sm:justify-between sm:text-left">
       <div>
         <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em]">
           {t.common.buttons.identifyNow}

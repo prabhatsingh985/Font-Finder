@@ -132,7 +132,7 @@ export const es: TranslationSchema = {
       "description": "Identifica cualquier fuente a partir de imágenes y capturas de pantalla al instante con Font Finder. Analiza las formas de las letras y obtén alternativas gratuitas y verificadas."
     },
     "hero": {
-      "headlinePrefix": "Identifica fuentes en",
+      "headlinePrefix": "Identifica cualquier fuente en segundos",
       "subtitle": "Sube o pega cualquier imagen para identificar fuentes al instante. Encuentra la fuente exacta a partir de fotos, logotipos y capturas — 100% gratis y privado."
     },
     "dropzone": {
@@ -377,8 +377,8 @@ export const es: TranslationSchema = {
         description: 'Las fuentes caligráficas son complejas de identificar. Te mostramos cómo obtener resultados precisos.'
       },
       fontPairing: {
-                                                    title: 'Encuentra una combinación de fuentes',
-        description: 'Identifica una tipografía y descubre las fuentes complementarias que funcionan en armonía.'
+        title: 'Generador de Combinaciones',
+        description: 'Encuentra las mejores combinaciones de fuentes para títulos y texto.'
       }
     },
     bottomBanner: {
@@ -494,11 +494,18 @@ export const es: TranslationSchema = {
 
     meta: {
       title: 'Herramienta de Combinación de Fuentes — Armonías Tipográficas en Google Fonts',
-      description: 'Explora 31 combinaciones de Google Fonts diseñadas por profesionales. Prueba la armonía entre títulos y texto en vivo, ajusta escalas y copia reglas CSS listas para usar.'
+      description: 'Sube una imagen para detectar fuentes y encontrar combinaciones de Google Fonts ideales para títulos y texto.'
     },
-    badge: 'DISEÑO DE SISTEMAS TIPOGRÁFICOS',
-    title: 'Encuentra una combinación de fuentes',
-    subtitle: 'Explora 31 combinaciones de Google Fonts diseñadas por profesionales. Prueba la armonía entre títulos y texto en vivo, ajusta escalas y copia reglas CSS listas para usar.',
+    badge: 'COMBINACIONES DE FUENTES',
+    title: 'Generador de Combinación de Fuentes',
+    subtitle: 'Sube una imagen para encontrar combinaciones tipográficas ideales para títulos y texto.',
+    dropzoneTitle: 'Sube una imagen para encontrar fuentes que combinen',
+    dropzoneSubtitle: 'Identificamos la fuente de tu imagen y te sugerimos combinaciones ideales para títulos y texto.',
+    buttonText: 'Subir imagen',
+    studioBadge: 'LIENZO EN VIVO Y DIRECTORIO',
+    studioHeading: 'Explora 31 combinaciones de fuentes curadas por diseñadores',
+    studioDesc: 'Prueba la armonía entre títulos y texto en vivo, ajusta escalas y copia reglas CSS listas para usar.',
+    viewPairingsFor: 'Ver combinaciones recomendadas para {font}',
     filterAll: 'Todas las Combinaciones',
     filterSaas: 'SaaS y Tecnología',
     filterEditorial: 'Editorial y Lujo',
