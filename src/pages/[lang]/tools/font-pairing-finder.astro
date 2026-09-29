@@ -1,6 +1,5 @@
 ---
 import { NON_DEFAULT_LOCALES } from '../../../i18n/languages';
-import FontPairingView from '../../../components/pages/FontPairingView.astro';
 
 export function getStaticPaths() {
   return NON_DEFAULT_LOCALES.map((lang) => ({
@@ -9,5 +8,5 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+return Astro.redirect(`/${lang}/tools/font-pairing`, 301);
 ---
-<FontPairingView lang={lang} />

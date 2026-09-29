@@ -1,6 +1,3 @@
 ---
-import FontPairingView from '../../components/pages/FontPairingView.astro';
-
-const lang = (Astro.currentLocale as string) || 'en';
+return Astro.redirect('/tools/font-pairing', 301);
 ---
-<FontPairingView lang={lang} />

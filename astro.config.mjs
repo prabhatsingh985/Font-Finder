@@ -15,6 +15,10 @@ export default defineConfig({
   },
   redirects: {
     '/tools/commercial-alternative': '/tools/free-font-alternative-finder',
-    '/free-font-alternative-finder': '/tools/free-font-alternative-finder'
+    '/free-font-alternative-finder': '/tools/free-font-alternative-finder',
+    '/logo-font-identifier': '/tools/logo-font-finder',
+    '/tools/logo-font-identifier': '/tools/logo-font-finder',
+    '/pdf-font-detector': '/tools/pdf-font-detector',
+    '/tools/font-pairing-finder': '/tools/font-pairing'
   }
 });

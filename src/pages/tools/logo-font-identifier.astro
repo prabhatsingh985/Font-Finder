@@ -1,6 +1,3 @@
 ---
-import LogoFontFinderView from '../../components/pages/LogoFontFinderView.astro';
-
-const lang = (Astro.currentLocale as string) || 'en';
+return Astro.redirect('/tools/logo-font-finder', 301);
 ---
-<LogoFontFinderView lang={lang} />
