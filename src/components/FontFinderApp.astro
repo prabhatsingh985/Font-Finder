@@ -183,14 +183,14 @@ const i18nJson = JSON.stringify(appT);
           type="button"
           class="btn-ghost-linear font-mono text-[12px] px-3 py-1.5"
         >
-          Crop manually
+          {appT.cropManually}
         </button>
         <button
           id="btn-new-image-top"
           type="button"
           class="btn-ghost-linear font-mono text-[12px] px-3 py-1.5"
         >
-          New Image
+          {appT.newImage}
         </button>
       </div>
     </div>
@@ -271,7 +271,7 @@ const i18nJson = JSON.stringify(appT);
     </div>
 
     <!-- Action Bar: [ Identify this font ] [ Crop manually ] [ New image ] -->
-    <div class="pt-4 border-t border-[#23252a] flex flex-wrap items-center gap-3">
+    <div class="pt-4 border-t border-[#23252a] flex flex-wrap items-center justify-center gap-3">
       <button
         id="btn-identify-font"
         type="button"
@@ -288,7 +288,7 @@ const i18nJson = JSON.stringify(appT);
         type="button"
         class="btn-ghost-linear text-[13px] px-5 py-3 rounded-[6px]"
       >
-        Crop manually
+        {appT.cropManually}
       </button>
 
       <button
@@ -296,7 +296,7 @@ const i18nJson = JSON.stringify(appT);
         type="button"
         class="btn-ghost-linear text-[13px] px-5 py-3 rounded-[6px]"
       >
-        New image
+        {appT.newImage}
       </button>
     </div>
 
@@ -426,7 +426,7 @@ const i18nJson = JSON.stringify(appT);
             type="button"
             class="btn-ghost-linear text-[12px] px-3.5 py-1.5 rounded-[6px]"
           >
-            Scan Another
+            {appT.scanAnother}
           </button>
         </div>
       </div>
@@ -1600,11 +1600,22 @@ const i18nJson = JSON.stringify(appT);
       if (advancedInspectionPanel) advancedInspectionPanel.classList.add('hidden');
       if (advancedInspectionCaret) advancedInspectionCaret.textContent = '►';
       if (stage2SentencePreviewImg) stage2SentencePreviewImg.src = '';
+      if (stage2PreviewBadge) {
+        stage2PreviewBadge.textContent = '';
+        stage2PreviewBadge.className = 'hidden';
+      }
       fileInput.value = '';
       if (uploadError) {
         uploadError.classList.add('hidden');
         uploadError.textContent = '';
       }
+      const selectedWordInput = document.getElementById('selected-word-text-input');
+      if (selectedWordInput) selectedWordInput.value = '';
+      if (previewTextInput) previewTextInput.value = '';
+      if (specimenInput) specimenInput.value = '';
+      if (compareTextInput) compareTextInput.value = '';
+      if (dropzone) dropzone.classList.remove('border-[#e4f222]', 'dragover-active');
+
       uploadStage.classList.remove('hidden');
       if (textLoadingStage) textLoadingStage.classList.add('hidden');
       organizeStage.classList.add('hidden');
@@ -1615,12 +1626,28 @@ const i18nJson = JSON.stringify(appT);
       if (sentenceBar) sentenceBar.classList.add('hidden');
       const chipsContainer = document.getElementById('results-sentence-chips');
       if (chipsContainer) chipsContainer.innerHTML = '';
+      const bestMatchCard = document.getElementById('best-match-card');
+      if (bestMatchCard) bestMatchCard.classList.remove('animate-best-match-slide-down');
+
       if (btnIdentifyFont) {
         const btnSpan = btnIdentifyFont.querySelector('span');
         if (btnSpan) btnSpan.textContent = i18n.identifyFont || 'Identify font';
         btnIdentifyFont.disabled = false;
         btnIdentifyFont.classList.remove('opacity-70', 'cursor-not-allowed');
       }
+
+      // Smoothly scroll back to the Dropzone / Font Finder so the user can immediately upload again
+      requestAnimationFrame(() => {
+        const finderEl = document.getElementById('finder') || uploadStage || dropzone;
+        if (finderEl) {
+          const navHeight = 76;
+          const rect = finderEl.getBoundingClientRect();
+          const targetY = Math.max(0, rect.top + window.pageYOffset - navHeight);
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
     }
 
     // ==========================================
@@ -2266,6 +2293,16 @@ const i18nJson = JSON.stringify(appT);
         }
         if (textLoadingStage) textLoadingStage.classList.add('hidden');
         organizeStage.classList.remove('hidden');
+
+        // Smoothly position Stage 2 in full view so user sees the verification card and action buttons
+        requestAnimationFrame(() => {
+          if (organizeStage) {
+            const navHeight = 76;
+            const rect = organizeStage.getBoundingClientRect();
+            const targetY = Math.max(0, rect.top + window.pageYOffset - (navHeight + 16));
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        });
 
       }
     }
@@ -4691,14 +4728,14 @@ const i18nJson = JSON.stringify(appT);
                 rel="noopener noreferrer"
                 class="btn-ghost-linear text-[12px] px-3.5 py-1.5 rounded-[6px]"
               >
-                View on Google Fonts
+                ${i18n.viewOnGoogleFonts || 'View on Google Fonts'}
               </a>
 
               <button
                 type="button"
                 class="btn-copy-card-css btn-ghost-linear text-[12px] px-3.5 py-1.5 rounded-[6px] cursor-pointer"
               >
-                Copy CSS
+                ${i18n.copyCss || 'Copy CSS'}
               </button>
             </div>
           `;
