@@ -13,42 +13,540 @@ const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const lT = t.logoFontFinder;
 const toolsHref = getLocalizedPath('/tools', currentLocale);
+const p = (path: string) => getLocalizedPath(path, currentLocale);
+
+// Famous Brand Logos Typography Database
+const brandLogos = [
+  {
+    id: 'nike',
+    brand: 'Nike',
+    industry: 'Apparel & Sports',
+    industrySlug: 'apparel',
+    officialFont: 'Futura Bold Extra Condensed (Oblique)',
+    foundry: 'Bauer / Monotype',
+    sampleText: 'JUST DO IT',
+    notes: 'The iconic Nike wordmark and "Just Do It" campaign use a customized, tightly kerned heavyweight italic cut of Futura Condensed.',
+    freeName: 'Oswald',
+    freeDesigner: 'Vernon Adams',
+    freeSlug: 'oswald',
+    similarity: '97%',
+    reason: 'Athletic uppercase vertical rhythm, punchy condensed monoline stems, and near-identical letter proportions.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');\nfont-family: 'Oswald', sans-serif;\nfont-weight: 700;\nfont-style: italic;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Oswald'
+  },
+  {
+    id: 'supreme',
+    brand: 'Supreme',
+    industry: 'Fashion & Streetwear',
+    industrySlug: 'fashion',
+    officialFont: 'Futura Bold Oblique',
+    foundry: 'Bauer / Neufville Digital',
+    sampleText: 'Supreme',
+    notes: 'Inspired by Barbara Kruger’s conceptual artwork, the Supreme box logo uses heavy slanted Futura Bold in white against a solid red rectangle.',
+    freeName: 'Poppins',
+    freeDesigner: 'Indian Type Foundry',
+    freeSlug: 'poppins',
+    similarity: '96%',
+    reason: 'Pure geometric circular letterforms with sharp clean diagonals; matches Futura’s stroke weight when slanted.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,800&display=swap');\nfont-family: 'Poppins', sans-serif;\nfont-weight: 800;\nfont-style: italic;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Poppins'
+  },
+  {
+    id: 'spotify',
+    brand: 'Spotify',
+    industry: 'Tech & Web',
+    industrySlug: 'tech',
+    officialFont: 'Circular Std Black',
+    foundry: 'Lineto',
+    sampleText: 'Spotify',
+    notes: 'Designed by Laurent Benner at Lineto, Circular gives Spotify a friendly geometric grotesque voice with warm curved terminals.',
+    freeName: 'Plus Jakarta Sans',
+    freeDesigner: 'Tokotype',
+    freeSlug: 'plus-jakarta-sans',
+    similarity: '97%',
+    reason: 'Modern geometric neo-grotesque with identical circular loops, matching lowercase t terminal cut, and clean screen legibility.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');\nfont-family: 'Plus Jakarta Sans', sans-serif;\nfont-weight: 800;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Plus+Jakarta+Sans'
+  },
+  {
+    id: 'netflix',
+    brand: 'Netflix',
+    industry: 'Media & Entertainment',
+    industrySlug: 'media',
+    officialFont: 'Netflix Sans (Custom) / Bebas roots',
+    foundry: 'Dalton Maag (Bespoke)',
+    sampleText: 'NETFLIX',
+    notes: 'Developed by Dalton Maag to replace Gotham, Netflix Sans features arched cinematic stems and towering condensed letterforms.',
+    freeName: 'Bebas Neue',
+    freeDesigner: 'Ryoichi Tsunekawa',
+    freeSlug: 'bebas-neue',
+    similarity: '96%',
+    reason: 'Clean rectangular all-caps condensed display with towering vertical stance and authoritative cinematic presence.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\nfont-family: 'Bebas Neue', sans-serif;\nletter-spacing: 0.05em;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Bebas+Neue'
+  },
+  {
+    id: 'apple',
+    brand: 'Apple',
+    industry: 'Tech & Web',
+    industrySlug: 'tech',
+    officialFont: 'SF Pro Display (Apple System)',
+    foundry: 'Apple Inc. (In-House)',
+    sampleText: 'Apple',
+    notes: 'Apple replaced Myriad Pro with SF Pro Display across all marketing, hardware engraving, and operating systems.',
+    freeName: 'Inter',
+    freeDesigner: 'Rasmus Andersson',
+    freeSlug: 'inter',
+    similarity: '98%',
+    reason: 'Direct open-source equivalent matching Apple’s tall x-height, neutral apertures, and dynamic optical spacing.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');\nfont-family: 'Inter', -apple-system, sans-serif;\nfont-weight: 600;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Inter'
+  },
+  {
+    id: 'google',
+    brand: 'Google',
+    industry: 'Tech & Web',
+    industrySlug: 'tech',
+    officialFont: 'Product Sans (Google Bespoke)',
+    foundry: 'Google Design (In-House)',
+    sampleText: 'Google',
+    notes: 'Unveiled in 2015 to replace the old serif Catull wordmark, giving Google a friendly, geometric kindergarten clarity.',
+    freeName: 'Poppins',
+    freeDesigner: 'Indian Type Foundry',
+    freeSlug: 'poppins',
+    similarity: '96%',
+    reason: 'Pure circular geometry, perfectly rounded lowercase e, clean circular o, and friendly monoline warmth.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');\nfont-family: 'Poppins', sans-serif;\nfont-weight: 600;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Poppins'
+  },
+  {
+    id: 'tesla',
+    brand: 'Tesla',
+    industry: 'Automotive & Tech',
+    industrySlug: 'automotive',
+    officialFont: 'TESLA Custom Futuristic Display',
+    foundry: 'RO-Studio (Custom)',
+    sampleText: 'TESLA',
+    notes: 'A bespoke geometric stencil typeface featuring razor-sharp crossbar cuts designed to resemble an electric motor rotor cross-section.',
+    freeName: 'Orbitron',
+    freeDesigner: 'Matt McInerney',
+    freeSlug: 'orbitron',
+    similarity: '94%',
+    reason: 'Geometric futuristic display font with wide stance, horizontal cuts, and electronic sci-fi aesthetic.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');\nfont-family: 'Orbitron', sans-serif;\nletter-spacing: 0.15em;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Orbitron'
+  },
+  {
+    id: 'zara',
+    brand: 'Zara',
+    industry: 'Fashion & Streetwear',
+    industrySlug: 'fashion',
+    officialFont: 'Didot (Overlapped Kerning)',
+    foundry: 'Baron & Baron (Customization)',
+    sampleText: 'ZARA',
+    notes: 'Designed by Fabien Baron, Zara’s controversial redesign interlocks classical Didot serifs in an ultra-tight editorial lockup.',
+    freeName: 'Playfair Display',
+    freeDesigner: 'Claus Eggers Sørensen',
+    freeSlug: 'playfair-display',
+    similarity: '96%',
+    reason: 'High-contrast editorial serif with delicate hairline serifs and dramatic vertical thicks.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&display=swap');\nfont-family: 'Playfair Display', serif;\nletter-spacing: -0.06em;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Playfair+Display'
+  },
+  {
+    id: 'vogue',
+    brand: 'Vogue',
+    industry: 'Media & Entertainment',
+    industrySlug: 'media',
+    officialFont: 'Didot Headline',
+    foundry: 'Linotype',
+    sampleText: 'VOGUE',
+    notes: 'The gold standard of luxury editorial typography since 1932, featuring extreme vertical contrast and unbracketed razor serifs.',
+    freeName: 'Bodoni Moda',
+    freeDesigner: 'Owen Earl',
+    freeSlug: 'bodoni-moda',
+    similarity: '97%',
+    reason: 'Didone aesthetic with razor-thin horizontal serifs and monumental vertical stroke contrast.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@700;900&display=swap');\nfont-family: 'Bodoni Moda', serif;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Bodoni+Moda'
+  },
+  {
+    id: 'airbnb',
+    brand: 'Airbnb',
+    industry: 'Tech & Web',
+    industrySlug: 'tech',
+    officialFont: 'Airbnb Cereal',
+    foundry: 'Dalton Maag',
+    sampleText: 'airbnb',
+    notes: 'Developed by Dalton Maag for Airbnb, balancing friendly geometric curves with strict digital readability across international markets.',
+    freeName: 'Plus Jakarta Sans',
+    freeDesigner: 'Tokotype',
+    freeSlug: 'plus-jakarta-sans',
+    similarity: '97%',
+    reason: 'Near-identical geometric grotesque stems, high x-height, and circular lowercase counters.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&display=swap');\nfont-family: 'Plus Jakarta Sans', sans-serif;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Plus+Jakarta+Sans'
+  },
+  {
+    id: 'nasa',
+    brand: 'NASA (Worm)',
+    industry: 'Tech & Web',
+    industrySlug: 'tech',
+    officialFont: 'NASA Worm Logotype',
+    foundry: 'Danne & Blackburn (1975)',
+    sampleText: 'NASA',
+    notes: 'Created by Danne & Blackburn as part of the 1975 NASA Graphics Standards Manual, composed of continuous red stroke curves without crossbars.',
+    freeName: 'Montserrat',
+    freeDesigner: 'Julieta Ulanovsky',
+    freeSlug: 'montserrat',
+    similarity: '92%',
+    reason: 'Bold geometric uppercase stems; pairing with minimalist curved styling mimics NASA’s retro-futurist aesthetic.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');\nfont-family: 'Montserrat', sans-serif;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Montserrat'
+  },
+  {
+    id: 'marvel',
+    brand: 'Marvel Studios',
+    industry: 'Media & Entertainment',
+    industrySlug: 'media',
+    officialFont: 'Bebas Neue / Impact roots',
+    foundry: 'Marvel In-House',
+    sampleText: 'MARVEL',
+    notes: 'Dense heavyweight all-caps block typography set tightly in white on a red banner with commanding comic book punch.',
+    freeName: 'Bebas Neue',
+    freeDesigner: 'Ryoichi Tsunekawa',
+    freeSlug: 'bebas-neue',
+    similarity: '98%',
+    reason: 'All-caps condensed display with identical compact letter spacing and towering vertical impact.',
+    css: "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\nfont-family: 'Bebas Neue', sans-serif;\nletter-spacing: 0.02em;",
+    googleFontUrl: 'https://fonts.google.com/specimen/Bebas+Neue'
+  }
+];
+
+const faqs = [
+  {
+    q: 'How do I identify a font from a logo image?',
+    a: 'Upload the logo image into ProFontFinder, drag the crop box to isolate the wordmark text, and our in-browser AI engine will analyze letter contours and rank the closest commercial fonts and free Google Font alternatives in seconds.'
+  },
+  {
+    q: 'Can I legally use famous brand logo fonts in my own projects?',
+    a: 'You cannot copy a registered brand logo or trademark. However, you CAN legally license the underlying commercial typeface, or use our recommended 100% free Google Font stand-ins (like Inter, Oswald, or Poppins) for your own original branding.'
+  },
+  {
+    q: 'What font does the Nike logo use?',
+    a: 'The Nike wordmark and "Just Do It" slogan use a heavily customized, slanted version of Futura Bold Extra Condensed. The closest free Google Font equivalent is Oswald (700 Italic).'
+  },
+  {
+    q: 'What font is used in the Netflix logo?',
+    a: 'Netflix uses a custom bespoke typeface called Netflix Sans, which evolved from Gotham and Bebas Neue roots. The closest free Google Font is Bebas Neue.'
+  }
+];
 ---
 
 <BaseLayout
-  title={lT.meta.title}
-  description={lT.meta.description}
+  title="Identify the Font in a Logo — Brand Typeface & Free Alternative Directory | ProFontFinder"
+  description="Upload any logo or browse our directory to discover what font Nike, Netflix, Spotify, or Apple use, and find 100% free Google Font equivalents."
   lang={lang}
 >
-  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a] min-h-[calc(100vh-140px)]">
+  <!-- Schema.org JSON-LD FAQPage Schema for Search Engine Rich Snippets -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  })} />
+
+  <!-- Hero Section -->
+  <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-20 px-4 sm:px-6 bg-[#08090a] bg-grid-pattern-subtle border-b border-[#23252a]">
     <div class="max-w-[1200px] mx-auto text-center">
       
       <!-- Breadcrumb & Badge -->
-      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-[#0f1011] border border-[#23252a]">
+      <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#161718] border border-[#23252a]">
         <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
-        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#ffffff] transition-colors">{t.common.nav.tools}</a>
+        <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
         <span class="text-xs text-[#383b3f]">/</span>
-        <span class="text-xs font-mono text-[#e4f222] uppercase tracking-wider">{lT.breadcrumb}</span>
+        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">LOGO FONT IDENTIFIER</span>
       </div>
 
       <!-- Hero Header -->
-      <h1 class="text-3xl sm:text-5xl font-medium text-[#ffffff] tracking-tight max-w-2xl mx-auto" style="letter-spacing: -0.022em;">
-        {lT.title}
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-[510] text-[#ffffff] tracking-tight max-w-3xl mx-auto leading-tight">
+        Identify the Font in a <br class="hidden sm:inline" />
+        <span class="text-[#e4f222]">Brand Logo</span>
       </h1>
-      <p class="mt-3 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto">
-        {lT.subtitle}
+      <p class="mt-4 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
+        Upload any brand logo image to identify its typeface, or explore our curated directory of famous brand fonts below.
       </p>
 
-      <!-- Upload Any Logo Image UI -->
+      <!-- Upload Sample Image UI -->
       <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
         <FontFinderApp
           lang={lang}
-          dropzoneTitle={lT.dropzoneTitle}
-          dropzoneSubtitle={lT.dropzoneSubtitle}
-          buttonText={lT.buttonText}
+          dropzoneTitle="Drop brand logo or wordmark image here"
+          dropzoneSubtitle="Supports PNG, JPG, WebP logos with transparent or solid backgrounds"
+          buttonText="Select Logo File"
         />
       </div>
 
     </div>
   </section>
+
+  <!-- FAMOUS BRAND LOGO DIRECTORY -->
+  <section id="directory" class="py-16 sm:py-24 max-w-[1200px] mx-auto px-4 sm:px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-[#e2e4e8] dark:border-[#23252a]">
+      <div>
+        <div class="inline-flex items-center gap-2 mb-2">
+          <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] font-semibold">
+            FAMOUS BRAND TYPOGRAPHY DIRECTORY
+          </span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
+          What Font Does That Logo Use?
+        </h2>
+        <p class="mt-2 text-sm text-[#475569] dark:text-[#8a8f98] max-w-xl">
+          Explore iconic brand typefaces with free open-source equivalents you can use in your own branding projects.
+        </p>
+      </div>
+
+      <!-- Live Search Input -->
+      <div class="w-full md:w-72">
+        <div class="relative">
+          <input
+            type="text"
+            id="brand-search-input"
+            placeholder="Search brand (e.g. Nike, Spotify)..."
+            class="w-full px-3.5 py-2 pl-9 rounded-[8px] bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-xs text-[#08090a] dark:text-[#ffffff] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222]"
+          />
+          <svg class="w-4 h-4 absolute left-3 top-2.5 text-[#64748b] dark:text-[#8a8f98]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-8">
+      <button type="button" data-brand-filter="all" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-[#08090a] text-white dark:bg-white dark:text-[#08090a]">
+        All Brands ({brandLogos.length})
+      </button>
+      <button type="button" data-brand-filter="tech" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
+        Tech & Web
+      </button>
+      <button type="button" data-brand-filter="apparel" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
+        Apparel & Sports
+      </button>
+      <button type="button" data-brand-filter="media" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
+        Media & Entertainment
+      </button>
+      <button type="button" data-brand-filter="fashion" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
+        Fashion & Streetwear
+      </button>
+      <button type="button" data-brand-filter="automotive" class="brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
+        Automotive
+      </button>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="brand-cards-container">
+      {brandLogos.map((item) => (
+        <article
+          class="brand-logo-card flex flex-col justify-between rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-all space-y-5"
+          data-brand={item.brand.toLowerCase()}
+          data-font={item.officialFont.toLowerCase()}
+          data-free={item.freeName.toLowerCase()}
+          data-industry={item.industrySlug}
+        >
+          <div class="space-y-4">
+            <!-- Brand Header -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#e2e4e8] dark:border-[#23252a]">
+              <div>
+                <h3 class="font-[510] text-xl text-[#08090a] dark:text-[#ffffff]">
+                  {item.brand}
+                </h3>
+                <span class="text-xs font-mono text-[#64748b] dark:text-[#8a8f98]">
+                  {item.industry}
+                </span>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-xs font-mono text-[#475569] dark:text-[#8a8f98]">
+                {item.foundry}
+              </span>
+            </div>
+
+            <!-- Official Font Used -->
+            <div class="space-y-1">
+              <span class="text-[11px] font-mono text-[#64748b] dark:text-[#8a8f98] uppercase">Official Brand Font:</span>
+              <div class="text-sm font-semibold text-[#08090a] dark:text-[#ffffff]">
+                {item.officialFont}
+              </div>
+              <p class="text-xs text-[#475569] dark:text-[#8a8f98] leading-relaxed pt-1">
+                {item.notes}
+              </p>
+            </div>
+
+            <!-- Free Stand-In Highlight Box -->
+            <div class="p-4 sm:p-5 rounded-xl bg-[#f8f9fa] dark:bg-[#14161a] border border-[#e2e4e8] dark:border-[#26282e] space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-mono uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold">
+                  CLOSEST FREE GOOGLE FONT
+                </span>
+                <span class="font-mono text-xs font-bold text-[#16a34a] dark:text-[#10b981]">
+                  {item.similarity} Match
+                </span>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h4 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">
+                    {item.freeName}
+                  </h4>
+                  <span class="text-xs font-mono text-[#64748b] dark:text-[#8a8f98]">
+                    by {item.freeDesigner}
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-2 shrink-0">
+                  <a
+                    href={item.googleFontUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="px-3 py-1.5 rounded-full bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] text-xs font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    Get Free Font ↗
+                  </a>
+                  <a
+                    href={p(`/fonts/${item.freeSlug}`)}
+                    class="px-3 py-1.5 rounded-full bg-white dark:bg-[#1c1e24] border border-[#e2e4e8] dark:border-[#2a2d36] text-xs font-medium text-[#08090a] dark:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-colors"
+                  >
+                    Specimen →
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-[11.5px] text-[#475569] dark:text-[#8a8f98] leading-relaxed pt-1">
+                {item.reason}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Code Snippet Blueprint -->
+          <div class="pt-3 border-t border-[#f1f3f6] dark:border-[#1a1b1e] flex items-center justify-between text-xs font-mono">
+            <span class="text-[#64748b] dark:text-[#8a8f98] truncate max-w-[240px]">
+              {item.css.split('\n')[1]}
+            </span>
+            <button
+              type="button"
+              data-css={item.css}
+              class="btn-copy-brand-css text-[#ff4d00] dark:text-[#e4f222] hover:underline font-semibold cursor-pointer shrink-0 ml-2"
+            >
+              Copy CSS
+            </button>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Empty State -->
+    <div id="no-brand-results-box" class="hidden py-16 text-center text-[#64748b] dark:text-[#8a8f98]">
+      <p class="text-sm font-mono">No matching brand logos found. Try another search like 'Nike' or 'Spotify'.</p>
+    </div>
+  </section>
+
+  <!-- LOGO TYPOGRAPHY GUIDE & FAQ -->
+  <section class="py-16 sm:py-20 border-t border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0c0d10] transition-colors">
+    <div class="max-w-[900px] mx-auto px-4 sm:px-6 space-y-12">
+      <div class="text-center">
+        <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="text-2xl sm:text-3xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
+          Brand Logo Font Identification Guide
+        </h2>
+        <p class="mt-2 text-sm text-[#475569] dark:text-[#8a8f98]">
+          Learn how to identify fonts in logos, customize letterforms, and find free equivalents for brand identities.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-2">
+            <h3 class="text-base sm:text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">
+              {faq.q}
+            </h3>
+            <p class="text-xs sm:text-sm text-[#475569] dark:text-[#8a8f98] leading-relaxed">
+              {faq.a}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Client-side Interactive Filter Script -->
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('brand-search-input');
+      const cards = document.querySelectorAll('.brand-logo-card');
+      const filterBtns = document.querySelectorAll('.brand-filter-btn');
+      const noResults = document.getElementById('no-brand-results-box');
+      let currentFilter = 'all';
+
+      function filterCards() {
+        const query = (searchInput?.value || '').trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const brand = card.getAttribute('data-brand') || '';
+          const font = card.getAttribute('data-font') || '';
+          const free = card.getAttribute('data-free') || '';
+          const ind = card.getAttribute('data-industry') || '';
+
+          const matchesQuery = !query || brand.includes(query) || font.includes(query) || free.includes(query);
+          const matchesCategory = currentFilter === 'all' || ind === currentFilter;
+
+          if (matchesQuery && matchesCategory) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (noResults) {
+          noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+      }
+
+      searchInput?.addEventListener('input', filterCards);
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach((b) => {
+            b.className = 'brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]';
+          });
+          btn.className = 'brand-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-[#08090a] text-white dark:bg-white dark:text-[#08090a] shadow-sm';
+          currentFilter = btn.getAttribute('data-brand-filter') || 'all';
+          filterCards();
+        });
+      });
+
+      // Copy CSS Handlers
+      document.querySelectorAll('.btn-copy-brand-css').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const css = btn.getAttribute('data-css') || '';
+          try {
+            await navigator.clipboard.writeText(css);
+            const original = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => {
+              btn.textContent = original;
+            }, 2000);
+          } catch (e) {}
+        });
+      });
+    })();
+  </script>
 </BaseLayout>

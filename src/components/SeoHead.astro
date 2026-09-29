@@ -7,6 +7,7 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   type?: 'website' | 'article';
+  keywords?: string[];
   noindex?: boolean;
   lang?: string;
 }
@@ -17,9 +18,12 @@ const {
   canonicalUrl,
   ogImage = '/og-image.jpg?v=2',
   type = 'website',
+  keywords,
   noindex = false,
   lang = (Astro.currentLocale as string) || 'en'
 } = Astro.props;
+
+const defaultKeywords = 'font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, what the font finder, image font finder, the font finder, what the font, what font is this, font identifier, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder, whatthefont';
 
 const siteName = 'ProFontFinder';
 const siteOrigin = 'https://profontfinder.com';
@@ -43,6 +47,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords && keywords.length > 0 ? keywords.join(', ') : defaultKeywords} />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {noindex ? (
   <meta name="robots" content="noindex, nofollow" />

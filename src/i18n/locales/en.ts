@@ -126,12 +126,12 @@ export const en = {
 
   home: {
     meta: {
-      title: 'Font Finder — Free Image Font Identifier',
-      description: 'Identify any font from images and screenshots instantly with Font Finder. Upload an image to analyze letterforms and get 100% verified free font alternatives.'
+      title: 'Font Finder — Free AI Font Identifier & Font Search by Image',
+      description: 'Identify any font instantly with the ultimate free font finder and font identifier. Perform a font search by image or search by text to match 1,935+ Google Fonts and commercial typefaces for free.'
     },
     hero: {
-      headlinePrefix: 'Identify fonts in',
-      subtitle: 'Drop any screenshot to isolate letterforms, calculate optical contours, and get verified open-source Google Fonts.'
+      headlinePrefix: 'What font is that?',
+      subtitle: 'Upload or paste any screenshot. Match paid & free fonts with exact optical shape metrics, or filter 100% free commercial-use alternatives.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',

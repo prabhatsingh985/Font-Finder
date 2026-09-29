@@ -10,6 +10,7 @@ interface Props {
   description?: string;
   canonicalUrl?: string;
   ogImage?: string;
+  keywords?: string[];
   noindex?: boolean;
   lang?: string;
 }
@@ -19,6 +20,7 @@ const {
   description,
   canonicalUrl,
   ogImage,
+  keywords,
   noindex = false,
   lang = (Astro.currentLocale as string) || 'en'
 } = Astro.props;
@@ -58,6 +60,7 @@ const {
       description={description}
       canonicalUrl={canonicalUrl}
       ogImage={ogImage}
+      keywords={keywords}
       noindex={noindex}
       lang={lang}
     />

@@ -2,18 +2,25 @@ import type { APIRoute } from 'astro';
 import { LOCALES } from '../i18n/languages';
 import { getLocalizedPath, SITE_URL } from '../i18n/utils';
 import { getAllFontsMap } from '../services/googleFonts/fontCatalog';
+import { BLOG_ARTICLES } from '../data/blogArticles';
 
 export const GET: APIRoute = async () => {
   const staticPages = [
     '/',
     '/tools',
     '/tools/commercial-alternative',
+    '/tools/free-font-alternative-finder',
     '/tools/url-font-finder',
     '/tools/logo-font-finder',
+    '/tools/logo-font-identifier',
     '/tools/screenshot-font-finder',
     '/tools/handwriting-font-finder',
     '/tools/font-pairing',
+    '/tools/font-pairing-finder',
+    '/tools/pdf-font-detector',
     '/fonts',
+    '/blog',
+    ...BLOG_ARTICLES.map((a) => `/blog/${a.slug}`),
     '/guides',
     '/how-it-works',
     '/about',
@@ -25,7 +32,14 @@ export const GET: APIRoute = async () => {
   const urlEntries: { loc: string; priority: string }[] = [];
 
   for (const pagePath of staticPages) {
-    const priority = pagePath === '/' ? '1.0' : (pagePath.startsWith('/tools') || pagePath === '/fonts') ? '0.9' : '0.7';
+    const priority =
+      pagePath === '/'
+        ? '1.0'
+        : pagePath.startsWith('/tools') || pagePath === '/fonts'
+        ? '0.9'
+        : pagePath.startsWith('/blog')
+        ? '0.85'
+        : '0.7';
 
     for (const locale of LOCALES) {
       const localizedPath = getLocalizedPath(pagePath, locale);

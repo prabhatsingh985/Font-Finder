@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BLOG_ARTICLES, getBlogArticleBySlug } from '../../data/blogArticles';
+import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import type { SupportedLocale } from '../../i18n/languages';
+
+export function getStaticPaths() {
+  return BLOG_ARTICLES.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const lang = (Astro.currentLocale as string) || 'en';
+const currentLocale = lang as SupportedLocale;
+const t = useTranslations(lang);
+const p = (path: string) => getLocalizedPath(path, currentLocale);
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+const canonicalUrl = `https://profontfinder.com/blog/${article.slug}`;
+---
+
+<BaseLayout
+  title={article.metaTitle}
+  description={article.description}
+  canonicalUrl={canonicalUrl}
+  type="article"
+  lang={lang}
+>
+  <!-- Schema.org JSON-LD Article Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": article.title,
+    "description": article.description,
+    "author": {
+      "@type": "Organization",
+      "name": "ProFontFinder Typography Engineering Team",
+      "url": "https://profontfinder.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ProFontFinder",
+      "url": "https://profontfinder.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://profontfinder.com/favicon.svg"
+      }
+    },
+    "datePublished": "2026-09-01T00:00:00Z",
+    "dateModified": "2026-09-29T12:00:00Z",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalUrl
+    },
+    "keywords": article.keywords.join(', ')
+  })} />
+
+  <article class="py-12 sm:py-20 px-4 sm:px-6 max-w-[860px] mx-auto transition-colors">
+    <!-- Back to Blog Navigation -->
+    <div class="mb-8">
+      <a
+        href={p('/blog')}
+        class="inline-flex items-center gap-1.5 font-mono text-xs text-[#64748b] dark:text-[#8a8f98] hover:text-[#ff4d00] dark:hover:text-[#e4f222] transition-colors"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Back to all guides</span>
+      </a>
+    </div>
+
+    <!-- Article Header -->
+    <header class="space-y-4 pb-8 border-b border-[#e2e4e8] dark:border-[#23252a]">
+      <div class="flex flex-wrap items-center gap-2.5 text-xs font-mono text-[#64748b] dark:text-[#8a8f98]">
+        <span class="px-2.5 py-0.5 rounded-full bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-[#ff4d00] dark:text-[#e4f222] font-semibold">
+          {article.category}
+        </span>
+        <span>•</span>
+        <span>{article.date}</span>
+        <span>•</span>
+        <span>{article.readTime}</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.022em] leading-[1.15]">
+        {article.title}
+      </h1>
+
+      <p class="text-base sm:text-lg text-[#475569] dark:text-[#8a8f98] leading-relaxed font-normal">
+        {article.heroExcerpt}
+      </p>
+    </header>
+
+    <!-- Article HTML Content Body -->
+    <div class="article-content mt-10 space-y-6 text-[#334155] dark:text-[#d0d6e0] text-[15px] sm:text-[16px] leading-[1.8] font-normal
+      [&_h2]:text-2xl [&_h2]:sm:text-3xl [&_h2]:font-[510] [&_h2]:text-[#08090a] [&_h2]:dark:text-[#ffffff] [&_h2]:tracking-[-0.02em] [&_h2]:pt-8 [&_h2]:pb-2
+      [&_h3]:text-lg [&_h3]:sm:text-xl [&_h3]:font-[510] [&_h3]:text-[#08090a] [&_h3]:dark:text-[#ffffff] [&_h3]:pt-4 [&_h3]:pb-1
+      [&_p]:leading-relaxed
+      [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:list-disc
+      [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:list-decimal
+      [&_a]:text-[#ff4d00] [&_a]:dark:text-[#e4f222] [&_a]:underline [&_a]:underline-offset-2
+      [&_strong]:text-[#08090a] [&_strong]:dark:text-[#ffffff] [&_strong]:font-semibold"
+      set:html={article.contentHtml}
+    />
+
+    <!-- Bottom Contextual Tool CTA Banner -->
+    <div class="mt-14 pt-10 border-t border-[#e2e4e8] dark:border-[#23252a]">
+      <div class="rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0f1011] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div class="text-center sm:text-left">
+          <span class="font-mono text-[11px] uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-1">
+            TEST LIVE TYPOGRAPHY
+          </span>
+          <h3 class="text-xl font-[510] text-[#08090a] dark:text-[#ffffff]">
+            Identify any font from a screenshot
+          </h3>
+          <p class="text-xs text-[#475569] dark:text-[#8a8f98] mt-1 max-w-md">
+            Upload or paste any image to test optical shape contours against 1,935+ verified Google Fonts.
+          </p>
+        </div>
+        <div class="shrink-0 flex flex-col sm:flex-row gap-3">
+          <a
+            href={p('/#finder')}
+            class="px-5 py-2.5 rounded-full bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] text-xs font-semibold hover:opacity-90 transition-opacity text-center shadow-sm"
+          >
+            Launch Font Finder
+          </a>
+          <a
+            href={p('/tools/commercial-alternative')}
+            class="px-5 py-2.5 rounded-full bg-white dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-xs font-semibold text-[#08090a] dark:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-colors text-center"
+          >
+            Browse Free Twins
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

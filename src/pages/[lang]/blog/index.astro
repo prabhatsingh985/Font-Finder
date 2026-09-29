@@ -1,0 +1,107 @@
+---
+import { NON_DEFAULT_LOCALES } from '../../../i18n/languages';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { BLOG_ARTICLES } from '../../../data/blogArticles';
+import { getLocalizedPath } from '../../../i18n/utils';
+import type { SupportedLocale } from '../../../i18n/languages';
+
+export function getStaticPaths() {
+  return NON_DEFAULT_LOCALES.map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const currentLocale = lang as SupportedLocale;
+const p = (path: string) => getLocalizedPath(path, currentLocale);
+---
+
+<BaseLayout
+  title="Typography Guides, Font Alternatives & Engineering Tutorials | ProFontFinder"
+  description="Explore comprehensive typography guides, commercial font alternatives for Helvetica, Futura, and Gotham, licensing breakdowns, and optical font matching tutorials."
+  lang={lang}
+>
+  <main class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1100px] mx-auto transition-colors">
+    <!-- Header -->
+    <div class="mb-12 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-white dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></div>
+        <span class="font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] font-semibold">TYPOGRAPHY GUIDES & BLOG</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight leading-tight">
+        Free Font Alternatives & <br class="hidden sm:inline" />
+        <span class="text-[#ff4d00] dark:text-[#e4f222]">Typography Guides</span>
+      </h1>
+      <p class="mt-3 text-[15px] sm:text-[16px] text-[#475569] dark:text-[#8a8f98] leading-relaxed max-w-2xl font-normal">
+        Deep-dive typography engineering, commercial font licensing explanations, and curated free Google Font replacements for world-class design systems.
+      </p>
+    </div>
+
+    <!-- Featured Cornerstone Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+      {BLOG_ARTICLES.map((article) => (
+        <article class="flex flex-col justify-between rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] hover:shadow-md transition-all group">
+          <div>
+            <!-- Category & Read Time -->
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <span class="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-[#ff4d00] dark:text-[#e4f222]">
+                {article.category}
+              </span>
+              <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98]">
+                {article.readTime}
+              </span>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-xl sm:text-2xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em] leading-snug group-hover:text-[#ff4d00] dark:group-hover:text-[#e4f222] transition-colors">
+              <a href={p(`/blog/${article.slug}`)}>
+                {article.title}
+              </a>
+            </h2>
+
+            <!-- Excerpt -->
+            <p class="mt-3 text-[14px] text-[#475569] dark:text-[#8a8f98] leading-relaxed line-clamp-3">
+              {article.heroExcerpt}
+            </p>
+          </div>
+
+          <!-- Bottom Meta & Link -->
+          <div class="mt-6 pt-5 border-t border-[#f1f3f6] dark:border-[#1a1b1e] flex items-center justify-between">
+            <span class="text-xs font-mono text-[#64748b] dark:text-[#62666d]">
+              {article.date}
+            </span>
+            <a
+              href={p(`/blog/${article.slug}`)}
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#08090a] dark:text-[#ffffff] group-hover:text-[#ff4d00] dark:group-hover:text-[#e4f222] transition-colors"
+            >
+              <span>Read Guide</span>
+              <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Live Scanner CTA Banner -->
+    <section class="rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-gradient-to-r from-white to-[#f8f9fa] dark:from-[#0d0e12] dark:to-[#12141a] p-8 sm:p-12 text-center shadow-sm">
+      <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">TRY THE LIVE MATCHING ENGINE</span>
+      <h2 class="text-2xl sm:text-3xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
+        Need to identify an unknown font from a screenshot?
+      </h2>
+      <p class="mt-3 text-sm text-[#475569] dark:text-[#8a8f98] max-w-lg mx-auto leading-relaxed">
+        Upload or paste any image to test optical vectors against 1,935+ Google Fonts with 100% in-browser privacy.
+      </p>
+      <div class="mt-6">
+        <a
+          href={p('/#finder')}
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] text-xs font-semibold hover:opacity-90 transition-opacity shadow-md"
+        >
+          <span>Launch AI Font Finder</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
