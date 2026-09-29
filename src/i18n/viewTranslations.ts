@@ -295,7 +295,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'What font is that?',
-      heroHighlight: 'Find out in seconds.',
+      heroHighlight: 'Find out in seconds',
       matrixBadge: 'COMPREHENSIVE CAPABILITY MATRIX',
       matrixTitle: 'Engineered for Speed, Privacy & Precision',
       matrixSubtitle: 'See how ProFontFinder’s client-side dual matching engine compares against traditional competitors and legacy paywalled tools.',
@@ -484,7 +484,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: '¿Qué fuente es esa?',
-      heroHighlight: 'Descúbrelo en segundos.',
+      heroHighlight: 'Descúbrelo en segundos',
       matrixBadge: 'MATRIZ DE CAPACIDADES COMPARATIVA',
       matrixTitle: 'Diseñado para Velocidad, Privacidad y Precisión',
       matrixSubtitle: 'Compara el motor dual en navegador de ProFontFinder frente a competidores tradicionales y herramientas de pago.',
@@ -673,7 +673,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'Welche Schriftart ist das?',
-      heroHighlight: 'In Sekundenschnelle erkennen.',
+      heroHighlight: 'In Sekundenschnelle erkennen',
       matrixBadge: 'VERGLEICHENDE FUNKTIONSMATRIX',
       matrixTitle: 'Entwickelt für Geschwindigkeit, Datenschutz & Präzision',
       matrixSubtitle: 'Erfahren Sie, wie sich die clientseitige Dual-Engine von ProFontFinder im Vergleich zu herkömmlichen Tools und Bezahlschranken schlägt.',
@@ -862,7 +862,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'Quelle est cette police ?',
-      heroHighlight: 'Identifiez-la en quelques secondes.',
+      heroHighlight: 'Identifiez-la en quelques secondes',
       matrixBadge: 'MATRICE COMPLÈTE DES FONCTIONNALITÉS',
       matrixTitle: 'Conçu pour la Rapidité, la Confidentialité et la Précision',
       matrixSubtitle: 'Découvrez comment le moteur dual de ProFontFinder surpasse les outils génériques et les solutions payantes traditionnelles.',
@@ -1051,7 +1051,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'Che font è questo?',
-      heroHighlight: 'Scoprilo in pochi secondi.',
+      heroHighlight: 'Scoprilo in pochi secondi',
       matrixBadge: 'MATRICE COMPARATIVA DELLE FUNZIONALITÀ',
       matrixTitle: 'Progettato per Velocità, Privacy e Precisione',
       matrixSubtitle: 'Scopri come il motore di corrispondenza duale di ProFontFinder supera i concorrenti tradizionali e i servizi a pagamento.',
@@ -1240,7 +1240,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'このフォントは何？',
-      heroHighlight: '数秒で瞬時に特定。',
+      heroHighlight: '数秒で瞬時に特定',
       matrixBadge: '総合機能比較マトリックス',
       matrixTitle: '速度・プライバシー・高精度を追求した設計',
       matrixSubtitle: 'ProFontFinderのブラウザ内デュアル照合エンジンと、従来の有料ツールや一般的なWebツールの比較をご覧ください。',
@@ -1429,7 +1429,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: '이 폰트는 무엇일까요?',
-      heroHighlight: '단 몇 초 만에 확인하세요.',
+      heroHighlight: '단 몇 초 만에 확인하세요',
       matrixBadge: '종합 기능 비교 매트릭스',
       matrixTitle: '속도, 프라이버시, 정확도를 위한 엔지니어링',
       matrixSubtitle: 'ProFontFinder의 브라우저 내 듀얼 매칭 엔진이 기존 유료 툴 및 일반 온라인 도구와 어떻게 다른지 확인해 보세요.',
@@ -1618,7 +1618,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
     },
     home: {
       heroTitle: 'Que fonte é essa?',
-      heroHighlight: 'Descubra em poucos segundos.',
+      heroHighlight: 'Descubra em poucos segundos',
       matrixBadge: 'MATRIZ COMPARATIVA DE RECURSOS',
       matrixTitle: 'Projetado para Velocidade, Privacidade e Precisão',
       matrixSubtitle: 'Veja como o motor dual no navegador do ProFontFinder se compara aos concorrentes tradicionais e ferramentas pagas.',
