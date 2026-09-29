@@ -355,7 +355,7 @@ export const en = {
     subtitle: 'Purpose-built typography utilities tuned for specific tasks. All free, all unlimited, running privately in your browser.',
     tools: {
       commercialAlternative: {
-        title: 'Find a free alternative to a paid font',
+        title: 'Find a free alternative to Commercial Fonts',
         description: 'Upload an image of a commercial typeface and get the closest free font you can legally use.'
       },
       urlFontFinder: {
@@ -387,11 +387,11 @@ export const en = {
   },
   commercialAlternative: {
     meta: {
-      title: 'Find Free Alternatives to Paid Fonts — Commercial Font Matcher',
+      title: 'Find Free Alternatives to Commercial Fonts — Commercial Font Matcher',
       description: 'Upload an image of a commercial font to find verified free, open-source Google Font alternatives with production CSS.'
     },
     breadcrumb: 'Commercial Font Twins',
-    title: 'Find a free alternative to a paid font',
+    title: 'Find a free alternative to Commercial Fonts',
     subtitle: 'Upload an image of a commercial font to get verified free Google Font alternatives with production CSS.',
     dropzoneTitle: 'Drop an image of a commercial font',
     dropzoneSubtitle: 'Upload any specimen, crop, or graphic to find free Google Font twins',

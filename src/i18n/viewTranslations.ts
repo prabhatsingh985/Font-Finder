@@ -146,10 +146,10 @@ export interface ViewTranslation {
 export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
   en: {
     commercial: {
-      badge: 'PAID FONT ALTERNATIVE FINDER',
+      badge: 'COMMERCIAL FONT ALTERNATIVE FINDER',
       heroTitle: 'Free Alternatives to',
       heroHighlight: 'Commercial Fonts',
-      heroSubtitle: 'Upload any paid font screenshot or browse the index below to find visually matching 100% free Google Fonts with production CSS.',
+      heroSubtitle: 'Upload any commercial font screenshot or browse the index below to find visually matching 100% free Google Fonts with production CSS.',
       dropzoneTitle: 'Drop a commercial font image or screenshot',
       dropzoneSubtitle: 'Supports PNG, JPG, WebP • Match paid typefaces with free Google Font twins',
       buttonText: 'Select Image to Match',
