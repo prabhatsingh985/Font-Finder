@@ -481,10 +481,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>Fuentes habituales en redes sociales y sus alternativas gratuitas:</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>Instagram "Clásica":</strong> Basada en <em>San Francisco</em> (iOS) y <em>Roboto</em> (Android). Alternativa gratis: <a href="/es/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> o <a href="/es/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
-        <li>• <strong>Instagram "Moderna":</strong> Sans-serif geométrica en mayúsculas. Alternativa gratis: <a href="/es/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesos bold y black).</li>
-        <li>• <strong>Subtítulos nativos de TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Alternativa gratis: <a href="/es/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> o <a href="/es/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
-        <li>• <strong>Subtítulos virales de CapCut:</strong> La popular fuente ultra condensada es <em>The Bold Font</em> o <em>Bebas Neue</em>. Alternativa gratis: <a href="/es/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> o <a href="/es/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
+        <li>• <strong>Instagram "Clásica":</strong> Basada en <em>San Francisco</em> (iOS) y <em>Roboto</em> (Android). Alternativa gratis: <a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> o <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
+        <li>• <strong>Instagram "Moderna":</strong> Sans-serif geométrica en mayúsculas. Alternativa gratis: <a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesos bold y black).</li>
+        <li>• <strong>Subtítulos nativos de TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Alternativa gratis: <a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> o <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
+        <li>• <strong>Subtítulos virales de CapCut:</strong> La popular fuente ultra condensada es <em>The Bold Font</em> o <em>Bebas Neue</em>. Alternativa gratis: <a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> o <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
       </ul>
     `
   },

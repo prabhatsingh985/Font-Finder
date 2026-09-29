@@ -480,10 +480,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>I caratteri più diffusi sui social e le loro alternative gratuite:</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>Instagram "Classico":</strong> Basato su <em>San Francisco</em> (iOS) e <em>Roboto</em> (Android). Alternativa gratis: <a href="/it/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> o <a href="/it/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
-        <li>• <strong>Instagram "Moderno":</strong> Sans-serif geometrico tutto in maiuscolo. Alternativa gratis: <a href="/it/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesi bold e black).</li>
-        <li>• <strong>Sottotitoli nativi di TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Alternativa gratis: <a href="/it/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> o <a href="/it/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
-        <li>• <strong>Sottotitoli CapCut virali:</strong> Il celebre carattere ultra-bold condensato è <em>The Bold Font</em> o <em>Bebas Neue</em>. Alternativa gratis: <a href="/it/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> o <a href="/it/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
+        <li>• <strong>Instagram "Classico":</strong> Basato su <em>San Francisco</em> (iOS) e <em>Roboto</em> (Android). Alternativa gratis: <a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> o <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
+        <li>• <strong>Instagram "Moderno":</strong> Sans-serif geometrico tutto in maiuscolo. Alternativa gratis: <a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesi bold e black).</li>
+        <li>• <strong>Sottotitoli nativi di TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Alternativa gratis: <a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> o <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
+        <li>• <strong>Sottotitoli CapCut virali:</strong> Il celebre carattere ultra-bold condensato è <em>The Bold Font</em> o <em>Bebas Neue</em>. Alternativa gratis: <a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> o <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
       </ul>
     `
   },

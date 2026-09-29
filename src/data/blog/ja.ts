@@ -477,10 +477,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>SNS動画で頻出する代表的フォントと無料代替：</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>Instagram「クラシック」：</strong> iOSでは<em>San Francisco</em>、Androidでは<em>Roboto</em>。無料代替：<a href="/ja/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> または <a href="/ja/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>。</li>
-        <li>• <strong>Instagram「モダン」：</strong> オールキャップスの幾何学サンセリフ。無料代替：<a href="/ja/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a>（Bold/Blackウェイト）。</li>
-        <li>• <strong>TikTok公式テロップ：</strong> <em>TikTok Display / Proxima Nova</em>。無料代替：<a href="/ja/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> または <a href="/ja/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>。</li>
-        <li>• <strong>CapCut人気字幕：</strong> 定番の超極太コンデンスフォントは<em>The Bold Font</em>や<em>Bebas Neue</em>。無料代替：<a href="/ja/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> または <a href="/ja/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>。</li>
+        <li>• <strong>Instagram「クラシック」：</strong> iOSでは<em>San Francisco</em>、Androidでは<em>Roboto</em>。無料代替：<a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> または <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>。</li>
+        <li>• <strong>Instagram「モダン」：</strong> オールキャップスの幾何学サンセリフ。無料代替：<a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a>（Bold/Blackウェイト）。</li>
+        <li>• <strong>TikTok公式テロップ：</strong> <em>TikTok Display / Proxima Nova</em>。無料代替：<a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> または <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>。</li>
+        <li>• <strong>CapCut人気字幕：</strong> 定番の超極太コンデンスフォントは<em>The Bold Font</em>や<em>Bebas Neue</em>。無料代替：<a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> または <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>。</li>
       </ul>
     `
   },

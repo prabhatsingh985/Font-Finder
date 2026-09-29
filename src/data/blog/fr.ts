@@ -480,10 +480,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>Les polices les plus répandues sur les réseaux sociaux et leurs équivalents :</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>Instagram « Classique » :</strong> Dérivée de <em>San Francisco</em> (iOS) et <em>Roboto</em> (Android). Équivalent gratuit : <a href="/fr/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> ou <a href="/fr/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
-        <li>• <strong>Instagram « Moderne » :</strong> Sans-serif géométrique tout en majuscules. Équivalent gratuit : <a href="/fr/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (graisses bold et black).</li>
-        <li>• <strong>Sous-titres natifs TikTok :</strong> <em>TikTok Display / Proxima Nova</em>. Équivalent gratuit : <a href="/fr/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> ou <a href="/fr/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
-        <li>• <strong>Sous-titres viraux CapCut :</strong> La célèbre police condensée ultra-grasse est <em>The Bold Font</em> ou <em>Bebas Neue</em>. Équivalent gratuit : <a href="/fr/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> ou <a href="/fr/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
+        <li>• <strong>Instagram « Classique » :</strong> Dérivée de <em>San Francisco</em> (iOS) et <em>Roboto</em> (Android). Équivalent gratuit : <a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> ou <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
+        <li>• <strong>Instagram « Moderne » :</strong> Sans-serif géométrique tout en majuscules. Équivalent gratuit : <a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (graisses bold et black).</li>
+        <li>• <strong>Sous-titres natifs TikTok :</strong> <em>TikTok Display / Proxima Nova</em>. Équivalent gratuit : <a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> ou <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
+        <li>• <strong>Sous-titres viraux CapCut :</strong> La célèbre police condensée ultra-grasse est <em>The Bold Font</em> ou <em>Bebas Neue</em>. Équivalent gratuit : <a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> ou <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
       </ul>
     `
   },

@@ -480,10 +480,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>Fontes populares nas redes sociais e suas equivalentes gratuitas:</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>Instagram "Clássico":</strong> Baseada na <em>San Francisco</em> (iOS) e <em>Roboto</em> (Android). Equivalente gratuita: <a href="/pt/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> ou <a href="/pt/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
-        <li>• <strong>Instagram "Moderno":</strong> Sans-serif geométrica em caixa alta. Equivalente gratuita: <a href="/pt/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesos bold e black).</li>
-        <li>• <strong>Legendas padrão do TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Equivalente gratuita: <a href="/pt/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> ou <a href="/pt/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
-        <li>• <strong>Legendas virais do CapCut:</strong> A célebre tipografia ultra-condensada é a <em>The Bold Font</em> ou <em>Bebas Neue</em>. Equivalente gratuita: <a href="/pt/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> ou <a href="/pt/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
+        <li>• <strong>Instagram "Clássico":</strong> Baseada na <em>San Francisco</em> (iOS) e <em>Roboto</em> (Android). Equivalente gratuita: <a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> ou <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
+        <li>• <strong>Instagram "Moderno":</strong> Sans-serif geométrica em caixa alta. Equivalente gratuita: <a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (pesos bold e black).</li>
+        <li>• <strong>Legendas padrão do TikTok:</strong> <em>TikTok Display / Proxima Nova</em>. Equivalente gratuita: <a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> ou <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
+        <li>• <strong>Legendas virais do CapCut:</strong> A célebre tipografia ultra-condensada é a <em>The Bold Font</em> ou <em>Bebas Neue</em>. Equivalente gratuita: <a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> ou <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
       </ul>
     `
   },

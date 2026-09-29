@@ -480,10 +480,10 @@ font-family: 'Bodoni Moda', serif;</code></pre>
 
       <h2>SNS 영상에 자주 쓰이는 대표 서체와 무료 대체제:</h2>
       <ul class="space-y-3 text-sm text-[#475569] dark:text-[#8a8f98] my-4">
-        <li>• <strong>인스타그램 "클래식":</strong> iOS는 <em>San Francisco</em>, 안드로이드는 <em>Roboto</em> 기반. 무료 대체: <a href="/ko/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> 또는 <a href="/ko/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
-        <li>• <strong>인스타그램 "모던":</strong> 대문자 기하학 산세리프. 무료 대체: <a href="/ko/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (Bold/Black 웨이트).</li>
-        <li>• <strong>틱톡 기본 자막:</strong> <em>TikTok Display / Proxima Nova</em>. 무료 대체: <a href="/ko/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> 또는 <a href="/ko/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
-        <li>• <strong>캡컷(CapCut) 바이럴 자막:</strong> 유명한 초극태 장체 자막 서체는 <em>The Bold Font</em>나 <em>Bebas Neue</em>. 무료 대체: <a href="/ko/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> 또는 <a href="/ko/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
+        <li>• <strong>인스타그램 "클래식":</strong> iOS는 <em>San Francisco</em>, 안드로이드는 <em>Roboto</em> 기반. 무료 대체: <a href="/fonts/roboto" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Roboto</a> 또는 <a href="/fonts/inter" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Inter</a>.</li>
+        <li>• <strong>인스타그램 "모던":</strong> 대문자 기하학 산세리프. 무료 대체: <a href="/fonts/montserrat" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Montserrat</a> (Bold/Black 웨이트).</li>
+        <li>• <strong>틱톡 기본 자막:</strong> <em>TikTok Display / Proxima Nova</em>. 무료 대체: <a href="/fonts/figtree" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Figtree</a> 또는 <a href="/fonts/nunito-sans" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Nunito Sans</a>.</li>
+        <li>• <strong>캡컷(CapCut) 바이럴 자막:</strong> 유명한 초극태 장체 자막 서체는 <em>The Bold Font</em>나 <em>Bebas Neue</em>. 무료 대체: <a href="/fonts/bebas-neue" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Bebas Neue</a> 또는 <a href="/fonts/anton" class="text-[#ff4d00] dark:text-[#e4f222] font-medium underline">Anton</a>.</li>
       </ul>
     `
   },
