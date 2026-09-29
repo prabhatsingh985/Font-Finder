@@ -169,7 +169,7 @@ const i18nJson = JSON.stringify(appT);
   </div>
 
   <!-- Step 2: Text Organization & Letter Verification Stage -->
-  <div id="organize-stage" class="hidden rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm space-y-6">
+  <div id="organize-stage" class="hidden rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm space-y-6 finder-stage-card">
     
     <!-- Header / Status -->
     <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#23252a]">
@@ -327,7 +327,7 @@ const i18nJson = JSON.stringify(appT);
     </div>
 
     <!-- Preview Text Input Bar -->
-    <div class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 sm:p-6 shadow-sm space-y-4">
+    <div id="preview-text-bar-card" class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 sm:p-6 shadow-sm space-y-4">
       <div class="flex items-center justify-between gap-3">
         <div>
           <span class="text-[14px] font-[510] text-[#ffffff]">{appT.previewTextHeading}</span>
@@ -613,7 +613,7 @@ const i18nJson = JSON.stringify(appT);
     </div>
 
     <!-- Alternatives Card -->
-    <div class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm">
+    <div id="results-alternatives-card" class="rounded-[12px] border border-[#23252a] bg-[#0f1011] p-6 sm:p-8 shadow-sm">
       <div class="flex items-center gap-2 mb-4">
         <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
         <h3 class="font-mono text-[11px] uppercase tracking-wider text-[#8a8f98]">

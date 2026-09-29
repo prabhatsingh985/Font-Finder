@@ -1911,7 +1911,13 @@ html.dark .contact-card,
 html.dark .font-twin-card,
 html.dark .commercial-faq-card,
 html.dark .pair-card,
-html.dark #studio {
+html.dark #studio,
+html.dark #organize-stage,
+html.dark #loading-stage,
+html.dark #preview-text-bar-card,
+html.dark #best-match-card,
+html.dark #res-ranked-cards-list > div,
+html.dark #results-alternatives-card {
   background: linear-gradient(180deg, #181b22 0%, #0e1015 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
@@ -1931,7 +1937,9 @@ html.dark .guide-grid-card:hover,
 html.dark .blog-grid-card:hover,
 html.dark .about-pillar-card:hover,
 html.dark .font-twin-card:hover,
-html.dark .pair-card:hover {
+html.dark .pair-card:hover,
+html.dark #res-ranked-cards-list > div:hover,
+html.dark #res-alternatives-list > div:hover {
   transform: translateY(-3px) !important;
   border-color: rgba(228, 242, 34, 0.4) !important;
   border-top-color: rgba(228, 242, 34, 0.7) !important;
@@ -1944,7 +1952,15 @@ html.dark .pair-card:hover {
 
 /* Sub-card / Inner Highlight Boxes in Dark Mode */
 html.dark .guides-article-card,
-html.dark .font-twin-standin-box {
+html.dark .font-twin-standin-box,
+html.dark #stage2-sentence-preview-card,
+html.dark #stage2-sentence-preview-card > div:last-child,
+html.dark #best-match-card > div:has(#compare-text-input),
+html.dark #best-match-card > div:has(#compare-text-input) .grid > div,
+html.dark #best-match-card > div:has(#specimen-size-slider),
+html.dark #res-ranked-cards-list > div > div.my-4,
+html.dark #res-alternatives-list > div,
+html.dark #best-match-card .grid.grid-cols-1.md\:grid-cols-2 > div {
   background: linear-gradient(180deg, #1c1f28 0%, #12141a 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.09) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -1955,7 +1971,8 @@ html.dark .font-twin-standin-box {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-html.dark .guides-article-card:hover {
+html.dark .guides-article-card:hover,
+html.dark #best-match-card > div:has(#compare-text-input) .grid > div:hover {
   transform: translateY(-3px) !important;
   border-color: rgba(228, 242, 34, 0.45) !important;
   border-top-color: rgba(228, 242, 34, 0.7) !important;
@@ -1964,6 +1981,30 @@ html.dark .guides-article-card:hover {
     0 4px 0 0 #000000,
     0 0 18px -2px rgba(228, 242, 34, 0.12),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Font Finder Dark Mode Input Fields with 3D inset depth */
+html.dark #selected-word-text-input,
+html.dark #preview-text-input,
+html.dark #compare-text-input,
+html.dark #specimen-text-input {
+  background: linear-gradient(180deg, #14161c 0%, #0c0d11 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 1px 0 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+html.dark #selected-word-text-input:focus,
+html.dark #preview-text-input:focus,
+html.dark #compare-text-input:focus,
+html.dark #specimen-text-input:focus {
+  border-color: rgba(228, 242, 34, 0.5) !important;
+  box-shadow: 
+    0 0 14px rgba(228, 242, 34, 0.18),
+    inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* ========================================================================= */
@@ -1984,7 +2025,13 @@ html:not(.dark) .contact-card,
 html:not(.dark) .font-twin-card,
 html:not(.dark) .commercial-faq-card,
 html:not(.dark) .pair-card,
-html:not(.dark) #studio {
+html:not(.dark) #studio,
+html:not(.dark) #organize-stage,
+html:not(.dark) #loading-stage,
+html:not(.dark) #preview-text-bar-card,
+html:not(.dark) #best-match-card,
+html:not(.dark) #res-ranked-cards-list > div,
+html:not(.dark) #results-alternatives-card {
   background: #ffffff !important;
   background-image: none !important;
   border: 1px solid #e2e4e8 !important;
@@ -1992,7 +2039,14 @@ html:not(.dark) #studio {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-html:not(.dark) .font-twin-standin-box {
+html:not(.dark) .font-twin-standin-box,
+html:not(.dark) #stage2-sentence-preview-card,
+html:not(.dark) #stage2-sentence-preview-card > div:last-child,
+html:not(.dark) #best-match-card > div:has(#compare-text-input),
+html:not(.dark) #best-match-card > div:has(#compare-text-input) .grid > div,
+html:not(.dark) #best-match-card > div:has(#specimen-size-slider),
+html:not(.dark) #res-ranked-cards-list > div > div.my-4,
+html:not(.dark) #res-alternatives-list > div {
   background: #f8f9fa !important;
   background-image: none !important;
   border: 1px solid #e2e4e8 !important;
@@ -2005,7 +2059,10 @@ html:not(.dark) .guide-grid-card:hover,
 html:not(.dark) .blog-grid-card:hover,
 html:not(.dark) .about-pillar-card:hover,
 html:not(.dark) .font-twin-card:hover,
-html:not(.dark) .pair-card:hover {
+html:not(.dark) .pair-card:hover,
+html:not(.dark) #res-ranked-cards-list > div:hover,
+html:not(.dark) #res-alternatives-list > div:hover,
+html:not(.dark) #best-match-card > div:has(#compare-text-input) .grid > div:hover {
   transform: translateY(-3px) !important;
   border-color: #cbd5e1 !important;
   background: #ffffff !important;
