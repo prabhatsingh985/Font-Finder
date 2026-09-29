@@ -131,7 +131,7 @@ export const en = {
     },
     hero: {
       headlinePrefix: 'What font is that?',
-      subtitle: 'Paste or upload any image to detect fonts instantly. Analyze glyph geometry with 100% in-browser privacy, and discover verified free open-source Google Font twins.'
+      subtitle: 'Upload or paste any image to identify fonts instantly. Find the exact font from pictures and screenshots, or discover 100% free alternatives for commercial fonts.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',
