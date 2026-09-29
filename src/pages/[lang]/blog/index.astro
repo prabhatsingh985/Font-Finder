@@ -1,7 +1,7 @@
 ---
 import { NON_DEFAULT_LOCALES } from '../../../i18n/languages';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { BLOG_ARTICLES } from '../../../data/blogArticles';
+import { getBlogArticles } from '../../../data/blogArticles';
 import { getLocalizedPath } from '../../../i18n/utils';
 import { getViewTranslations } from '../../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../../i18n/languages';
@@ -15,6 +15,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLocale = lang as SupportedLocale;
 const vT = getViewTranslations(lang).blog;
+const articles = getBlogArticles(lang);
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 ---
 
@@ -53,7 +54,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
 
     <!-- Featured Cornerstone Articles Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
-      {BLOG_ARTICLES.map((article) => (
+      {articles.map((article) => (
         <article class="flex flex-col justify-between rounded-[16px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] p-6 sm:p-8 shadow-sm hover:border-[#cbd5e1] dark:hover:border-[#383b44] hover:shadow-md transition-all group">
           <div>
             <!-- Category & Read Time -->

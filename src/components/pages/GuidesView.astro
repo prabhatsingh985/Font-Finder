@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
 import { getViewTranslations } from '../../i18n/viewTranslations';
-import { BLOG_ARTICLES } from '../../data/blogArticles';
+import { getBlogArticles } from '../../data/blogArticles';
 import type { SupportedLocale } from '../../i18n/languages';
 
 interface Props {
@@ -16,6 +16,7 @@ const gT = t.guides;
 const allVT = getViewTranslations(lang);
 const vT = allVT.guidesFeatured;
 const bT = allVT.blog;
+const articles = getBlogArticles(lang);
 
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 ---
@@ -57,7 +58,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {BLOG_ARTICLES.map((article) => (
+        {articles.map((article) => (
           <a
             href={p(`/blog/${article.slug}`)}
             class="p-4 rounded-xl border border-[#e2e4e8] dark:border-[#202227] bg-[#f8f9fa] dark:bg-[#14161a] hover:border-[#ff4d00] dark:hover:border-[#e4f222] transition-all flex flex-col justify-between group"

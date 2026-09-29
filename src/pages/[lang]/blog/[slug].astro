@@ -1,15 +1,16 @@
 ---
 import { NON_DEFAULT_LOCALES } from '../../../i18n/languages';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { BLOG_ARTICLES, getBlogArticleBySlug } from '../../../data/blogArticles';
+import { getBlogArticles, getBlogArticleBySlug } from '../../../data/blogArticles';
 import { getLocalizedPath, useTranslations } from '../../../i18n/utils';
 import { getViewTranslations } from '../../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../../i18n/languages';
 
 export function getStaticPaths() {
-  const paths: { params: { lang: string; slug: string }; props: { article: typeof BLOG_ARTICLES[0] } }[] = [];
+  const paths: { params: { lang: string; slug: string }; props: { article: ReturnType<typeof getBlogArticles>[0] } }[] = [];
   for (const lang of NON_DEFAULT_LOCALES) {
-    for (const article of BLOG_ARTICLES) {
+    const articles = getBlogArticles(lang);
+    for (const article of articles) {
       paths.push({
         params: { lang, slug: article.slug },
         props: { article }
@@ -20,7 +21,8 @@ export function getStaticPaths() {
 }
 
 const { lang, slug } = Astro.params;
-const { article } = Astro.props;
+const { article: propArticle } = Astro.props;
+const article = getBlogArticleBySlug(slug as string, lang) || propArticle;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const vT = getViewTranslations(lang).blog;
