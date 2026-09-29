@@ -18,6 +18,19 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
   lang={lang}
 >
   <main class="py-12 sm:py-20 px-4 sm:px-6 max-w-[1100px] mx-auto transition-colors">
+    <!-- Back to Guides Navigation Indicator -->
+    <div class="mb-8">
+      <a
+        href={p('/guides')}
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-xs font-mono text-[#64748b] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-all shadow-sm group"
+      >
+        <svg class="w-3.5 h-3.5 text-[#ff4d00] dark:text-[#e4f222] transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>{vT.backToGuides}</span>
+      </a>
+    </div>
+
     <!-- Header -->
     <div class="mb-12 text-center sm:text-left">
       <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-white dark:bg-white/[0.03] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm">
