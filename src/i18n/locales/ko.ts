@@ -133,7 +133,7 @@ export const ko: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "이미지 속 폰트 즉시 식별",
-      "subtitle": "스크린샷을 드롭하여 글자 형태를 분리하고 윤곽선을 계산해 검증된 오픈소스 Google Fonts를 찾아보세요."
+      "subtitle": "이미지를 업로드하거나 붙여넣어 폰트를 즉시 찾아보세요. 사진, 로고, 스크린샷에서 일치하는 정확한 폰트를 검색 — 100% 무료 및 완벽한 보안."
     },
     "dropzone": {
       "title": "이미지를 드롭하거나 스크린샷 붙여넣기 (⌘V)",

@@ -133,7 +133,7 @@ export const de: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Schriftarten erkennen in",
-      "subtitle": "Ziehen Sie einen Screenshot hinein, um Buchstabenformen zu isolieren, optische Konturen zu berechnen und verifizierte Open-Source-Google-Fonts zu erhalten."
+      "subtitle": "Laden Sie ein Bild hoch oder fügen Sie es ein, um Schriftarten sofort zu erkennen. Finden Sie die exakte Schrift aus Bildern, Logos und Screenshots — 100% kostenlos und privat."
     },
     "dropzone": {
       "title": "Bild ablegen oder Screenshot einfügen (⌘V)",

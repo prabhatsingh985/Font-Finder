@@ -133,7 +133,7 @@ export const it: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifica i font in",
-      "subtitle": "Trascina uno screenshot per isolare i glifi, calcolare i contorni ottici e ottenere font Google Fonts open source verificati."
+      "subtitle": "Carica o incolla qualsiasi immagine per riconoscere i font all'istante. Trova il font esatto da foto, loghi e screenshot — 100% gratuito e privato."
     },
     "dropzone": {
       "title": "Trascina un'immagine o incolla uno screenshot (⌘V)",

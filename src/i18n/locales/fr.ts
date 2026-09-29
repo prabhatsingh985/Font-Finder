@@ -133,7 +133,7 @@ export const fr: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifiez les polices en",
-      "subtitle": "Déposez une capture d'écran pour isoler les glyphes, calculer les contours optiques et obtenir des polices Google Fonts open source vérifiées."
+      "subtitle": "Téléversez ou collez une image pour identifier des polices instantanément. Trouvez la police exacte à partir de photos, logos et captures d'écran — 100% gratuit et privé."
     },
     "dropzone": {
       "title": "Glissez une image ou collez une capture (⌘V)",

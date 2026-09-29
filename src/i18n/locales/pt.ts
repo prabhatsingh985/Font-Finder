@@ -133,7 +133,7 @@ export const pt: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifique fontes em",
-      "subtitle": "Arraste qualquer captura de tela para isolar as formas das letras, calcular contornos ópticos e obter Google Fonts de código aberto verificadas."
+      "subtitle": "Envie ou cole qualquer imagem para identificar fontes instantaneamente. Encontre a fonte exata a partir de fotos, logotipos e capturas de tela — 100% gratuito e privado."
     },
     "dropzone": {
       "title": "Arraste uma imagem ou cole uma captura (⌘V)",
