@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../../components/FontFinderApp.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getViewTranslations } from '../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../i18n/languages';
 
 interface Props {
@@ -12,6 +13,7 @@ const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const cT = t.commercialAlternative;
+const vT = getViewTranslations(lang).commercial;
 const toolsHref = getLocalizedPath('/tools', currentLocale);
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 
@@ -296,15 +298,15 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Free Alternatives to Commercial Fonts — Paid Font Matcher | ProFontFinder"
-  description="Discover 100% free Google Font alternatives for Helvetica, Futura, Gotham, Proxima Nova, and 20+ expensive commercial typefaces. Upload an image or browse the directory."
+  title={cT.meta.title}
+  description={cT.meta.description}
   lang={lang}
 >
   <!-- Schema.org JSON-LD FAQPage Schema for Search Engine Rich Snippets -->
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(item => ({
+    "mainEntity": vT.faqs.map(item => ({
       "@type": "Question",
       "name": item.q,
       "acceptedAnswer": {
@@ -323,25 +325,24 @@ const faqs = [
         <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
         <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
         <span class="text-xs text-[#383b3f]">/</span>
-        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">PAID FONT ALTERNATIVE FINDER</span>
+        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">{cT.breadcrumb}</span>
       </div>
 
       <!-- Hero Header -->
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-[510] text-[#ffffff] tracking-tight max-w-3xl mx-auto leading-tight">
-        Free Alternatives to <br class="hidden sm:inline" />
-        <span class="text-[#e4f222]">Commercial Fonts</span>
+        {cT.title}
       </h1>
       <p class="mt-4 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
-        Upload any paid font screenshot or browse the index below to find visually matching 100% free Google Fonts with production CSS.
+        {cT.subtitle}
       </p>
 
       <!-- Upload Sample Image UI -->
       <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
         <FontFinderApp
           lang={lang}
-          dropzoneTitle="Drop a commercial font image or screenshot"
-          dropzoneSubtitle="Supports PNG, JPG, WebP • Match paid typefaces with free Google Font twins"
-          buttonText="Select Image to Match"
+          dropzoneTitle={cT.dropzoneTitle}
+          dropzoneSubtitle={cT.dropzoneSubtitle}
+          buttonText={cT.buttonText}
         />
       </div>
 
@@ -355,14 +356,14 @@ const faqs = [
         <div class="inline-flex items-center gap-2 mb-2">
           <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
           <span class="font-mono text-[11px] uppercase tracking-wider text-[#64748b] dark:text-[#8a8f98] font-semibold">
-            COMMERCIAL TO FREE GOOGLE FONT INDEX
+            {vT.directoryBadge}
           </span>
         </div>
         <h2 class="text-2xl sm:text-4xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
-          Commercial Font Twins Directory
+          {vT.directoryTitle}
         </h2>
         <p class="mt-2 text-sm text-[#475569] dark:text-[#8a8f98] max-w-xl">
-          Don't let expensive licensing budgets halt your project. Replace paid typefaces with verified, open-source Google Font twins.
+          {vT.directorySubtitle}
         </p>
       </div>
 
@@ -372,7 +373,7 @@ const faqs = [
           <input
             type="text"
             id="font-search-input"
-            placeholder="Search font (e.g. Helvetica, Futura)..."
+            placeholder={vT.searchPlaceholder}
             class="w-full px-3.5 py-2 pl-9 rounded-[8px] bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-xs text-[#08090a] dark:text-[#ffffff] focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#e4f222]"
           />
           <svg class="w-4 h-4 absolute left-3 top-2.5 text-[#64748b] dark:text-[#8a8f98]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -385,22 +386,22 @@ const faqs = [
     <!-- Category Filter Pills -->
     <div class="flex flex-wrap items-center gap-2 mb-8" id="category-pills">
       <button type="button" data-filter="all" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-[#08090a] text-white dark:bg-white dark:text-[#08090a]">
-        All Fonts ({commercialDatabase.length})
+        {vT.filterAll} ({commercialDatabase.length})
       </button>
       <button type="button" data-filter="geometric" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
-        Geometric Sans
+        {vT.filterGeometric}
       </button>
       <button type="button" data-filter="neo-grotesque" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
-        Neo-Grotesque
+        {vT.filterNeoGrotesque}
       </button>
       <button type="button" data-filter="serif" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
-        Serif Typefaces
+        {vT.filterSerif}
       </button>
       <button type="button" data-filter="humanist" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
-        Humanist Sans
+        {vT.filterHumanist}
       </button>
       <button type="button" data-filter="display" class="cat-filter-btn px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] text-[#475569] dark:text-[#8a8f98] hover:border-[#cbd5e1] dark:hover:border-[#383b44]">
-        Display & Slab
+        {vT.filterDisplay}
       </button>
     </div>
 
@@ -437,14 +438,14 @@ const faqs = [
             <div class="p-4 sm:p-5 rounded-xl bg-[#f8f9fa] dark:bg-[#14161a] border border-[#e2e4e8] dark:border-[#26282e] space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-[11px] font-mono uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold">
-                  RECOMMENDED FREE STAND-IN
+                  {vT.recommendedStandIn}
                 </span>
                 <div class="flex items-center gap-2">
                   <span class="px-2 py-0.5 rounded-full bg-[#16a34a]/15 text-[#16a34a] dark:text-[#10b981] text-[10px] font-mono font-semibold">
-                    100% Free OFL
+                    {vT.freeOfl}
                   </span>
                   <span class="font-mono text-xs font-bold text-[#16a34a] dark:text-[#10b981]">
-                    {item.similarity} Match
+                    {item.similarity} {vT.match}
                   </span>
                 </div>
               </div>
@@ -455,7 +456,7 @@ const faqs = [
                     {item.freeName}
                   </h4>
                   <span class="text-xs font-mono text-[#64748b] dark:text-[#8a8f98]">
-                    by {item.freeDesigner}
+                    {vT.by} {item.freeDesigner}
                   </span>
                 </div>
 
@@ -466,13 +467,13 @@ const faqs = [
                     rel="noopener"
                     class="px-3 py-1.5 rounded-full bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] text-xs font-semibold hover:opacity-90 transition-opacity"
                   >
-                    Get Free Font ↗
+                    {vT.getFreeFont}
                   </a>
                   <a
                     href={p(`/fonts/${item.freeSlug}`)}
                     class="px-3 py-1.5 rounded-full bg-white dark:bg-[#1c1e24] border border-[#e2e4e8] dark:border-[#2a2d36] text-xs font-medium text-[#08090a] dark:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-colors"
                   >
-                    Specimen →
+                    {vT.specimen}
                   </a>
                 </div>
               </div>
@@ -491,9 +492,10 @@ const faqs = [
             <button
               type="button"
               data-css={item.css}
+              data-copied={vT.copied}
               class="btn-copy-css text-[#ff4d00] dark:text-[#e4f222] hover:underline font-semibold cursor-pointer shrink-0 ml-2"
             >
-              Copy CSS
+              {vT.copyCss}
             </button>
           </div>
         </article>
@@ -502,7 +504,7 @@ const faqs = [
 
     <!-- Empty State -->
     <div id="no-results-box" class="hidden py-16 text-center text-[#64748b] dark:text-[#8a8f98]">
-      <p class="text-sm font-mono">No matching commercial fonts found. Try another query like 'Helvetica' or 'Futura'.</p>
+      <p class="text-sm font-mono">{vT.noResults}</p>
     </div>
   </section>
 
@@ -510,17 +512,17 @@ const faqs = [
   <section class="py-16 sm:py-20 border-t border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0c0d10] transition-colors">
     <div class="max-w-[900px] mx-auto px-4 sm:px-6 space-y-12">
       <div class="text-center">
-        <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">FREQUENTLY ASKED QUESTIONS</span>
+        <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">{vT.faqBadge}</span>
         <h2 class="text-2xl sm:text-3xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
-          Commercial Font Alternatives Guide
+          {vT.faqTitle}
         </h2>
         <p class="mt-2 text-sm text-[#475569] dark:text-[#8a8f98]">
-          Everything you need to know about replacing paid typefaces with 100% legal Google Font stand-ins.
+          {vT.faqSubtitle}
         </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
+        {vT.faqs.map((faq) => (
           <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-2">
             <h3 class="text-base sm:text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">
               {faq.q}
@@ -588,7 +590,8 @@ const faqs = [
           try {
             await navigator.clipboard.writeText(css);
             const original = btn.textContent;
-            btn.textContent = 'Copied!';
+            const copiedText = btn.getAttribute('data-copied') || 'Copied!';
+            btn.textContent = copiedText;
             setTimeout(() => {
               btn.textContent = original;
             }, 2000);

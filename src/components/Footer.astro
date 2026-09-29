@@ -1,5 +1,6 @@
 ---
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getViewTranslations } from '../i18n/viewTranslations';
 import type { SupportedLocale } from '../i18n/languages';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
+const vT = getViewTranslations(lang);
 const fT = t.common.footer;
 const year = new Date().getFullYear();
 
@@ -50,7 +52,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
           <li><a href={p('/tools/font-pairing')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.tools.fontPairing}</a></li>
           <li><a href={p('/tools/handwriting-font-finder')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.tools.handwritingMatcher}</a></li>
           <li><a href={p('/tools/free-font-alternative-finder')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.tools.commercialAlternatives}</a></li>
-          <li><a href={p('/tools/pdf-font-detector')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">PDF Font Detector</a></li>
+          <li><a href={p('/tools/pdf-font-detector')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{vT.toolsIndex.pdfTitle}</a></li>
           <li><a href={p('/fonts')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.tools.fonts || 'Fonts'}</a></li>
         </ul>
       </div>
@@ -61,7 +63,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
         <ul class="space-y-2 text-[13px] text-[#475569] dark:text-[#8a8f98]">
           <li><a href={p('/about')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.aboutUs}</a></li>
           <li><a href={p('/guides')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.guides}</a></li>
-          <li><a href={p('/blog')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">Typography Blog</a></li>
+          <li><a href={p('/blog')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{vT.toolsIndex.blogTitle}</a></li>
           <li><a href={p('/how-it-works')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.howItWorks}</a></li>
           <li><a href={p('/tools')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.allFontTools}</a></li>
           <li><a href={p('/contact')} class="hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors">{fT.contactSupport}</a></li>

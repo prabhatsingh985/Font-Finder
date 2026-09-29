@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getViewTranslations } from '../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../i18n/languages';
 
 interface Props {
@@ -11,6 +12,7 @@ const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const toT = t.toolsOverview;
+const vT = getViewTranslations(lang);
 
 const tools = [
   {
@@ -57,8 +59,8 @@ const tools = [
   },
   {
     id: 'pdf-font-detector',
-    title: 'PDF Font Detector',
-    description: 'Capture any invoice, contract, or ebook screenshot to identify embedded or rasterized PDF typography.',
+    title: vT.toolsIndex.pdfTitle,
+    description: vT.toolsIndex.pdfDesc,
     icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
     href: getLocalizedPath('/tools/pdf-font-detector', currentLocale)
   }

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { BLOG_ARTICLES, getBlogArticleBySlug } from '../../data/blogArticles';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getViewTranslations } from '../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../i18n/languages';
 
 export function getStaticPaths() {
@@ -15,6 +16,7 @@ const { article } = Astro.props;
 const lang = (Astro.currentLocale as string) || 'en';
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
+const vT = getViewTranslations(lang).blog;
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 
 if (!article) {
@@ -70,7 +72,7 @@ const canonicalUrl = `https://profontfinder.com/blog/${article.slug}`;
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        <span>Back to all guides</span>
+        <span>{vT.backToGuides}</span>
       </a>
     </div>
 
@@ -112,27 +114,24 @@ const canonicalUrl = `https://profontfinder.com/blog/${article.slug}`;
       <div class="rounded-2xl border border-[#e2e4e8] dark:border-[#23252a] bg-[#f8f9fa] dark:bg-[#0f1011] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
         <div class="text-center sm:text-left">
           <span class="font-mono text-[11px] uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-1">
-            TEST LIVE TYPOGRAPHY
+            {vT.tryLiveEngine}
           </span>
           <h3 class="text-xl font-[510] text-[#08090a] dark:text-[#ffffff]">
-            Identify any font from a screenshot
+            {vT.tryLiveEngineSubtitle}
           </h3>
-          <p class="text-xs text-[#475569] dark:text-[#8a8f98] mt-1 max-w-md">
-            Upload or paste any image to test optical shape contours against 1,935+ verified Google Fonts.
-          </p>
         </div>
         <div class="shrink-0 flex flex-col sm:flex-row gap-3">
           <a
             href={p('/#finder')}
             class="px-5 py-2.5 rounded-full bg-[#08090a] text-white dark:bg-[#ffffff] dark:text-[#08090a] text-xs font-semibold hover:opacity-90 transition-opacity text-center shadow-sm"
           >
-            Launch Font Finder
+            {vT.launchFinder}
           </a>
           <a
             href={p('/tools/free-font-alternative-finder')}
             class="px-5 py-2.5 rounded-full bg-white dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] text-xs font-semibold text-[#08090a] dark:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b44] transition-colors text-center"
           >
-            Browse Free Twins
+            {vT.browseTwins}
           </a>
         </div>
       </div>

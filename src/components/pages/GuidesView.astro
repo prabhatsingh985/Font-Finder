@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getViewTranslations } from '../../i18n/viewTranslations';
 import { BLOG_ARTICLES } from '../../data/blogArticles';
 import type { SupportedLocale } from '../../i18n/languages';
 
@@ -12,6 +13,9 @@ const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
 const gT = t.guides;
+const allVT = getViewTranslations(lang);
+const vT = allVT.guidesFeatured;
+const bT = allVT.blog;
 
 const p = (path: string) => getLocalizedPath(path, currentLocale);
 ---
@@ -41,14 +45,14 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
       <div class="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-[#f1f3f6] dark:border-[#1a1b1e]">
         <div>
           <span class="font-mono text-[10px] uppercase tracking-wider text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-1">
-            FEATURED RESEARCH & COMPARISON GUIDES
+            {vT.badge}
           </span>
           <h2 class="text-xl sm:text-2xl font-[510] text-[#08090a] dark:text-[#ffffff]">
-            Commercial Alternatives & Typography Mechanics
+            {vT.title}
           </h2>
         </div>
         <a href={p('/blog')} class="text-xs font-mono text-[#ff4d00] dark:text-[#e4f222] hover:underline font-semibold shrink-0">
-          View all guides →
+          {vT.viewAll}
         </a>
       </div>
 
@@ -68,7 +72,7 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
             </div>
             <div class="mt-4 pt-3 border-t border-[#e2e4e8]/60 dark:border-[#23252a] flex items-center justify-between text-[10px] font-mono text-[#64748b] dark:text-[#8a8f98]">
               <span>{article.readTime}</span>
-              <span class="text-[#ff4d00] dark:text-[#e4f222] font-semibold">Read ↗</span>
+              <span class="text-[#ff4d00] dark:text-[#e4f222] font-semibold">{bT.readArticle}</span>
             </div>
           </a>
         ))}

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FontFinderApp from '../../components/FontFinderApp.astro';
 import { useTranslations, getLocalizedPath } from '../../i18n/utils';
+import { getViewTranslations } from '../../i18n/viewTranslations';
 import type { SupportedLocale } from '../../i18n/languages';
 
 interface Props {
@@ -11,34 +12,20 @@ interface Props {
 const { lang = (Astro.currentLocale as string) || 'en' } = Astro.props;
 const currentLocale = lang as SupportedLocale;
 const t = useTranslations(lang);
+const vT = getViewTranslations(lang).pdf;
 const toolsHref = getLocalizedPath('/tools', currentLocale);
 const p = (path: string) => getLocalizedPath(path, currentLocale);
-
-const pdfFaqs = [
-  {
-    q: 'How do I detect a font from a PDF file?',
-    a: 'Simply take a clean screenshot of the PDF page or snippet (using Win + Shift + S on Windows or Cmd + Shift + 4 on Mac), press Ctrl+V / Cmd+V to paste it directly into ProFontFinder, crop the text, and our in-browser AI engine will identify the font in seconds.'
-  },
-  {
-    q: 'Can ProFontFinder identify both vector and scanned PDF text?',
-    a: 'Yes. Our dual-stage optical engine works on both vector-exported PDF pages and scanned paper documents with optical thresholding and contrast enhancement.'
-  },
-  {
-    q: 'Are my confidential PDF documents kept private?',
-    a: 'Yes, 100%. All image processing and letterform matching occur locally within your browser memory. No PDF pages or image files are uploaded to external servers.'
-  }
-];
 ---
 
 <BaseLayout
-  title="PDF Font Detector — Identify Fonts in PDF Documents Online Free | ProFontFinder"
-  description="Discover what font is in a PDF document or scanned document. Paste a screenshot of any PDF page to identify fonts and find free Google Font alternatives."
+  title={`${vT.heroTitle} ${vT.heroHighlight} — ProFontFinder`}
+  description={vT.heroSubtitle}
   lang={lang}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": pdfFaqs.map(item => ({
+    "mainEntity": vT.faqs.map(item => ({
       "@type": "Question",
       "name": item.q,
       "acceptedAnswer": {
@@ -57,25 +44,25 @@ const pdfFaqs = [
         <div class="w-1.5 h-1.5 rounded-full bg-[#e4f222]"></div>
         <a href={toolsHref} class="text-xs font-mono text-[#8a8f98] hover:text-[#e4f222] transition-colors">{t.common.nav.tools}</a>
         <span class="text-xs text-[#383b3f]">/</span>
-        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">PDF FONT DETECTOR</span>
+        <span class="text-xs font-mono text-[#ffffff] uppercase tracking-wider">{vT.badge}</span>
       </div>
 
       <!-- Hero Header -->
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-[510] text-[#ffffff] tracking-tight max-w-3xl mx-auto leading-tight">
-        Identify Fonts in <br class="hidden sm:inline" />
-        <span class="text-[#e4f222]">PDF Documents</span>
+        {vT.heroTitle} <br class="hidden sm:inline" />
+        <span class="text-[#e4f222]">{vT.heroHighlight}</span>
       </h1>
       <p class="mt-4 text-sm sm:text-base text-[#8a8f98] max-w-xl mx-auto leading-relaxed">
-        Capture a screenshot from any PDF invoice, contract, or ebook. Match fonts against 1,935+ verified Google Fonts with 100% in-browser privacy.
+        {vT.heroSubtitle}
       </p>
 
       <!-- Upload Sample Image UI -->
       <div class="mt-8 sm:mt-12 w-full max-w-[1020px] mx-auto text-left">
         <FontFinderApp
           lang={lang}
-          dropzoneTitle="Paste PDF screenshot (⌘V / Ctrl+V) or drop image"
-          dropzoneSubtitle="Take a snip of your PDF page and paste directly here"
-          buttonText="Select PDF Image"
+          dropzoneTitle={vT.dropzoneTitle}
+          dropzoneSubtitle={vT.dropzoneSubtitle}
+          buttonText={vT.buttonText}
         />
       </div>
 
@@ -85,46 +72,46 @@ const pdfFaqs = [
   <!-- HOW TO IDENTIFY FONTS IN PDF GUIDE -->
   <section class="py-16 sm:py-24 max-w-[1000px] mx-auto px-4 sm:px-6 space-y-16">
     <div class="text-center max-w-2xl mx-auto">
-      <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">3-STEP WORKFLOW</span>
+      <span class="font-mono text-xs uppercase tracking-widest text-[#ff4d00] dark:text-[#e4f222] font-semibold block mb-2">{vT.faqBadge}</span>
       <h2 class="text-2xl sm:text-4xl font-[510] text-[#08090a] dark:text-[#ffffff] tracking-tight">
-        How to Detect Unknown PDF Fonts
+        {vT.heroTitle} {vT.heroHighlight}
       </h2>
       <p class="mt-3 text-sm text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-        PDF documents often flatten typography into outlines or restrict font extraction. Here is the easiest way to identify any font in a PDF document.
+        {vT.faqSubtitle}
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-3">
-        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">STEP 01</div>
-        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">Capture a Clean Snip</h3>
+        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">01</div>
+        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">{vT.feature1Title}</h3>
         <p class="text-xs text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-          Open your PDF reader at 150% zoom. Use Win+Shift+S (Windows) or Cmd+Shift+4 (Mac) to capture the target text paragraph.
+          {vT.feature1Desc}
         </p>
       </div>
 
       <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-3">
-        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">STEP 02</div>
-        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">Paste Directly (Ctrl+V)</h3>
+        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">02</div>
+        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">{vT.feature2Title}</h3>
         <p class="text-xs text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-          Switch to this window and press Ctrl+V anywhere. Your image loads instantly in browser memory without sending data to a server.
+          {vT.feature2Desc}
         </p>
       </div>
 
       <div class="p-6 rounded-2xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] shadow-sm space-y-3">
-        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">STEP 03</div>
-        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">Rank Matches & Free Twins</h3>
+        <div class="font-mono text-xs font-bold text-[#ff4d00] dark:text-[#e4f222]">03</div>
+        <h3 class="text-lg font-[510] text-[#08090a] dark:text-[#ffffff]">{vT.feature3Title}</h3>
         <p class="text-xs text-[#475569] dark:text-[#8a8f98] leading-relaxed">
-          Review optical similarity scores, inspect letterform geometry, and copy production CSS declarations or download free Google Font twins.
+          {vT.feature3Desc}
         </p>
       </div>
     </div>
 
     <!-- FAQ Section -->
     <div class="pt-8 border-t border-[#e2e4e8] dark:border-[#23252a] space-y-6">
-      <h3 class="text-xl font-[510] text-[#08090a] dark:text-[#ffffff] text-center">Frequently Asked Questions</h3>
+      <h3 class="text-xl font-[510] text-[#08090a] dark:text-[#ffffff] text-center">{vT.faqTitle}</h3>
       <div class="space-y-4">
-        {pdfFaqs.map((faq) => (
+        {vT.faqs.map((faq) => (
           <div class="p-5 rounded-xl bg-white dark:bg-[#0f1011] border border-[#e2e4e8] dark:border-[#23252a] space-y-1.5">
             <h4 class="text-sm font-semibold text-[#08090a] dark:text-[#ffffff]">{faq.q}</h4>
             <p class="text-xs text-[#475569] dark:text-[#8a8f98] leading-relaxed">{faq.a}</p>
