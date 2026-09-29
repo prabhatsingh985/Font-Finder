@@ -1,6 +1,5 @@
 ---
 import { NON_DEFAULT_LOCALES } from '../../i18n/languages';
-import CommercialAlternativeView from '../../components/pages/CommercialAlternativeView.astro';
 
 export function getStaticPaths() {
   return NON_DEFAULT_LOCALES.map((lang) => ({
@@ -9,5 +8,5 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
+return Astro.redirect(`/${lang}/tools/free-font-alternative-finder`, 301);
 ---
-<CommercialAlternativeView lang={lang} />

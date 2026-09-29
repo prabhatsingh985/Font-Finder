@@ -724,7 +724,7 @@ export const fr: TranslationSchema = {
           "Utilisez notre moteur dédié pour faire correspondre épaisseurs et proportions.",
           "Exportez vos règles CSS @import prêtes pour la production sans frais de licence."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Voir les Alternatives Commerciales"
       },
       {

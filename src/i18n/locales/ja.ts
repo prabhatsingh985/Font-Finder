@@ -724,7 +724,7 @@ export const ja: TranslationSchema = {
           "専用代替エンジンで文字の太さやメトリクスを自動照合。",
           "ライセンス料不要ですぐに使えるCSS @importコードを出力。"
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "商用代替フォントを見る"
       },
       {

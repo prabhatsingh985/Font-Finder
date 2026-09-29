@@ -724,7 +724,7 @@ export const es: TranslationSchema = {
           "Usa nuestro motor especializado para hacer coincidir grosor de trazo y proporciones.",
           "Exporta reglas CSS @import listas para usar sin pagar tarifas de licencia."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Explorar Alternativas Comerciales"
       },
       {

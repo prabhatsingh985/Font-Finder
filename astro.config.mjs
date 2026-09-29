@@ -12,5 +12,9 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false
     }
+  },
+  redirects: {
+    '/tools/commercial-alternative': '/tools/free-font-alternative-finder',
+    '/free-font-alternative-finder': '/tools/free-font-alternative-finder'
   }
 });

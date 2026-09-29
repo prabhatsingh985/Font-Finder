@@ -724,7 +724,7 @@ export const pt: TranslationSchema = {
           "Use nosso motor de alternativas para sincronizar espessura e proporções.",
           "Exporte código CSS @import pronto para produção sem custos de licença."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Ver Alternativas Comerciais"
       },
       {

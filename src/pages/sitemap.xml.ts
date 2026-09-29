@@ -8,9 +8,7 @@ export const GET: APIRoute = async () => {
   const staticPages = [
     '/',
     '/tools',
-    '/tools/commercial-alternative',
     '/tools/free-font-alternative-finder',
-    '/free-font-alternative-finder',
     '/tools/url-font-finder',
     '/tools/logo-font-finder',
     '/tools/logo-font-identifier',

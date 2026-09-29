@@ -722,7 +722,7 @@ export const en = {
           "Use our specialized alternative engine to match stem thickness and metrics.",
           "Export ready-to-use CSS @import rules for zero-license-fee web deployment."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Browse Commercial Alternatives"
       },
       {

@@ -724,7 +724,7 @@ export const de: TranslationSchema = {
           "Mit unserer Alternativen-Engine Strichstärke und Proportionen abgleichen.",
           "Fertigen CSS @import-Code lizenzkostenfrei für die Produktion exportieren."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Kommerzielle Alternativen durchsuchen"
       },
       {

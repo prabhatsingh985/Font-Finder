@@ -724,7 +724,7 @@ export const it: TranslationSchema = {
           "Usa il nostro motore per confrontare spessore dei tratti e proporzioni.",
           "Esporta regole CSS @import pronte per la produzione a costo zero."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "Esplora Alternative Commerciali"
       },
       {

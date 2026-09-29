@@ -724,7 +724,7 @@ export const ko: TranslationSchema = {
           "전용 대체 폰트 엔진으로 굵기와 비율이 가장 흡사한 폰트를 매칭합니다.",
           "라이선스 비용 없이 즉시 배포할 수 있는 CSS @import 코드를 복사합니다."
         ],
-        toolLink: "/tools/commercial-alternative",
+        toolLink: "/tools/free-font-alternative-finder",
         toolName: "상용 폰트 대체제 탐색"
       },
       {
