@@ -252,8 +252,8 @@ export const ja: TranslationSchema = {
       "title": "よくある質問",
       "items": [
         {
-          "q": "What The Font Finderとは何ですか？どのように機能しますか？",
-          "a": "画像や写真、スクリーンショット内の文字を解析し、正確な書体または最も近いオープンソースのGoogle Fonts代替品を特定する無料オンラインツールです。"
+          "q": "Pro Font Finderとは何ですか？どのように機能しますか？",
+          "a": "Pro Font Finderは、画像や写真、スクリーンショット内の文字をブラウザ内で安全に解析し、正確な書体または最も近いオープンソースのGoogle Fonts代替品を特定する無料オンラインツールです。"
         },
         {
           "q": "Googleでフォントを識別することはできますか？",
@@ -798,8 +798,8 @@ export const ja: TranslationSchema = {
     faqTitle: "フォント特定に関するよくある質問",
     faqs: [
         {
-          "q": "What The Font Finderとは何ですか？どのように機能しますか？",
-          "a": "画像や写真、スクリーンショット内の文字を解析し、正確な書体または最も近いオープンソースのGoogle Fonts代替品を特定する無料オンラインツールです。"
+          "q": "Pro Font Finderとは何ですか？どのように機能しますか？",
+          "a": "Pro Font Finderは、画像や写真、スクリーンショット内の文字をブラウザ内で安全に解析し、正確な書体または最も近いオープンソースのGoogle Fonts代替品を特定する無料オンラインツールです。"
         },
         {
           "q": "Googleでフォントを識別することはできますか？",

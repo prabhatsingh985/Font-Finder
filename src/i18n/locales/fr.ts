@@ -252,8 +252,8 @@ export const fr: TranslationSchema = {
       "title": "Foire aux questions",
       "items": [
         {
-          "q": "Qu'est-ce que What The Font Finder et comment cela fonctionne-t-il ?",
-          "a": "C'est un outil typographique gratuit qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
+          "q": "Qu'est-ce que Pro Font Finder et comment cela fonctionne-t-il ?",
+          "a": "Pro Font Finder est un outil typographique gratuit et privé directement dans le navigateur qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
         },
         {
           "q": "Google peut-il identifier une police ?",
@@ -798,8 +798,8 @@ export const fr: TranslationSchema = {
     faqTitle: "Foire Aux Questions sur l'Identification de Polices",
     faqs: [
         {
-          "q": "Qu'est-ce que What The Font Finder et comment cela fonctionne-t-il ?",
-          "a": "C'est un outil typographique gratuit qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
+          "q": "Qu'est-ce que Pro Font Finder et comment cela fonctionne-t-il ?",
+          "a": "Pro Font Finder est un outil typographique gratuit et privé directement dans le navigateur qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
         },
         {
           "q": "Google peut-il identifier une police ?",

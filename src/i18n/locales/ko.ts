@@ -252,8 +252,8 @@ export const ko: TranslationSchema = {
       "title": "자주 묻는 질문",
       "items": [
         {
-          "q": "What The Font Finder란 무엇이며 어떻게 작동하나요?",
-          "a": "이미지나 스크린샷 속 텍스트를 분석하여 일치하는 글꼴 또는 가장 가까운 오픈소스 Google Fonts 무료 대안을 찾아주는 도구입니다."
+          "q": "Pro Font Finder란 무엇이며 어떻게 작동하나요?",
+          "a": "Pro Font Finder는 이미지나 스크린샷 속 텍스트를 브라우저 내에서 안전하게 분석하여 일치하는 글꼴 또는 가장 가까운 오픈소스 Google Fonts 무료 대안을 찾아주는 무료 온라인 도구입니다."
         },
         {
           "q": "Google로 글꼴을 식별할 수 있나요?",
@@ -798,8 +798,8 @@ export const ko: TranslationSchema = {
     faqTitle: "폰트 식별 자주 묻는 질문",
     faqs: [
         {
-          "q": "What The Font Finder란 무엇이며 어떻게 작동하나요?",
-          "a": "이미지나 스크린샷 속 텍스트를 분석하여 일치하는 글꼴 또는 가장 가까운 오픈소스 Google Fonts 무료 대안을 찾아주는 도구입니다."
+          "q": "Pro Font Finder란 무엇이며 어떻게 작동하나요?",
+          "a": "Pro Font Finder는 이미지나 스크린샷 속 텍스트를 브라우저 내에서 안전하게 분석하여 일치하는 글꼴 또는 가장 가까운 오픈소스 Google Fonts 무료 대안을 찾아주는 무료 온라인 도구입니다."
         },
         {
           "q": "Google로 글꼴을 식별할 수 있나요?",

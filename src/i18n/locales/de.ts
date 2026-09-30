@@ -252,8 +252,8 @@ export const de: TranslationSchema = {
       "title": "Häufig gestellte Fragen",
       "items": [
         {
-          "q": "Was ist What The Font Finder und wie funktioniert es?",
-          "a": "What The Font Finder ist ein kostenloses Online-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
+          "q": "Was ist Pro Font Finder und wie funktioniert es?",
+          "a": "Pro Font Finder ist ein kostenloses, datenschutzfreundliches In-Browser-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
         },
         {
           "q": "Kann Google eine Schriftart identifizieren?",
@@ -798,8 +798,8 @@ export const de: TranslationSchema = {
     faqTitle: "Häufig gestellte Fragen zur Schriftarterkennung",
     faqs: [
         {
-          "q": "Was ist What The Font Finder und wie funktioniert es?",
-          "a": "What The Font Finder ist ein kostenloses Online-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
+          "q": "Was ist Pro Font Finder und wie funktioniert es?",
+          "a": "Pro Font Finder ist ein kostenloses, datenschutzfreundliches In-Browser-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
         },
         {
           "q": "Kann Google eine Schriftart identifizieren?",

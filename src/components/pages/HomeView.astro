@@ -715,7 +715,7 @@ const featuredFonts = VERIFIED_GOOGLE_FONTS.slice(0, 6);
 
       <div class="divide-y divide-[#e2e4e8] dark:divide-[#23252a] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] rounded-[12px] px-5 sm:px-6 shadow-sm">
         {hT.faq.items.map((item, idx) => (
-          <details class="group py-4" open={idx === 0}>
+          <details class="group py-4">
             <summary class="flex items-center justify-between cursor-pointer text-[14px] font-[510] text-[#08090a] dark:text-[#ffffff] hover:text-[#ff4d00] dark:hover:text-[#e4f222] list-none transition-colors">
               <span>{item.q}</span>
               <span class="text-[12px] font-mono text-[#64748b] dark:text-[#8a8f98] transition-transform group-open:rotate-180">&darr;</span>

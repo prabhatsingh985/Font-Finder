@@ -250,8 +250,8 @@ export const en = {
       title: 'Frequently Asked Questions',
       items: [
         {
-          q: 'What the font finder: What is a font finder and how does it work?',
-          a: 'What The Font Finder is a free online typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and CSS embed codes.'
+          q: 'What is Pro Font Finder and how does it work?',
+          a: 'Pro Font Finder is a free, privacy-focused in-browser typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and production-ready CSS embed codes.'
         },
         {
           q: 'Can Google identify a font?',
@@ -279,7 +279,7 @@ export const en = {
         },
         {
           q: 'Can I take a picture of a font and find it?',
-          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
+          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Pro Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
         },
         {
           q: 'Where can I find free fonts?',
@@ -326,8 +326,8 @@ export const en = {
           a: '"What font am I?" isn\'t just a fun personality quiz—it\'s how modern designers, founders, and creators define their visual branding identity. Different typefaces project distinct human energies: geometric sans-serifs like Inter and Montserrat convey sleek digital modernity and precision; elegant serifs like Playfair Display and Merriweather exude editorial prestige and warmth; while clean monospaces embody focused developer intellect. With ProFontFinder, you can turn curiosity into actionable design! Upload a snapshot of your portfolio, personal website, or favorite design sample to ProFontFinder to decode its typographic fingerprint, reveal the exact fonts that represent your unique identity, and get immediate production-ready CSS to power your personal brand.'
         },
         {
-          q: 'Can I use the font finder by uploading an image?',
-          a: 'Yes, absolutely! Uploading an image is the primary way to use ProFontFinder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
+          q: 'Can I use Pro Font Finder by uploading an image?',
+          a: 'Yes, absolutely! Uploading an image is the primary way to use Pro Font Finder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
         }
       ]
     },
@@ -796,8 +796,8 @@ export const en = {
     faqTitle: "Frequently Asked Questions About Font Identification",
     faqs: [
         {
-          q: 'What the font finder: What is a font finder and how does it work?',
-          a: 'What The Font Finder is a free online typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and CSS embed codes.'
+          q: 'What is Pro Font Finder and how does it work?',
+          a: 'Pro Font Finder is a free, privacy-focused in-browser typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and production-ready CSS embed codes.'
         },
         {
           q: 'Can Google identify a font?',
@@ -825,7 +825,7 @@ export const en = {
         },
         {
           q: 'Can I take a picture of a font and find it?',
-          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
+          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Pro Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
         },
         {
           q: 'Where can I find free fonts?',
@@ -872,8 +872,8 @@ export const en = {
           a: '"What font am I?" isn\'t just a fun personality quiz—it\'s how modern designers, founders, and creators define their visual branding identity. Different typefaces project distinct human energies: geometric sans-serifs like Inter and Montserrat convey sleek digital modernity and precision; elegant serifs like Playfair Display and Merriweather exude editorial prestige and warmth; while clean monospaces embody focused developer intellect. With ProFontFinder, you can turn curiosity into actionable design! Upload a snapshot of your portfolio, personal website, or favorite design sample to ProFontFinder to decode its typographic fingerprint, reveal the exact fonts that represent your unique identity, and get immediate production-ready CSS to power your personal brand.'
         },
         {
-          q: 'Can I use the font finder by uploading an image?',
-          a: 'Yes, absolutely! Uploading an image is the primary way to use ProFontFinder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
+          q: 'Can I use Pro Font Finder by uploading an image?',
+          a: 'Yes, absolutely! Uploading an image is the primary way to use Pro Font Finder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
         }
     ]
   },

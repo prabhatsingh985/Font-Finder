@@ -252,8 +252,8 @@ export const it: TranslationSchema = {
       "title": "Domande frequenti",
       "items": [
         {
-          "q": "Cos'è What The Font Finder e come funziona?",
-          "a": "È uno strumento tipografico online gratuito che esamina il testo nelle immagini per individuare il font esatto o l'alternativa open source di Google Fonts più simile."
+          "q": "Cos'è Pro Font Finder e come funziona?",
+          "a": "Pro Font Finder è uno strumento tipografico gratuito e privato nel browser che esamina il testo nelle immagini per individuare il font esatto o l'alternativa open source di Google Fonts più simile."
         },
         {
           "q": "Google può identificare un font?",
@@ -798,8 +798,8 @@ export const it: TranslationSchema = {
     faqTitle: "Domande Frequenti sull'Identificazione dei Font",
     faqs: [
         {
-          "q": "Cos'è What The Font Finder e come funziona?",
-          "a": "È uno strumento tipografico online gratuito che esamina il testo nelle immagini per individuare il font esatto o l'alternativa open source di Google Fonts più simile."
+          "q": "Cos'è Pro Font Finder e come funziona?",
+          "a": "Pro Font Finder è uno strumento tipografico gratuito e privato nel browser che esamina il testo nelle immagini per individuare il font esatto o l'alternativa open source di Google Fonts più simile."
         },
         {
           "q": "Google può identificare un font?",
