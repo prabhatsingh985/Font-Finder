@@ -181,7 +181,7 @@ export const en = {
       badge: 'ENGINE SPECIFICATIONS',
       title: 'Open-source matches.',
       titleAccent: 'Production ready.',
-      desc: 'Avoid commercial license traps. Font Finder maps bitmap letterforms to authentic, free-to-use Google Fonts alternatives.',
+      desc: 'Avoid costly licensing traps. Pro Font Finder maps raster letterforms directly to open-source Google Font alternatives in your browser.',
       licensingModel: 'Licensing Model',
       licensingValue: '100% Free SIL Open Font License',
       processingArch: 'Processing Architecture',
@@ -214,7 +214,7 @@ export const en = {
         title: 'Identify Fonts from Screenshots and Logos',
         desc: 'Typography inspiration frequently arrives as screenshots, graphics, and brand wordmarks.',
         card1Title: 'Screenshots from Web & Mobile Apps',
-        card1Desc: 'Capture a screen snip while browsing and drop it into our Screenshot Font Finder. If you wonder "what font is it" or search for WhatTheFont and WhatFontIs, get instant answers without paywalls.',
+        card1Desc: 'Capture a screen snip while browsing and drop it into our Screenshot Font Finder. Identify fonts from UI mockups, web apps, and digital graphics with instant zero-paywall results.',
         card1Link: 'Launch Screenshot Snip Scanner',
         card2Title: 'Brand Logos & Wordmark Recognition',
         card2Desc: 'Discover the foundational typography behind famous marks with our Logo Font Finder, mapping custom kerning back to accessible font families.',
@@ -279,7 +279,7 @@ export const en = {
         },
         {
           q: 'Can I take a picture of a font and find it?',
-          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Pro Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
+          a: 'Yes! Snap a photo of real-world text—magazines, billboards, restaurant menus, merchandise, or apparel labels—with your camera and drop it into Pro Font Finder. Keep the lens straight and well-lit for peak contour accuracy.'
         },
         {
           q: 'Where can I find free fonts?',
@@ -825,7 +825,7 @@ export const en = {
         },
         {
           q: 'Can I take a picture of a font and find it?',
-          a: 'Yes! You can take a photo of any printed typography—such as book covers, street signs, posters, menus, or product packaging—with your phone and upload it directly into Pro Font Finder. Ensure the picture is well-lit, in focus, and taken straight-on for the highest optical matching accuracy.'
+          a: 'Yes! Snap a photo of real-world text—magazines, billboards, restaurant menus, merchandise, or apparel labels—with your camera and drop it into Pro Font Finder. Keep the lens straight and well-lit for peak contour accuracy.'
         },
         {
           q: 'Where can I find free fonts?',
