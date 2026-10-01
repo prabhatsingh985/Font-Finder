@@ -13,7 +13,7 @@ interface Props {
 }
 
 const {
-  title = 'Font Finder — Free Image Font Identifier | Pro Font Finder',
+  title = 'Font Finder — Free Font Identifier from Image',
   description = 'Identify any font from images and screenshots instantly with Pro Font Finder. Upload an image to analyze letterforms and get 100% verified free font alternatives.',
   canonicalUrl,
   ogImage = '/og-image.jpg?v=2',
@@ -23,7 +23,7 @@ const {
   lang = (Astro.currentLocale as string) || 'en'
 } = Astro.props;
 
-const defaultKeywords = 'pro font finder, profontfinder, font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, image font finder, what font is this, font identifier, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder';
+const defaultKeywords = 'pro font finder, profontfinder, font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, image font finder, what font is this, font identifier, font identifier by image, font identifier from image, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder';
 
 const siteName = 'ProFontFinder';
 const siteOrigin = 'https://profontfinder.com';
@@ -113,7 +113,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
         "@id": "https://profontfinder.com/#website",
         "url": "https://profontfinder.com/",
         "name": "ProFontFinder",
-        "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder"],
+        "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder", "Font Identifier By Image", "Font Identifier From Image"],
         "description": "Free image font finder and open-source Google Fonts identifier."
       },
       {
