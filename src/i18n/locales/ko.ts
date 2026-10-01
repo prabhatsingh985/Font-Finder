@@ -128,7 +128,7 @@ export const ko: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — 무료 이미지 폰트 찾기 및 식별 도구",
+      "title": "Font Finder — 이미지에서 글꼴을 식별하는 무료 도구",
       "description": "Font Finder를 사용해 이미지와 스크린샷에서 모든 글꼴을 즉시 식별하세요. 글자 형태를 분석하여 검증된 100% 무료 Google Fonts 대안을 찾습니다."
     },
     "hero": {

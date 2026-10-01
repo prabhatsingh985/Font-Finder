@@ -128,7 +128,7 @@ export const fr: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Identificateur de polices gratuit par image",
+      "title": "Font Finder — Identificateur de polices gratuit à partir d'image",
       "description": "Identifiez instantanément n'importe quelle police à partir d'images et de captures d'écran avec Font Finder. Obtenez des alternatives Google Fonts 100% gratuites et vérifiées."
     },
     "hero": {

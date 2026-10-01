@@ -128,7 +128,7 @@ export const ja: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — 無料の画像フォント識別ツール",
+      "title": "Font Finder — 画像からフォントを識別する無料ツール",
       "description": "Font Finderで画像やスクリーンショットからあらゆるフォントを瞬時に特定。文字形状を解析し、検証済みの100%無料Googleフォント代替候補を提示します。"
     },
     "hero": {

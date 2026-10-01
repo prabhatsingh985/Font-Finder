@@ -128,7 +128,7 @@ export const de: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Kostenlose Schriftarterkennung per Bild",
+      "title": "Font Finder — Kostenlose Schriftarterkennung aus Bild",
       "description": "Erkennen Sie jede Schriftart aus Bildern und Screenshots im Handumdrehen mit Font Finder. Analysieren Sie Buchstabenformen und erhalten Sie 100% kostenlose, verifizierte Google-Fonts-Alternativen."
     },
     "hero": {

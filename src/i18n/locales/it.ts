@@ -128,7 +128,7 @@ export const it: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Riconoscimento gratuito di font da immagini",
+      "title": "Font Finder — Identificatore gratuito di font da immagine",
       "description": "Identifica qualsiasi font da immagini e screenshot all'istante con Font Finder. Trova alternative Google Fonts 100% gratuite e verificate."
     },
     "hero": {
