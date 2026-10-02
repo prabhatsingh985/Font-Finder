@@ -127,7 +127,7 @@ export const en = {
   home: {
     meta: {
       title: 'Font Finder — Free Font Identifier from Image',
-      description: 'Identify any font in seconds with Pro Font Finder. 100% free, private in-browser AI font identifier matching 1,935+ Google Fonts and typefaces instantly.'
+      description: 'Find font from image with Pro Font Finder — the free font identifier by image. Upload screenshots or graphics to detect fonts & open-source Google Font twins.'
     },
     hero: {
       headlinePrefix: 'Identify Any Font In Seconds',
