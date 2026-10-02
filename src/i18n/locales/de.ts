@@ -133,7 +133,7 @@ export const de: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Jede Schriftart in Sekundenschnelle erkennen",
-      "subtitle": "Laden Sie ein Bild hoch oder fügen Sie es ein, um Schriftarten sofort zu erkennen. Finden Sie die exakte Schrift aus Bildern, Logos und Screenshots — 100% kostenlos und privat."
+      "subtitle": "Laden Sie ein beliebiges Bild in unseren kostenlosen Schriftartenfinder hoch und identifizieren Sie Schriften sofort. Gleichen Sie Bilder, Logos und Screenshots mit über 1.935 Google Fonts ab."
     },
     "dropzone": {
       "title": "Bild ablegen oder Screenshot einfügen (⌘V)",
@@ -142,7 +142,7 @@ export const de: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ERKENNUNGS-ARCHITEKTUR",
-      "heading": "Drei-Stufen-Erkennungspipeline",
+      "heading": "So funktioniert unser Schriftartenfinder in 3 Schritten",
       "subheading": "Von einfachen Bitmap-Pixeln zu verifizierter, produktionsreifer Open-Source-CSS-Typografie.",
       "localInference": "< 150 ms lokale Inferenz",
       "zeroUploads": "Keine Server-Uploads",
@@ -202,14 +202,14 @@ export const de: TranslationSchema = {
       },
       "opticalAnalysis": {
         "badge": "OPTISCHE ANALYSE",
-        "title": "Wie funktioniert die Schriftarterkennung?",
+        "title": "Wie erkennt unser Schriftarten-Detektor Schriftarten?",
         "desc": "Die Schriftarterkennung kombiniert Computer Vision mit typografischer Buchstabenform-Analyse. Während herkömmliche OCR lediglich Wörter transkribiert, analysiert ein spezialisierter Schriftart-Erkenner stilistische Kurven, Proportionen und anatomische Merkmale."
       },
       "commercialFree": {
         "title": "Kommerzielle Typografie ohne Abonnementgebühren",
         "desc": "Unser kostenloser Schriftarten-Finder löst dieses Problem, indem er kommerzielle Schriften mit authentischen Open-Source-Alternativen unter der SIL Open Font License abgleicht:",
         "commOriginal": "KOMMERZIELLES ORIGINAL",
-        "exploreLink": "Entdecken Sie 50+ kuratierte Open-Source-Schrift-Zwillinge in unserem Tool für kommerzielle Alternativen"
+        "exploreLink": "Kostenlose Alternativen zu kommerziellen Schriftarten finden"
       },
       "digitalAssets": {
         "badge": "DIGITALE ASSET-ERFASSUNG",
@@ -217,10 +217,10 @@ export const de: TranslationSchema = {
         "desc": "Typografie-Inspiration entsteht häufig aus Screenshots, Grafiken und Marken-Wortmarken.",
         "card1Title": "Screenshots von Web- und Mobil-Apps",
         "card1Desc": "Machen Sie beim Surfen einen Bildschirmausschnitt und ziehen Sie ihn in unseren Screenshot Font Finder. Wenn Sie sich fragen \"Welche Schrift ist das?\", erhalten Sie sofort Antworten ohne Bezahlschranke.",
-        "card1Link": "Screenshot-Scanner starten",
+        "card1Link": "Nutzen Sie unseren Screenshot-Schriftartenfinder",
         "card2Title": "Markenlogos & Wortmarken-Erkennung",
         "card2Desc": "Entdecken Sie die grundlegende Typografie hinter bekannten Marken mit unserem Logo Font Finder, der individuelles Kerning wieder auf zugängliche Schriftfamilien zurückführt.",
-        "card2Link": "Markenlogo-Schriftenverzeichnis erkunden"
+        "card2Link": "Probieren Sie unseren Logo-Schriftarten-Detektor"
       },
       "styleTaxonomy": {
         "badge": "STIL-TAXONOMIE",
@@ -249,7 +249,7 @@ export const de: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Häufig gestellte Fragen",
+      "title": "Schriftartenfinder-FAQ — Häufige Fragen beantwortet",
       "items": [
         {
           "q": "Was ist Pro Font Finder und wie funktioniert es?",
@@ -338,8 +338,8 @@ export const de: TranslationSchema = {
       "ocrLatency": "OCR.LATENZ // <80MS",
       "engineReady": "Optische Erkennungs-Engine bereit",
       "signatures": "1.935 Signaturen",
-      "title": "Bereit, eine Schriftart zu erkennen?",
-      "desc": "Ziehen Sie ein beliebiges Bild oben hinein, um Buchstabenformen zu isolieren, Konturgeometrien zu berechnen und verifizierte Open-Source-Google-Fonts zu erhalten.",
+      "title": "Bereit, Ihre Schriftart anhand eines Bildes zu finden?",
+      "desc": "Ziehen Sie ein beliebiges Bild in unseren kostenlosen Schriftarten-Detektor, um Schriftarten zu erkennen und verifizierte Google Fonts mit sofort nutzbarem CSS zu erhalten.",
       "btnIdentify": "Schriftart jetzt erkennen",
       "btnTools": "Schriftart-Werkzeuge erkunden",
       "badgeInBrowser": "100% im Browser",

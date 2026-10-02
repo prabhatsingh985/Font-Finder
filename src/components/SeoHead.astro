@@ -1,5 +1,6 @@
 ---
-import { getHreflangTags, getCanonicalUrl } from '../i18n/utils';
+import { getHreflangTags, getCanonicalUrl, getCleanPath, getLocalizedPath } from '../i18n/utils';
+import type { SupportedLocale } from '../i18n/languages';
 
 interface Props {
   title?: string;
@@ -10,6 +11,7 @@ interface Props {
   keywords?: string[];
   noindex?: boolean;
   lang?: string;
+  breadcrumbs?: { name: string; item?: string }[];
 }
 
 const {
@@ -20,7 +22,8 @@ const {
   type = 'website',
   keywords,
   noindex = false,
-  lang = (Astro.currentLocale as string) || 'en'
+  lang = (Astro.currentLocale as string) || 'en',
+  breadcrumbs
 } = Astro.props;
 
 const defaultKeywords = 'pro font finder, profontfinder, font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, image font finder, what font is this, font identifier, font identifier by image, font identifier from image, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder';
@@ -41,6 +44,261 @@ const absoluteOgImage = ogImage.startsWith('http')
 
 const isPng = absoluteOgImage.toLowerCase().endsWith('.png');
 const ogImageType = isPng ? 'image/png' : 'image/jpeg';
+
+// BreadcrumbList JSON-LD for inner pages (Tools, Fonts, Guides, About and sub-pages; not on homepage)
+const cleanPath = getCleanPath(Astro.url.pathname);
+const isHomePage = cleanPath === '/' || cleanPath === '';
+
+let breadcrumbsList: { name: string; item: string }[] = [];
+
+if (!isHomePage) {
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    breadcrumbsList = breadcrumbs.map((b) => ({
+      name: b.name,
+      item: b.item
+        ? (b.item.startsWith('http') ? b.item : `${siteOrigin}${b.item.startsWith('/') ? '' : '/'}${b.item}`)
+        : absoluteCanonical
+    }));
+  } else {
+    const homeNames: Record<string, string> = {
+      en: 'Home',
+      es: 'Inicio',
+      de: 'Startseite',
+      fr: 'Accueil',
+      it: 'Home',
+      ja: 'ホーム',
+      ko: '홈',
+      pt: 'Início'
+    };
+
+    const sectionNames: Record<string, Record<string, string>> = {
+      tools: {
+        en: 'Tools',
+        es: 'Herramientas',
+        de: 'Werkzeuge',
+        fr: 'Outils',
+        it: 'Strumenti',
+        ja: 'ツール',
+        ko: '도구',
+        pt: 'Ferramentas'
+      },
+      fonts: {
+        en: 'Fonts',
+        es: 'Fuentes',
+        de: 'Schriften',
+        fr: 'Polices',
+        it: 'Font',
+        ja: 'フォント',
+        ko: '폰트',
+        pt: 'Fontes'
+      },
+      guides: {
+        en: 'Guides',
+        es: 'Guías',
+        de: 'Ratgeber',
+        fr: 'Guides',
+        it: 'Guide',
+        ja: 'ガイド',
+        ko: '가이드',
+        pt: 'Guias'
+      },
+      blog: {
+        en: 'Blog',
+        es: 'Blog',
+        de: 'Blog',
+        fr: 'Blog',
+        it: 'Blog',
+        ja: 'ブログ',
+        ko: '블로그',
+        pt: 'Blog'
+      },
+      about: {
+        en: 'About',
+        es: 'Acerca de',
+        de: 'Über uns',
+        fr: 'À propos',
+        it: 'Chi siamo',
+        ja: '概要',
+        ko: '소개',
+        pt: 'Sobre'
+      },
+      'how-it-works': {
+        en: 'How It Works',
+        es: 'Cómo funciona',
+        de: "So funktioniert's",
+        fr: 'Comment ça marche',
+        it: 'Come funziona',
+        ja: '使い方',
+        ko: '작동 원리',
+        pt: 'Como Funciona'
+      },
+      contact: {
+        en: 'Contact',
+        es: 'Contacto',
+        de: 'Kontakt',
+        fr: 'Contact',
+        it: 'Contatto',
+        ja: 'お問い合わせ',
+        ko: '문의',
+        pt: 'Contato'
+      },
+      privacy: {
+        en: 'Privacy Policy',
+        es: 'Política de privacidad',
+        de: 'Datenschutzerklärung',
+        fr: 'Politique de confidentialité',
+        it: 'Informativa sulla privacy',
+        ja: 'プライバシーポリシー',
+        ko: '개인정보처리방침',
+        pt: 'Política de Privacidade'
+      },
+      terms: {
+        en: 'Terms of Service',
+        es: 'Términos del servicio',
+        de: 'Nutzungsbedingungen',
+        fr: "Conditions d'utilisation",
+        it: 'Termini di servizio',
+        ja: '利用規約',
+        ko: '이용약관',
+        pt: 'Termos de Serviço'
+      },
+      'free-font-alternative-finder': {
+        en: 'Free Font Alternatives',
+        es: 'Alternativas Gratuitas de Fuentes',
+        de: 'Kostenlose Schriftarten-Alternativen',
+        fr: 'Alternatives Gratuites de Polices',
+        it: 'Alternative Gratuite ai Font',
+        ja: '無料代替フォント検索',
+        ko: '무료 대체 폰트 찾기',
+        pt: 'Alternativas Gratuitas de Fontes'
+      },
+      'screenshot-font-finder': {
+        en: 'Screenshot Font Finder',
+        es: 'Buscador de Fuentes por Captura',
+        de: 'Screenshot-Schriftartenfinder',
+        fr: 'Recherche de Polices par Capture',
+        it: 'Trova Font da Screenshot',
+        ja: 'スクリーンショットフォント検索',
+        ko: '스크린샷 폰트 검색기',
+        pt: 'Identificador de Fontes por Captura'
+      },
+      'logo-font-finder': {
+        en: 'Logo Font Finder',
+        es: 'Identificador de Fuentes de Logos',
+        de: 'Logo-Schriftartenfinder',
+        fr: 'Identificateur de Polices de Logos',
+        it: 'Identificatore di Font per Loghi',
+        ja: 'ロゴフォント検索',
+        ko: '로고 폰트 식별기',
+        pt: 'Identificador de Fontes de Logotipos'
+      },
+      'logo-font-identifier': {
+        en: 'Logo Font Finder',
+        es: 'Identificador de Fuentes de Logos',
+        de: 'Logo-Schriftartenfinder',
+        fr: 'Identificateur de Polices de Logos',
+        it: 'Identificatore di Font per Loghi',
+        ja: 'ロゴフォント検索',
+        ko: '로고 폰트 식별기',
+        pt: 'Identificador de Fontes de Logotipos'
+      },
+      'url-font-finder': {
+        en: 'URL Font Finder',
+        es: 'Buscador de Fuentes por URL',
+        de: 'URL-Schriftartenfinder',
+        fr: 'Recherche de Polices par URL',
+        it: 'Trova Font da URL',
+        ja: 'URLフォント検索',
+        ko: 'URL 폰트 검색기',
+        pt: 'Identificador de Fontes por URL'
+      },
+      'handwriting-font-finder': {
+        en: 'Handwriting Font Finder',
+        es: 'Buscador de Fuentes Manuscritas',
+        de: 'Handschrift-Schriftartenfinder',
+        fr: 'Recherche de Polices Manuscrites',
+        it: 'Trova Font Manoscritti',
+        ja: '手書きフォント検索',
+        ko: '손글씨 폰트 검색기',
+        pt: 'Identificador de Fontes Manuscritas'
+      },
+      'font-pairing': {
+        en: 'Font Pairing',
+        es: 'Combinación de Fuentes',
+        de: 'Schriftkombinationen',
+        fr: 'Combinaisons de Polices',
+        it: 'Combinazione di Font',
+        ja: 'フォントペアリング',
+        ko: '폰트 조합',
+        pt: 'Combinação de Fontes'
+      },
+      'font-pairing-finder': {
+        en: 'Font Pairing',
+        es: 'Combinación de Fuentes',
+        de: 'Schriftkombinationen',
+        fr: 'Combinaisons de Polices',
+        it: 'Combinazione di Font',
+        ja: 'フォントペアリング',
+        ko: '폰트 조합',
+        pt: 'Combinação de Fontes'
+      },
+      'pdf-font-detector': {
+        en: 'PDF Font Detector',
+        es: 'Detector de Fuentes en PDF',
+        de: 'PDF-Schriftartenfinder',
+        fr: 'Détecteur de Polices PDF',
+        it: 'Rilevatore di Font PDF',
+        ja: 'PDFフォント検出',
+        ko: 'PDF 폰트 감지기',
+        pt: 'Detector de Fontes em PDF'
+      }
+    };
+
+    const homeUrl = getLocalizedPath('/', lang as SupportedLocale);
+    breadcrumbsList.push({
+      name: homeNames[lang] || 'Home',
+      item: `${siteOrigin}${homeUrl === '/' ? '/' : homeUrl}`
+    });
+
+    const segments = cleanPath.split('/').filter(Boolean);
+    let accumPath = '';
+
+    segments.forEach((seg, idx) => {
+      accumPath += `/${seg}`;
+      const isLast = idx === segments.length - 1;
+      const segLower = seg.toLowerCase();
+      let segName = sectionNames[segLower]?.[lang] || sectionNames[segLower]?.en;
+
+      if (!segName) {
+        segName = decodeURIComponent(seg)
+          .split('-')
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' ');
+      }
+
+      const localizedSegPath = getLocalizedPath(accumPath, lang as SupportedLocale);
+      const segUrl = `${siteOrigin}${localizedSegPath === '/' ? '/' : localizedSegPath}`;
+
+      breadcrumbsList.push({
+        name: isLast && title && segments.length === 1 ? title.split('—')[0].split('|')[0].trim() : segName,
+        item: segUrl
+      });
+    });
+  }
+}
+
+const breadcrumbJsonLd = !isHomePage && breadcrumbsList.length > 0
+  ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbsList.map((crumb, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "name": crumb.name,
+        "item": crumb.item
+      }))
+    }).replace(/</g, '\\u003c')
+  : null;
 ---
 
 <!-- Primary Meta Tags -->
@@ -73,7 +331,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="ProFontFinder - Free Image Font Finder & Typeface Identifier" />
+<meta property="og:image:alt" content="Font Finder from Image — Free Font Identifier Tool | ProFontFinder" />
 <meta property="og:site_name" content={siteName} />
 
 <!-- Twitter / X -->
@@ -93,7 +351,7 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
 <meta property="twitter:image:src" content={absoluteOgImage} />
 <meta name="twitter:image:width" content="1200" />
 <meta name="twitter:image:height" content="630" />
-<meta name="twitter:image:alt" content="ProFontFinder - Free Image Font Finder & Typeface Identifier" />
+<meta name="twitter:image:alt" content="Font Finder from Image — Free Font Identifier Tool | ProFontFinder" />
 
 <!-- Preconnect & Load Verified Google Fonts for local Canvas rendering -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -149,3 +407,8 @@ const ogImageType = isPng ? 'image/png' : 'image/jpeg';
     ]
   }
 </script>
+
+{breadcrumbJsonLd && (
+  <script type="application/ld+json" is:inline set:html={breadcrumbJsonLd}></script>
+)}
+

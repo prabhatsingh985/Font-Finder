@@ -133,7 +133,7 @@ export const it: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifica qualsiasi font in pochi secondi",
-      "subtitle": "Carica o incolla qualsiasi immagine per riconoscere i font all'istante. Trova il font esatto da foto, loghi e screenshot — 100% gratuito e privato."
+      "subtitle": "Carica qualsiasi immagine nel nostro strumento gratuito di ricerca font e identifica i caratteri all'istante. Confronta immagini, loghi e screenshot con oltre 1.935 Google Fonts."
     },
     "dropzone": {
       "title": "Trascina un'immagine o incolla uno screenshot (⌘V)",
@@ -142,7 +142,7 @@ export const it: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ARCHITETTURA DI RICONOSCIMENTO",
-      "heading": "Pipeline di riconoscimento in tre passaggi",
+      "heading": "Come funziona il nostro strumento di ricerca font in 3 passaggi",
       "subheading": "Dai pixel bitmap non vincolati a una tipografia CSS open source verificata e pronta per la produzione.",
       "localInference": "< 150 ms Inferenza locale",
       "zeroUploads": "Nessun caricamento su server",
@@ -202,14 +202,14 @@ export const it: TranslationSchema = {
       },
       "opticalAnalysis": {
         "badge": "ANALISI OTTICA",
-        "title": "Come funziona l'identificazione dei font?",
+        "title": "Come rileva i caratteri il nostro identificatore di font?",
         "desc": "L'identificazione dei font unisce computer vision e analisi morfologica dei caratteri. Mentre un comune OCR si limita a trascrivere il testo, un motore specializzato analizza curvature, proporzioni e tratti anatomici."
       },
       "commercialFree": {
         "title": "Tipografia professionale senza costi di abbonamento",
         "desc": "Il nostro strumento gratuito risolve i problemi di licenza abbinando i font commerciali ad autentiche alternative open source sotto licenza SIL Open Font License:",
         "commOriginal": "ORIGINALE COMMERCIALE",
-        "exploreLink": "Esplora oltre 50 font gemelli open source nel nostro strumento di alternative commerciali"
+        "exploreLink": "Trova alternative gratuite ai font commerciali"
       },
       "digitalAssets": {
         "badge": "SCANSIONE ASSET DIGITALI",
@@ -217,10 +217,10 @@ export const it: TranslationSchema = {
         "desc": "L'ispirazione tipografica proviene spesso da schermate catturate online, banner e loghi aziendali.",
         "card1Title": "Screenshot di app web e mobile",
         "card1Desc": "Cattura uno scorcio dello schermo durante la navigazione e rilascialo in Screenshot Font Finder per risposte immediate senza costi.",
-        "card1Link": "Avvia scanner per screenshot",
+        "card1Link": "Usa il nostro strumento di ricerca font da screenshot",
         "card2Title": "Loghi di brand e marchi denominativi",
         "card2Desc": "Scopri i caratteri alla base dei marchi famosi con Logo Font Finder e trova alternative gratuite accessibili.",
-        "card2Link": "Esplora la directory dei font dei loghi"
+        "card2Link": "Prova il nostro identificatore di font per loghi"
       },
       "styleTaxonomy": {
         "badge": "TASSONOMIA DEGLI STILI",
@@ -249,7 +249,7 @@ export const it: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Domande frequenti",
+      "title": "FAQ Trova Font — Risposte alle domande frequenti",
       "items": [
         {
           "q": "Cos'è Pro Font Finder e come funziona?",
@@ -338,8 +338,8 @@ export const it: TranslationSchema = {
       "ocrLatency": "LATENZA OCR // <80MS",
       "engineReady": "Motore di matching ottico pronto",
       "signatures": "1.935 Firme",
-      "title": "Pronto a identificare un font?",
-      "desc": "Trascina un'immagine in alto per isolare le lettere, calcolare la geometria dei contorni e ottenere font verificati di Google Fonts.",
+      "title": "Pronto a trovare il tuo font da un'immagine?",
+      "desc": "Trascina qualsiasi immagine nel nostro identificatore gratuito di font per rilevare i caratteri e ottenere Google Fonts verificate con CSS pronto all'uso.",
       "btnIdentify": "Identifica il font ora",
       "btnTools": "Esplora gli strumenti font",
       "badgeInBrowser": "100% Nel browser",

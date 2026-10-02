@@ -133,7 +133,7 @@ export const pt: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifique qualquer fonte em poucos segundos",
-      "subtitle": "Envie ou cole qualquer imagem para identificar fontes instantaneamente. Encontre a fonte exata a partir de fotos, logotipos e capturas de tela — 100% gratuito e privado."
+      "subtitle": "Envie qualquer imagem para nosso identificador gratuito de fontes e descubra tipografias instantaneamente. Compare imagens, logotipos e capturas de tela com mais de 1.935 Google Fonts."
     },
     "dropzone": {
       "title": "Arraste uma imagem ou cole uma captura (⌘V)",
@@ -142,7 +142,7 @@ export const pt: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ARQUITETURA DE RECONHECIMENTO",
-      "heading": "Pipeline de reconhecimento em três etapas",
+      "heading": "Como nosso identificador de fontes funciona em 3 passos",
       "subheading": "De pixels de bitmap irrestritos a tipografia CSS de código aberto verificada e pronta para produção.",
       "localInference": "< 150 ms Inferência local",
       "zeroUploads": "Zero envios para o servidor",
@@ -202,14 +202,14 @@ export const pt: TranslationSchema = {
       },
       "opticalAnalysis": {
         "badge": "ANÁLISE ÓPTICA",
-        "title": "Como funciona a identificação de fontes?",
+        "title": "Como nosso identificador de fontes detecta tipografias?",
         "desc": "A identificação combina visão computacional com análise estrutural dos tipos. Enquanto um OCR comum apenas transcreve palavras, nosso motor analisa curvas, proporções e traços anatômicos das letras."
       },
       "commercialFree": {
         "title": "Tipografia de nível profissional sem custos de assinatura",
         "desc": "Nosso identificador gratuito soluciona custos de licenciamento associando fontes comerciais a alternativas autênticas de código aberto sob a licença SIL Open Font License:",
         "commOriginal": "ORIGINAL COMERCIAL",
-        "exploreLink": "Explore mais de 50 fontes gêmeas de código aberto na nossa ferramenta de alternativas comerciais"
+        "exploreLink": "Encontre alternativas gratuitas para fontes comerciais"
       },
       "digitalAssets": {
         "badge": "VARREDURA DE ATIVOS DIGITAIS",
@@ -217,10 +217,10 @@ export const pt: TranslationSchema = {
         "desc": "A inspiração tipográfica geralmente surge em capturas de tela, gráficos e logotipos de marcas.",
         "card1Title": "Capturas de tela da web e aplicativos móveis",
         "card1Desc": "Capture um trecho da tela enquanto navega e arraste para o Screenshot Font Finder para obter respostas imediatas sem custos.",
-        "card1Link": "Iniciar scanner de capturas",
+        "card1Link": "Use nosso identificador de fontes para capturas de tela",
         "card2Title": "Logotipos de marcas e marcas nominativas",
         "card2Desc": "Descubra a tipografia de marcas famosas com o Logo Font Finder e encontre fontes semelhantes de livre acesso.",
-        "card2Link": "Ver diretório de fontes de marcas"
+        "card2Link": "Experimente nosso identificador de fontes de logotipos"
       },
       "styleTaxonomy": {
         "badge": "TAXONOMIA DE ESTILOS",
@@ -249,7 +249,7 @@ export const pt: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Perguntas frequentes",
+      "title": "FAQ do Identificador de Fontes — Respostas para dúvidas frequentes",
       "items": [
         {
           "q": "O que é o Pro Font Finder e como ele funciona?",
@@ -338,8 +338,8 @@ export const pt: TranslationSchema = {
       "ocrLatency": "LATÊNCIA OCR // <80MS",
       "engineReady": "Motor de correspondência óptica pronto",
       "signatures": "1.935 Assinaturas",
-      "title": "Pronto para identificar uma fonte?",
-      "desc": "Arraste qualquer imagem acima para isolar letras, calcular geometrias de contorno e obter fontes verificadas do Google Fonts.",
+      "title": "Pronto para encontrar sua fonte a partir de uma imagem?",
+      "desc": "Arraste qualquer imagem para nosso identificador gratuito de fontes para detectar tipografias e obter Google Fonts verificadas com código CSS pronto para copiar.",
       "btnIdentify": "Identificar fonte agora",
       "btnTools": "Explorar ferramentas de fontes",
       "badgeInBrowser": "100% No navegador",

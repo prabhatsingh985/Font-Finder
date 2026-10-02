@@ -133,7 +133,7 @@ export const ko: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "모든 폰트를 단 몇 초 만에 식별",
-      "subtitle": "이미지를 업로드하거나 붙여넣어 폰트를 즉시 찾아보세요. 사진, 로고, 스크린샷에서 일치하는 정확한 폰트를 검색 — 100% 무료 및 완벽한 보안."
+      "subtitle": "무료 폰트 검색기에 이미지를 업로드하여 서체를 즉시 식별하세요. 사진, 로고, 스크린샷을 1,935개 이상의 Google Fonts와 매칭합니다."
     },
     "dropzone": {
       "title": "이미지를 드롭하거나 스크린샷 붙여넣기 (⌘V)",
@@ -142,7 +142,7 @@ export const ko: TranslationSchema = {
     },
     "pipeline": {
       "badge": "인식 아키텍처",
-      "heading": "3단계 글꼴 인식 파이프라인",
+      "heading": "폰트 검색기가 작동하는 3단계 방식",
       "subheading": "비트맵 픽셀에서 검증된 프로덕션 지원 오픈소스 CSS 타이포그래피까지.",
       "localInference": "< 150ms 로컬 추론",
       "zeroUploads": "서버 업로드 제로",
@@ -202,14 +202,14 @@ export const ko: TranslationSchema = {
       },
       "opticalAnalysis": {
         "badge": "광학 분석",
-        "title": "글꼴 식별은 어떻게 작동하나요?",
+        "title": "폰트 식별기는 서체를 어떻게 감지하나요?",
         "desc": "글꼴 식별은 컴퓨터 비전과 타이포그래피 글자 분석을 결합합니다. 일반 OCR이 단어만 읽어내는 것과 달리, 전문 식별 엔진은 곡률, 비율, 해부학적 글자 특성을 세밀하게 분석합니다."
       },
       "commercialFree": {
         "title": "구독료 없는 상업적 수준의 타이포그래피",
         "desc": "무료 Font Finder는 고가의 상업용 글꼴을 SIL Open Font License 기반의 정품 오픈소스 무료 폰트와 매칭하여 라이선스 비용 문제를 해결합니다:",
         "commOriginal": "상업용 원본 글꼴",
-        "exploreLink": "상업용 대체 글꼴 도구에서 엄선된 50개 이상의 오픈소스 대안 폰트 탐색하기"
+        "exploreLink": "상용 폰트의 무료 대체 폰트 찾기"
       },
       "digitalAssets": {
         "badge": "디지털 에셋 스캔",
@@ -217,10 +217,10 @@ export const ko: TranslationSchema = {
         "desc": "타이포그래피 영감은 웹 서핑 중 캡처한 화면이나 브랜드 로고에서 자주 얻게 됩니다.",
         "card1Title": "웹 및 모바일 앱 스크린샷",
         "card1Desc": "화면을 캡처하여 Screenshot Font Finder에 드롭하면 유료 결제 없이 즉시 서체를 확인할 수 있습니다.",
-        "card1Link": "스크린샷 스캐너 실행",
+        "card1Link": "스크린샷 폰트 검색기 사용하기",
         "card2Title": "브랜드 로고 및 워드마크 인식",
         "card2Desc": "Logo Font Finder로 유명 브랜드 로고에 사용된 기본 서체를 찾아내고 유사한 오픈소스 글꼴을 매핑하세요.",
-        "card2Link": "로고 글꼴 디렉터리 탐색"
+        "card2Link": "로고 폰트 식별기 체험하기"
       },
       "styleTaxonomy": {
         "badge": "서체 스타일 분류",
@@ -249,7 +249,7 @@ export const ko: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "자주 묻는 질문",
+      "title": "폰트 검색기 FAQ — 자주 묻는 질문과 답변",
       "items": [
         {
           "q": "Pro Font Finder란 무엇이며 어떻게 작동하나요?",
@@ -338,8 +338,8 @@ export const ko: TranslationSchema = {
       "ocrLatency": "OCR 지연 시간 // <80MS",
       "engineReady": "광학 매칭 엔진 준비 완료",
       "signatures": "1,935개 시그니처",
-      "title": "글꼴을 식별할 준비가 되셨나요?",
-      "desc": "이미지를 위에 드롭하여 글자 형태를 분리하고 윤곽선을 계산해 검증된 무료 Google Fonts를 찾아보세요.",
+      "title": "이미지에서 폰트를 찾을 준비가 되셨나요?",
+      "desc": "무료 폰트 식별기에 이미지를 드롭하여 서체를 감지하고 바로 복사할 수 있는 CSS가 포함된 검증된 Google Fonts를 확인하세요.",
       "btnIdentify": "지금 글꼴 찾기",
       "btnTools": "글꼴 도구 모음 보기",
       "badgeInBrowser": "100% 브라우저 내 처리",

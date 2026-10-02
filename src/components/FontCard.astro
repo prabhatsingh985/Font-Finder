@@ -52,7 +52,7 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
           data-css={font.fontFamilyCss || `font-family: '${font.family}', ${font.category};`}
           title={`Copy font-family declaration`}
         >
-          <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
           <span class="copy-label">Copy CSS</span>
@@ -83,7 +83,7 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
   <!-- Footer Info & Actions -->
   <div class="mt-5 pt-3.5 border-t border-[#e2e4e8] dark:border-[#1f2127] flex items-center justify-between font-mono text-[12px]">
     <div class="flex items-center gap-1.5 text-[#64748b] dark:text-[#62666d] text-[11px]">
-      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
       <span>
@@ -95,7 +95,7 @@ const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
       class="inline-flex items-center gap-1.5 text-[12px] font-mono text-[#334155] dark:text-[#d0d6e0] group-hover:text-[#08090a] dark:group-hover:text-[#ffffff] transition-colors"
     >
       <span>Inspect</span>
-      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
       </svg>
     </span>

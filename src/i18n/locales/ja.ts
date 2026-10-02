@@ -133,7 +133,7 @@ export const ja: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "あらゆるフォントを数秒で特定",
-      "subtitle": "画像をアップロードまたは貼り付けて、フォントを瞬時に特定。写真、ロゴ、スクリーンショットから一致するフォントを検出 — 完全無料・プライバシー保護。"
+      "subtitle": "画像を無料フォント検索ツールにアップロードしてフォントを瞬時に特定。画像、ロゴ、スクリーンショットを1,935以上のGoogle Fontsと照合します。"
     },
     "dropzone": {
       "title": "画像をドロップまたはスクリーンショットを貼り付け (⌘V)",
@@ -142,7 +142,7 @@ export const ja: TranslationSchema = {
     },
     "pipeline": {
       "badge": "認識アーキテクチャ",
-      "heading": "3段階の認識パイプライン",
+      "heading": "フォント検索ツールの3ステップの仕組み",
       "subheading": "制約のないビットマップピクセルから、検証済みの本番対応オープンソースCSSタイポグラフィへ。",
       "localInference": "< 150ms ローカル推論",
       "zeroUploads": "サーバー送信ゼロ",
@@ -202,14 +202,14 @@ export const ja: TranslationSchema = {
       },
       "opticalAnalysis": {
         "badge": "光学分析",
-        "title": "フォント識別はどのように機能するのか？",
+        "title": "フォント識別ツールはどのように書体を検出するのか？",
         "desc": "フォント識別はコンピュータビジョンとタイポグラフィの字形分析を組み合わせたものです。一般的なOCRが単に文字を書き起こすのに対し、専用のフォント認識ツールは曲線のカーブ、プロポーション比率、および構造的特徴を精密に分析します。"
       },
       "commercialFree": {
         "title": "サブスクリプション料金不要の商用レベルタイポグラフィ",
         "desc": "無料のFont Finderは、商用フォントをSIL Open Font Licenseに基づく本物のオープンソース代替書体にマッチングさせることでこの問題を解決します：",
         "commOriginal": "商用オリジナル",
-        "exploreLink": "商用代替ツールで50以上の厳選されたオープンソース類似フォントを探索する"
+        "exploreLink": "商用フォントの無料代替フォントを探す"
       },
       "digitalAssets": {
         "badge": "デジタルアセットスキャン",
@@ -217,10 +217,10 @@ export const ja: TranslationSchema = {
         "desc": "デザインのインスピレーションはスクリーンショット、グラフィック、ブランドロゴから得られることがよくあります。",
         "card1Title": "Webおよびモバイルアプリのスクリーンショット",
         "card1Desc": "ブラウジング中に画面を切り取ってScreenshot Font Finderにドロップするだけで、有料の制限なしにフォント名を即座に判別できます。",
-        "card1Link": "スクリーンショットスキャナーを起動",
+        "card1Link": "スクリーンショット用フォント検索ツールを使う",
         "card2Title": "ブランドロゴとワードマークの認識",
         "card2Desc": "Logo Font Finderを使って有名ロゴの背後にある基本書体を発見し、カスタムカーニングされた文字を手軽に使えるフォントファミリーに関連付けます。",
-        "card2Link": "ロゴフォントディレクトリを見る"
+        "card2Link": "ロゴフォント識別ツールを試す"
       },
       "styleTaxonomy": {
         "badge": "スタイルの分類",
@@ -249,7 +249,7 @@ export const ja: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "よくある質問",
+      "title": "フォント検索ツールFAQ — よくある質問と回答",
       "items": [
         {
           "q": "Pro Font Finderとは何ですか？どのように機能しますか？",
@@ -338,8 +338,8 @@ export const ja: TranslationSchema = {
       "ocrLatency": "OCRレイテンシ // <80MS",
       "engineReady": "光学マッチングエンジン準備完了",
       "signatures": "1,935 件の署名",
-      "title": "フォントを特定する準備はできましたか？",
-      "desc": "上に画像をドロップして字形を分離し、輪郭ジオメトリを計算して、検証済みのオープンソースGoogle Fontsを取得します。",
+      "title": "画像からフォントを見つける準備はできましたか？",
+      "desc": "画像を無料フォント識別ツールにドラッグ＆ドロップして書体を検出し、コピーしてすぐ使えるCSS付きの認証済みGoogle Fontsを取得しましょう。",
       "btnIdentify": "今すぐフォントを特定",
       "btnTools": "フォントツール一覧を見る",
       "badgeInBrowser": "100% ブラウザ内完結",

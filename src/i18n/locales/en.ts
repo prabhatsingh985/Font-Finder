@@ -131,7 +131,7 @@ export const en = {
     },
     hero: {
       headlinePrefix: 'Identify Any Font In Seconds',
-      subtitle: 'Upload or paste any image to identify fonts instantly. Find the exact font match from pictures, logos, and screenshots — 100% free and private.'
+      subtitle: 'Upload any image to our free font finder and identify fonts instantly. Match pictures, logos, and screenshots to 1,935+ Google Fonts.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',
@@ -140,7 +140,7 @@ export const en = {
     },
     pipeline: {
       badge: 'RECOGNITION ARCHITECTURE',
-      heading: 'Three-step recognition pipeline',
+      heading: 'How Our Font Finder Works in 3 Steps',
       subheading: 'From unconstrained bitmap pixels to verified, production-ready open-source CSS typography.',
       localInference: '< 150ms Local Inference',
       zeroUploads: 'Zero Server Uploads',
@@ -200,14 +200,14 @@ export const en = {
       },
       opticalAnalysis: {
         badge: 'OPTICAL ANALYSIS',
-        title: 'How Does Font Identification Work?',
+        title: 'How Does Our Font Identifier Detect Typefaces?',
         desc: 'Font identification combines computer vision with typographic letterform analysis. While standard OCR simply transcribes words, a specialized font identifier analyzes stylistic curvature, proportional ratios, and anatomical traits.'
       },
       commercialFree: {
         title: 'Commercial-Grade Typography Without Subscription Fees',
         desc: 'Our free font finder solves this by matching commercial fonts to authentic open-source alternatives under the SIL Open Font License:',
         commOriginal: 'COMMERCIAL ORIGINAL',
-        exploreLink: 'Explore 50+ Curated Open-Source Font Twins in our Commercial Alternatives Tool'
+        exploreLink: 'Find Free Alternatives to Commercial Fonts'
       },
       digitalAssets: {
         badge: 'DIGITAL ASSET SCANNING',
@@ -215,10 +215,10 @@ export const en = {
         desc: 'Typography inspiration frequently arrives as screenshots, graphics, and brand wordmarks.',
         card1Title: 'Screenshots from Web & Mobile Apps',
         card1Desc: 'Capture a screen snip while browsing and drop it into our Screenshot Font Finder. Identify fonts from UI mockups, web apps, and digital graphics with instant zero-paywall results.',
-        card1Link: 'Launch Screenshot Snip Scanner',
+        card1Link: 'Use Our Screenshot Font Finder',
         card2Title: 'Brand Logos & Wordmark Recognition',
         card2Desc: 'Discover the foundational typography behind famous marks with our Logo Font Finder, mapping custom kerning back to accessible font families.',
-        card2Link: 'Explore Brand Logo Font Directory'
+        card2Link: 'Try Our Logo Font Identifier'
       },
       styleTaxonomy: {
         badge: 'STYLE TAXONOMY',
@@ -247,7 +247,7 @@ export const en = {
     },
     faq: {
       badge: 'FAQ',
-      title: 'Frequently Asked Questions',
+      title: 'Font Finder FAQ — Common Questions Answered',
       items: [
         {
           q: 'What is Pro Font Finder and how does it work?',
@@ -336,8 +336,8 @@ export const en = {
       ocrLatency: 'OCR.LATENCY // <80MS',
       engineReady: 'Optical Match Engine Ready',
       signatures: '1,935 Signatures',
-      title: 'Ready to identify a font?',
-      desc: 'Drop any image above to isolate letterforms, calculate contour geometry, and get verified open-source Google Fonts.',
+      title: 'Ready to Find Your Font from an Image?',
+      desc: 'Drop any image into our free font identifier to detect typefaces and get verified Google Fonts with copy-ready CSS.',
       btnIdentify: 'Identify Font Now',
       btnTools: 'Explore Font Tools',
       badgeInBrowser: '100% In-Browser',
