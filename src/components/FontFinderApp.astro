@@ -391,8 +391,22 @@ const i18nJson = JSON.stringify(appT);
           </p>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="flex items-center gap-2 flex-wrap">
+        <!-- Action Buttons & Rank #1 -->
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <div class="text-right shrink-0 mr-1 sm:mr-2">
+            <div class="text-xl sm:text-2xl font-[510] text-[#08090a] dark:text-[#ffffff] leading-none">#1</div>
+            <div class="text-[10px] font-mono text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider">{appT.closestRank || 'closest'}</div>
+          </div>
+
+          <button
+            id="btn-copy-hero-css"
+            type="button"
+            class="btn-ghost-linear text-[12px] px-3.5 py-1.5 rounded-[6px] flex items-center gap-1.5 cursor-pointer"
+            title="Copy CSS embed snippet"
+          >
+            <span id="btn-copy-hero-css-text">Copy CSS</span>
+          </button>
+
           <button
             id="btn-copy-font-name"
             type="button"
@@ -485,12 +499,12 @@ const i18nJson = JSON.stringify(appT);
         </div>
       </div>
 
-      <!-- Ranked Google Font Matches -->
-      <div class="mt-8">
+      <!-- Ranked Google Font Alternatives (#2 - #6) -->
+      <div id="res-alternatives-container" class="mt-8">
         <div class="flex items-center justify-between pb-3 border-b border-[#e2e4e8] dark:border-[#23252a] mb-4">
           <span class="font-mono text-[11px] uppercase tracking-wider text-[#475569] dark:text-[#8a8f98] flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00] dark:bg-[#e4f222]"></span>
-            <span>{appT.closestMatchesHeading}</span>
+            <span>SIMILAR GOOGLE FONT ALTERNATIVES (#2 - #6)</span>
           </span>
           <span class="text-[11px] text-[#64748b] dark:text-[#8a8f98] font-mono">
             {appT.livePreviewGoogleFonts}
@@ -4626,6 +4640,40 @@ const i18nJson = JSON.stringify(appT);
         linkGfTop.href = primaryGfUrl;
       }
 
+      const btnCopyHeroCss = document.getElementById('btn-copy-hero-css');
+      if (btnCopyHeroCss) {
+        btnCopyHeroCss.onclick = async () => {
+          const enc = encodeURIComponent(primary.family).replace(/%20/g, '+');
+          const snippet = `@import url('https://fonts.googleapis.com/css2?family=${enc}:wght@300;400;500;600;700&display=swap');\nfont-family: '${primary.family}', ${primaryCategory};`;
+          let copied = false;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(snippet);
+              copied = true;
+            }
+          } catch(e) {}
+          if (!copied) {
+            try {
+              const ta = document.createElement('textarea');
+              ta.value = snippet;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.focus();
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            } catch(e) {}
+          }
+          const txt = document.getElementById('btn-copy-hero-css-text');
+          if (txt) {
+            const old = txt.textContent;
+            txt.textContent = '✓ Copied!';
+            setTimeout(() => { txt.textContent = old; }, 2000);
+          }
+        };
+      }
+
       const compareMatchedTitle = document.getElementById('res-compare-matched-title');
       if (compareMatchedTitle) {
         compareMatchedTitle.textContent = `${i18n.matchedFont || 'Matched Font'} (${primary.family})`;
@@ -4716,16 +4764,27 @@ const i18nJson = JSON.stringify(appT);
         });
       }
 
-      // 1. Populate Ranked Google Font Matches Cards (Competitor Minimalist Style)
+      // 1. Populate Ranked Google Font Matches Cards (#2 to #6 alternatives)
       const rankedCardsContainer = document.getElementById('res-ranked-cards-list');
+      const alternativesContainer = document.getElementById('res-alternatives-container');
       const topMatches = data.allTopMatches || [data.primary, ...(data.runnersUp || [])];
-      if (rankedCardsContainer && topMatches.length > 0) {
-        rankedCardsContainer.innerHTML = '';
-        preloadTopMatchesCss(topMatches);
+      const alternativeMatches = topMatches.slice(1, 6);
 
-        topMatches.slice(0, 6).forEach((cand, idx) => {
+      if (alternativesContainer) {
+        if (alternativeMatches.length === 0) {
+          alternativesContainer.classList.add('hidden');
+        } else {
+          alternativesContainer.classList.remove('hidden');
+        }
+      }
+
+      if (rankedCardsContainer && alternativeMatches.length > 0) {
+        rankedCardsContainer.innerHTML = '';
+        preloadTopMatchesCss(alternativeMatches);
+
+        alternativeMatches.forEach((cand, altIdx) => {
+          const rankNum = altIdx + 2;
           const card = document.createElement('div');
-          const isBest = (idx === 0);
           card.className = `rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 sm:p-6 transition-all hover:border-[#383b3f] shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]`;
 
           const cFam = cand.family;
@@ -4739,19 +4798,16 @@ const i18nJson = JSON.stringify(appT);
           card.innerHTML = `
             <div class="flex items-start justify-between gap-4">
               <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  ${isBest ? `<span class="inline-flex items-center gap-1.5 bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 text-[11px] font-mono px-2 py-0.5 rounded-[4px] font-medium"><span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>${i18n.bestMatch || 'Best match'}</span>` : ''}
-                  <h3 class="text-lg sm:text-xl font-[510] text-[#ffffff] tracking-[-0.015em]">
-                    ${cFam}
-                  </h3>
-                </div>
+                <h3 class="text-lg sm:text-xl font-[510] text-[#ffffff] tracking-[-0.015em]">
+                  ${cFam}
+                </h3>
                 <div class="text-[12px] text-[#8a8f98] mt-1 capitalize">
                   ${cCat} &bull; ${i18n.freeOpenLicense || 'Free • open licence'}
                 </div>
               </div>
 
               <div class="text-right shrink-0">
-                <div class="text-base font-[510] text-[#ffffff]">#${idx + 1}</div>
+                <div class="text-base font-[510] text-[#ffffff]">#${rankNum}</div>
                 <div class="text-[11px] font-mono text-[#8a8f98] -mt-1">${i18n.closestRank || 'closest'}</div>
               </div>
             </div>
