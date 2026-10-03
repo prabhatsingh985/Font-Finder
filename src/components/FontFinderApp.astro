@@ -491,6 +491,11 @@ const i18nJson = JSON.stringify(appT);
             </div>
           </div>
         </div>
+
+        <!-- Subtle Sample Note for multi-word texts -->
+        <p id="res-compare-sample-note" class="hidden text-[11px] font-mono text-[#64748b] dark:text-[#8a8f98] text-center pt-1">
+          {appT.sampleNote || "* Showing first 4 words for clear letterform comparison"}
+        </p>
       </div>
 
       <!-- Ranked Google Font Matches -->
@@ -1747,6 +1752,8 @@ const i18nJson = JSON.stringify(appT);
       if (manualCropPanel) manualCropPanel.classList.add('hidden');
       const sentenceBar = document.getElementById('results-sentence-bar');
       if (sentenceBar) sentenceBar.classList.add('hidden');
+      const compareSampleNote = document.getElementById('res-compare-sample-note');
+      if (compareSampleNote) compareSampleNote.classList.add('hidden');
       const chipsContainer = document.getElementById('results-sentence-chips');
       if (chipsContainer) chipsContainer.innerHTML = '';
       const bestMatchCard = document.getElementById('best-match-card');
@@ -4746,6 +4753,16 @@ const i18nJson = JSON.stringify(appT);
       if (compareMatched) {
         compareMatched.textContent = shortSample;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
+      }
+
+      const compareSampleNote = document.getElementById('res-compare-sample-note');
+      if (compareSampleNote) {
+        const cleanWords = (activeText || '').trim().replace(/\s+/g, ' ').split(' ').filter(Boolean);
+        if (cleanWords.length > 4) {
+          compareSampleNote.classList.remove('hidden');
+        } else {
+          compareSampleNote.classList.add('hidden');
+        }
       }
 
       updateAllSpecimensText(shortSample);

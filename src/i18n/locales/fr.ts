@@ -95,6 +95,7 @@ export const fr: TranslationSchema = {
       "commercialAlternative": "Alternative commerciale :",
       "commercialAlternativeDesc": "Correspond au style de {commercial}. L'alternative gratuite vérifiée sur Google Fonts est {family}.",
       "compareWithImage": "Comparer avec votre image",
+      "sampleNote": "* Affichage des 4 premiers mots pour une comparaison nette",
       "comparePlaceholder": "Tapez du texte pour comparer...",
       "yourImage": "Votre image",
       "matchedFont": "Police correspondante",

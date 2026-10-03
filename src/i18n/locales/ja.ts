@@ -95,6 +95,7 @@ export const ja: TranslationSchema = {
       "commercialAlternative": "商用フォントの代替:",
       "commercialAlternativeDesc": "{commercial} のスタイルに類似しています。検証済みの無料 Google Fonts 代替は {family} です。",
       "compareWithImage": "元の画像と比較",
+      "sampleNote": "* 視覚的な書体比較のため、最初の4単語を表示しています",
       "comparePlaceholder": "比較するテキストを入力...",
       "yourImage": "アップロード画像",
       "matchedFont": "一致したフォント",

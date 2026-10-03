@@ -95,6 +95,7 @@ export const ko: TranslationSchema = {
       "commercialAlternative": "상용 폰트 대체제:",
       "commercialAlternativeDesc": "{commercial}의 스타일과 일치합니다. 검증된 무료 Google Fonts 대안은 {family}입니다.",
       "compareWithImage": "원본 이미지와 비교",
+      "sampleNote": "* 명확한 서체 비교를 위해 처음 4개 단어를 표시합니다",
       "comparePlaceholder": "비교할 텍스트 입력...",
       "yourImage": "업로드한 이미지",
       "matchedFont": "일치하는 폰트",

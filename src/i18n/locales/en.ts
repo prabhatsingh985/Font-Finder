@@ -93,6 +93,7 @@ export const en = {
       "commercialAlternative": "Commercial Alternative:",
       "commercialAlternativeDesc": "Matches style of {commercial}. Free Google Fonts stand-in is {family}.",
       "compareWithImage": "Compare with your image",
+      "sampleNote": "* Showing first 4 words for clear letterform comparison",
       "comparePlaceholder": "Type text to compare...",
       "yourImage": "Your Image",
       "matchedFont": "Matched Font",

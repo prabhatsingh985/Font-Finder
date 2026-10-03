@@ -95,6 +95,7 @@ export const de: TranslationSchema = {
       "commercialAlternative": "Kommerzielle Alternative:",
       "commercialAlternativeDesc": "Entspricht dem Stil von {commercial}. Kostenlose verifizierte Google Fonts-Alternative ist {family}.",
       "compareWithImage": "Mit Ihrem Bild vergleichen",
+      "sampleNote": "* Zeigt die ersten 4 Wörter für einen klaren Schriftvergleich",
       "comparePlaceholder": "Text zum Vergleichen eingeben...",
       "yourImage": "Ihr Bild",
       "matchedFont": "Erkannte Schriftart",
