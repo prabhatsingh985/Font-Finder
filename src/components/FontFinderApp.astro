@@ -366,29 +366,37 @@ const i18nJson = JSON.stringify(appT);
       
       <!-- Top Bar: Badge, Font Name, Match Quality, and Actions -->
       <div class="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-[#e2e4e8] dark:border-[#23252a]">
-        <div class="space-y-2">
-          <div class="flex items-center gap-2 flex-wrap">
-            <span
-              id="res-verified-badge"
-              class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#ff4d00] dark:text-[#e4f222] border border-[#ff4d00]/30 font-medium"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
-              <span>{appT.bestMatch}</span>
+        <div class="flex items-start gap-3 sm:gap-4">
+          <!-- Big #1 Rank Badge -->
+          <div class="flex items-center justify-center shrink-0">
+            <span class="text-3xl sm:text-5xl font-bold font-mono text-[#ff4d00] dark:text-[#e4f222] select-none leading-none pt-1">
+              #1
             </span>
-            <div id="res-confidence-badge" class="hidden">
-              <span id="res-confidence">--%</span>
-              <span>{appT.match}</span>
-              <span id="res-confidence-label" class="hidden"></span>
-            </div>
           </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span
+                id="res-verified-badge"
+                class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-[4px] bg-[#ff4d00]/10 text-[#ff4d00] dark:text-[#e4f222] border border-[#ff4d00]/30 font-medium"
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>
+                <span>{appT.bestMatch}</span>
+              </span>
+              <div id="res-confidence-badge" class="hidden">
+                <span id="res-confidence">--%</span>
+                <span>{appT.match}</span>
+                <span id="res-confidence-label" class="hidden"></span>
+              </div>
+            </div>
 
-          <h2 id="res-font-family" class="text-3xl sm:text-4xl font-[510] tracking-[-0.022em] text-[#08090a] dark:text-[#ffffff]">
-            Inter
-          </h2>
+            <h2 id="res-font-family" class="text-3xl sm:text-4xl font-[510] tracking-[-0.022em] text-[#08090a] dark:text-[#ffffff]">
+              Inter
+            </h2>
 
-          <p id="res-font-designer" class="text-[13px] text-[#475569] dark:text-[#8a8f98]">
-            Designed by Rasmus Andersson &bull; SIL Open Font License
-          </p>
+            <p id="res-font-designer" class="text-[13px] text-[#475569] dark:text-[#8a8f98]">
+              Designed by Rasmus Andersson &bull; SIL Open Font License
+            </p>
+          </div>
         </div>
 
         <!-- Action Buttons -->
@@ -470,13 +478,13 @@ const i18nJson = JSON.stringify(appT);
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
           <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
             <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">{appT.yourImage}</span>
-            <div class="flex-1 flex items-center justify-center min-h-[72px] overflow-hidden">
-              <img id="res-compare-uploaded" width="300" height="80" loading="lazy" class="max-h-[80px] max-w-full object-contain rounded-[4px]" alt="Your cropped text specimen" />
+            <div class="flex-1 flex items-center justify-center min-h-[96px] max-h-[140px] overflow-hidden p-1">
+              <img id="res-compare-uploaded" width="300" height="120" loading="lazy" class="max-h-[120px] max-w-full object-contain rounded-[4px]" alt="Your cropped text specimen" />
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
             <span id="res-compare-matched-title" class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">{appT.matchedFont}</span>
-            <div id="res-compare-matched" class="flex-1 flex items-center justify-center min-h-[72px] text-2xl sm:text-3xl text-[#08090a] dark:text-[#ffffff] font-medium overflow-hidden px-2 text-center break-all">
+            <div id="res-compare-matched" class="flex-1 flex items-center justify-center min-h-[96px] max-h-[140px] text-2xl sm:text-3xl text-[#08090a] dark:text-[#ffffff] font-medium overflow-hidden px-3 text-center break-words line-clamp-2">
               {appT.typographySpecimen}
             </div>
           </div>
@@ -1225,6 +1233,14 @@ const i18nJson = JSON.stringify(appT);
     const compareMatched = document.getElementById('res-compare-matched');
     const compareTextInput = document.getElementById('compare-text-input');
 
+    function getShortSpecimenSample(rawText, maxWords = 4) {
+      if (!rawText || !rawText.trim()) return 'Typography Specimen';
+      const clean = rawText.trim().replace(/\s+/g, ' ');
+      const words = clean.split(' ').filter(Boolean);
+      if (words.length <= maxWords) return clean;
+      return words.slice(0, maxWords).join(' ');
+    }
+
     // Synchronize preview-text-input, compare-text-input, and specimen-text-input in real time
     if (previewTextInput) {
       previewTextInput.addEventListener('input', (e) => {
@@ -1399,15 +1415,50 @@ const i18nJson = JSON.stringify(appT);
       }
     });
 
-    document.addEventListener('paste', (e) => {
-      const items = e.clipboardData?.items;
-      if (!items) return;
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== -1) {
-          const blob = items[i].getAsFile();
-          if (blob) processUploadedFile(blob);
-          break;
+    let _pasteHandlerBusy = false;
+    window.addEventListener('paste', (e) => {
+      // Don't intercept paste when user is typing into a text input
+      const tgt = e.target;
+      if (tgt && (tgt.tagName === 'INPUT' || tgt.tagName === 'TEXTAREA' || tgt.isContentEditable)) return;
+      // Prevent double-firing from event bubbling
+      if (_pasteHandlerBusy) return;
+
+      const cd = e.clipboardData || window.clipboardData;
+      if (!cd) return;
+
+      let fileToProcess = null;
+
+      // 1. items — screenshots (Win+Shift+S) and in-browser copied images
+      if (cd.items && cd.items.length > 0) {
+        for (let i = 0; i < cd.items.length; i++) {
+          const item = cd.items[i];
+          if (item.type && item.type.startsWith('image/')) {
+            const f = item.getAsFile();
+            if (f) { fileToProcess = f; break; }
+          } else if (item.kind === 'file') {
+            const f = item.getAsFile();
+            if (f && (f.type?.startsWith('image/') || /\.(png|jpe?g|webp|bmp|gif|avif|tiff)$/i.test(f.name || ''))) {
+              fileToProcess = f; break;
+            }
+          }
         }
+      }
+
+      // 2. files — copied files from Windows Explorer
+      if (!fileToProcess && cd.files && cd.files.length > 0) {
+        for (let i = 0; i < cd.files.length; i++) {
+          const f = cd.files[i];
+          if ((f.type && f.type.startsWith('image/')) || /\.(png|jpe?g|webp|bmp|gif|avif|tiff)$/i.test(f.name || '')) {
+            fileToProcess = f; break;
+          }
+        }
+      }
+
+      if (fileToProcess) {
+        e.preventDefault();
+        _pasteHandlerBusy = true;
+        processUploadedFile(fileToProcess);
+        setTimeout(() => { _pasteHandlerBusy = false; }, 200);
       }
     });
 
@@ -4613,18 +4664,19 @@ const i18nJson = JSON.stringify(appT);
         compareUploaded.src = croppedDataUrl;
       }
 
-      // Specimen text strictly uses verified extracted text for this specific word
+      // Full text for preview inputs, but only 3-4 words in the comparison box to keep the UI clean
       const activeText = verifiedText || currentVerifiedText || 'Specimen';
-      if (previewTextInput) previewTextInput.value = activeText;
-      if (compareTextInput) compareTextInput.value = activeText;
-      if (specimenInput) specimenInput.value = activeText;
+      const shortSample = getShortSpecimenSample(activeText, 4);
+      if (previewTextInput) previewTextInput.value = shortSample;
+      if (compareTextInput) compareTextInput.value = shortSample;
+      if (specimenInput) specimenInput.value = shortSample;
 
       if (compareMatched) {
-        compareMatched.textContent = activeText;
+        compareMatched.textContent = shortSample;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
       }
 
-      updateAllSpecimensText(activeText);
+      updateAllSpecimensText(shortSample);
 
       if (shapeMatchScore) {
         shapeMatchScore.textContent = (i18n.opticalMatch || '{confidence}% Optical Match').replace('{confidence}', displayConfidence);
@@ -4677,9 +4729,11 @@ const i18nJson = JSON.stringify(appT);
         rankedCardsContainer.innerHTML = '';
         preloadTopMatchesCss(topMatches);
 
-        topMatches.slice(0, 6).forEach((cand, idx) => {
+        // Runner-up cards only — best match is already shown prominently in the #1 card above
+        const runnerUps = topMatches.slice(1, 6);
+        runnerUps.forEach((cand, idx) => {
           const card = document.createElement('div');
-          const isBest = (idx === 0);
+          const rankNum = idx + 2; // starts at #2
           card.className = `rounded-[12px] border border-[#23252a] bg-[#0f1011] p-5 sm:p-6 transition-all hover:border-[#383b3f] shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.06)]`;
 
           const cFam = cand.family;
@@ -4694,29 +4748,28 @@ const i18nJson = JSON.stringify(appT);
             <div class="flex items-start justify-between gap-4">
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
-                  ${isBest ? `<span class="inline-flex items-center gap-1.5 bg-[#ff4d00]/10 text-[#e4f222] border border-[#ff4d00]/30 text-[11px] font-mono px-2 py-0.5 rounded-[4px] font-medium"><span class="w-1.5 h-1.5 rounded-full bg-[#ff4d00]"></span>${i18n.bestMatch || 'Best match'}</span>` : ''}
                   <h3 class="text-lg sm:text-xl font-[510] text-[#ffffff] tracking-[-0.015em]">
                     ${cFam}
                   </h3>
                 </div>
                 <div class="text-[12px] text-[#8a8f98] mt-1 capitalize">
-                  ${cCat} &bull; ${i18n.freeOpenLicense || 'Free • open licence'}
+                  ${cCat} &bull; ${i18n.freeOpenLicense || 'Free \u2022 open licence'}
                 </div>
               </div>
 
               <div class="text-right shrink-0">
-                <div class="text-base font-[510] text-[#ffffff]">#${idx + 1}</div>
+                <div class="text-lg sm:text-xl font-[510] font-mono text-[#ffffff]">#${rankNum}</div>
                 <div class="text-[11px] font-mono text-[#8a8f98] -mt-1">${i18n.closestRank || 'closest'}</div>
               </div>
             </div>
 
             <!-- Live Specimen Preview Box -->
-            <div class="my-4 p-5 rounded-[6px] bg-[#161718] border border-[#23252a] min-h-[76px] flex items-center overflow-hidden dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)]">
+            <div class="my-4 p-4 sm:p-5 rounded-[6px] bg-[#161718] border border-[#23252a] min-h-[64px] max-h-[96px] flex items-center overflow-hidden dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)]">
               <div
-                class="specimen-card-preview text-2xl sm:text-3xl text-[#ffffff] leading-snug break-words w-full"
+                class="specimen-card-preview text-xl sm:text-2xl text-[#ffffff] leading-snug break-words w-full line-clamp-2"
                 style="font-family: '${cFam}', ${cCat};"
               >
-                ${activeText}
+                ${shortSample}
               </div>
             </div>
 
@@ -4764,7 +4817,7 @@ const i18nJson = JSON.stringify(appT);
                 } catch (e) {}
               }
               const origHtml = copyBtn.innerHTML;
-              copyBtn.innerHTML = `<span class="text-[#27a644] font-normal">✓ ${i18n.copied || 'Copied!'}</span>`;
+              copyBtn.innerHTML = `<span class="text-[#27a644] font-normal">\u2713 ${i18n.copied || 'Copied!'}</span>`;
               copyBtn.classList.add('border-[#27a644]/40', 'bg-[#27a644]/10');
               setTimeout(() => {
                 copyBtn.innerHTML = origHtml;
