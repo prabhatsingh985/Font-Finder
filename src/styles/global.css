@@ -476,6 +476,7 @@ html:not(.dark) .bg-\[\#08090a\].text-white {
   background-color: #08090a !important;
   color: #ffffff !important;
   border-color: #08090a !important;
+  box-shadow: none !important;
 }
 
 html:not(.dark) .cat-tab:not(.active),
@@ -484,6 +485,7 @@ html:not(.dark) button.weight-pill:not(.active) {
   background-color: #ffffff !important;
   color: #475569 !important;
   border-color: #e2e4e8 !important;
+  box-shadow: none !important;
 }
 
 html:not(.dark) .cat-tab:not(.active):hover,
@@ -492,6 +494,7 @@ html:not(.dark) button.weight-pill:not(.active):hover {
   background-color: #f1f3f6 !important;
   color: #08090a !important;
   border-color: #cbd5e1 !important;
+  box-shadow: none !important;
 }
 
 /* In dark mode, active category tabs and weight pills are crisp white with dark text */
@@ -502,6 +505,7 @@ html.dark button.weight-pill.active {
   background-color: #ffffff !important;
   color: #08090a !important;
   border-color: #ffffff !important;
+  box-shadow: none !important;
 }
 
 html.dark .cat-tab:not(.active),
@@ -510,6 +514,7 @@ html.dark button.weight-pill:not(.active) {
   background-color: #161718 !important;
   color: #8a8f98 !important;
   border-color: #23252a !important;
+  box-shadow: none !important;
 }
 
 html.dark .cat-tab:not(.active):hover,
@@ -518,6 +523,7 @@ html.dark button.weight-pill:not(.active):hover {
   background-color: #23252a !important;
   color: #ffffff !important;
   border-color: #383b44 !important;
+  box-shadow: none !important;
 }
 
 html:not(.dark) a.bg-\[\#ffffff\].text-\[\#08090a\]:hover,
