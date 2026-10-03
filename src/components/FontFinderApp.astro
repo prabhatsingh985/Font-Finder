@@ -468,16 +468,18 @@ const i18nJson = JSON.stringify(appT);
 
         <!-- Comparison Cards: Your Image vs Matched Font -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
-            <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">{appT.yourImage}</span>
-            <div class="flex-1 flex items-center justify-center min-h-[72px] overflow-hidden">
-              <img id="res-compare-uploaded" width="300" height="80" loading="lazy" class="max-h-[80px] max-w-full object-contain rounded-[4px]" alt="Your cropped text specimen" />
+          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[8px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
+            <span class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-2">{appT.yourImage}</span>
+            <div class="h-[88px] sm:h-[96px] w-full flex items-center justify-center overflow-hidden rounded-[6px] bg-[#f8f9fa] dark:bg-[#121315] border border-[#e2e4e8]/60 dark:border-[#23252a]/60 p-2">
+              <img id="res-compare-uploaded" width="300" height="80" loading="lazy" class="max-h-full max-w-full object-contain rounded-[3px]" alt="Your cropped text specimen" />
             </div>
           </div>
-          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
-            <span id="res-compare-matched-title" class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-3">{appT.matchedFont}</span>
-            <div id="res-compare-matched" class="flex-1 flex items-center justify-center min-h-[72px] text-2xl sm:text-3xl text-[#08090a] dark:text-[#ffffff] font-medium overflow-hidden px-2 text-center break-all">
-              {appT.typographySpecimen}
+          <div class="p-4 bg-white dark:bg-[#08090a] rounded-[8px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
+            <span id="res-compare-matched-title" class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-2">{appT.matchedFont}</span>
+            <div class="h-[88px] sm:h-[96px] w-full flex items-center justify-center overflow-hidden rounded-[6px] bg-[#f8f9fa] dark:bg-[#121315] border border-[#e2e4e8]/60 dark:border-[#23252a]/60 p-2">
+              <div id="res-compare-matched" class="w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-xl sm:text-2xl">
+                {appT.typographySpecimen}
+              </div>
             </div>
           </div>
         </div>
@@ -1225,18 +1227,35 @@ const i18nJson = JSON.stringify(appT);
     const compareMatched = document.getElementById('res-compare-matched');
     const compareTextInput = document.getElementById('compare-text-input');
 
+    function getCleanSpecimenSample(rawText, maxChars = 34, maxWords = 5) {
+      if (!rawText || !rawText.trim()) return 'Typography Specimen';
+      const clean = rawText.trim().replace(/\s+/g, ' ');
+      if (clean.length <= maxChars) return clean;
+
+      const words = clean.split(' ');
+      let result = '';
+      for (const w of words) {
+        const next = result ? `${result} ${w}` : w;
+        if (next.length > maxChars && result.length > 0) break;
+        result = next;
+        if (result.split(' ').length >= maxWords) break;
+      }
+      return result || clean.slice(0, maxChars);
+    }
+
     // Synchronize preview-text-input, compare-text-input, and specimen-text-input in real time
     if (previewTextInput) {
       previewTextInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        updateAllSpecimensText(val || currentVerifiedText);
+        updateAllSpecimensText(val || getCleanSpecimenSample(currentVerifiedText));
       });
     }
 
     if (btnResetPreviewText) {
       btnResetPreviewText.addEventListener('click', () => {
-        if (previewTextInput) previewTextInput.value = currentVerifiedText;
-        updateAllSpecimensText(currentVerifiedText);
+        const cleanDefault = getCleanSpecimenSample(currentVerifiedText);
+        if (previewTextInput) previewTextInput.value = cleanDefault;
+        updateAllSpecimensText(cleanDefault);
       });
     }
 
@@ -1251,7 +1270,7 @@ const i18nJson = JSON.stringify(appT);
       compareTextInput.addEventListener('input', (e) => {
         const val = e.target.value;
         if (previewTextInput) previewTextInput.value = val;
-        updateAllSpecimensText(val || currentVerifiedText);
+        updateAllSpecimensText(val || getCleanSpecimenSample(currentVerifiedText));
       });
     }
 
@@ -1259,25 +1278,33 @@ const i18nJson = JSON.stringify(appT);
       specimenInput.addEventListener('input', (e) => {
         const val = e.target.value;
         if (previewTextInput) previewTextInput.value = val;
-        updateAllSpecimensText(val || currentVerifiedText);
+        updateAllSpecimensText(val || getCleanSpecimenSample(currentVerifiedText));
       });
     }
 
     function updateAllSpecimensText(txt) {
+      const displayText = txt || getCleanSpecimenSample(currentVerifiedText);
       const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
       const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
       if (compareMatched) {
-        compareMatched.textContent = txt;
+        compareMatched.textContent = displayText;
         compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
+        if (displayText.length > 25) {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-lg sm:text-xl';
+        } else if (displayText.length > 12) {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-xl sm:text-2xl';
+        } else {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-2xl sm:text-3xl';
+        }
       }
-      if (specimenInput) {
-        specimenInput.value = txt;
+      if (specimenInput && specimenInput.value !== displayText) {
+        specimenInput.value = displayText;
       }
-      if (compareTextInput) {
-        compareTextInput.value = txt;
+      if (compareTextInput && compareTextInput.value !== displayText) {
+        compareTextInput.value = displayText;
       }
       document.querySelectorAll('.specimen-card-preview').forEach((el) => {
-        el.textContent = txt;
+        el.textContent = displayText;
       });
     }
 
@@ -2571,8 +2598,18 @@ const i18nJson = JSON.stringify(appT);
       const origW = img.naturalWidth || img.width || 1000;
       const origH = img.naturalHeight || img.height || 1000;
 
+      // When multiple words exist, crop the primary/first line of words so the comparison
+      // is a crisp, readable horizontal text specimen rather than an illegible full-page thumbnail
+      let wordsToInclude = detectedWords;
+      if (detectedWords.length > 4) {
+        const avgH = detectedWords.reduce((s, w) => s + (w.box?.h || 30), 0) / detectedWords.length;
+        const firstY = detectedWords[0]?.box?.y ?? 0;
+        const lineWords = detectedWords.filter(w => w.box && Math.abs(w.box.y - firstY) < avgH * 1.5);
+        wordsToInclude = (lineWords.length > 0) ? lineWords.slice(0, 5) : detectedWords.slice(0, 4);
+      }
+
       let minX = origW, minY = origH, maxX = 0, maxY = 0;
-      for (const w of detectedWords) {
+      for (const w of wordsToInclude) {
         const b = w.box;
         if (b) {
           if (b.x < minX) minX = b.x;
@@ -4613,8 +4650,10 @@ const i18nJson = JSON.stringify(appT);
         compareUploaded.src = croppedDataUrl;
       }
 
-      // Specimen text strictly uses verified extracted text for this specific word
-      const activeText = verifiedText || currentVerifiedText || 'Specimen';
+      // Specimen text strictly uses clean extracted sample rather than whole-page text walls
+      const rawActive = verifiedText || currentVerifiedText || 'Specimen';
+      const activeText = getCleanSpecimenSample(rawActive);
+
       if (previewTextInput) previewTextInput.value = activeText;
       if (compareTextInput) compareTextInput.value = activeText;
       if (specimenInput) specimenInput.value = activeText;
@@ -4622,6 +4661,13 @@ const i18nJson = JSON.stringify(appT);
       if (compareMatched) {
         compareMatched.textContent = activeText;
         compareMatched.style.fontFamily = `'${primary.family}', ${primaryCategory}`;
+        if (activeText.length > 25) {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-lg sm:text-xl';
+        } else if (activeText.length > 12) {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-xl sm:text-2xl';
+        } else {
+          compareMatched.className = 'w-full text-center leading-snug line-clamp-2 text-[#08090a] dark:text-[#ffffff] font-medium break-words px-2 text-2xl sm:text-3xl';
+        }
       }
 
       updateAllSpecimensText(activeText);
@@ -4711,9 +4757,9 @@ const i18nJson = JSON.stringify(appT);
             </div>
 
             <!-- Live Specimen Preview Box -->
-            <div class="my-4 p-5 rounded-[6px] bg-[#161718] border border-[#23252a] min-h-[76px] flex items-center overflow-hidden dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)]">
+            <div class="my-4 p-4 sm:p-5 rounded-[6px] bg-[#161718] border border-[#23252a] min-h-[72px] max-h-[104px] flex items-center overflow-hidden dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.5)]">
               <div
-                class="specimen-card-preview text-2xl sm:text-3xl text-[#ffffff] leading-snug break-words w-full"
+                class="specimen-card-preview text-xl sm:text-2xl text-[#ffffff] leading-snug break-words w-full line-clamp-2"
                 style="font-family: '${cFam}', ${cCat};"
               >
                 ${activeText}
