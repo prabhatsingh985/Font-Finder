@@ -73,6 +73,8 @@ export interface ViewTranslation {
     dropzoneTitle: string;
     dropzoneSubtitle: string;
     buttonText: string;
+    newPdf?: string;
+    yourPdf?: string;
     feature1Title: string;
     feature1Desc: string;
     feature2Title: string;
@@ -251,6 +253,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Drop PDF file or paste screenshot (⌘V / Ctrl+V)',
       dropzoneSubtitle: 'Supports .pdf documents, invoices, or image snippets',
       buttonText: 'Select PDF File',
+      newPdf: 'New PDF',
+      yourPdf: 'Your PDF',
       feature1Title: 'High-Resolution Vector Rasterization',
       feature1Desc: 'Extract sharp letterform contours directly from your PDF document without distortion.',
       feature2Title: '100% In-Browser Privacy',

@@ -54,6 +54,8 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
           dropzoneSubtitle={vT.dropzoneSubtitle}
           buttonText={vT.buttonText}
           accept="image/png, image/jpeg, image/jpg, image/webp, application/pdf, .pdf"
+          newImageText={vT.newPdf || 'New PDF'}
+          imageLabelText={vT.yourPdf ? `${vT.yourPdf}:` : 'YOUR PDF:'}
         />
       </div>
 

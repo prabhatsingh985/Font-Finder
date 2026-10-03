@@ -9,6 +9,8 @@ interface Props {
   buttonText?: string;
   accept?: string;
   wordmarkInputPlaceholder?: string;
+  newImageText?: string;
+  imageLabelText?: string;
 }
 
 const {
@@ -17,7 +19,9 @@ const {
   dropzoneSubtitle,
   buttonText,
   accept = 'image/png, image/jpeg, image/jpg, image/webp',
-  wordmarkInputPlaceholder = ''
+  wordmarkInputPlaceholder = '',
+  newImageText,
+  imageLabelText
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -26,6 +30,8 @@ const appT = t.fontFinderApp;
 const finalDropzoneTitle = dropzoneTitle || t.home.dropzone.title;
 const finalDropzoneSubtitle = dropzoneSubtitle || t.home.dropzone.subtitle;
 const finalButtonText = buttonText || t.home.dropzone.buttonText;
+const finalNewImageText = newImageText || appT.newImage;
+const finalImageLabel = imageLabelText || `${appT.yourImage}:`;
 
 const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 const i18nJson = JSON.stringify(appT);
@@ -190,7 +196,7 @@ const i18nJson = JSON.stringify(appT);
           type="button"
           class="btn-ghost-linear font-mono text-[12px] px-3 py-1.5"
         >
-          {appT.newImage}
+          {finalNewImageText}
         </button>
       </div>
     </div>
@@ -213,7 +219,7 @@ const i18nJson = JSON.stringify(appT);
       <!-- Sentence Crop Preview Box -->
       <div id="stage2-sentence-preview-card" class="rounded-[12px] border border-[#23252a] bg-[#161718] p-4 flex flex-col items-center justify-center min-h-[90px] overflow-hidden transition-all">
         <div class="w-full flex items-center justify-between mb-2.5">
-          <span class="text-[11px] font-mono uppercase tracking-wider text-[#8a8f98]">{appT.yourImage}:</span>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#8a8f98]">{finalImageLabel}</span>
           <span id="stage2-preview-badge" class="hidden"></span>
         </div>
         <div class="w-full flex items-center justify-center bg-[#08090a] rounded-[6px] border border-[#23252a] p-3 min-h-[70px]">
@@ -296,7 +302,7 @@ const i18nJson = JSON.stringify(appT);
         type="button"
         class="btn-ghost-linear text-[13px] px-5 py-3 rounded-[6px]"
       >
-        {appT.newImage}
+        {finalNewImageText}
       </button>
     </div>
 
