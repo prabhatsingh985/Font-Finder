@@ -464,16 +464,6 @@ const i18nJson = JSON.stringify(appT);
           </div>
         </div>
 
-        <!-- Interactive Specimen Text Input Bar -->
-        <div>
-          <input
-            id="compare-text-input"
-            type="text"
-            placeholder={appT.comparePlaceholder}
-            class="w-full bg-white dark:bg-[#08090a] border border-[#e2e4e8] dark:border-[#23252a] rounded-[6px] px-4 py-2.5 text-[14px] text-[#08090a] dark:text-[#ffffff] font-mono focus:outline-none focus:border-[#ff4d00] dark:focus:border-[#d0d6e0] shadow-sm dark:shadow-[0_4px_16px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
-          />
-        </div>
-
         <!-- Comparison Cards: Your Image vs Matched Font -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
           <div class="p-4 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
@@ -1283,7 +1273,7 @@ const i18nJson = JSON.stringify(appT);
       const fontFam = currentPrimaryFont ? currentPrimaryFont.family : 'Inter';
       const fontCat = currentPrimaryFont ? currentPrimaryFont.category : 'sans-serif';
       if (compareMatched) {
-        compareMatched.textContent = txt;
+        compareMatched.textContent = getShortSpecimenSample(txt, 4);
         compareMatched.style.fontFamily = `'${fontFam}', ${fontCat}`;
       }
       if (specimenInput) {

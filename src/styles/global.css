@@ -1956,7 +1956,9 @@ html.dark .font-twin-standin-box,
 html.dark #stage2-sentence-preview-card,
 html.dark #stage2-sentence-preview-card > div:last-child,
 html.dark #best-match-card > div:has(#compare-text-input),
+html.dark #best-match-card > div:has(#res-compare-matched),
 html.dark #best-match-card > div:has(#compare-text-input) .grid > div,
+html.dark #best-match-card > div:has(#res-compare-matched) .grid > div,
 html.dark #best-match-card > div:has(#specimen-size-slider),
 html.dark #res-ranked-cards-list > div > div.my-4,
 html.dark #res-alternatives-list > div,
@@ -1972,7 +1974,8 @@ html.dark #best-match-card .grid.grid-cols-1.md\:grid-cols-2 > div {
 }
 
 html.dark .guides-article-card:hover,
-html.dark #best-match-card > div:has(#compare-text-input) .grid > div:hover {
+html.dark #best-match-card > div:has(#compare-text-input) .grid > div:hover,
+html.dark #best-match-card > div:has(#res-compare-matched) .grid > div:hover {
   transform: translateY(-3px) !important;
   border-color: rgba(228, 242, 34, 0.45) !important;
   border-top-color: rgba(228, 242, 34, 0.7) !important;
@@ -2043,7 +2046,9 @@ html:not(.dark) .font-twin-standin-box,
 html:not(.dark) #stage2-sentence-preview-card,
 html:not(.dark) #stage2-sentence-preview-card > div:last-child,
 html:not(.dark) #best-match-card > div:has(#compare-text-input),
+html:not(.dark) #best-match-card > div:has(#res-compare-matched),
 html:not(.dark) #best-match-card > div:has(#compare-text-input) .grid > div,
+html:not(.dark) #best-match-card > div:has(#res-compare-matched) .grid > div,
 html:not(.dark) #best-match-card > div:has(#specimen-size-slider),
 html:not(.dark) #res-ranked-cards-list > div > div.my-4,
 html:not(.dark) #res-alternatives-list > div {
@@ -2062,7 +2067,8 @@ html:not(.dark) .font-twin-card:hover,
 html:not(.dark) .pair-card:hover,
 html:not(.dark) #res-ranked-cards-list > div:hover,
 html:not(.dark) #res-alternatives-list > div:hover,
-html:not(.dark) #best-match-card > div:has(#compare-text-input) .grid > div:hover {
+html:not(.dark) #best-match-card > div:has(#compare-text-input) .grid > div:hover,
+html:not(.dark) #best-match-card > div:has(#res-compare-matched) .grid > div:hover {
   transform: translateY(-3px) !important;
   border-color: #cbd5e1 !important;
   background: #ffffff !important;
