@@ -247,12 +247,12 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       badge: 'PDF FONT DETECTOR',
       heroTitle: 'Identify Fonts in',
       heroHighlight: 'PDF',
-      heroSubtitle: 'Capture a screenshot from any PDF invoice, contract, or ebook. Match fonts against 1,935+ verified Google Fonts with 100% in-browser privacy.',
-      dropzoneTitle: 'Paste PDF screenshot (⌘V / Ctrl+V) or drop image',
-      dropzoneSubtitle: 'Take a snip of your PDF page and paste directly here',
-      buttonText: 'Select PDF Image',
+      heroSubtitle: 'Upload any PDF document, invoice, or ebook directly. Match fonts against 1,935+ verified Google Fonts with 100% in-browser privacy.',
+      dropzoneTitle: 'Drop PDF file or paste screenshot (⌘V / Ctrl+V)',
+      dropzoneSubtitle: 'Supports .pdf documents, invoices, or image snippets',
+      buttonText: 'Select PDF File',
       feature1Title: 'High-Resolution Vector Rasterization',
-      feature1Desc: 'Extract sharp letterform contours from PDF screenshots without pixelation distortion.',
+      feature1Desc: 'Extract sharp letterform contours directly from your PDF document without distortion.',
       feature2Title: '100% In-Browser Privacy',
       feature2Desc: 'Confidential PDF invoices and legal contracts stay in your browser RAM. Zero server uploads.',
       feature3Title: 'Free Google Font Equivalents',
@@ -263,7 +263,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       faqs: [
         {
           q: 'How do I detect a font from a PDF file?',
-          a: 'Simply take a clean screenshot of the PDF page or snippet (using Win + Shift + S on Windows or Cmd + Shift + 4 on Mac), press Ctrl+V / Cmd+V to paste it directly into ProFontFinder, crop the text, and our in-browser AI engine will identify the font in seconds.'
+          a: 'Upload your .pdf document directly into the dropzone (or paste a screenshot using Ctrl+V / Cmd+V), and our in-browser engine will automatically extract the page and identify the font in seconds.'
         },
         {
           q: 'Can ProFontFinder identify both vector and scanned PDF text?',
@@ -271,7 +271,7 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
         },
         {
           q: 'Are my confidential PDF documents kept private?',
-          a: 'Yes, 100%. All image processing and letterform matching occur locally within your browser memory. No PDF pages or image files are uploaded to external servers.'
+          a: 'Yes, 100%. All PDF processing and letterform matching occur locally within your browser memory. No PDF pages or files are ever uploaded to external servers.'
         }
       ]
     },
