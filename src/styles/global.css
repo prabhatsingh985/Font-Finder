@@ -585,9 +585,13 @@ html:not(.dark) #upload-dropzone:hover {
   border-color: #08090a !important;
 }
 
-/* Slider Controls in Light Mode */
+/* Slider Controls in Light & Dark Mode */
 html:not(.dark) input[type="range"] {
-  accent-color: #08090a !important;
+  accent-color: #ff4d00 !important;
+}
+
+html.dark input[type="range"] {
+  accent-color: #e4f222 !important;
 }
 
 /* Atmospheric Floor Gradients in Light Mode */
