@@ -473,7 +473,7 @@ const i18nJson = JSON.stringify(appT);
         <!-- Comparison Cards: Your Image vs Matched Font -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
           <div class="p-3 bg-white dark:bg-[#08090a] rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] flex flex-col justify-between shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all">
-            <span class="font-mono text-[10px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-1.5">{appT.yourImage}</span>
+            <span class="font-mono text-[10px] text-[#64748b] dark:text-[#8a8f98] uppercase tracking-wider block mb-1.5">{finalImageLabel.replace(/:$/, '')}</span>
             <div class="flex-1 flex items-center justify-center min-h-[64px] max-h-[85px] overflow-hidden p-1">
               <img id="res-compare-uploaded" width="260" height="75" loading="lazy" class="max-h-[75px] max-w-full object-contain rounded-[4px]" alt="Your cropped text specimen" />
             </div>

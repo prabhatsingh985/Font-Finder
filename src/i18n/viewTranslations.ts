@@ -41,6 +41,8 @@ export interface ViewTranslation {
     dropzoneTitle: string;
     dropzoneSubtitle: string;
     buttonText: string;
+    newLogo?: string;
+    yourLogo?: string;
     directoryBadge: string;
     directoryTitle: string;
     directorySubtitle: string;
@@ -204,6 +206,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Drop brand logo or wordmark image here',
       dropzoneSubtitle: 'Supports PNG, JPG, and WebP logos with transparent or solid backgrounds',
       buttonText: 'Select Logo File',
+      newLogo: 'New Logo',
+      yourLogo: 'Your Logo',
       directoryBadge: 'BRAND TYPOGRAPHY INDEX',
       directoryTitle: 'Brand Logos & Official Fonts Directory',
       directorySubtitle: 'Explore the official typefaces and verified free Google Font alternatives behind the world’s most recognizable brand identities.',
@@ -395,6 +399,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Arrastra el logotipo o imagen de la marca aquí',
       dropzoneSubtitle: 'Compatible con logos PNG, JPG y WebP con fondo transparente o sólido',
       buttonText: 'Seleccionar Archivo de Logo',
+      newLogo: 'Nuevo Logo',
+      yourLogo: 'Tu Logo',
       directoryBadge: 'ÍNDICE DE TIPOGRAFÍA DE MARCAS',
       directoryTitle: 'Directorio de Logos y Fuentes Oficiales',
       directorySubtitle: 'Descubre las tipografías oficiales y las alternativas gratuitas de Google Fonts detrás de las marcas más reconocidas del mundo.',
@@ -584,6 +590,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Logo oder Markenbild hier ablegen',
       dropzoneSubtitle: 'Unterstützt PNG, JPG und WebP mit transparentem oder einfarbigem Hintergrund',
       buttonText: 'Logo-Datei auswählen',
+      newLogo: 'Neues Logo',
+      yourLogo: 'Dein Logo',
       directoryBadge: 'MARKEN-TYPOGRAFIE-INDEX',
       directoryTitle: 'Markenlogos & Offizielle Schriften',
       directorySubtitle: 'Entdecken Sie die offiziellen Schriftarten und verifizierten kostenlosen Google Fonts Alternativen der bekanntesten Marken der Welt.',
@@ -773,6 +781,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Déposez le logo ou l’image de marque ici',
       dropzoneSubtitle: 'Prend en charge PNG, JPG et WebP avec fond transparent ou uni',
       buttonText: 'Sélectionner le Logo',
+      newLogo: 'Nouveau logo',
+      yourLogo: 'Votre logo',
       directoryBadge: 'INDEX TYPOGRAPHIQUE DES MARQUES',
       directoryTitle: 'Logos de Marques & Polices Officielles',
       directorySubtitle: 'Découvrez les typographies officielles et les alternatives gratuites Google Fonts des marques les plus célèbres.',
@@ -962,6 +972,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Trascina qui il logo o l’immagine del brand',
       dropzoneSubtitle: 'Supporta PNG, JPG e WebP con sfondo trasparente o a tinta unita',
       buttonText: 'Seleziona File del Logo',
+      newLogo: 'Nuovo logo',
+      yourLogo: 'Il tuo logo',
       directoryBadge: 'INDICE TIPOGRAFIA DEI BRAND',
       directoryTitle: 'Loghi di Marchi & Font Ufficiali',
       directorySubtitle: 'Esplora i caratteri ufficiali e le alternative gratuite su Google Fonts dei marchi più celebri al mondo.',
@@ -1151,6 +1163,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'ブランドロゴまたはロゴマーク画像をここにドロップ',
       dropzoneSubtitle: 'PNG、JPG、WebP対応（透過背景・単色背景どちらも可）',
       buttonText: 'ロゴファイルを選択',
+      newLogo: '新しいロゴ',
+      yourLogo: 'あなたのロゴ',
       directoryBadge: 'ブランド・タイポグラフィ対照インデックス',
       directoryTitle: '有名ブランドロゴ＆公式フォント一覧',
       directorySubtitle: '世界的に有名なブランドアイデンティティを支える公式書体と、完全無料のGoogle Fonts代替案を一覧で確認できます。',
@@ -1340,6 +1354,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: '브랜드 로고 또는 심볼 이미지 드롭',
       dropzoneSubtitle: '투명 배경 또는 단색 배경의 PNG, JPG, WebP 파일 지원',
       buttonText: '로고 파일 선택',
+      newLogo: '새 로고',
+      yourLogo: '내 로고',
       directoryBadge: '브랜드 타이포그래피 인덱스',
       directoryTitle: '브랜드 로고 및 공식 서체 디렉토리',
       directorySubtitle: '세계적인 브랜드 정체성을 이끄는 공식 폰트와 검증된 무료 Google Fonts 대체제를 확인하세요.',
@@ -1529,6 +1545,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       dropzoneTitle: 'Solte a imagem do logotipo da marca aqui',
       dropzoneSubtitle: 'Compatível com logos PNG, JPG e WebP com fundo transparente ou sólido',
       buttonText: 'Selecionar Arquivo do Logo',
+      newLogo: 'Novo logo',
+      yourLogo: 'Seu logo',
       directoryBadge: 'ÍNDICE DE TIPOGRAFIA DE MARCAS',
       directoryTitle: 'Logotipos de Marcas & Fontes Oficiais',
       directorySubtitle: 'Explore os tipos de letra oficiais e as alternativas gratuitas do Google Fonts das marcas mais famosas do mundo.',
