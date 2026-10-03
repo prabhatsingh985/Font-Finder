@@ -11,6 +11,8 @@ interface Props {
   wordmarkInputPlaceholder?: string;
   newImageText?: string;
   imageLabelText?: string;
+  cancelText?: string;
+  compareWithText?: string;
 }
 
 const {
@@ -21,7 +23,9 @@ const {
   accept = 'image/png, image/jpeg, image/jpg, image/webp',
   wordmarkInputPlaceholder = '',
   newImageText,
-  imageLabelText
+  imageLabelText,
+  cancelText,
+  compareWithText
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -32,6 +36,8 @@ const finalDropzoneSubtitle = dropzoneSubtitle || t.home.dropzone.subtitle;
 const finalButtonText = buttonText || t.home.dropzone.buttonText;
 const finalNewImageText = newImageText || appT.newImage;
 const finalImageLabel = imageLabelText || `${appT.yourImage}:`;
+const finalCancelText = cancelText || appT.cancelAndChooseAnother || 'Cancel & choose another image';
+const finalCompareWithText = compareWithText || appT.compareWithImage || 'Compare with your image';
 
 const fontsJson = JSON.stringify(VERIFIED_GOOGLE_FONTS);
 const i18nJson = JSON.stringify(appT);
@@ -153,7 +159,7 @@ const i18nJson = JSON.stringify(appT);
 
       <!-- Detail Subtitle -->
       <p id="text-loading-detail" class="text-[13px] text-[#475569] dark:text-[#8a8f98] mt-2 font-normal max-w-xs sm:max-w-sm leading-relaxed">
-        {appT.detectingText || "Detecting text and letterforms from your image..."}
+        {appT.detectingText || "Detecting text and letterforms..."}
       </p>
 
       <!-- Smooth Indeterminate Progress Track -->
@@ -168,7 +174,7 @@ const i18nJson = JSON.stringify(appT);
           type="button"
           class="font-mono text-[11px] text-[#64748b] dark:text-[#8a8f98] hover:text-[#08090a] dark:hover:text-[#ffffff] transition-colors"
         >
-          {appT.cancelAndChooseAnother || "Cancel & choose another image"}
+          {finalCancelText}
         </button>
       </div>
     </div>
@@ -465,7 +471,7 @@ const i18nJson = JSON.stringify(appT);
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="text-[13px] font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.011em]">
-              {appT.compareWithImage}
+              {finalCompareWithText}
             </h3>
           </div>
         </div>

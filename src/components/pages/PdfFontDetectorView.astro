@@ -56,6 +56,8 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
           accept="image/png, image/jpeg, image/jpg, image/webp, application/pdf, .pdf"
           newImageText={vT.newPdf || 'New PDF'}
           imageLabelText={vT.yourPdf ? `${vT.yourPdf}:` : 'YOUR PDF:'}
+          cancelText={vT.cancelText}
+          compareWithText={vT.compareWithText}
         />
       </div>
 

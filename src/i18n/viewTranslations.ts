@@ -43,6 +43,8 @@ export interface ViewTranslation {
     buttonText: string;
     newLogo?: string;
     yourLogo?: string;
+    cancelText?: string;
+    compareWithText?: string;
     directoryBadge: string;
     directoryTitle: string;
     directorySubtitle: string;
@@ -77,6 +79,8 @@ export interface ViewTranslation {
     buttonText: string;
     newPdf?: string;
     yourPdf?: string;
+    cancelText?: string;
+    compareWithText?: string;
     feature1Title: string;
     feature1Desc: string;
     feature2Title: string;
@@ -208,6 +212,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Select Logo File',
       newLogo: 'New Logo',
       yourLogo: 'Your Logo',
+      cancelText: 'Cancel & choose another logo',
+      compareWithText: 'Compare with your logo',
       directoryBadge: 'BRAND TYPOGRAPHY INDEX',
       directoryTitle: 'Brand Logos & Official Fonts Directory',
       directorySubtitle: 'Explore the official typefaces and verified free Google Font alternatives behind the world’s most recognizable brand identities.',
@@ -259,6 +265,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Select PDF File',
       newPdf: 'New PDF',
       yourPdf: 'Your PDF',
+      cancelText: 'Cancel & choose another PDF',
+      compareWithText: 'Compare with your PDF',
       feature1Title: 'High-Resolution Vector Rasterization',
       feature1Desc: 'Extract sharp letterform contours directly from your PDF document without distortion.',
       feature2Title: '100% In-Browser Privacy',
@@ -401,6 +409,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Seleccionar Archivo de Logo',
       newLogo: 'Nuevo Logo',
       yourLogo: 'Tu Logo',
+      cancelText: 'Cancelar y elegir otro logo',
+      compareWithText: 'Compara con tu logo',
       directoryBadge: 'ÍNDICE DE TIPOGRAFÍA DE MARCAS',
       directoryTitle: 'Directorio de Logos y Fuentes Oficiales',
       directorySubtitle: 'Descubre las tipografías oficiales y las alternativas gratuitas de Google Fonts detrás de las marcas más reconocidas del mundo.',
@@ -452,6 +462,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Seleccionar Imagen de PDF',
       newPdf: 'Nuevo PDF',
       yourPdf: 'Tu PDF',
+      cancelText: 'Cancelar y elegir otro PDF',
+      compareWithText: 'Compara con tu PDF',
       feature1Title: 'Rasterización Vectorial de Alta Resolución',
       feature1Desc: 'Extrae contornos nítidos de capturas de PDF sin distorsión por pixelado.',
       feature2Title: '100% Privacidad en tu Navegador',
@@ -594,6 +606,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Logo-Datei auswählen',
       newLogo: 'Neues Logo',
       yourLogo: 'Dein Logo',
+      cancelText: 'Abbrechen & anderes Logo wählen',
+      compareWithText: 'Mit deinem Logo vergleichen',
       directoryBadge: 'MARKEN-TYPOGRAFIE-INDEX',
       directoryTitle: 'Markenlogos & Offizielle Schriften',
       directorySubtitle: 'Entdecken Sie die offiziellen Schriftarten und verifizierten kostenlosen Google Fonts Alternativen der bekanntesten Marken der Welt.',
@@ -645,6 +659,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'PDF-Bild auswählen',
       newPdf: 'Neues PDF',
       yourPdf: 'Dein PDF',
+      cancelText: 'Abbrechen & anderes PDF wählen',
+      compareWithText: 'Mit deinem PDF vergleichen',
       feature1Title: 'Hochauflösende Vektor-Rasterisierung',
       feature1Desc: 'Extrahieren Sie gestochen scharfe Schriftkonturen ohne Pixelverzerrung.',
       feature2Title: '100% Privatsphäre im Browser',
@@ -787,6 +803,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Sélectionner le Logo',
       newLogo: 'Nouveau logo',
       yourLogo: 'Votre logo',
+      cancelText: 'Annuler et choisir un autre logo',
+      compareWithText: 'Comparer avec votre logo',
       directoryBadge: 'INDEX TYPOGRAPHIQUE DES MARQUES',
       directoryTitle: 'Logos de Marques & Polices Officielles',
       directorySubtitle: 'Découvrez les typographies officielles et les alternatives gratuites Google Fonts des marques les plus célèbres.',
@@ -838,6 +856,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Sélectionner l’Image PDF',
       newPdf: 'Nouveau PDF',
       yourPdf: 'Votre PDF',
+      cancelText: 'Annuler et choisir un autre PDF',
+      compareWithText: 'Comparer avec votre PDF',
       feature1Title: 'Rastérisation Vectorielle Haute Résolution',
       feature1Desc: 'Extrayez des contours nets sans distorsion de pixellisation.',
       feature2Title: '100% Confidentialité dans le Navigateur',
@@ -980,6 +1000,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Seleziona File del Logo',
       newLogo: 'Nuovo logo',
       yourLogo: 'Il tuo logo',
+      cancelText: 'Annulla e scegli un altro logo',
+      compareWithText: 'Confronta con il tuo logo',
       directoryBadge: 'INDICE TIPOGRAFIA DEI BRAND',
       directoryTitle: 'Loghi di Marchi & Font Ufficiali',
       directorySubtitle: 'Esplora i caratteri ufficiali e le alternative gratuite su Google Fonts dei marchi più celebri al mondo.',
@@ -1031,6 +1053,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Seleziona Immagine PDF',
       newPdf: 'Nuovo PDF',
       yourPdf: 'Il tuo PDF',
+      cancelText: 'Annulla e scegli un altro PDF',
+      compareWithText: 'Confronta con il tuo PDF',
       feature1Title: 'Rasterizzazione Vettoriale ad Alta Risoluzione',
       feature1Desc: 'Estrae contorni nitidi dai PDF senza distorsioni da sgranatura.',
       feature2Title: '100% Privacy nel Tuo Browser',
@@ -1173,6 +1197,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'ロゴファイルを選択',
       newLogo: '新しいロゴ',
       yourLogo: 'あなたのロゴ',
+      cancelText: 'キャンセルして別のロゴを選択',
+      compareWithText: 'あなたのロゴと比較',
       directoryBadge: 'ブランド・タイポグラフィ対照インデックス',
       directoryTitle: '有名ブランドロゴ＆公式フォント一覧',
       directorySubtitle: '世界的に有名なブランドアイデンティティを支える公式書体と、完全無料のGoogle Fonts代替案を一覧で確認できます。',
@@ -1224,6 +1250,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'PDF画像を選択',
       newPdf: '新しいPDF',
       yourPdf: 'あなたのPDF',
+      cancelText: 'キャンセルして別のPDFを選択',
+      compareWithText: 'あなたのPDFと比較',
       feature1Title: '高解像度ベクターラスタライゼーション',
       feature1Desc: 'ピクセル崩れのない鮮明な文字輪郭をPDFキャプチャから抽出。',
       feature2Title: '100% ブラウザ内ローカル処理（完全プライベート）',
@@ -1366,6 +1394,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: '로고 파일 선택',
       newLogo: '새 로고',
       yourLogo: '내 로고',
+      cancelText: '취소하고 다른 로고 선택',
+      compareWithText: '내 로고와 비교',
       directoryBadge: '브랜드 타이포그래피 인덱스',
       directoryTitle: '브랜드 로고 및 공식 서체 디렉토리',
       directorySubtitle: '세계적인 브랜드 정체성을 이끄는 공식 폰트와 검증된 무료 Google Fonts 대체제를 확인하세요.',
@@ -1417,6 +1447,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'PDF 이미지 선택',
       newPdf: '새 PDF',
       yourPdf: '내 PDF',
+      cancelText: '취소하고 다른 PDF 선택',
+      compareWithText: '내 PDF와 비교',
       feature1Title: '고해상도 벡터 래스터화',
       feature1Desc: '픽셀 깨짐 없이 정밀한 글자 윤곽을 PDF 캡처에서 추출합니다.',
       feature2Title: '100% 브라우저 메모리 보안',
@@ -1559,6 +1591,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Selecionar Arquivo do Logo',
       newLogo: 'Novo logo',
       yourLogo: 'Seu logo',
+      cancelText: 'Cancelar e escolher outro logo',
+      compareWithText: 'Comparar com seu logo',
       directoryBadge: 'ÍNDICE DE TIPOGRAFIA DE MARCAS',
       directoryTitle: 'Logotipos de Marcas & Fontes Oficiais',
       directorySubtitle: 'Explore os tipos de letra oficiais e as alternativas gratuitas do Google Fonts das marcas mais famosas do mundo.',
@@ -1610,6 +1644,8 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       buttonText: 'Selecionar Imagem PDF',
       newPdf: 'Novo PDF',
       yourPdf: 'Seu PDF',
+      cancelText: 'Cancelar e escolher outro PDF',
+      compareWithText: 'Comparar com seu PDF',
       feature1Title: 'Rasterização Vetorial de Alta Resolução',
       feature1Desc: 'Extraia contornos nítidos de capturas de PDF sem distorção por pixelização.',
       feature2Title: '100% de Privacidade no seu Navegador',
