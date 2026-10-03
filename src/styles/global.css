@@ -472,22 +472,24 @@ html:not(.dark) .cat-tab.active,
 html:not(.dark) button.cat-tab.active,
 html:not(.dark) .weight-pill.active,
 html:not(.dark) button.weight-pill.active,
-html:not(.dark) button.bg-\[\#08090a\],
-html:not(.dark) a.bg-\[\#08090a\],
 html:not(.dark) .bg-\[\#08090a\].text-white {
   background-color: #08090a !important;
   color: #ffffff !important;
   border-color: #08090a !important;
 }
 
-html:not(.dark) .cat-tab:not(.active) {
-  background-color: #f1f3f6 !important;
+html:not(.dark) .cat-tab:not(.active),
+html:not(.dark) .weight-pill:not(.active),
+html:not(.dark) button.weight-pill:not(.active) {
+  background-color: #ffffff !important;
   color: #475569 !important;
   border-color: #e2e4e8 !important;
 }
 
-html:not(.dark) .cat-tab:not(.active):hover {
-  background-color: #e2e4e8 !important;
+html:not(.dark) .cat-tab:not(.active):hover,
+html:not(.dark) .weight-pill:not(.active):hover,
+html:not(.dark) button.weight-pill:not(.active):hover {
+  background-color: #f1f3f6 !important;
   color: #08090a !important;
   border-color: #cbd5e1 !important;
 }
@@ -502,16 +504,20 @@ html.dark button.weight-pill.active {
   border-color: #ffffff !important;
 }
 
-html.dark .cat-tab:not(.active) {
+html.dark .cat-tab:not(.active),
+html.dark .weight-pill:not(.active),
+html.dark button.weight-pill:not(.active) {
   background-color: #161718 !important;
   color: #8a8f98 !important;
-  border-color: #383b44 !important;
+  border-color: #23252a !important;
 }
 
-html.dark .cat-tab:not(.active):hover {
+html.dark .cat-tab:not(.active):hover,
+html.dark .weight-pill:not(.active):hover,
+html.dark button.weight-pill:not(.active):hover {
   background-color: #23252a !important;
   color: #ffffff !important;
-  border-color: #64748b !important;
+  border-color: #383b44 !important;
 }
 
 html:not(.dark) a.bg-\[\#ffffff\].text-\[\#08090a\]:hover,
