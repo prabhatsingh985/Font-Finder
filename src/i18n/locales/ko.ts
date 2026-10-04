@@ -133,7 +133,7 @@ export const ko: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "모든 폰트를 단 몇 초 만에 식별",
-      "subtitle": "이 폰트 뭐야? 무료 폰트 검색기에 이미지를 업로드하여 서체를 즉시 식별하세요. 사진, 로고, 스크린샷을 1,935개 이상의 Google Fonts와 매칭합니다."
+      "subtitle": "무료 폰트 검색기에 이미지를 업로드하여 서체를 즉시 식별하세요. 사진, 로고, 스크린샷을 1,935개 이상의 Google Fonts와 매칭합니다."
     },
     "dropzone": {
       "title": "이미지를 드롭하거나 스크린샷 붙여넣기 (⌘V)",

@@ -133,7 +133,7 @@ export const fr: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifiez n’importe quelle police en quelques secondes",
-      "subtitle": "Quelle est cette police ? Téléchargez n'importe quelle image dans notre outil gratuit de recherche de polices et identifiez les typographies instantanément. Associez images, logos et captures d'écran à plus de 1 935 Google Fonts."
+      "subtitle": "Téléchargez n'importe quelle image dans notre outil gratuit de recherche de polices et identifiez les typographies instantanément. Associez images, logos et captures d'écran à plus de 1 935 Google Fonts."
     },
     "dropzone": {
       "title": "Glissez une image ou collez une capture (⌘V)",

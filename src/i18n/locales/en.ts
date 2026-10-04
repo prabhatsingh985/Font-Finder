@@ -131,7 +131,7 @@ export const en = {
     },
     hero: {
       headlinePrefix: 'Identify Any Font In Seconds',
-      subtitle: 'What font is this? Upload any image to our free font finder and identify fonts instantly. Match pictures, logos, and screenshots to 1,935+ Google Fonts.'
+      subtitle: 'Upload any image to our free font finder and identify fonts instantly. Match pictures, logos, and screenshots to 1,935+ Google Fonts.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',

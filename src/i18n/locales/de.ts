@@ -133,7 +133,7 @@ export const de: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Jede Schriftart in Sekundenschnelle erkennen",
-      "subtitle": "Welche Schriftart ist das? Laden Sie ein beliebiges Bild in unseren kostenlosen Schriftartenfinder hoch und identifizieren Sie Schriften sofort. Gleichen Sie Bilder, Logos und Screenshots mit über 1.935 Google Fonts ab."
+      "subtitle": "Laden Sie ein beliebiges Bild in unseren kostenlosen Schriftartenfinder hoch und identifizieren Sie Schriften sofort. Gleichen Sie Bilder, Logos und Screenshots mit über 1.935 Google Fonts ab."
     },
     "dropzone": {
       "title": "Bild ablegen oder Screenshot einfügen (⌘V)",

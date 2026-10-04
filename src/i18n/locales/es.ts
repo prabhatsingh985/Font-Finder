@@ -133,7 +133,7 @@ export const es: TranslationSchema = {
     },
     "hero": {
       "headlinePrefix": "Identifica cualquier fuente en segundos",
-      "subtitle": "¿Qué fuente es esta? Sube cualquier imagen a nuestro buscador de fuentes gratuito e identifica fuentes al instante. Compara imágenes, logotipos y capturas de pantalla con más de 1.935 Google Fonts."
+      "subtitle": "Sube cualquier imagen a nuestro buscador de fuentes gratuito e identifica fuentes al instante. Compara imágenes, logotipos y capturas de pantalla con más de 1.935 Google Fonts."
     },
     "dropzone": {
       "title": "Suelta una imagen o pega una captura (⌘V)",
