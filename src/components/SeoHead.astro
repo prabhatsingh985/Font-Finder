@@ -17,8 +17,8 @@ interface Props {
 }
 
 const {
-  title = 'Font Finder — Free Font Identifier from Image',
-  description = 'Find font from image with Pro Font Finder — the free font identifier by image. Upload screenshots or graphics to detect fonts & open-source Google Font twins.',
+  title = 'Font Finder — Free Font Identifier: Find Font from Image',
+  description = 'What font is this? Use our free font finder to identify font from image, photo, or picture. Upload a screenshot or logo and find the font in seconds — no signup.',
   canonicalUrl,
   ogImage = '/og-image.jpg?v=2',
   type = 'website',
@@ -28,8 +28,6 @@ const {
   breadcrumbs,
   hreflang = true
 } = Astro.props;
-
-const defaultKeywords = 'pro font finder, profontfinder, font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, image font finder, what font is this, font identifier, font identifier by image, font identifier from image, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder';
 
 const siteName = 'ProFontFinder';
 const siteOrigin = 'https://profontfinder.com';
@@ -313,13 +311,15 @@ const siteGraph: Record<string, unknown>[] = [
     "url": "https://profontfinder.com/",
     "name": "ProFontFinder",
     "alternateName": [
+      "Pro Font Finder",
       "Font Finder",
       "Free Font Finder",
-      "AI Font Finder",
-      "Font Identifier By Image",
-      "Font Identifier From Image"
+      "Font Identifier",
+      "Image Font Finder",
+      "Font Identifier by Image"
     ],
-    "description": "Free image font finder and open-source Google Fonts identifier.",
+    "description": "Free font finder and font identifier: find the font from any image, photo, or screenshot and get matching Google Fonts.",
+    "inLanguage": lang,
     "publisher": {
       "@id": "https://profontfinder.com/#organization"
     }
@@ -338,8 +338,10 @@ const appEntity = {
     "SoftwareApplication"
   ],
   "@id": "https://profontfinder.com/#webapp",
-  "name": "ProFontFinder Font Finder",
+  "name": "ProFontFinder — Free Font Finder from Image",
+  "alternateName": ["Font Identifier", "Image Font Finder", "Photo Font Identifier", "Picture Font Finder"],
   "url": "https://profontfinder.com/",
+  "image": "https://profontfinder.com/og-image.png",
   "applicationCategory": "DesignApplication",
   "operatingSystem": "Any",
   "browserRequirements": "Requires HTML5 Canvas and JavaScript",
@@ -356,7 +358,7 @@ const appEntity = {
     "Instant copy-ready CSS @import declarations",
     "Interactive typography specimen test bench"
   ],
-  "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets.",
+  "description": "Free font finder and font identifier. Identify fonts from images, photos, screenshots, and logos, match them to Google Fonts, and copy ready-to-use CSS.",
   "publisher": {
     "@id": "https://profontfinder.com/#organization"
   }
@@ -371,7 +373,7 @@ const siteJsonLd = JSON.stringify({
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="keywords" content={keywords && keywords.length > 0 ? keywords.join(', ') : defaultKeywords} />
+{keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {noindex ? (
   <meta name="robots" content="noindex, nofollow" />
@@ -397,7 +399,7 @@ const siteJsonLd = JSON.stringify({
 <meta property="og:image:type" content={ogImageType} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Font Finder from Image — Free Font Identifier Tool | ProFontFinder" />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content={siteName} />
 
 <!-- Twitter / X -->
@@ -410,7 +412,7 @@ const siteJsonLd = JSON.stringify({
 <meta name="twitter:image:src" content={absoluteOgImage} />
 <meta name="twitter:image:width" content="1200" />
 <meta name="twitter:image:height" content="630" />
-<meta name="twitter:image:alt" content="Font Finder from Image — Free Font Identifier Tool | ProFontFinder" />
+<meta name="twitter:image:alt" content={title} />
 
 <!-- Preconnect & Load Verified Google Fonts for local Canvas rendering -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -126,12 +126,12 @@ export const en = {
 
   home: {
     meta: {
-      title: 'Font Finder — Free Font Identifier from Image',
-      description: 'Find font from image with Pro Font Finder — the free font identifier by image. Upload screenshots or graphics to detect fonts & open-source Google Font twins.'
+      title: 'Font Finder — Free Font Identifier: Find Font from Image',
+      description: 'What font is this? Use our free font finder to identify font from image, photo, or picture. Upload a screenshot or logo and find the font in seconds — no signup.'
     },
     hero: {
       headlinePrefix: 'Identify Any Font In Seconds',
-      subtitle: 'Upload any image to our free font finder and identify fonts instantly. Match pictures, logos, and screenshots to 1,935+ Google Fonts.'
+      subtitle: 'What font is this? Upload an image, photo, or screenshot to our free font identifier and find the font in seconds — matched against 1,935+ Google Fonts. No signup, 100% private.'
     },
     dropzone: {
       title: 'Drop an image or paste screenshot (⌘V)',
@@ -140,7 +140,7 @@ export const en = {
     },
     pipeline: {
       badge: 'RECOGNITION ARCHITECTURE',
-      heading: 'How Our Font Finder Works in 3 Steps',
+      heading: 'How to Identify a Font from an Image in 3 Steps',
       subheading: 'From unconstrained bitmap pixels to verified, production-ready open-source CSS typography.',
       localInference: '< 150ms Local Inference',
       zeroUploads: 'Zero Server Uploads',
@@ -193,26 +193,26 @@ export const en = {
     guide: {
       imageRecognition: {
         badge: 'IMAGE RECOGNITION',
-        title: 'Find a Font from an Image',
+        title: 'Find Font from Image, Photo, or Picture',
         desc: 'Spotting an eye-catching typeface in the wild is inspiring, but identifying it from a flat graphic can be difficult. Whether you are examining a poster, magazine layout, banner, or screenshot, asking "what font is this?" is a frequent hurdle in visual design.',
         cardP1: 'A dedicated font finder from image bridges the gap between static raster pixels and live typographic fonts. Rather than scrolling through foundry catalogs, an optical image font finder extracts glyph structures and matches them against indexed libraries.',
-        cardP2: 'Whether auditing legacy branding, analyzing competitor interfaces, or exploring typography, an optical image to font finder simplifies discovery. ProFontFinder helps you find that font instantly with guaranteed results.'
+        cardP2: 'Whether auditing legacy branding, analyzing competitor interfaces, or exploring typography, our free font finder by image simplifies discovery. Snap a picture, find the font from the photo, and get a verified Google Font match in seconds.'
       },
       opticalAnalysis: {
         badge: 'OPTICAL ANALYSIS',
-        title: 'How Does Our Font Identifier Detect Typefaces?',
+        title: 'How Our Photo Font Identifier Detects Typefaces',
         desc: 'Font identification combines computer vision with typographic letterform analysis. While standard OCR simply transcribes words, a specialized font identifier analyzes stylistic curvature, proportional ratios, and anatomical traits.'
       },
       commercialFree: {
-        title: 'Commercial-Grade Typography Without Subscription Fees',
+        title: 'Free Font Finder for Commercial-Grade Typography',
         desc: 'Our free font finder solves this by matching commercial fonts to authentic open-source alternatives under the SIL Open Font License:',
         commOriginal: 'COMMERCIAL ORIGINAL',
         exploreLink: 'Find Free Alternatives to Commercial Fonts'
       },
       digitalAssets: {
         badge: 'DIGITAL ASSET SCANNING',
-        title: 'Identify Fonts from Screenshots and Logos',
-        desc: 'Typography inspiration frequently arrives as screenshots, graphics, and brand wordmarks.',
+        title: 'Identify Font from Picture, Screenshot, or Logo',
+        desc: 'Typography inspiration frequently arrives as screenshots, pictures, and brand wordmarks. Our picture font finder handles each of them.',
         card1Title: 'Screenshots from Web & Mobile Apps',
         card1Desc: 'Capture a screen snip while browsing and drop it into our Screenshot Font Finder. Identify fonts from UI mockups, web apps, and digital graphics with instant zero-paywall results.',
         card1Link: 'Use Our Screenshot Font Finder',
@@ -235,7 +235,7 @@ export const en = {
       },
       practicalUtility: {
         badge: 'PRACTICAL UTILITY',
-        title: 'Font Finder for Designers and Developers',
+        title: 'Image Font Finder for Designers and Developers',
         desc: 'ProFontFinder streamlines workflows across creative disciplines:',
         devTitle: 'Frontend Developers',
         devDesc: 'Copy verified Google Fonts @import snippets and Tailwind declarations directly. Inspect live sites with our URL Font Finder.',
@@ -247,8 +247,20 @@ export const en = {
     },
     faq: {
       badge: 'FAQ',
-      title: 'Font Finder FAQ — Common Questions Answered',
+      title: 'What Font Is This? Font Finder FAQ',
       items: [
+        {
+          q: 'What font is this? How do I find out?',
+          a: 'Take a screenshot or photo of the text, then upload or paste it (Ctrl+V / ⌘V) into ProFontFinder. The font finder isolates the letters, compares their shapes against 1,935+ Google Fonts, and shows the closest matches with live previews and copy-ready CSS. It is free, needs no signup, and your image never leaves your browser.'
+        },
+        {
+          q: 'How do I identify a font from an image or picture?',
+          a: 'To identify a font from an image: (1) Crop the picture so a single line of text fills most of the frame. (2) Drop it into the ProFontFinder font identifier. (3) Confirm the detected letters. (4) Compare the ranked matches side by side. Sharp, high-contrast pictures of 3 or more letters give the most accurate results.'
+        },
+        {
+          q: 'Can I find a font from a photo taken on my phone?',
+          a: 'Yes. ProFontFinder works as a photo font identifier for real-world text such as signs, menus, packaging, and posters. Shoot the text straight on in good light, crop away the background, and upload the photo. The tool runs on mobile browsers, so you can find a font from a photo without installing an app.'
+        },
         {
           q: 'What is Pro Font Finder and how does it work?',
           a: 'Pro Font Finder is a free, privacy-focused in-browser typography tool that analyzes text inside images, photos, and screenshots to identify the exact typeface or closest open-source Google Font alternative. It extracts geometric letterform contours, measures stroke weight and serifs, and provides instant download links and production-ready CSS embed codes.'
@@ -271,7 +283,7 @@ export const en = {
         },
         {
           q: 'Is there a free font finder?',
-          a: 'Yes, ProFontFinder is completely free with no scan limits, paywalls, or registrations required. Unlike paid services that charge per lookup or promote costly commercial licenses, all matched results are 100% verified, free, open-source Google Fonts safe for commercial and personal use under the SIL Open Font License.'
+          a: 'Yes, ProFontFinder is a font finder by image that is completely free with no scan limits, paywalls, or registrations required. Unlike paid services that charge per lookup or promote costly commercial licenses, all matched results are 100% verified, free, open-source Google Fonts safe for commercial and personal use under the SIL Open Font License.'
         },
         {
           q: 'How to match a font?',
@@ -336,7 +348,7 @@ export const en = {
       ocrLatency: 'OCR.LATENCY // <80MS',
       engineReady: 'Optical Match Engine Ready',
       signatures: '1,935 Signatures',
-      title: 'Ready to Find Your Font from an Image?',
+      title: 'What Font Is This? Find Out Free in Seconds',
       desc: 'Drop any image into our free font identifier to detect typefaces and get verified Google Fonts with copy-ready CSS.',
       btnIdentify: 'Identify Font Now',
       btnTools: 'Explore Font Tools',
@@ -347,8 +359,8 @@ export const en = {
   },
   toolsOverview: {
     meta: {
-      title: 'Font Tools — Free Typography Identification Utilities',
-      description: 'Specialized typography utilities for finding free commercial alternatives, extracting logo fonts, pairing typefaces, and detecting document fonts.'
+      title: 'Free Font Finder Tools — Identify Fonts from Image, Logo & URL',
+      description: 'Free font identifier tools: find fonts from screenshots, logos, handwriting, PDFs, and websites, plus free alternatives to commercial fonts and font pairings.'
     },
     badge: 'TOOL SUITE',
     title: 'Font tools',
@@ -387,7 +399,7 @@ export const en = {
   },
   commercialAlternative: {
     meta: {
-      title: 'Find Free Alternatives to Commercial Fonts — Commercial Font Matcher',
+      title: 'Free Font Alternative Finder — Free Fonts Like Paid Fonts',
       description: 'Upload an image of a commercial font to find verified free, open-source Google Font alternatives with production CSS.'
     },
     breadcrumb: 'Commercial Font Twins',
@@ -399,8 +411,8 @@ export const en = {
   },
   logoFontFinder: {
     meta: {
-      title: 'Identify the Font in a Logo — Brand Typeface & Free Alternative Identifier',
-      description: 'Upload any logo image to identify its typeface and find free Google Font alternatives.'
+      title: 'Logo Font Finder — Identify the Font in Any Logo Free',
+      description: 'What font is this logo? Upload any logo image to identify its typeface for free and find the closest Google Font alternatives with copy-ready CSS.'
     },
     breadcrumb: 'Logo Font Finder',
     title: 'Identify the font in a logo',
@@ -411,8 +423,8 @@ export const en = {
   },
   screenshotFontFinder: {
     meta: {
-      title: 'Find the Font in a Screenshot — Instant Clipboard (⌘V) & Optical Matcher',
-      description: 'Paste directly from your clipboard with ⌘V / Ctrl+V or drop any captured screen snip to identify fonts in seconds.'
+      title: 'Screenshot Font Finder — Identify Font from Screenshot Free',
+      description: 'Paste a screenshot with Ctrl+V / ⌘V or drop a screen capture to identify the font in seconds. Free font identifier with Google Font matches and CSS.'
     },
     breadcrumb: 'Screenshot Font Finder',
     title: 'Find the font in a screenshot',
@@ -423,7 +435,7 @@ export const en = {
   },
   handwritingFontFinder: {
     meta: {
-      title: 'Find a Handwriting or Script Font — Optical Calligraphy Identifier',
+      title: 'Handwriting Font Finder — Identify Script & Cursive Fonts',
       description: 'Upload or scan any handwriting sample, signature, or cursive calligraphy to identify matching free Google Fonts.'
     },
     breadcrumb: 'Handwriting Font Finder',

@@ -310,10 +310,10 @@ export const VIEW_TRANSLATIONS: Record<SupportedLocale, ViewTranslation> = {
       minRead: 'min read'
     },
     home: {
-      heroTitle: 'Identify Any Font',
-      heroHighlight: 'In Seconds',
+      heroTitle: 'Free Font Finder:',
+      heroHighlight: 'Identify Font from Image',
       matrixBadge: 'TOOL COMPARISON',
-      matrixTitle: 'Built for Pure In-Browser Speed & Zero Server Uploads',
+      matrixTitle: 'A Picture Font Finder Built for In-Browser Speed & Zero Uploads',
       matrixSubtitle: 'See how Pro Font Finder’s local recognition engine compares against legacy paywalls and slow cloud tools.',
       colFeature: 'Feature Capability',
       colGeneric: 'Generic Online Tools',
