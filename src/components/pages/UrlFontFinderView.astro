@@ -18,7 +18,7 @@ const benchmarks: Record<string, {
   primary: { name: string; type: string; weights: string[]; role: string; sample: string };
   secondary: { name: string; type: string; weights: string[]; role: string; sample: string };
   mono?: { name: string; type: string };
-  freeTwin: { name: string; similarity: string; category: string; reason: string; id: string };
+  freeTwin: { name: string; category: string; reason: string; id: string };
   css: string;
   sources: { provider: string; details: string }[];
 }> = {
@@ -27,7 +27,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Söhne', type: 'Custom Webfont (Klim Type Foundry)', weights: ['400', '500', '600', '700'], role: 'Headings & Hero', sample: 'Financial infrastructure for the internet.' },
     secondary: { name: 'Söhne / Camphor', type: 'Custom Webfont', weights: ['400', '500'], role: 'Body & Microcopy', sample: 'Millions of companies of all sizes use Stripe to accept payments.' },
     mono: { name: 'Söhne Mono', type: 'Proprietary Monospace' },
-    freeTwin: { name: 'Inter', similarity: '97%', category: 'Neo-Grotesque Sans', reason: 'Tall x-height, neutral geometric apertures, and crisp digital legibility.', id: 'inter' },
+    freeTwin: { name: 'Inter', category: 'Neo-Grotesque Sans', reason: 'Tall x-height, neutral geometric apertures, and crisp digital legibility.', id: 'inter' },
     css: "font-family: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
     sources: [
       { provider: 'Self-Hosted WOFF2', details: 'https://b.stripecdn.com/stripetype/soehne-var.woff2' },
@@ -39,7 +39,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Inter', type: 'Google Font & SIL Open License', weights: ['400', '500', '600'], role: 'Headings & UI', sample: 'Linear is a purpose-built tool for planning and building products.' },
     secondary: { name: 'Inter', type: 'Google Font', weights: ['400'], role: 'Body & Description', sample: 'Streamline issues, projects, and product roadmaps.' },
     mono: { name: 'Geist Mono / SF Mono', type: 'Monospace Code' },
-    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct match. Linear uses the verified open-source Inter typeface by Rasmus Andersson.', id: 'inter' },
+    freeTwin: { name: 'Inter', category: 'Neo-Grotesque Sans', reason: 'Direct match. Linear uses the verified open-source Inter typeface by Rasmus Andersson.', id: 'inter' },
     css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', sans-serif;",
     sources: [
       { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
@@ -51,7 +51,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Geist', type: 'Open-Source (Vercel & Basalt)', weights: ['400', '500', '600', '700'], role: 'Headings & Display', sample: 'Your complete platform for the web.' },
     secondary: { name: 'Geist', type: 'Open-Source', weights: ['400', '500'], role: 'Body & Interface', sample: 'Vercel provides the developer tools and cloud infrastructure.' },
     mono: { name: 'Geist Mono', type: 'Open-Source Monospace' },
-    freeTwin: { name: 'Inter', similarity: '96%', category: 'Neo-Grotesque Sans', reason: 'Engineered with similar Swiss modernist proportions and precision letter spacing.', id: 'inter' },
+    freeTwin: { name: 'Inter', category: 'Neo-Grotesque Sans', reason: 'Engineered with similar Swiss modernist proportions and precision letter spacing.', id: 'inter' },
     css: "font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;",
     sources: [
       { provider: 'Geist NPM / CDN', details: 'geist/font/sans and geist/font/mono packages' },
@@ -63,7 +63,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Mona Sans', type: 'Open Source (GitHub & Degarando)', weights: ['400', '600', '700', '900'], role: 'Marketing & Headings', sample: 'The world’s leading AI-powered developer platform.' },
     secondary: { name: 'SF Pro / Inter', type: 'System UI Stack', weights: ['400', '500', '600'], role: 'App UI & Code Reviews', sample: 'Millions of developers and businesses build software on GitHub.' },
     mono: { name: 'Hubot Sans / SF Mono', type: 'Open Monospace' },
-    freeTwin: { name: 'Plus Jakarta Sans', similarity: '95%', category: 'Modern Grotesk', reason: 'Distinctive wide architectural stance, friendly modern apex, high x-height.', id: 'plus-jakarta-sans' },
+    freeTwin: { name: 'Plus Jakarta Sans', category: 'Modern Grotesk', reason: 'Distinctive wide architectural stance, friendly modern apex, high x-height.', id: 'plus-jakarta-sans' },
     css: "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;",
     sources: [
       { provider: 'GitHub Mona Sans', details: 'https://github.githubassets.com/assets/mona-sans.woff2' },
@@ -75,7 +75,7 @@ const benchmarks: Record<string, {
     primary: { name: 'SF Pro Display', type: 'Apple Proprietary System', weights: ['400', '500', '600', '700'], role: 'Hero & Display Headings', sample: 'Designed to be loved. Engineered to last.' },
     secondary: { name: 'SF Pro Text', type: 'Apple System', weights: ['400', '500'], role: 'Body Copy & Specs', sample: 'Explore the latest iPhone, Mac, iPad, and Apple Watch models.' },
     mono: { name: 'SF Mono', type: 'Apple Proprietary' },
-    freeTwin: { name: 'Roboto', similarity: '95%', category: 'Neo-Grotesque Sans', reason: 'Clean neutral rhythm, dual mechanical curves, and open apertures built for screen reading.', id: 'roboto' },
+    freeTwin: { name: 'Roboto', category: 'Neo-Grotesque Sans', reason: 'Clean neutral rhythm, dual mechanical curves, and open apertures built for screen reading.', id: 'roboto' },
     css: "font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;",
     sources: [
       { provider: 'Apple System Fonts', details: 'Native local system renderer font' },
@@ -86,7 +86,7 @@ const benchmarks: Record<string, {
     url: 'https://airbnb.com',
     primary: { name: 'Airbnb Cereal', type: 'Proprietary (Dalton Maag)', weights: ['400', '500', '700', '800'], role: 'Titles & Property Headings', sample: 'Find places to stay on Airbnb.' },
     secondary: { name: 'Airbnb Cereal', type: 'Proprietary', weights: ['400', '500'], role: 'Details & Reviews', sample: 'Discover entire homes and rooms perfect for any trip.' },
-    freeTwin: { name: 'Plus Jakarta Sans', similarity: '96%', category: 'Clean Grotesk', reason: 'Warm circular neo-grotesque curves, friendly modern terminals, generous counters.', id: 'plus-jakarta-sans' },
+    freeTwin: { name: 'Plus Jakarta Sans', category: 'Clean Grotesk', reason: 'Warm circular neo-grotesque curves, friendly modern terminals, generous counters.', id: 'plus-jakarta-sans' },
     css: "font-family: 'Airbnb Cereal', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;",
     sources: [
       { provider: 'Self-Hosted WOFF2', details: 'https://a0.muscache.com/airbnb/static/airbnb-dls-web/build-manifests/cereal.woff2' },
@@ -98,7 +98,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Lyon Display', type: 'Commercial Editorial Serif (Commercial Type)', weights: ['600', '700'], role: 'Editorial Headings', sample: 'The all-in-one connected workspace.' },
     secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500', '600'], role: 'Document Canvas & UI', sample: 'Write, plan, and get organized with AI-powered docs and notes.' },
     mono: { name: 'SFMono-Regular', type: 'System Monospace' },
-    freeTwin: { name: 'Playfair Display', similarity: '94%', category: 'Modern Serif', reason: 'High-contrast vertical modulation, elegant ball terminals, luxury editorial character.', id: 'playfair-display' },
+    freeTwin: { name: 'Playfair Display', category: 'Modern Serif', reason: 'High-contrast vertical modulation, elegant ball terminals, luxury editorial character.', id: 'playfair-display' },
     css: "font-family: 'Lyon-Display', Georgia, Cambria, 'Times New Roman', Times, serif;",
     sources: [
       { provider: 'Commercial Type WOFF2', details: 'Self-hosted Lyon Display webfont files' },
@@ -110,7 +110,7 @@ const benchmarks: Record<string, {
     primary: { name: 'Inter', type: 'Google Font (SIL Open License)', weights: ['400', '500', '600', '700'], role: 'Headings & Marketing', sample: 'Rapidly build modern websites without ever leaving your HTML.' },
     secondary: { name: 'Inter', type: 'Google Font', weights: ['400', '500'], role: 'Documentation & Body', sample: 'A utility-first CSS framework packed with classes like flex, pt-4, text-center.' },
     mono: { name: 'Fira Code', type: 'Google Font Monospace' },
-    freeTwin: { name: 'Inter', similarity: '100%', category: 'Neo-Grotesque Sans', reason: 'Direct 100% match. Tailwind documentation relies on Inter for its default UI stack.', id: 'inter' },
+    freeTwin: { name: 'Inter', category: 'Neo-Grotesque Sans', reason: 'Direct match. Tailwind documentation relies on Inter for its default UI stack.', id: 'inter' },
     css: "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');\nfont-family: 'Inter', system-ui, -apple-system, sans-serif;",
     sources: [
       { provider: 'Google Fonts CDN', details: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700' },
@@ -255,10 +255,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
                     {uT.freeTwinHeading}:
                   </span>
                 </div>
-                <div class="flex items-center gap-2 font-mono text-xs">
-                  <span class="text-[#8a8f98]">{uT.visualMatch}</span>
-                  <span id="twin-similarity" class="font-bold text-[#27a644]">97%</span>
-                </div>
               </div>
 
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -364,7 +360,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
     const secondarySample = document.getElementById('secondary-sample');
     const secondaryWeights = document.getElementById('secondary-weights');
 
-    const twinSimilarity = document.getElementById('twin-similarity');
     const twinName = document.getElementById('twin-name');
     const twinReason = document.getElementById('twin-reason');
     const twinLink = document.getElementById('twin-link');
@@ -396,7 +391,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
       secondarySample.textContent = profile.secondary.sample;
       secondaryWeights.textContent = `Weights: ${profile.secondary.weights.join(', ')}`;
 
-      twinSimilarity.textContent = profile.freeTwin.similarity;
       twinName.textContent = profile.freeTwin.name;
       twinReason.textContent = profile.freeTwin.reason;
       twinLink.href = `https://fonts.google.com/specimen/${encodeURIComponent(profile.freeTwin.name).replace(/%20/g, '+')}`;
@@ -675,7 +669,6 @@ const benchmarksJson = JSON.stringify(benchmarks);
           },
           freeTwin: {
             name: mainName,
-            similarity: mainFontObj.isGoogle ? '100% (Direct Match)' : '96%',
             category: mainFontObj.isGoogle ? 'Verified Google Font' : 'Neo-Grotesque Sans',
             reason: mainFontObj.isGoogle 
               ? `Direct match. This website loads the verified open-source ${mainName} typeface from Google Fonts.`

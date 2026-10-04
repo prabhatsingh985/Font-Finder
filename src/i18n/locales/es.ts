@@ -119,7 +119,6 @@ export const es: TranslationSchema = {
       "inspectSpecimenDetails": "Inspeccionar detalles de la muestra →",
       "closestAlternatives": "04 / ALTERNATIVAS VERIFICADAS MÁS CERCANAS",
       "viewSpecimen": "Ver muestra →",
-      "opticalMatch": "{confidence}% Coincidencia óptica",
       "errSelectWord": "Por favor, selecciona una palabra para identificar.",
       "errAtLeastOneLetter": "Asegúrate de que haya al menos una letra introducida o detectada.",
       "errInvalidFormat": "Por favor, sube una imagen en formato PNG, JPG o WebP.",
@@ -439,7 +438,6 @@ export const es: TranslationSchema = {
   urlFontFinder: {
     primaryBrand: "Marca principal",
     highLegibility: "Alta legibilidad",
-    visualMatch: "Coincidencia visual:",
     cssVariables: "Variables CSS",
     notice: "Aviso:",
 

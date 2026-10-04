@@ -119,7 +119,6 @@ export const ko: TranslationSchema = {
       "inspectSpecimenDetails": "폰트 세부 정보 보기 →",
       "closestAlternatives": "04 / 가장 가까운 검증된 대체 폰트",
       "viewSpecimen": "샘플 보기 →",
-      "opticalMatch": "{confidence}% 광학적 일치",
       "errSelectWord": "식별할 단어를 선택해 주세요.",
       "errAtLeastOneLetter": "최소 한 글자 이상 입력되거나 감지되었는지 확인하세요.",
       "errInvalidFormat": "PNG, JPG 또는 WebP 형식의 이미지를 업로드해 주세요.",
@@ -439,7 +438,6 @@ export const ko: TranslationSchema = {
   urlFontFinder: {
     primaryBrand: "주요 브랜드 폰트",
     highLegibility: "높은 가독성",
-    visualMatch: "시각적 일치도:",
     cssVariables: "CSS 변수",
     notice: "알림:",
 

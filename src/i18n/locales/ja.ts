@@ -119,7 +119,6 @@ export const ja: TranslationSchema = {
       "inspectSpecimenDetails": "フォントの詳細を確認 →",
       "closestAlternatives": "04 / 最も近い検証済み代替フォント",
       "viewSpecimen": "見本を見る →",
-      "opticalMatch": "{confidence}% 光学的一致度",
       "errSelectWord": "識別する単語を選択してください。",
       "errAtLeastOneLetter": "少なくとも1文字が入力または検出されていることを確認してください。",
       "errInvalidFormat": "PNG、JPG、または WebP 形式の画像をアップロードしてください。",
@@ -439,7 +438,6 @@ export const ja: TranslationSchema = {
   urlFontFinder: {
     primaryBrand: "主要ブランドフォント",
     highLegibility: "高い可読性",
-    visualMatch: "視覚的一致度:",
     cssVariables: "CSS変数",
     notice: "ご注意:",
 

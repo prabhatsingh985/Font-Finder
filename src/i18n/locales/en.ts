@@ -117,7 +117,6 @@ export const en = {
       "inspectSpecimenDetails": "Inspect Specimen Details →",
       "closestAlternatives": "04 / CLOSEST VERIFIED ALTERNATIVES",
       "viewSpecimen": "View Specimen →",
-      "opticalMatch": "{confidence}% Optical Match",
       "errSelectWord": "Please select a word to identify.",
       "errAtLeastOneLetter": "Please ensure at least one letter is entered or detected.",
       "errInvalidFormat": "Please upload a PNG, JPG, or WebP image.",
@@ -437,7 +436,6 @@ export const en = {
   urlFontFinder: {
     primaryBrand: "Primary Brand",
     highLegibility: "High Legibility",
-    visualMatch: "Visual Match:",
     cssVariables: "CSS Variables",
     notice: "Notice:",
 

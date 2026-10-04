@@ -157,7 +157,7 @@ Already in place and kept:
 | logo font finder | `/tools/logo-font-finder` | ✓ Exists; old `/logo-font-identifier` now 301s here |
 | pdf font detector | `/tools/pdf-font-detector` | ✓ Exists; 301 from the root path |
 | free font alternative finder | `/tools/free-font-alternative-finder` | ✓ Exists; 301s from two legacy paths |
-| google font identifier | **No dedicated page** | **Gap.** Create `/tools/google-font-identifier`. It is the most honest positioning for a Google-Fonts catalog, and competition for it is weak. |
+| google font identifier | No dedicated page | Gap, but **declined by the owner**: no new routes or pages. Target the phrase from existing home and guides copy instead. |
 
 ---
 
@@ -171,9 +171,10 @@ Already in place and kept:
 5. ✅ Wire Stage B rerank; calibrated, monotonic confidence.
 6. ☐ Replace the legacy 72–99 clamp (`FontFinderApp.astro:4794`) with the calibrated formula.
 7. ☐ Stop generating space-separated alias slugs at all. Have `getAllStaticFontPaths` emit only hyphenated slugs and add one dynamic `_redirects` rule. This cuts ~1,245 HTML files and build time. The canonical tag handles it in the meantime.
-8. ☐ Delete `public/tessdata/eng.traineddata` (5.2MB, unused).
-9. ☐ Delete or consolidate `src/services/fontDetection/*` (dead code).
+8. ✅ Delete `public/tessdata/eng.traineddata` (5.2MB, unused).
+9. ✅ Delete `src/services/fontDetection/*` (dead code).
 10. ☐ Drop `<meta name="keywords">` (ignored by Google; harmless but noise).
+11. ✅ Remove all numeric match percentages from the UI: the primary result badge, the "% Optical Match" text, the alternative cards, the URL finder's "Visual Match" figure and the home-page sample JSON. Confidence is still computed internally for ranking but is never displayed.
 
 ### B. Engine enhancements (1–3 weeks)
 1. Move Stage A + signature extraction into a Web Worker, then use OffscreenCanvas for Stage B.
@@ -186,7 +187,7 @@ Already in place and kept:
 8. Self-host subsetted WOFF2 files for Stage B, removing even the font-request signal to Google.
 
 ### C. Content & topical authority (ongoing)
-1. A `/tools/google-font-identifier` landing page (keyword gap).
+1. ~~A `/tools/google-font-identifier` landing page~~. Declined: the site structure stays as is.
 2. "Free alternative to X" cluster: expand the existing blog posts into one page per popular commercial font (Helvetica, Futura, Gotham, Proxima Nova, Avenir, Circular, Brandon Grotesque…). Each page links to the matching `/fonts/<slug>` pages and the free-alternative tool. These are high-intent, long-tail and linkable.
 3. Category hubs: `/fonts/category/serif|sans-serif|display|handwriting|monospace`, linking all members. These give the font pages a second crawl path and target "free serif fonts"-type queries.
 4. Font pages: add one or two unique sentences per family (designer, year, recommended use, pairing). Today they are mostly template text, which risks "thin content" at 1,950-page scale.
