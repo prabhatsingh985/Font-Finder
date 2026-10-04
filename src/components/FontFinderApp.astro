@@ -979,11 +979,14 @@ const i18nJson = JSON.stringify(appT);
       return passes;
     }
 
+    // 8-bit popcount lookup table: one table read per byte instead of a bit-clearing loop
+    const POPCOUNT8 = new Uint8Array(256);
+    for (let i = 1; i < 256; i++) POPCOUNT8[i] = (i & 1) + POPCOUNT8[i >> 1];
+
     function hammingDist(sigA, sigB, offsetB) {
       let diffBits = 0;
       for (let i = 0; i < sigA.length; i++) {
-        let xor = sigA[i] ^ sigB[offsetB + i];
-        while (xor) { xor &= xor - 1; diffBits++; }
+        diffBits += POPCOUNT8[sigA[i] ^ sigB[offsetB + i]];
       }
       return diffBits;
     }
@@ -995,6 +998,20 @@ const i18nJson = JSON.stringify(appT);
       return true;
     }
 
+    // Per-slice cache of "font has no glyph for this char" flags, computed once per DB load
+    // instead of re-scanning 32 bytes per font on every query and every erosion pass.
+    const blankFlagCache = new WeakMap();
+    function getBlankFlags(slice, numFonts, bytesPerGlyph) {
+      let flags = blankFlagCache.get(slice);
+      if (flags) return flags;
+      flags = new Uint8Array(numFonts);
+      for (let f = 0; f < numFonts; f++) {
+        flags[f] = isBlankSig(slice, f * bytesPerGlyph, bytesPerGlyph) ? 1 : 0;
+      }
+      blankFlagCache.set(slice, flags);
+      return flags;
+    }
+
     function scoreCut(manifest, charMap, queryGlyphs) {
       const { bytesPerGlyph, fonts } = manifest;
       const numFonts = fonts.length;
@@ -1004,9 +1021,10 @@ const i18nJson = JSON.stringify(appT);
       for (const g of queryGlyphs) {
         const slice = charMap.get(g.char);
         if (!slice) continue;
+        const blank = getBlankFlags(slice, numFonts, bytesPerGlyph);
         for (let f = 0; f < numFonts; f++) {
+          if (blank[f]) continue;
           const offset = f * bytesPerGlyph;
-          if (isBlankSig(slice, offset, bytesPerGlyph)) continue;
           const diff = hammingDist(g.signature, slice, offset);
           dists[f] += diff / 256;
           counts[f]++;
@@ -1135,11 +1153,22 @@ const i18nJson = JSON.stringify(appT);
       return normalizeGrayscaleSilhouette(gray, w, h, targetH);
     }
 
+    // document.fonts.check() returns true for families with no FontFace at all (e.g. a stylesheet
+    // that failed to load), which would silently score the sans-serif fallback. Require a loaded face.
+    function hasLoadedFace(family) {
+      if (typeof document === 'undefined' || !document.fonts) return false;
+      const want = family.toLowerCase();
+      for (const face of document.fonts) {
+        if (face.status === 'loaded' && face.family.replace(/^["']|["']$/g, '').toLowerCase() === want) return true;
+      }
+      return false;
+    }
+
     function renderCandidateWordSilhouette(family, text, weight = 400) {
       // Gatekeeper: ensure font is actually ready in document.fonts before rendering to canvas
       if (typeof document !== 'undefined' && document.fonts && document.fonts.check) {
-        const isReady = document.fonts.check(`${weight} 140px "${family}"`, text) ||
-                        document.fonts.check(`140px "${family}"`, text);
+        const isReady = hasLoadedFace(family) && (document.fonts.check(`${weight} 140px "${family}"`, text) ||
+                        document.fonts.check(`140px "${family}"`, text));
         if (!isReady) {
           // Do NOT render fallback monospace! Return null so Stage A score is preserved cleanly.
           return null;
@@ -1170,14 +1199,88 @@ const i18nJson = JSON.stringify(appT);
       return normalizeGrayscaleSilhouette(gray, canvas.width, canvas.height, 64);
     }
 
-    function compareWordSilhouettes(userSil, candSil) {
-      if (!userSil || !candSil) return 0.5;
-      let diff = 0;
-      const len = userSil.gray.length;
-      for (let i = 0; i < len; i++) {
-        diff += Math.abs(userSil.gray[i] - candSil.gray[i]);
+    // Soft IoU (Ruzicka similarity) of ink coverage over the columns either silhouette uses.
+    // Unlike mean L1 over the full 64x900 buffer, empty background cannot inflate the score,
+    // and a width mismatch (different letter widths/spacing) is penalised directly.
+    function compareWordSilhouettes(userSil, candSil, targetH = 64) {
+      if (!userSil || !candSil) return null;
+      const cols = Math.max(userSil.inkWidth, candSil.inkWidth);
+      let inter = 0, union = 0;
+      for (let y = 0; y < targetH; y++) {
+        const row = y * 900;
+        for (let x = 0; x < cols; x++) {
+          const a = 255 - userSil.gray[row + x];
+          const b = 255 - candSil.gray[row + x];
+          inter += a < b ? a : b;
+          union += a > b ? a : b;
+        }
       }
-      return Math.max(0, Math.min(1, 1 - diff / (len * 255)));
+      return union > 0 ? inter / union : null;
+    }
+
+    // Grayscale silhouette of the user's word built from the binary work mask, restricted to
+    // the glyph boxes. Polarity-independent (the mask already marks ink) and excludes
+    // neighbouring words/noise that fall inside the word's bounding rectangle.
+    function maskWordSilhouette(mask, boxes, targetH = 64) {
+      if (!mask || !mask.bits || !boxes || boxes.length === 0) return null;
+      let minX = Infinity, minY = Infinity, maxX = -1, maxY = -1;
+      for (const b of boxes) {
+        if (!b) continue;
+        minX = Math.min(minX, b.x); minY = Math.min(minY, b.y);
+        maxX = Math.max(maxX, b.x + b.w); maxY = Math.max(maxY, b.y + b.h);
+      }
+      minX = Math.max(0, minX); minY = Math.max(0, minY);
+      maxX = Math.min(mask.width, maxX); maxY = Math.min(mask.height, maxY);
+      const w = maxX - minX, h = maxY - minY;
+      if (w < 2 || h < 2) return null;
+      const gray = new Uint8Array(w * h).fill(255);
+      for (const b of boxes) {
+        if (!b) continue;
+        const y1 = Math.min(maxY, b.y + b.h), x1 = Math.min(maxX, b.x + b.w);
+        for (let y = Math.max(minY, b.y); y < y1; y++) {
+          const src = y * mask.width, dst = (y - minY) * w - minX;
+          for (let x = Math.max(minX, b.x); x < x1; x++) {
+            if (mask.bits[src + x]) gray[dst + x] = 0;
+          }
+        }
+      }
+      return normalizeGrayscaleSilhouette(gray, w, h, targetH);
+    }
+
+    // Loads the exact weight of each Stage B candidate, one stylesheet per family so a single
+    // missing family/weight cannot fail the whole request. Fonts are subset to the fixed catalog
+    // charset (not the user's word), so nothing derived from the image reaches Google and the
+    // URLs stay cacheable across runs. Bounded by a total time budget.
+    async function loadStageBFonts(candidates, text, subsetChars, budgetMs = 2500) {
+      if (typeof document === 'undefined' || !document.fonts) return;
+      const uniqueText = encodeURIComponent(subsetChars);
+      const loads = candidates.map((c) => {
+        const id = `gf-stageb-${c.family.replace(/[^a-z0-9]+/gi, '-')}-${c.renderWeight}`;
+        if (document.fonts.check(`${c.renderWeight} 140px "${c.family}"`, text) && document.getElementById(id)) {
+          return Promise.resolve();
+        }
+        return new Promise((resolve) => {
+          let link = document.getElementById(id);
+          if (!link) {
+            link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=' +
+              encodeURIComponent(c.family).replace(/%20/g, '+') +
+              (c.renderWeight !== 400 ? `:wght@${c.renderWeight}` : '') +
+              `&text=${uniqueText}&display=block`;
+            document.head.appendChild(link);
+          } else if (link.sheet) {
+            document.fonts.load(`${c.renderWeight} 140px "${c.family}"`, text).then(resolve, resolve);
+            return;
+          }
+          link.onload = () => {
+            document.fonts.load(`${c.renderWeight} 140px "${c.family}"`, text).then(resolve, resolve);
+          };
+          link.onerror = () => resolve();
+        });
+      });
+      await Promise.race([Promise.all(loads), new Promise((r) => setTimeout(r, budgetMs))]);
     }
 
     const uploadStage = document.getElementById('upload-stage');
@@ -2453,7 +2556,13 @@ const i18nJson = JSON.stringify(appT);
       let bestChar = 'e';
       let minDistance = 999;
       const numFonts = manifest.fonts.length;
-      const topK = Math.max(5, Math.floor(numFonts * 0.05));
+      const bytesPerGlyph = manifest.bytesPerGlyph || 32;
+      // Every 8th font is sampled, so top-K must be 5% of the *sampled* set. Sizing it from the
+      // full font count averaged ~40% of the sample and washed out the nearest-glyph signal.
+      const SAMPLE_STEP = 8;
+      const sampled = Math.ceil(numFonts / SAMPLE_STEP);
+      const topK = Math.max(5, Math.floor(sampled * 0.05));
+      const distances = new Uint16Array(sampled);
 
       let allowedChars = manifest.chars;
       if (box && typo && typo.isReliable) {
@@ -2472,16 +2581,18 @@ const i18nJson = JSON.stringify(appT);
       for (const ch of allowedChars) {
         const slice = charMap.get(ch);
         if (!slice) continue;
-        const distances = [];
-        for (let f = 0; f < numFonts; f += 8) {
-          const offset = f * 32;
-          if (isBlankSig(slice, offset, 32)) continue;
-          distances.push(hammingDist(sig, slice, offset));
+        const blank = getBlankFlags(slice, numFonts, bytesPerGlyph);
+        let n = 0;
+        for (let f = 0; f < numFonts; f += SAMPLE_STEP) {
+          if (blank[f]) continue;
+          distances[n++] = hammingDist(sig, slice, f * bytesPerGlyph);
         }
-        if (distances.length === 0) continue;
-        distances.sort((a, b) => a - b);
-        const topKDist = distances.slice(0, topK);
-        const avgTop = topKDist.reduce((a, b) => a + b, 0) / topKDist.length;
+        if (n === 0) continue;
+        const sorted = distances.subarray(0, n).sort();
+        const k = Math.min(topK, n);
+        let sum = 0;
+        for (let i = 0; i < k; i++) sum += sorted[i];
+        const avgTop = sum / k;
         if (avgTop < minDistance) {
           minDistance = avgTop;
           bestChar = ch;
@@ -3062,7 +3173,7 @@ const i18nJson = JSON.stringify(appT);
 
       if (progressBar) progressBar.style.width = '20%';
       if (stepTitle) stepTitle.textContent = isSentenceMode ? 'SENTENCE CONSENSUS: 16×16 GLYPH MATCHING' : 'STAGE A: 16×16 GLYPH FINGERPRINT MATCHING';
-      if (stepDetail) stepDetail.textContent = (i18n.matchingFontsProgress || 'Matching against {count} fonts in your browser...').replace('{count}', validGlyphs.length);
+      if (stepDetail) stepDetail.textContent = (i18n.matchingFontsProgress || 'Matching against {count} fonts in your browser...').replace('{count}', '1,935');
 
       const sigDb = await loadSignatureDb();
       if (thisRunId !== pipelineSequence) return;
@@ -3229,37 +3340,101 @@ const i18nJson = JSON.stringify(appT);
         scoredFinal = bestCandidatesA.slice(0, 40);
       }
 
-      // Stage B: Deterministic Optical Match Ranking & Verification
+      // Stage B: whole-word optical verification. The top-K Stage A candidates are rendered with
+      // the recognised text at their matched weight and compared against the user's word mask
+      // (soft IoU). This captures spacing, proportions, joins and ligatures that per-glyph 16x16
+      // signatures cannot. Scores are z-normalised within the pool and blended with Stage A.
       if (progressBar) progressBar.style.width = '85%';
       if (stepTitle) stepTitle.textContent = 'STAGE B: RANKING & VERIFICATION';
-      if (stepDetail) stepDetail.textContent = `Ranking optical matches for "${verifiedWordText}" across 1,935 Google Fonts...`;
+      if (stepDetail) stepDetail.textContent = `Ranking optical matches for "${verifiedWordText}" across ${manifest.fonts.length.toLocaleString()} Google Fonts...`;
       await new Promise(r => setTimeout(r, 40));
       if (thisRunId !== pipelineSequence) return;
 
-      const topScore = scoredFinal[0]?.score ?? 0.8;
-      const medianScore = scoredFinal[Math.floor(scoredFinal.length / 2)]?.score ?? 0.5;
-      const denom = Math.max(topScore - medianScore, 1e-6);
-      const scoreMargin = Math.max(0, topScore - (scoredFinal[1]?.score ?? 0.7));
+      const scoreMargin = Math.max(0, (scoredFinal[0]?.score ?? 0) - (scoredFinal[1]?.score ?? 0));
+      let stageBApplied = false;
+      const renderText = validGlyphs.map(g => g.char || '').join('');
 
-      const rankedFormatted = scoredFinal.map((c, idx) => {
-        let conf = Math.max(0, Math.min(100, Math.round(((c.score - medianScore) / denom) * 100)));
-        if (idx === 0) {
-          conf = Math.max(88, Math.min(99, conf));
-        } else {
-          conf = Math.max(35, Math.min(conf, 96 - (idx * 2)));
+      if (!isSentenceMode && wordBinaryMask && scoredFinal.length >= 3 && renderText.length >= 2) {
+        try {
+          const K = Math.min(12, scoredFinal.length);
+          const pool = scoredFinal.slice(0, K);
+          const renderCands = pool.map(c => ({ family: c.family, renderWeight: c.weight === 'bold' ? 700 : 400 }));
+          await loadStageBFonts(renderCands, renderText, manifest.chars);
+          if (thisRunId !== pipelineSequence) return;
+
+          const userSil = maskWordSilhouette(wordBinaryMask, validGlyphs.map(g => g.boxWork || g.box));
+          if (userSil) {
+            const bScores = renderCands.map(rc =>
+              compareWordSilhouettes(userSil, renderCandidateWordSilhouette(rc.family, renderText, rc.renderWeight)));
+            const bValid = bScores.filter(b => b !== null);
+            if (bValid.length >= 3) {
+              const meanStd = (arr, floor) => {
+                const m = arr.reduce((s, v) => s + v, 0) / arr.length;
+                const sd = Math.sqrt(arr.reduce((s, v) => s + (v - m) * (v - m), 0) / arr.length);
+                return [m, Math.max(sd, floor)];
+              };
+              const [mA, sA] = meanStd(pool.map(c => c.score), 0.01);
+              const [mB, sB] = meanStd(bValid, 0.02);
+              pool.forEach((c, i) => {
+                const zA = (c.score - mA) / sA;
+                const zB = bScores[i] === null ? -0.5 : (bScores[i] - mB) / sB;
+                c.rerank = 0.55 * zA + 0.45 * zB;
+                c.stageB = bScores[i];
+              });
+              pool.sort((a, b) => b.rerank - a.rerank);
+              scoredFinal = pool.concat(scoredFinal.slice(K));
+              stageBApplied = true;
+            }
+          }
+        } catch (err) {
+          console.warn('Stage B verification skipped:', err);
         }
+      }
 
-        let confidenceLabel = 'Good Match';
+      // Confidence: derived from absolute match quality, separation from the runner-up and the
+      // amount of evidence (letter count), instead of being clamped into a fixed high band.
+      // Constants are first-pass estimates and should be tuned against a labelled test set.
+      const clamp01 = (v) => Math.max(0, Math.min(1, v));
+      const primaryCand = scoredFinal[0];
+      const runnerCand = scoredFinal[1];
+      const absTerm = clamp01(((primaryCand?.score ?? 0) - 0.80) / 0.15);
+      let marginTerm = 1;
+      if (runnerCand) {
+        marginTerm = (stageBApplied && primaryCand.rerank !== undefined && runnerCand.rerank !== undefined)
+          ? clamp01((primaryCand.rerank - runnerCand.rerank) / 1.5)
+          : clamp01((primaryCand.score - runnerCand.score) / 0.03);
+      }
+      const nLetters = validGlyphs.length;
+      const nTerm = nLetters / (nLetters + 3);
+      const topConf = Math.round(45 + 54 * (0.45 * absTerm + 0.35 * marginTerm + 0.20 * nTerm));
+
+      let prevConf = topConf + 1;
+      const rankedFormatted = scoredFinal.map((c, idx) => {
+        let conf = topConf;
+        if (idx > 0) {
+          const gap = (c.rerank !== undefined && primaryCand.rerank !== undefined)
+            ? (primaryCand.rerank - c.rerank) * 0.025
+            : (primaryCand.score - c.score);
+          conf = Math.round(topConf - Math.max(0, gap) * 400);
+        }
+        conf = Math.max(20, Math.min(conf, prevConf - 1));
+        prevConf = conf;
+
+        let confidenceLabel;
         if (isSentenceMode) {
           confidenceLabel = 'Sentence Consensus Match';
         } else if (isDistinctFont) {
           confidenceLabel = 'Distinct Font Detected';
-        } else if (conf >= 92 && scoreMargin >= 0.035) {
+        } else if (idx === 0 && conf >= 90 && marginTerm >= 0.66) {
           confidenceLabel = 'Exact / Near-Exact Match';
-        } else if (conf >= 84) {
-          confidenceLabel = 'High Confidence';
-        } else if (scoreMargin < 0.02 || conf < 75) {
+        } else if (idx === 0 && marginTerm < 0.33) {
           confidenceLabel = 'Close / Competitive Match';
+        } else if (conf >= 78) {
+          confidenceLabel = 'High Confidence';
+        } else if (conf >= 62) {
+          confidenceLabel = 'Good Match';
+        } else {
+          confidenceLabel = 'Possible Match';
         }
 
         const matchedFontObj = fontsCatalog.find(f => f.family.toLowerCase() === c.family.toLowerCase()) || {
@@ -3277,7 +3452,8 @@ const i18nJson = JSON.stringify(appT);
           confidenceLabel,
           weight: c.weight === 'bold' ? 700 : 400,
           scoreMargin: idx === 0 ? scoreMargin : undefined,
-          thinningLevel: bestThinningLevel
+          thinningLevel: bestThinningLevel,
+          stageBScore: c.stageB ?? undefined
         };
       });
 
@@ -3290,7 +3466,8 @@ const i18nJson = JSON.stringify(appT);
           isDistinctFont,
           parentSentenceFont: lastSentenceFont,
           letterCount: validGlyphs.length,
-          wordText: verifiedWordText
+          wordText: verifiedWordText,
+          stageBApplied
         },
         traits: {
           classification: rankedFormatted[0].category,

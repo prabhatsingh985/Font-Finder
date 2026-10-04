@@ -10,6 +10,10 @@ interface Props {
 const { currentLang = (Astro.currentLocale as string) || 'en', class: className = '' } = Astro.props;
 const pathname = Astro.url.pathname;
 const activeLangInfo = LANGUAGES[(currentLang as SupportedLocale)] || LANGUAGES.en;
+// Font detail pages (/fonts/<slug>) are English-only; send other locales to their
+// localized /fonts index instead of a non-existent /xx/fonts/<slug> URL.
+const pathParts = pathname.split('/').filter(Boolean);
+const isFontDetail = pathParts.length === 2 && pathParts[0] === 'fonts';
 ---
 
 <div class={`relative inline-block text-left language-picker-container ${className}`}>
@@ -45,7 +49,7 @@ const activeLangInfo = LANGUAGES[(currentLang as SupportedLocale)] || LANGUAGES.
     </div>
     {LOCALES.map((locale) => {
       const info = LANGUAGES[locale];
-      const targetUrl = getLocalizedPath(pathname, locale);
+      const targetUrl = isFontDetail && locale !== 'en' ? getLocalizedPath('/fonts', locale) : getLocalizedPath(pathname, locale);
       const isActive = locale === activeLangInfo.code;
       return (
         <a

@@ -12,6 +12,8 @@ interface Props {
   noindex?: boolean;
   lang?: string;
   breadcrumbs?: { name: string; item?: string }[];
+  /** Emit hreflang alternates. Disable for pages that only exist in one locale. */
+  hreflang?: boolean;
 }
 
 const {
@@ -23,7 +25,8 @@ const {
   keywords,
   noindex = false,
   lang = (Astro.currentLocale as string) || 'en',
-  breadcrumbs
+  breadcrumbs,
+  hreflang = true
 } = Astro.props;
 
 const defaultKeywords = 'pro font finder, profontfinder, font finder, font finder by image, free font finder, font finder from image free, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, image font finder, what font is this, font identifier, font identifier by image, font identifier from image, instagram fonts, ig fonts, font search by image, find font from image, font detector, image to font finder';
@@ -36,7 +39,7 @@ const absoluteCanonical = canonicalUrl
   ? (canonicalUrl.startsWith('http') ? canonicalUrl : `${siteOrigin}${canonicalUrl.startsWith('/') ? '' : '/'}${canonicalUrl}`)
   : getCanonicalUrl(Astro.url.pathname, lang, siteOrigin);
 
-const hreflangs = getHreflangTags(Astro.url.pathname, siteOrigin);
+const hreflangs = hreflang ? getHreflangTags(Astro.url.pathname, siteOrigin) : [];
 
 const absoluteOgImage = ogImage.startsWith('http')
   ? ogImage
@@ -299,6 +302,69 @@ const breadcrumbJsonLd = !isHomePage && breadcrumbsList.length > 0
       }))
     }).replace(/</g, '\\u003c')
   : null;
+
+// Site-wide entities go on every page; the application entity only on pages that
+// actually host the tool, so catalog and guide pages don't claim to be the app.
+const isToolPage = isHomePage || cleanPath === '/tools' || cleanPath.startsWith('/tools/');
+const siteGraph: Record<string, unknown>[] = [
+  {
+    "@type": "WebSite",
+    "@id": "https://profontfinder.com/#website",
+    "url": "https://profontfinder.com/",
+    "name": "ProFontFinder",
+    "alternateName": [
+      "Font Finder",
+      "Free Font Finder",
+      "AI Font Finder",
+      "Font Identifier By Image",
+      "Font Identifier From Image"
+    ],
+    "description": "Free image font finder and open-source Google Fonts identifier.",
+    "publisher": {
+      "@id": "https://profontfinder.com/#organization"
+    }
+  },
+  {
+    "@type": "Organization",
+    "@id": "https://profontfinder.com/#organization",
+    "name": "ProFontFinder",
+    "url": "https://profontfinder.com/",
+    "logo": "https://profontfinder.com/favicon.svg"
+  }
+];
+const appEntity = {
+  "@type": [
+    "WebApplication",
+    "SoftwareApplication"
+  ],
+  "@id": "https://profontfinder.com/#webapp",
+  "name": "ProFontFinder Font Finder",
+  "url": "https://profontfinder.com/",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires HTML5 Canvas and JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Optical letterform recognition from images and screenshots",
+    "100% verified free Google Fonts alternatives",
+    "Client-side zero-storage privacy processing",
+    "Instant copy-ready CSS @import declarations",
+    "Interactive typography specimen test bench"
+  ],
+  "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets.",
+  "publisher": {
+    "@id": "https://profontfinder.com/#organization"
+  }
+};
+const siteJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": isToolPage ? [...siteGraph, appEntity] : siteGraph
+}).replace(/</g, '\\u003c');
 ---
 
 <!-- Primary Meta Tags -->
@@ -336,19 +402,12 @@ const breadcrumbJsonLd = !isHomePage && breadcrumbsList.length > 0
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:card" content="summary_large_image" />
 <meta name="twitter:domain" content="profontfinder.com" />
-<meta property="twitter:domain" content="profontfinder.com" />
 <meta name="twitter:url" content={absoluteCanonical} />
-<meta property="twitter:url" content={absoluteCanonical} />
 <meta name="twitter:title" content={title} />
-<meta property="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta property="twitter:description" content={description} />
 <meta name="twitter:image" content={absoluteOgImage} />
-<meta property="twitter:image" content={absoluteOgImage} />
 <meta name="twitter:image:src" content={absoluteOgImage} />
-<meta property="twitter:image:src" content={absoluteOgImage} />
 <meta name="twitter:image:width" content="1200" />
 <meta name="twitter:image:height" content="630" />
 <meta name="twitter:image:alt" content="Font Finder from Image — Free Font Identifier Tool | ProFontFinder" />
@@ -356,57 +415,20 @@ const breadcrumbJsonLd = !isHomePage && breadcrumbsList.length > 0
 <!-- Preconnect & Load Verified Google Fonts for local Canvas rendering -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- UI fonts (Inter, JetBrains Mono) stay render-blocking to avoid layout shift. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<!-- Reference faces used only for canvas matching load without blocking first paint;
+     FontFinderApp awaits document.fonts.load() before drawing with them. -->
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=DM+Sans:wght@400;700&family=Manrope:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=EB+Garamond:wght@400;700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Space+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Pacifico:wght@400&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Outfit:wght@400;700&family=Work+Sans:wght@400;700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=DM+Sans:wght@400;700&family=Manrope:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=EB+Garamond:wght@400;700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Space+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Pacifico:wght@400&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Outfit:wght@400;700&family=Work+Sans:wght@400;700&display=swap"
   rel="stylesheet"
+  media="print"
+  onload="this.media='all'"
 />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Plus+Jakarta+Sans:wght@400;700&family=DM+Sans:wght@400;700&family=Manrope:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Merriweather:wght@400;700&family=Lora:wght@400;700&family=EB+Garamond:wght@400;700&family=Cinzel:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Space+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Pacifico:wght@400&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;700&family=Syne:wght@400;700&family=Outfit:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet" /></noscript>
 
 <!-- Schema.org JSON-LD -->
-<script type="application/ld+json" is:inline>
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://profontfinder.com/#website",
-        "url": "https://profontfinder.com/",
-        "name": "ProFontFinder",
-        "alternateName": ["Font Finder", "Free Font Finder", "AI Font Finder", "Font Identifier By Image", "Font Identifier From Image"],
-        "description": "Free image font finder and open-source Google Fonts identifier."
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://profontfinder.com/#organization",
-        "name": "ProFontFinder",
-        "url": "https://profontfinder.com/",
-        "logo": "https://profontfinder.com/favicon.svg"
-      },
-      {
-        "@type": "WebApplication",
-        "@id": "https://profontfinder.com/#webapp",
-        "name": "ProFontFinder Font Finder",
-        "url": "https://profontfinder.com/",
-        "applicationCategory": "DesignApplication",
-        "operatingSystem": "Any",
-        "browserRequirements": "Requires HTML5 Canvas and JavaScript",
-        "isAccessibleForFree": true,
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "Optical letterform recognition from images and screenshots",
-          "100% verified free Google Fonts alternatives",
-          "Client-side zero-storage privacy processing",
-          "Instant copy-ready CSS @import declarations",
-          "Interactive typography specimen test bench"
-        ],
-        "description": "Free font finder tool. Identify typefaces from images, verify on Google Fonts, and copy ready-to-use CSS snippets."
-      }
-    ]
-  }
-</script>
+<script type="application/ld+json" is:inline set:html={siteJsonLd}></script>
 
 {breadcrumbJsonLd && (
   <script type="application/ld+json" is:inline set:html={breadcrumbJsonLd}></script>

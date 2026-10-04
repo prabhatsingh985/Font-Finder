@@ -14,6 +14,7 @@ interface Props {
   noindex?: boolean;
   lang?: string;
   breadcrumbs?: { name: string; item?: string }[];
+  hreflang?: boolean;
 }
 
 const {
@@ -24,7 +25,8 @@ const {
   keywords,
   noindex = false,
   lang = (Astro.currentLocale as string) || 'en',
-  breadcrumbs
+  breadcrumbs,
+  hreflang = true
 } = Astro.props;
 ---
 
@@ -66,6 +68,7 @@ const {
       noindex={noindex}
       lang={lang}
       breadcrumbs={breadcrumbs}
+      hreflang={hreflang}
     />
   </head>
   <body class="min-h-screen flex flex-col bg-[#f7f8f9] dark:bg-[#08090a] text-[#374151] dark:text-[#d0d6e0] font-sans antialiased selection:bg-[#ff4d00] selection:text-white dark:selection:bg-[#e4f222] dark:selection:text-[#08090a] transition-colors duration-150">

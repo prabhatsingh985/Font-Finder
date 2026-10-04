@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { VERIFIED_GOOGLE_FONTS } from '../../services/googleFonts/data';
-import { getAllStaticFontPaths } from '../../services/googleFonts/fontCatalog';
+import { getAllFontsMap, getAllStaticFontPaths } from '../../services/googleFonts/fontCatalog';
 import type { FontFamily } from '../../types/font';
 
 export async function getStaticPaths() {
@@ -15,14 +14,46 @@ interface Props {
 const { font } = Astro.props;
 const encodedFamily = encodeURIComponent(font.family).replace(/%20/g, '+');
 
-const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
-  (f) => f.id !== font.id && f.category === font.category
-).slice(0, 3);
+// Alias slugs ("abhaya-libre", "abhaya libre") render the same page, so every
+// variant canonicalizes to the primary id that the sitemap lists.
+const canonicalPath = `/fonts/${font.id.toLowerCase()}`;
+
+// Related fonts: alphabetical neighbours within the same category. Deterministic,
+// and spreads internal links across the whole catalog instead of every page
+// pointing at the same first three families.
+const RELATED_COUNT = 6;
+const sameCategory = [...getAllFontsMap().values()]
+  .filter((f) => f.category === font.category)
+  .sort((a, b) => a.family.localeCompare(b.family));
+const selfIndex = sameCategory.findIndex((f) => f.id.toLowerCase() === font.id.toLowerCase());
+const similarFonts: FontFamily[] = [];
+for (let offset = 1; similarFonts.length < RELATED_COUNT && offset < sameCategory.length; offset++) {
+  for (const idx of [selfIndex + offset, selfIndex - offset]) {
+    const candidate = sameCategory[(idx + sameCategory.length) % sameCategory.length];
+    if (similarFonts.length < RELATED_COUNT && candidate && !similarFonts.includes(candidate) && candidate !== sameCategory[selfIndex]) {
+      similarFonts.push(candidate);
+    }
+  }
+}
+
+const finderTools = [
+  { href: '/', label: 'Find a font from an image' },
+  { href: '/tools/screenshot-font-finder', label: 'Screenshot font finder' },
+  { href: '/tools/logo-font-finder', label: 'Logo font finder' },
+  { href: '/tools/free-font-alternative-finder', label: 'Free font alternative finder' }
+];
 ---
 
 <BaseLayout
   title={`${font.family} — Free Google Font Specimen, Weights & CSS Blueprint`}
   description={`Download and use ${font.family} by ${font.designer}. Free Google Font with ${font.variants.length} styles, copy-ready CSS declarations, and recommended font pairings.`}
+  canonicalUrl={canonicalPath}
+  hreflang={false}
+  breadcrumbs={[
+    { name: 'Home', item: '/' },
+    { name: 'Fonts', item: '/fonts' },
+    { name: font.family, item: canonicalPath }
+  ]}
 >
   <link
     rel="stylesheet"
@@ -226,7 +257,7 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {similarFonts.map((sim) => (
             <a
-              href={`/fonts/${sim.id}`}
+              href={`/fonts/${sim.id.toLowerCase()}`}
               class="group p-5 rounded-[12px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] hover:bg-[#f8f9fa] dark:hover:bg-[#161718] hover:border-[#cbd5e1] dark:hover:border-[#383b3f] shadow-sm transition-all block"
             >
               <h3 class="font-[510] text-[#08090a] dark:text-[#ffffff] text-sm group-hover:text-[#ff4d00] dark:group-hover:text-[#e4f222] transition-colors">{sim.family}</h3>
@@ -240,6 +271,25 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
         </div>
       </div>
     )}
+
+    <!-- Finder tools -->
+    <nav class="mt-12 pt-8 border-t border-[#e2e4e8] dark:border-[#23252a]" aria-label="Font finder tools">
+      <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] mb-3">
+        Saw a typeface like {font.family} in an image? Identify it for free, right in your browser:
+      </p>
+      <ul class="flex flex-wrap gap-2 font-mono text-[12px]">
+        {finderTools.map((tool) => (
+          <li>
+            <a
+              href={tool.href}
+              class="inline-block px-3 py-1.5 rounded-[6px] border border-[#e2e4e8] dark:border-[#23252a] bg-white dark:bg-[#0f1011] text-[#334155] dark:text-[#d0d6e0] hover:text-[#08090a] dark:hover:text-[#ffffff] hover:border-[#cbd5e1] dark:hover:border-[#383b3f] transition-colors"
+            >
+              {tool.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </article>
 
   <!-- Schema.org JSON-LD for Generative AI & Rich Snippets -->
@@ -256,7 +306,7 @@ const similarFonts = VERIFIED_GOOGLE_FONTS.filter(
     "genre": font.category,
     "license": "https://scripts.sil.org/OFL",
     "isAccessibleForFree": true,
-    "url": `https://profontfinder.com/fonts/${font.id}`,
+    "url": `https://profontfinder.com${canonicalPath}`,
     "offers": {
       "@type": "Offer",
       "price": "0",
