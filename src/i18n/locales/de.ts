@@ -128,12 +128,12 @@ export const de: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Kostenlose Schriftarterkennung aus Bild",
-      "description": "Erkennen Sie jede Schriftart aus Bildern und Screenshots im Handumdrehen mit Font Finder. Analysieren Sie Buchstabenformen und erhalten Sie 100% kostenlose, verifizierte Google-Fonts-Alternativen."
+      "title": "Schriftart erkennen kostenlos — Schriftart aus Bild finden",
+      "description": "Welche Schriftart ist das? Mit unserem kostenlosen Font Finder erkennen Sie Schriftarten aus Bildern, Fotos und Screenshots in Sekunden. Ohne Anmeldung, 100 % privat."
     },
     "hero": {
       "headlinePrefix": "Jede Schriftart in Sekundenschnelle erkennen",
-      "subtitle": "Laden Sie ein beliebiges Bild in unseren kostenlosen Schriftartenfinder hoch und identifizieren Sie Schriften sofort. Gleichen Sie Bilder, Logos und Screenshots mit über 1.935 Google Fonts ab."
+      "subtitle": "Welche Schriftart ist das? Laden Sie ein beliebiges Bild in unseren kostenlosen Schriftartenfinder hoch und identifizieren Sie Schriften sofort. Gleichen Sie Bilder, Logos und Screenshots mit über 1.935 Google Fonts ab."
     },
     "dropzone": {
       "title": "Bild ablegen oder Screenshot einfügen (⌘V)",
@@ -142,7 +142,7 @@ export const de: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ERKENNUNGS-ARCHITEKTUR",
-      "heading": "So funktioniert unser Schriftartenfinder in 3 Schritten",
+      "heading": "Schriftart aus Bild erkennen in 3 Schritten",
       "subheading": "Von einfachen Bitmap-Pixeln zu verifizierter, produktionsreifer Open-Source-CSS-Typografie.",
       "localInference": "< 150 ms lokale Inferenz",
       "zeroUploads": "Keine Server-Uploads",
@@ -195,26 +195,26 @@ export const de: TranslationSchema = {
     "guide": {
       "imageRecognition": {
         "badge": "BILDERKENNUNG",
-        "title": "Schriftart aus einem Bild finden",
+        "title": "Schriftart aus Bild, Foto oder Grafik herausfinden",
         "desc": "Eine auffällige Schriftart in freier Wildbahn zu entdecken ist inspirierend, aber sie anhand einer flachen Grafik zu identifizieren, kann schwierig sein. Ob auf Plakaten, Magazin-Layouts, Bannern oder Screenshots: Die Frage \"Welche Schriftart ist das?\" ist eine häufige Hürde im visuellen Design.",
         "cardP1": "Ein dedizierter Schriftarten-Finder aus Bildern schließt die Lücke zwischen statischen Rasterpixeln und echten typografischen Schriftarten. Statt Schriftkataloge zu durchforsten, extrahiert ein optischer Bild-Font-Finder Glyphenstrukturen und gleicht sie mit indexierten Bibliotheken ab.",
-        "cardP2": "Ob bei der Überprüfung von Markenidentitäten, der Analyse von Mitbewerber-Oberflächen oder der Typografie-Recherche: Ein optischer Bild-zu-Schrift-Finder vereinfacht die Entdeckung. ProFontFinder hilft Ihnen, diese Schriftart sofort und mit verlässlichen Ergebnissen zu finden."
+        "cardP2": "Ob Sie ein altes Branding prüfen, Interfaces der Konkurrenz analysieren oder Typografie erkunden – unser kostenloser Font Finder für Bilder vereinfacht die Suche. Machen Sie ein Foto, erkennen Sie die Schriftart und erhalten Sie in Sekunden einen geprüften Google-Fonts-Treffer."
       },
       "opticalAnalysis": {
         "badge": "OPTISCHE ANALYSE",
-        "title": "Wie erkennt unser Schriftarten-Detektor Schriftarten?",
+        "title": "Wie unsere Foto-Schrifterkennung Schriftarten identifiziert",
         "desc": "Die Schriftarterkennung kombiniert Computer Vision mit typografischer Buchstabenform-Analyse. Während herkömmliche OCR lediglich Wörter transkribiert, analysiert ein spezialisierter Schriftart-Erkenner stilistische Kurven, Proportionen und anatomische Merkmale."
       },
       "commercialFree": {
-        "title": "Kommerzielle Typografie ohne Abonnementgebühren",
+        "title": "Kostenloser Font Finder für professionelle Typografie",
         "desc": "Unser kostenloser Schriftarten-Finder löst dieses Problem, indem er kommerzielle Schriften mit authentischen Open-Source-Alternativen unter der SIL Open Font License abgleicht:",
         "commOriginal": "KOMMERZIELLES ORIGINAL",
         "exploreLink": "Kostenlose Alternativen zu kommerziellen Schriftarten finden"
       },
       "digitalAssets": {
         "badge": "DIGITALE ASSET-ERFASSUNG",
-        "title": "Schriftarten aus Screenshots und Logos erkennen",
-        "desc": "Typografie-Inspiration entsteht häufig aus Screenshots, Grafiken und Marken-Wortmarken.",
+        "title": "Schriftart aus Screenshot, Foto oder Logo erkennen",
+        "desc": "Typografische Inspiration kommt oft als Screenshot, Foto oder Marken-Logo. Unsere Schrifterkennung aus Bildern verarbeitet sie alle.",
         "card1Title": "Screenshots von Web- und Mobil-Apps",
         "card1Desc": "Machen Sie beim Surfen einen Bildschirmausschnitt und ziehen Sie ihn in unseren Screenshot Font Finder. Wenn Sie sich fragen \"Welche Schrift ist das?\", erhalten Sie sofort Antworten ohne Bezahlschranke.",
         "card1Link": "Nutzen Sie unseren Screenshot-Schriftartenfinder",
@@ -237,7 +237,7 @@ export const de: TranslationSchema = {
       },
       "practicalUtility": {
         "badge": "PRAKTISCHER NUTZEN",
-        "title": "Font Finder für Designer und Entwickler",
+        "title": "Schriftart-Erkennung aus Bildern für Designer und Entwickler",
         "desc": "ProFontFinder optimiert Workflows über alle kreativen Disziplinen hinweg:",
         "devTitle": "Frontend-Entwickler",
         "devDesc": "Kopieren Sie verifizierte Google Fonts @import-Snippets und Tailwind-Deklarationen direkt. Prüfen Sie Live-Websites mit unserem URL Font Finder.",
@@ -249,8 +249,20 @@ export const de: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Schriftartenfinder-FAQ — Häufige Fragen beantwortet",
+      "title": "Welche Schriftart ist das? FAQ zur Schriftart-Erkennung",
       "items": [
+        {
+          "q": "Welche Schriftart ist das? Wie finde ich es heraus?",
+          "a": "Machen Sie einen Screenshot oder ein Foto des Textes und laden Sie es hoch oder fügen Sie es ein (Strg+V / ⌘V). ProFontFinder isoliert die Buchstaben, vergleicht ihre Formen mit über 1.935 Google Fonts und zeigt die ähnlichsten Treffer mit Live-Vorschau und kopierfertigem CSS. Kostenlos, ohne Anmeldung – und Ihr Bild verlässt nie Ihren Browser."
+        },
+        {
+          "q": "Wie kann ich eine Schriftart aus einem Bild erkennen?",
+          "a": "So erkennen Sie eine Schriftart aus einem Bild: (1) Schneiden Sie das Bild so zu, dass eine einzelne Textzeile den Großteil ausfüllt. (2) Ziehen Sie es in die Schrifterkennung von ProFontFinder. (3) Bestätigen Sie die erkannten Buchstaben. (4) Vergleichen Sie die sortierten Treffer direkt nebeneinander. Scharfe, kontrastreiche Bilder mit mindestens 3 Buchstaben liefern die genauesten Ergebnisse."
+        },
+        {
+          "q": "Kann ich die Schriftart auf einem Handyfoto herausfinden?",
+          "a": "Ja. ProFontFinder erkennt Schriftarten auch auf Fotos von echtem Text wie Schildern, Speisekarten, Verpackungen und Plakaten. Fotografieren Sie den Text frontal bei gutem Licht, schneiden Sie den Hintergrund weg und laden Sie das Foto hoch. Das Tool läuft im mobilen Browser – Sie brauchen keine App."
+        },
         {
           "q": "Was ist Pro Font Finder und wie funktioniert es?",
           "a": "Pro Font Finder ist ein kostenloses, datenschutzfreundliches In-Browser-Typografiewerkzeug, das Text in Bildern, Fotos und Screenshots analysiert, um die exakte Schriftart oder die ähnlichste Open-Source-Google-Fonts-Alternative zu identifizieren. Es isoliert geometrische Konturen, misst Strichstärken und Serifen und liefert sofortige Download-Links und CSS-Einbindungscodes."
@@ -338,7 +350,7 @@ export const de: TranslationSchema = {
       "ocrLatency": "OCR.LATENZ // <80MS",
       "engineReady": "Optische Erkennungs-Engine bereit",
       "signatures": "1.935 Signaturen",
-      "title": "Bereit, Ihre Schriftart anhand eines Bildes zu finden?",
+      "title": "Welche Schriftart ist das? Kostenlos in Sekunden herausfinden",
       "desc": "Ziehen Sie ein beliebiges Bild in unseren kostenlosen Schriftarten-Detektor, um Schriftarten zu erkennen und verifizierte Google Fonts mit sofort nutzbarem CSS zu erhalten.",
       "btnIdentify": "Schriftart jetzt erkennen",
       "btnTools": "Schriftart-Werkzeuge erkunden",
@@ -349,8 +361,8 @@ export const de: TranslationSchema = {
   },
   toolsOverview: {
     meta: {
-      title: 'Schrift-Werkzeuge — Kostenlose Typografie-Erkennungstools',
-      description: 'Spezialisierte Typografie-Werkzeuge zum Finden kostenloser kommerzieller Alternativen, Extrahieren von Logo-Schriften, Kombinieren von Schriften und Erkennen von Webfonts.'
+      title: 'Kostenlose Tools zur Schriftart-Erkennung — Bild, Logo & URL',
+      description: 'Kostenlose Tools, um Schriftarten zu erkennen: aus Screenshots, Logos, Handschrift, PDFs und Websites – plus kostenlose Alternativen zu kommerziellen Fonts und Schriftkombinationen.'
     },
     badge: 'WERKZEUG-SUITE',
     title: 'Schrift-Werkzeuge',
@@ -389,7 +401,7 @@ export const de: TranslationSchema = {
   },
   commercialAlternative: {
     meta: {
-      title: 'Kostenlose Alternativen zu kommerziellen Schriften — Schrift-Matcher',
+      title: 'Kostenlose Alternativen zu kommerziellen Schriftarten finden',
       description: 'Laden Sie das Bild einer kommerziellen Schriftart hoch, um verifizierte kostenlose Google-Fonts-Alternativen mit produktionsreifem CSS zu finden.'
     },
     breadcrumb: 'Kommerzielle Schrift-Alternativen',
@@ -401,8 +413,8 @@ export const de: TranslationSchema = {
   },
   logoFontFinder: {
     meta: {
-      title: 'Schriftart in einem Logo erkennen — Marken-Schriften & Alternativen',
-      description: 'Laden Sie ein Logobild hoch, um dessen Schriftart zu identifizieren und kostenlose Google-Fonts-Pendants zu ermitteln.'
+      title: 'Logo-Schriftart erkennen — Schrift in jedem Logo finden',
+      description: 'Welche Schriftart hat dieses Logo? Laden Sie ein Logo-Bild hoch, um die Schrift kostenlos zu erkennen, und finden Sie die ähnlichsten Google Fonts mit kopierfertigem CSS.'
     },
     breadcrumb: 'Logo-Schrifterkennung',
     title: 'Schriftart in einem Logo bestimmen',
@@ -413,8 +425,8 @@ export const de: TranslationSchema = {
   },
   screenshotFontFinder: {
     meta: {
-      title: 'Schriftart im Screenshot finden — Direkte Zwischenablage (⌘V) & OCR',
-      description: 'Fügen Sie Bilder per ⌘V / Strg+V direkt aus der Zwischenablage ein oder legen Sie einen Screenshot ab, um Schriften sofort zu erkennen.'
+      title: 'Schriftart aus Screenshot erkennen — kostenlos',
+      description: 'Fügen Sie einen Screenshot mit Strg+V / ⌘V ein oder ziehen Sie ihn hierher, um die Schriftart in Sekunden zu erkennen. Kostenlose Schrifterkennung mit Google-Fonts-Treffern und CSS.'
     },
     breadcrumb: 'Screenshot-Schriftarten-Finder',
     title: 'Schriftart in einem Screenshot finden',
@@ -425,7 +437,7 @@ export const de: TranslationSchema = {
   },
   handwritingFontFinder: {
     meta: {
-      title: 'Handschriften & Kalligrafie erkennen — Optischer Schrift-Matcher',
+      title: 'Handschrift-Schriftart erkennen — Script- & Schreibschriften',
       description: 'Scannen oder laden Sie Handschriften, Unterschriften oder Kalligrafien hoch, um passende kostenlose Google-Fonts-Schriften zu finden.'
     },
     breadcrumb: 'Handschrifterkennung',

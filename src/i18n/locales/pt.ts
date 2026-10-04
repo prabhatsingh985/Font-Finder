@@ -128,12 +128,12 @@ export const pt: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Identificador gratuito de fontes a partir de imagem",
-      "description": "Identifique qualquer fonte em imagens e capturas de tela instantaneamente com o Font Finder. Obtenha alternativas 100% gratuitas e verificadas do Google Fonts."
+      "title": "Identificar Fonte por Imagem Grátis — Font Finder",
+      "description": "Qual é essa fonte? Use nosso identificador de fontes grátis para descobrir a fonte de uma imagem, foto ou captura de tela em segundos. Sem cadastro."
     },
     "hero": {
       "headlinePrefix": "Identifique qualquer fonte em poucos segundos",
-      "subtitle": "Envie qualquer imagem para nosso identificador gratuito de fontes e descubra tipografias instantaneamente. Compare imagens, logotipos e capturas de tela com mais de 1.935 Google Fonts."
+      "subtitle": "Qual é essa fonte? Envie qualquer imagem para nosso identificador gratuito de fontes e descubra tipografias instantaneamente. Compare imagens, logotipos e capturas de tela com mais de 1.935 Google Fonts."
     },
     "dropzone": {
       "title": "Arraste uma imagem ou cole uma captura (⌘V)",
@@ -142,7 +142,7 @@ export const pt: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ARQUITETURA DE RECONHECIMENTO",
-      "heading": "Como nosso identificador de fontes funciona em 3 passos",
+      "heading": "Como identificar uma fonte por imagem em 3 passos",
       "subheading": "De pixels de bitmap irrestritos a tipografia CSS de código aberto verificada e pronta para produção.",
       "localInference": "< 150 ms Inferência local",
       "zeroUploads": "Zero envios para o servidor",
@@ -195,26 +195,26 @@ export const pt: TranslationSchema = {
     "guide": {
       "imageRecognition": {
         "badge": "RECONHECIMENTO DE IMAGEM",
-        "title": "Encontre uma fonte a partir de uma imagem",
+        "title": "Descobrir a fonte pela imagem ou foto",
         "desc": "Encontrar uma tipografia marcante é inspirador, mas identificá-la a partir de uma imagem estática pode ser um desafio. Seja em cartazes, revistas ou capturas de tela, perguntar \"qual é essa fonte?\" é uma dúvida comum no design.",
         "cardP1": "Um identificador óptico especializado une os pixels estáticos a fontes reais utilizáveis. Em vez de folhear catálogos extensos, a ferramenta extrai a geometria das letras e a compara com acervos indexados.",
-        "cardP2": "Seja para analisar marcas, estudar interfaces ou explorar estilos visuais, o ProFontFinder facilita a descoberta instantânea com resultados confiáveis."
+        "cardP2": "Seja auditando uma identidade visual antiga, analisando interfaces da concorrência ou explorando tipografia, nosso identificador de fontes por imagem simplifica a descoberta. Tire uma foto, descubra a fonte e receba uma correspondência verificada do Google Fonts em segundos."
       },
       "opticalAnalysis": {
         "badge": "ANÁLISE ÓPTICA",
-        "title": "Como nosso identificador de fontes detecta tipografias?",
+        "title": "Como nosso identificador de fontes por foto detecta tipografias",
         "desc": "A identificação combina visão computacional com análise estrutural dos tipos. Enquanto um OCR comum apenas transcreve palavras, nosso motor analisa curvas, proporções e traços anatômicos das letras."
       },
       "commercialFree": {
-        "title": "Tipografia de nível profissional sem custos de assinatura",
+        "title": "Identificador de fontes grátis para tipografia de nível profissional",
         "desc": "Nosso identificador gratuito soluciona custos de licenciamento associando fontes comerciais a alternativas autênticas de código aberto sob a licença SIL Open Font License:",
         "commOriginal": "ORIGINAL COMERCIAL",
         "exploreLink": "Encontre alternativas gratuitas para fontes comerciais"
       },
       "digitalAssets": {
         "badge": "VARREDURA DE ATIVOS DIGITAIS",
-        "title": "Identifique fontes de capturas de tela e logotipos",
-        "desc": "A inspiração tipográfica geralmente surge em capturas de tela, gráficos e logotipos de marcas.",
+        "title": "Identificar fonte de captura de tela, foto ou logotipo",
+        "desc": "A inspiração tipográfica costuma chegar em capturas de tela, fotos e logotipos de marcas. Nosso identificador de fontes por imagem analisa todos eles.",
         "card1Title": "Capturas de tela da web e aplicativos móveis",
         "card1Desc": "Capture um trecho da tela enquanto navega e arraste para o Screenshot Font Finder para obter respostas imediatas sem custos.",
         "card1Link": "Use nosso identificador de fontes para capturas de tela",
@@ -237,7 +237,7 @@ export const pt: TranslationSchema = {
       },
       "practicalUtility": {
         "badge": "UTILIDADE PRÁTICA",
-        "title": "Font Finder para designers e desenvolvedores",
+        "title": "Descobrir fonte pela imagem: ferramenta para designers e desenvolvedores",
         "desc": "O ProFontFinder otimiza fluxos de trabalho em diversas frentes criativas:",
         "devTitle": "Desenvolvedores Frontend",
         "devDesc": "Copie trechos @import do Google Fonts e classes Tailwind diretamente. Inspecione sites ao vivo com o URL Font Finder.",
@@ -249,8 +249,20 @@ export const pt: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "FAQ do Identificador de Fontes — Respostas para dúvidas frequentes",
+      "title": "Qual é essa fonte? Perguntas frequentes do identificador de fontes",
       "items": [
+        {
+          "q": "Qual é essa fonte? Como descobrir?",
+          "a": "Tire um print ou uma foto do texto e envie ou cole (Ctrl+V / ⌘V) no ProFontFinder. A ferramenta isola as letras, compara suas formas com mais de 1.935 Google Fonts e mostra as correspondências mais próximas com prévia ao vivo e CSS pronto para copiar. É grátis, sem cadastro, e sua imagem nunca sai do seu navegador."
+        },
+        {
+          "q": "Como identificar uma fonte a partir de uma imagem?",
+          "a": "Para identificar uma fonte por imagem: (1) recorte a imagem para que uma única linha de texto ocupe quase todo o quadro; (2) arraste-a para o identificador de fontes do ProFontFinder; (3) confirme as letras detectadas; (4) compare lado a lado as correspondências classificadas. Imagens nítidas e com bom contraste, com 3 ou mais letras, dão os resultados mais precisos."
+        },
+        {
+          "q": "Posso descobrir a fonte de uma foto tirada no celular?",
+          "a": "Sim. O ProFontFinder funciona como identificador de fontes por foto para textos do mundo real, como placas, cardápios, embalagens e cartazes. Fotografe o texto de frente e com boa luz, recorte o fundo e envie a foto. A ferramenta funciona em navegadores móveis, então você descobre a fonte de uma foto sem instalar nenhum app."
+        },
         {
           "q": "O que é o Pro Font Finder e como ele funciona?",
           "a": "O Pro Font Finder é uma ferramenta tipográfica online gratuita e privada no navegador que analisa texto em imagens e capturas para identificar a fonte exata ou a alternativa de código aberto mais próxima no Google Fonts."
@@ -338,7 +350,7 @@ export const pt: TranslationSchema = {
       "ocrLatency": "LATÊNCIA OCR // <80MS",
       "engineReady": "Motor de correspondência óptica pronto",
       "signatures": "1.935 Assinaturas",
-      "title": "Pronto para encontrar sua fonte a partir de uma imagem?",
+      "title": "Qual é essa fonte? Descubra grátis em segundos",
       "desc": "Arraste qualquer imagem para nosso identificador gratuito de fontes para detectar tipografias e obter Google Fonts verificadas com código CSS pronto para copiar.",
       "btnIdentify": "Identificar fonte agora",
       "btnTools": "Explorar ferramentas de fontes",
@@ -349,8 +361,8 @@ export const pt: TranslationSchema = {
   },
   toolsOverview: {
     meta: {
-      title: 'Ferramentas Tipográficas — Utilitários Gratuitos de Identificação',
-      description: 'Utilitários especializados para encontrar alternativas comerciais gratuitas, extrair fontes de logos, combinar estilos e detectar fontes web.'
+      title: 'Ferramentas Grátis para Identificar Fontes — Imagem, Logo e URL',
+      description: 'Ferramentas gratuitas para identificar fontes: descubra a fonte de capturas de tela, logotipos, letra cursiva, PDFs e sites, além de alternativas gratuitas a fontes comerciais e combinações tipográficas.'
     },
     badge: 'SUÍTE DE FERRAMENTAS',
     title: 'Ferramentas tipográficas',
@@ -389,7 +401,7 @@ export const pt: TranslationSchema = {
   },
   commercialAlternative: {
     meta: {
-      title: 'Alternativas Gratuitas a Fontes Comerciais — Comparador de Tipografias',
+      title: 'Alternativas Grátis a Fontes Pagas — Encontre Fontes Parecidas',
       description: 'Envie a imagem de uma fonte comercial para encontrar alternativas gratuitas verificadas do Google Fonts com código CSS pronto.'
     },
     breadcrumb: 'Alternativas a Fontes Comerciais',
@@ -401,8 +413,8 @@ export const pt: TranslationSchema = {
   },
   logoFontFinder: {
     meta: {
-      title: 'Identificar Fonte em Logo — Tipografia de Marcas e Opções Gratuitas',
-      description: 'Envie o logo de qualquer marca para descobrir qual tipografia ele utiliza e achar fontes gratuitas no Google Fonts.'
+      title: 'Identificar a Fonte de um Logo Grátis',
+      description: 'Qual é a fonte deste logo? Envie a imagem de qualquer logotipo para identificar a tipografia grátis e encontrar as alternativas mais parecidas no Google Fonts com CSS pronto para copiar.'
     },
     breadcrumb: 'Identificador de Fonte em Logo',
     title: 'Identificar a fonte usada em um logotipo',
@@ -413,8 +425,8 @@ export const pt: TranslationSchema = {
   },
   screenshotFontFinder: {
     meta: {
-      title: 'Identificar Fonte em Captura de Tela — Colagem Direta (⌘V) e OCR',
-      description: 'Cole diretamente da área de transferência com ⌘V / Ctrl+V ou solte um print para descobrir a fonte em instantes.'
+      title: 'Identificar Fonte de Captura de Tela — Grátis',
+      description: 'Cole uma captura de tela com Ctrl+V / ⌘V ou arraste-a para identificar a fonte em segundos. Identificador de fontes grátis com correspondências do Google Fonts e CSS.'
     },
     breadcrumb: 'Identificador em Captura de Tela',
     title: 'Descobrir a fonte em uma captura de tela',
@@ -425,7 +437,7 @@ export const pt: TranslationSchema = {
   },
   handwritingFontFinder: {
     meta: {
-      title: 'Identificador de Fontes Manuscritas e Cursivas — Reconhecimento Óptico',
+      title: 'Identificar Fontes Manuscritas — Letras Cursivas e Script',
       description: 'Envie ou escaneie uma amostra de escrita à mão, assinatura ou caligrafia para identificar fontes similares no Google Fonts.'
     },
     breadcrumb: 'Reconhecimento de Manuscrito',

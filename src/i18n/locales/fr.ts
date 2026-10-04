@@ -128,12 +128,12 @@ export const fr: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — Identificateur de polices gratuit à partir d'image",
-      "description": "Identifiez instantanément n'importe quelle police à partir d'images et de captures d'écran avec Font Finder. Obtenez des alternatives Google Fonts 100% gratuites et vérifiées."
+      "title": "Identifier une police par image — Font Finder gratuit",
+      "description": "Quelle est cette police ? Utilisez notre Font Finder gratuit pour identifier une police à partir d'une image, d'une photo ou d'une capture d'écran en quelques secondes. Sans inscription."
     },
     "hero": {
       "headlinePrefix": "Identifiez n’importe quelle police en quelques secondes",
-      "subtitle": "Téléchargez n'importe quelle image dans notre outil gratuit de recherche de polices et identifiez les typographies instantanément. Associez images, logos et captures d'écran à plus de 1 935 Google Fonts."
+      "subtitle": "Quelle est cette police ? Téléchargez n'importe quelle image dans notre outil gratuit de recherche de polices et identifiez les typographies instantanément. Associez images, logos et captures d'écran à plus de 1 935 Google Fonts."
     },
     "dropzone": {
       "title": "Glissez une image ou collez une capture (⌘V)",
@@ -142,7 +142,7 @@ export const fr: TranslationSchema = {
     },
     "pipeline": {
       "badge": "ARCHITECTURE DE RECONNAISSANCE",
-      "heading": "Comment fonctionne notre outil de recherche de polices en 3 étapes",
+      "heading": "Comment identifier une police à partir d'une image en 3 étapes",
       "subheading": "Des pixels bitmap bruts à une typographie CSS open source vérifiée et prête pour la production.",
       "localInference": "< 150 ms Inférence locale",
       "zeroUploads": "Aucun envoi sur serveur",
@@ -195,26 +195,26 @@ export const fr: TranslationSchema = {
     "guide": {
       "imageRecognition": {
         "badge": "RECONNAISSANCE D'IMAGE",
-        "title": "Trouver une police à partir d'une image",
+        "title": "Trouver une police à partir d'une image ou d'une photo",
         "desc": "Repérer une belle typographie est inspirant, mais l'identifier à partir d'une simple image peut s'avérer complexe. Que ce soit sur une affiche, un magazine ou une capture d'écran, se demander \"quelle est cette police ?\" est un défi quotidien en design.",
         "cardP1": "Un outil dédié comble le fossé entre les pixels statiques et les polices typographiques réelles. Au lieu de feuilleter des catalogues entiers, un identificateur optique extrait les structures des glyphes et les compare à des bibliothèques indexées.",
-        "cardP2": "Qu'il s'agisse d'auditer une marque, d'analyser des interfaces concurrentes ou d'explorer de nouveaux styles, ProFontFinder vous aide à identifier instantanément la bonne police avec des résultats garantis."
+        "cardP2": "Qu'il s'agisse d'auditer une identité de marque, d'analyser les interfaces de concurrents ou d'explorer la typographie, notre détecteur de police par image simplifie la recherche. Prenez une photo, trouvez la police et obtenez une correspondance Google Fonts vérifiée en quelques secondes."
       },
       "opticalAnalysis": {
         "badge": "ANALYSE OPTIQUE",
-        "title": "Comment notre identificateur de polices détecte-t-il les typographies ?",
+        "title": "Comment notre identificateur de police par photo détecte les typographies",
         "desc": "L'identification typographique associe la vision par ordinateur à l'analyse morphologique des lettres. Alors qu'un OCR classique transcrit simplement des mots, notre moteur spécialisé analyse les courbes stylistiques, les proportions et les caractéristiques anatomiques."
       },
       "commercialFree": {
-        "title": "Typographie de qualité commerciale sans abonnement",
+        "title": "Détecteur de police gratuit pour une typographie de qualité professionnelle",
         "desc": "Notre outil gratuit fait correspondre les polices payantes à d'authentiques alternatives open source sous licence SIL Open Font License :",
         "commOriginal": "ORIGINAL COMMERCIAL",
         "exploreLink": "Trouvez des alternatives gratuites aux polices commerciales"
       },
       "digitalAssets": {
         "badge": "SCAN D'ASSETS DIGITAUX",
-        "title": "Identifier les polices depuis des captures et logos",
-        "desc": "L'inspiration typographique provient très souvent de captures d'écran, d'éléments graphiques et de logos de marques.",
+        "title": "Identifier une police depuis une capture d'écran, une photo ou un logo",
+        "desc": "L'inspiration typographique arrive souvent sous forme de captures d'écran, de photos et de logos de marque. Notre outil d'identification de police par image les analyse tous.",
         "card1Title": "Captures d'écran d'applications web et mobiles",
         "card1Desc": "Prenez une capture lors de votre navigation et déposez-la dans notre Screenshot Font Finder pour obtenir des réponses immédiates sans paywall.",
         "card1Link": "Utilisez notre outil de recherche de polices par capture d'écran",
@@ -237,7 +237,7 @@ export const fr: TranslationSchema = {
       },
       "practicalUtility": {
         "badge": "UTILITÉ PRATIQUE",
-        "title": "Font Finder pour designers et développeurs",
+        "title": "Identificateur de police par image pour designers et développeurs",
         "desc": "ProFontFinder accélère le flux de travail à travers toutes les disciplines créatives :",
         "devTitle": "Développeurs Frontend",
         "devDesc": "Copiez directement les règles @import de Google Fonts et déclarations Tailwind. Inspectez les sites en direct avec URL Font Finder.",
@@ -249,8 +249,20 @@ export const fr: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "FAQ Recherche de polices — Réponses aux questions fréquentes",
+      "title": "Quelle est cette police ? FAQ de l'identificateur de polices",
       "items": [
+        {
+          "q": "Quelle est cette police ? Comment le savoir ?",
+          "a": "Faites une capture d'écran ou une photo du texte, puis importez-la ou collez-la (Ctrl+V / ⌘V) dans ProFontFinder. L'outil isole les lettres, compare leurs formes à plus de 1 935 Google Fonts et affiche les correspondances les plus proches avec aperçu en direct et CSS prêt à copier. C'est gratuit, sans inscription, et votre image ne quitte jamais votre navigateur."
+        },
+        {
+          "q": "Comment identifier une police à partir d'une image ?",
+          "a": "Pour identifier une police à partir d'une image : (1) recadrez l'image pour qu'une seule ligne de texte occupe l'essentiel du cadre ; (2) déposez-la dans l'identificateur de polices ProFontFinder ; (3) confirmez les lettres détectées ; (4) comparez côte à côte les correspondances classées. Des images nettes et bien contrastées d'au moins 3 lettres donnent les résultats les plus précis."
+        },
+        {
+          "q": "Puis-je trouver une police à partir d'une photo prise avec mon téléphone ?",
+          "a": "Oui. ProFontFinder fonctionne comme un identificateur de police par photo pour du texte réel : enseignes, menus, emballages ou affiches. Photographiez le texte de face avec un bon éclairage, recadrez l'arrière-plan et importez la photo. L'outil fonctionne dans les navigateurs mobiles : vous pouvez trouver une police à partir d'une photo sans installer d'application."
+        },
         {
           "q": "Qu'est-ce que Pro Font Finder et comment cela fonctionne-t-il ?",
           "a": "Pro Font Finder est un outil typographique gratuit et privé directement dans le navigateur qui analyse le texte dans les images et captures pour identifier la police exacte ou l'alternative Google Fonts la plus proche."
@@ -338,7 +350,7 @@ export const fr: TranslationSchema = {
       "ocrLatency": "LATENCE OCR // <80MS",
       "engineReady": "Moteur d'analyse optique prêt",
       "signatures": "1 935 Signatures",
-      "title": "Prêt à trouver votre police à partir d'une image ?",
+      "title": "Quelle est cette police ? Découvrez-le gratuitement en quelques secondes",
       "desc": "Déposez n'importe quelle image dans notre identificateur de polices gratuit pour détecter les typographies et obtenir des polices Google vérifiées avec du code CSS prêt à l'emploi.",
       "btnIdentify": "Identifier la police maintenant",
       "btnTools": "Explorer les outils typographiques",
@@ -349,8 +361,8 @@ export const fr: TranslationSchema = {
   },
   toolsOverview: {
     meta: {
-      title: 'Outils Typographiques — Utilitaires Gratuits d\'Identification de Polices',
-      description: 'Utilitaires typographiques spécialisés pour trouver des alternatives commerciales gratuites, extraire les polices de logos, associer des polices et détecter les polices web.'
+      title: 'Outils gratuits pour identifier une police — Image, logo et URL',
+      description: 'Outils gratuits d\'identification de police : trouvez la police de captures d\'écran, de logos, d\'écriture manuscrite, de PDF et de sites web, ainsi que des alternatives gratuites aux polices commerciales.'
     },
     badge: 'SUITE D\'OUTILS',
     title: 'Outils typographiques',
@@ -389,7 +401,7 @@ export const fr: TranslationSchema = {
   },
   commercialAlternative: {
     meta: {
-      title: 'Alternatives Gratuites aux Polices Payantes — Comparateur Typographique',
+      title: 'Alternatives gratuites aux polices payantes — Trouver une police similaire',
       description: 'Téléversez une image de police commerciale pour trouver des équivalents Google Fonts vérifiés et gratuits avec code CSS.'
     },
     breadcrumb: 'Alternatives aux Polices Commerciales',
@@ -401,8 +413,8 @@ export const fr: TranslationSchema = {
   },
   logoFontFinder: {
     meta: {
-      title: 'Identifier la Police d\'un Logo — Détecteur de Typographies de Marques',
-      description: 'Téléversez l\'image d\'un logo pour identifier sa typographie et trouver des alternatives gratuites sur Google Fonts.'
+      title: 'Identifier la police d\'un logo gratuitement',
+      description: 'Quelle est la police de ce logo ? Importez l\'image d\'un logo pour identifier sa typographie gratuitement et trouver les alternatives Google Fonts les plus proches avec un CSS prêt à copier.'
     },
     breadcrumb: 'Identificateur de Police de Logo',
     title: 'Identifier la police d\'un logo',
@@ -413,8 +425,8 @@ export const fr: TranslationSchema = {
   },
   screenshotFontFinder: {
     meta: {
-      title: 'Trouver la Police d\'une Capture d\'Écran — Collage Direct (⌘V) et OCR',
-      description: 'Collez directement depuis votre presse-papiers avec ⌘V / Ctrl+V ou déposez une capture d\'écran pour identifier les polices en quelques secondes.'
+      title: 'Identifier une police à partir d\'une capture d\'écran — Gratuit',
+      description: 'Collez une capture avec Ctrl+V / ⌘V ou déposez-la pour identifier la police en quelques secondes. Identificateur de police gratuit avec correspondances Google Fonts et CSS.'
     },
     breadcrumb: 'Détecteur sur Capture d\'Écran',
     title: 'Trouver la police dans une capture d\'écran',
@@ -425,7 +437,7 @@ export const fr: TranslationSchema = {
   },
   handwritingFontFinder: {
     meta: {
-      title: 'Détecteur de Polices Manuscrites et Calligraphie — Reconnaissance Optique',
+      title: 'Identifier une police manuscrite — Écritures script et cursives',
       description: 'Numérisez ou téléversez un échantillon d\'écriture manuelle, une signature ou une calligraphie pour trouver des polices Google Fonts correspondantes.'
     },
     breadcrumb: 'Reconnaissance d\'Écriture Manuscrite',

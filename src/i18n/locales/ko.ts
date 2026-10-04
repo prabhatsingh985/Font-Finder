@@ -128,12 +128,12 @@ export const ko: TranslationSchema = {
 
   home: {
     "meta": {
-      "title": "Font Finder — 이미지에서 글꼴을 식별하는 무료 도구",
-      "description": "Font Finder를 사용해 이미지와 스크린샷에서 모든 글꼴을 즉시 식별하세요. 글자 형태를 분석하여 검증된 100% 무료 Google Fonts 대안을 찾습니다."
+      "title": "무료 폰트 찾기 — 이미지로 글꼴 찾기 | Font Finder",
+      "description": "이 폰트 뭐야? 무료 폰트 찾기 도구로 이미지, 사진, 스크린샷 속 글꼴을 몇 초 만에 찾아보세요. 회원가입 없이, 이미지는 브라우저 밖으로 전송되지 않습니다."
     },
     "hero": {
       "headlinePrefix": "모든 폰트를 단 몇 초 만에 식별",
-      "subtitle": "무료 폰트 검색기에 이미지를 업로드하여 서체를 즉시 식별하세요. 사진, 로고, 스크린샷을 1,935개 이상의 Google Fonts와 매칭합니다."
+      "subtitle": "이 폰트 뭐야? 무료 폰트 검색기에 이미지를 업로드하여 서체를 즉시 식별하세요. 사진, 로고, 스크린샷을 1,935개 이상의 Google Fonts와 매칭합니다."
     },
     "dropzone": {
       "title": "이미지를 드롭하거나 스크린샷 붙여넣기 (⌘V)",
@@ -142,7 +142,7 @@ export const ko: TranslationSchema = {
     },
     "pipeline": {
       "badge": "인식 아키텍처",
-      "heading": "폰트 검색기가 작동하는 3단계 방식",
+      "heading": "이미지로 폰트 찾는 3단계 방법",
       "subheading": "비트맵 픽셀에서 검증된 프로덕션 지원 오픈소스 CSS 타이포그래피까지.",
       "localInference": "< 150ms 로컬 추론",
       "zeroUploads": "서버 업로드 제로",
@@ -195,26 +195,26 @@ export const ko: TranslationSchema = {
     "guide": {
       "imageRecognition": {
         "badge": "이미지 인식",
-        "title": "이미지에서 글꼴 찾기",
+        "title": "이미지·사진으로 폰트 찾기",
         "desc": "매력적인 서체를 발견해도 이미지에서 글꼴명을 알아내기는 쉽지 않습니다. 포스터, 잡지, 배너, 캡처 화면에서 \"이 글꼴이 뭐지?\"라는 궁금증은 디자인 작업에서 자주 마주치는 문제입니다.",
         "cardP1": "전용 이미지 폰트 식별 도구는 정적인 픽셀과 실제 서체를 연결해 줍니다. 수많은 카탈로그를 뒤지는 대신, 글리프 구조를 추출해 색인화된 라이브러리와 대조합니다.",
-        "cardP2": "브랜드 서체 조사, 경쟁사 인터페이스 분석, 새로운 디자인 연구 등 다양한 작업에서 ProFontFinder가 정확한 결과를 즉시 찾아드립니다."
+        "cardP2": "오래된 브랜드 자산을 점검하거나 경쟁사 인터페이스를 분석하거나 타이포그래피를 탐색할 때, 이미지 폰트 찾기 도구가 과정을 단순하게 만들어 줍니다. 사진을 찍고 폰트를 찾아 몇 초 만에 검증된 Google Fonts 결과를 받아 보세요."
       },
       "opticalAnalysis": {
         "badge": "광학 분석",
-        "title": "폰트 식별기는 서체를 어떻게 감지하나요?",
+        "title": "사진 속 폰트를 식별하는 원리",
         "desc": "글꼴 식별은 컴퓨터 비전과 타이포그래피 글자 분석을 결합합니다. 일반 OCR이 단어만 읽어내는 것과 달리, 전문 식별 엔진은 곡률, 비율, 해부학적 글자 특성을 세밀하게 분석합니다."
       },
       "commercialFree": {
-        "title": "구독료 없는 상업적 수준의 타이포그래피",
+        "title": "전문가 수준 타이포그래피를 위한 무료 폰트 찾기",
         "desc": "무료 Font Finder는 고가의 상업용 글꼴을 SIL Open Font License 기반의 정품 오픈소스 무료 폰트와 매칭하여 라이선스 비용 문제를 해결합니다:",
         "commOriginal": "상업용 원본 글꼴",
         "exploreLink": "상용 폰트의 무료 대체 폰트 찾기"
       },
       "digitalAssets": {
         "badge": "디지털 에셋 스캔",
-        "title": "스크린샷과 로고에서 글꼴 식별하기",
-        "desc": "타이포그래피 영감은 웹 서핑 중 캡처한 화면이나 브랜드 로고에서 자주 얻게 됩니다.",
+        "title": "스크린샷·사진·로고에서 글꼴 찾기",
+        "desc": "타이포그래피 영감은 스크린샷, 사진, 브랜드 로고에서 오는 경우가 많습니다. 이미지 폰트 찾기 도구는 이 모두를 분석합니다.",
         "card1Title": "웹 및 모바일 앱 스크린샷",
         "card1Desc": "화면을 캡처하여 Screenshot Font Finder에 드롭하면 유료 결제 없이 즉시 서체를 확인할 수 있습니다.",
         "card1Link": "스크린샷 폰트 검색기 사용하기",
@@ -237,7 +237,7 @@ export const ko: TranslationSchema = {
       },
       "practicalUtility": {
         "badge": "실무적 유용성",
-        "title": "디자이너와 개발자를 위한 Font Finder",
+        "title": "디자이너와 개발자를 위한 이미지 폰트 찾기",
         "desc": "ProFontFinder는 디자인과 개발 전반의 워크플로를 크게 단축시킵니다:",
         "devTitle": "프론트엔드 개발자",
         "devDesc": "검증된 Google Fonts @import 코드와 Tailwind 클래스를 즉시 복사하세요. URL Font Finder로 라이브 사이트 서체도 분석할 수 있습니다.",
@@ -249,8 +249,20 @@ export const ko: TranslationSchema = {
     },
     "faq": {
       "badge": "FAQ",
-      "title": "폰트 검색기 FAQ — 자주 묻는 질문과 답변",
+      "title": "이 폰트 뭐야? 폰트 찾기 자주 묻는 질문",
       "items": [
+        {
+          "q": "이 폰트 뭐야? 어떻게 찾을 수 있나요?",
+          "a": "텍스트를 스크린샷이나 사진으로 찍은 뒤 ProFontFinder에 업로드하거나 붙여넣으세요(Ctrl+V / ⌘V). 도구가 글자를 분리해 1,935개 이상의 Google Fonts와 형태를 비교하고, 가장 비슷한 결과를 실시간 미리보기와 복사 가능한 CSS와 함께 보여 줍니다. 무료이고 회원가입이 필요 없으며, 이미지는 브라우저 밖으로 전송되지 않습니다."
+        },
+        {
+          "q": "이미지에서 폰트를 찾으려면 어떻게 하나요?",
+          "a": "이미지로 폰트를 찾는 방법: (1) 한 줄의 텍스트가 화면 대부분을 차지하도록 이미지를 자릅니다. (2) ProFontFinder 폰트 찾기 도구에 올립니다. (3) 인식된 글자를 확인합니다. (4) 순위별 결과를 나란히 비교합니다. 글자가 3개 이상이고 선명하며 대비가 높은 이미지일수록 결과가 정확합니다."
+        },
+        {
+          "q": "휴대폰으로 찍은 사진으로도 폰트를 찾을 수 있나요?",
+          "a": "네. ProFontFinder는 간판, 메뉴판, 포장지, 포스터 같은 실제 텍스트 사진에서도 폰트를 찾을 수 있습니다. 밝은 곳에서 글자를 정면으로 촬영하고 배경을 잘라낸 뒤 사진을 업로드하세요. 모바일 브라우저에서 작동하므로 앱 설치 없이 사진으로 글꼴을 찾을 수 있습니다."
+        },
         {
           "q": "Pro Font Finder란 무엇이며 어떻게 작동하나요?",
           "a": "Pro Font Finder는 이미지나 스크린샷 속 텍스트를 브라우저 내에서 안전하게 분석하여 일치하는 글꼴 또는 가장 가까운 오픈소스 Google Fonts 무료 대안을 찾아주는 무료 온라인 도구입니다."
@@ -338,7 +350,7 @@ export const ko: TranslationSchema = {
       "ocrLatency": "OCR 지연 시간 // <80MS",
       "engineReady": "광학 매칭 엔진 준비 완료",
       "signatures": "1,935개 시그니처",
-      "title": "이미지에서 폰트를 찾을 준비가 되셨나요?",
+      "title": "이 폰트 뭐야? 무료로 몇 초 만에 찾기",
       "desc": "무료 폰트 식별기에 이미지를 드롭하여 서체를 감지하고 바로 복사할 수 있는 CSS가 포함된 검증된 Google Fonts를 확인하세요.",
       "btnIdentify": "지금 글꼴 찾기",
       "btnTools": "글꼴 도구 모음 보기",
@@ -349,8 +361,8 @@ export const ko: TranslationSchema = {
   },
   toolsOverview: {
     meta: {
-      title: '폰트 도구 모음 — 무료 타이포그래피 식별 유틸리티',
-      description: '유료 폰트 무료 대체제 검색, 로고 폰트 추출, 폰트 페어링, 웹 폰트 감지를 위한 전문 타이포그래피 도구 모음.'
+      title: '무료 폰트 찾기 도구 — 이미지, 로고, URL로 글꼴 찾기',
+      description: '무료 글꼴 찾기 도구 모음: 스크린샷, 로고, 손글씨, PDF, 웹사이트에서 폰트를 찾고, 유료 폰트의 무료 대안과 폰트 조합도 찾아보세요.'
     },
     badge: '도구 모음',
     title: '폰트 도구 모음',
@@ -389,7 +401,7 @@ export const ko: TranslationSchema = {
   },
   commercialAlternative: {
     meta: {
-      title: '유료 폰트 무료 대체제 검색 — 상용 폰트 매처',
+      title: '유료 폰트 무료 대체 찾기 — 비슷한 무료 폰트 검색',
       description: '상용 폰트 이미지를 업로드하여 프로덕션 CSS를 갖춘 검증된 무료 Google Fonts 대체 폰트를 찾아보세요.'
     },
     breadcrumb: '상용 폰트 무료 대체제',
@@ -401,8 +413,8 @@ export const ko: TranslationSchema = {
   },
   logoFontFinder: {
     meta: {
-      title: '로고 폰트 식별기 — 브랜드 서체 및 무료 대체 폰트 찾기',
-      description: '로고 이미지를 업로드하여 서체를 알아내고 유사한 무료 Google Fonts를 확인하세요.'
+      title: '로고 폰트 찾기 — 로고 속 글꼴 무료로 찾기',
+      description: '이 로고 폰트 뭐야? 로고 이미지를 업로드하면 서체를 무료로 식별하고 가장 비슷한 Google Fonts 대안과 바로 복사할 수 있는 CSS를 보여 줍니다.'
     },
     breadcrumb: '로고 폰트 식별기',
     title: '로고 이미지에 쓰인 폰트 식별',
@@ -413,8 +425,8 @@ export const ko: TranslationSchema = {
   },
   screenshotFontFinder: {
     meta: {
-      title: '스크린샷 폰트 찾기 — 클립보드 붙여넣기(⌘V) 및 광학 매칭',
-      description: '⌘V / Ctrl+V로 클립보드에서 바로 붙여넣거나 화면 캡처 이미지를 놓아 몇 초 만에 폰트를 식별하세요.'
+      title: '스크린샷 폰트 찾기 — 캡처 이미지 속 글꼴 무료 식별',
+      description: 'Ctrl+V / ⌘V로 스크린샷을 붙여넣거나 끌어다 놓으면 몇 초 만에 폰트를 찾아 줍니다. Google Fonts 매칭과 CSS를 제공하는 무료 폰트 찾기 도구입니다.'
     },
     breadcrumb: '스크린샷 폰트 검색',
     title: '스크린샷 속 폰트 찾기',
@@ -425,7 +437,7 @@ export const ko: TranslationSchema = {
   },
   handwritingFontFinder: {
     meta: {
-      title: '손글씨 및 필기체 폰트 식별 — 광학 캘리그래피 매처',
+      title: '손글씨 폰트 찾기 — 필기체·스크립트 글꼴 식별',
       description: '손글씨 메모, 서명, 캘리그래피 이미지를 스캔하거나 업로드하여 일치하는 무료 Google Fonts를 찾으세요.'
     },
     breadcrumb: '손글씨 폰트 매칭',
