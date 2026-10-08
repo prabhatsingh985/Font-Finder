@@ -159,7 +159,7 @@ export const en = {
         phase: 'PHASE 02 // NEURAL SCAN',
         tag: 'GPU ACCEL',
         title: 'Optical Scan',
-        desc: 'Extracts contrast, stroke weights, and 16×16 glyph fingerprints locally in memory with subpixel precision rasterizer.',
+        desc: 'Powers font recognition by extracting contrast, stroke weights, and 16×16 glyph fingerprints locally in memory with a subpixel precision rasterizer.',
         matrix: 'Matrix: 16×16 Bitmaps',
         apertures: 'Apertures: Geometric',
         vectorNodes: 'Vector Nodes: 100% Match',
@@ -181,7 +181,7 @@ export const en = {
       badge: 'ENGINE SPECIFICATIONS',
       title: 'Open-source matches.',
       titleAccent: 'Production ready.',
-      desc: 'Avoid costly licensing traps. Pro Font Finder maps raster letterforms directly to open-source Google Font alternatives in your browser.',
+      desc: 'Avoid costly licensing traps. Operating as an intelligent, in-browser font detector, Pro Font Finder maps raster letterforms directly to open-source Google Font alternatives in your browser.',
       licensingModel: 'Licensing Model',
       licensingValue: '100% Free SIL Open Font License',
       processingArch: 'Processing Architecture',
@@ -195,8 +195,8 @@ export const en = {
         badge: 'IMAGE RECOGNITION',
         title: 'Find Font from Image, Photo, or Picture',
         desc: 'Spotting an eye-catching typeface in the wild is inspiring, but identifying it from a flat graphic can be difficult. Whether you are examining a poster, magazine layout, banner, or screenshot, asking "what font is this?" is a frequent hurdle in visual design.',
-        cardP1: 'A dedicated font finder from image bridges the gap between static raster pixels and live typographic fonts. Rather than scrolling through foundry catalogs, an optical image font finder extracts glyph structures and matches them against indexed libraries.',
-        cardP2: 'Whether auditing legacy branding, analyzing competitor interfaces, or exploring typography, our free font finder by image simplifies discovery. Snap a picture, find the font from the photo, and get a verified Google Font match in seconds.'
+        cardP1: 'A dedicated font finder and font identifier from image bridges the gap between static raster pixels and live typographic fonts. Rather than scrolling through foundry catalogs, an optical image font finder extracts glyph structures and matches them against indexed libraries.',
+        cardP2: 'Whether auditing legacy branding, analyzing competitor interfaces, or exploring typography, our free font finder and font detector from image simplifies discovery. Snap a picture, find the font from the photo, and get a verified Google Font match in seconds.'
       },
       opticalAnalysis: {
         badge: 'OPTICAL ANALYSIS',
@@ -212,7 +212,7 @@ export const en = {
       digitalAssets: {
         badge: 'DIGITAL ASSET SCANNING',
         title: 'Identify Font from Picture, Screenshot, or Logo',
-        desc: 'Typography inspiration frequently arrives as screenshots, pictures, and brand wordmarks. Our picture font finder handles each of them.',
+        desc: 'Typography inspiration frequently arrives as screenshots, pictures, and brand wordmarks. Our picture font finder and font recognizer handles each of them.',
         card1Title: 'Screenshots from Web & Mobile Apps',
         card1Desc: 'Capture a screen snip while browsing and drop it into our Screenshot Font Finder. Identify fonts from UI mockups, web apps, and digital graphics with instant zero-paywall results.',
         card1Link: 'Use Our Screenshot Font Finder',
@@ -236,7 +236,7 @@ export const en = {
       practicalUtility: {
         badge: 'PRACTICAL UTILITY',
         title: 'Image Font Finder for Designers and Developers',
-        desc: 'ProFontFinder streamlines workflows across creative disciplines:',
+        desc: 'As a versatile font identifier, ProFontFinder streamlines workflows across creative disciplines:',
         devTitle: 'Frontend Developers',
         devDesc: 'Copy verified Google Fonts @import snippets and Tailwind declarations directly. Inspect live sites with our URL Font Finder.',
         uiTitle: 'UI/UX Designers',
@@ -287,7 +287,7 @@ export const en = {
         },
         {
           q: 'How to match a font?',
-          a: 'To match a font: (1) Capture a crisp, high-contrast image or screenshot of the text. (2) Upload or paste the image into ProFontFinder. (3) Verify the detected characters in the letter verification stage. (4) Review the ranked font matches using the interactive side-by-side comparison slider and live specimen tester.'
+          a: 'To match a font: (1) Capture a crisp, high-contrast image or screenshot of the text. (2) Upload or paste the image into the ProFontFinder font recognizer. (3) Verify the detected characters in the letter verification stage. (4) Review the ranked font matches using the interactive side-by-side comparison slider and live specimen tester.'
         },
         {
           q: 'Can I take a picture of a font and find it?',
@@ -339,7 +339,7 @@ export const en = {
         },
         {
           q: 'Can I use Pro Font Finder by uploading an image?',
-          a: 'Yes, absolutely! Uploading an image is the primary way to use Pro Font Finder. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
+          a: 'Yes, absolutely! Uploading an image is the primary way to use Pro Font Finder as a font detector from image. You can drag and drop any image file (PNG, JPG, WebP), paste directly from your clipboard with Ctrl+V (or Cmd+V on Mac), or click \'Select Image File\' to browse your device. Our client-side optical engine processes the image directly in your browser memory with zero server upload, ensuring total privacy and instantaneous recognition.'
         }
       ]
     },

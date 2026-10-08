@@ -161,7 +161,7 @@ export const fr: TranslationSchema = {
         "phase": "PHASE 02 // SCAN NEURONAL",
         "tag": "ACCÉLÉRATION GPU",
         "title": "Scan Optique",
-        "desc": "Extrait le contraste, l'épaisseur des traits et les empreintes de glyphes 16×16 en mémoire locale avec précision sous-pixel.",
+        "desc": "Alimente la reconnaissance de police en extrayant contraste, épaisseur des traits et empreintes de glyphes 16×16 en mémoire locale avec une précision sous-pixel.",
         "matrix": "Matrice : Bitmaps 16×16",
         "apertures": "Ouvertures : Géométriques",
         "vectorNodes": "Nœuds vectoriels : 100% Correspondance",
@@ -183,7 +183,7 @@ export const fr: TranslationSchema = {
       "badge": "SPÉCIFICATIONS DU MOTEUR",
       "title": "Correspondances open source.",
       "titleAccent": "Prêtes pour la production.",
-      "desc": "Évitez les pièges des licences commerciales. Font Finder associe les formes de lettres bitmap à d'authentiques polices gratuites de Google Fonts.",
+      "desc": "Évitez les pièges des licences commerciales. En tant que détecteur de police intelligent dans le navigateur, Pro Font Finder associe les lettres bitmap à d'authentiques polices gratuites de Google Fonts.",
       "licensingModel": "Modèle de licence",
       "licensingValue": "100% Gratuit SIL Open Font License",
       "processingArch": "Architecture de traitement",
@@ -197,7 +197,7 @@ export const fr: TranslationSchema = {
         "badge": "RECONNAISSANCE D'IMAGE",
         "title": "Trouver une police à partir d'une image ou d'une photo",
         "desc": "Repérer une belle typographie est inspirant, mais l'identifier à partir d'une simple image peut s'avérer complexe. Que ce soit sur une affiche, un magazine ou une capture d'écran, se demander \"quelle est cette police ?\" est un défi quotidien en design.",
-        "cardP1": "Un outil dédié comble le fossé entre les pixels statiques et les polices typographiques réelles. Au lieu de feuilleter des catalogues entiers, un identificateur optique extrait les structures des glyphes et les compare à des bibliothèques indexées.",
+        "cardP1": "Un outil d'identification de police à partir d'une image comble le fossé entre les pixels statiques et les polices réelles. Au lieu de feuilleter des catalogues entiers, un identificateur optique extrait les structures des glyphes et les compare à des bibliothèques indexées.",
         "cardP2": "Qu'il s'agisse d'auditer une identité de marque, d'analyser les interfaces de concurrents ou d'explorer la typographie, notre détecteur de police par image simplifie la recherche. Prenez une photo, trouvez la police et obtenez une correspondance Google Fonts vérifiée en quelques secondes."
       },
       "opticalAnalysis": {
@@ -214,7 +214,7 @@ export const fr: TranslationSchema = {
       "digitalAssets": {
         "badge": "SCAN D'ASSETS DIGITAUX",
         "title": "Identifier une police depuis une capture d'écran, une photo ou un logo",
-        "desc": "L'inspiration typographique arrive souvent sous forme de captures d'écran, de photos et de logos de marque. Notre outil d'identification de police par image les analyse tous.",
+        "desc": "L'inspiration typographique arrive souvent sous forme de captures d'écran, de photos et de logos de marque. Notre outil de reconnaissance de police les analyse tous.",
         "card1Title": "Captures d'écran d'applications web et mobiles",
         "card1Desc": "Prenez une capture lors de votre navigation et déposez-la dans notre Screenshot Font Finder pour obtenir des réponses immédiates sans paywall.",
         "card1Link": "Utilisez notre outil de recherche de polices par capture d'écran",
@@ -238,7 +238,7 @@ export const fr: TranslationSchema = {
       "practicalUtility": {
         "badge": "UTILITÉ PRATIQUE",
         "title": "Identificateur de police par image pour designers et développeurs",
-        "desc": "ProFontFinder accélère le flux de travail à travers toutes les disciplines créatives :",
+        "desc": "En tant qu'identificateur de police polyvalent, ProFontFinder accélère le flux de travail à travers toutes les disciplines créatives :",
         "devTitle": "Développeurs Frontend",
         "devDesc": "Copiez directement les règles @import de Google Fonts et déclarations Tailwind. Inspectez les sites en direct avec URL Font Finder.",
         "uiTitle": "Designers UI/UX",
@@ -289,7 +289,7 @@ export const fr: TranslationSchema = {
         },
         {
           "q": "Comment faire correspondre une police efficacement ?",
-          "a": "Capturez une image nette et contrastée, déposez-la sur le site, validez les lettres détectées et comparez les résultats grâce au curseur interactif."
+          "a": "Capturez une image nette et contrastée, déposez-la dans l'outil de reconnaissance de police ProFontFinder, validez les lettres détectées et comparez les résultats grâce au curseur interactif."
         },
         {
           "q": "Puis-je prendre en photo un texte pour trouver sa police ?",
@@ -341,7 +341,7 @@ export const fr: TranslationSchema = {
         },
         {
           "q": "Puis-je utiliser le détecteur de polices en important une image ?",
-          "a": "Oui, tout à fait ! L'importation d'image est la méthode principale de ProFontFinder. Glissez-déposez une image (PNG, JPG, WebP), collez-la avec Ctrl+V (ou Cmd+V) ou cliquez sur 'Sélectionner un fichier'. Tout est traité en local dans votre navigateur en toute confidentialité."
+          "a": "Oui, tout à fait ! L'importation d'image est la méthode principale pour utiliser ProFontFinder comme détecteur de police à partir d'une image. Glissez-déposez une image (PNG, JPG, WebP), collez-la avec Ctrl+V (ou Cmd+V) ou cliquez sur 'Sélectionner un fichier'. Tout est traité en local dans votre navigateur en toute confidentialité."
         }
       ]
     },

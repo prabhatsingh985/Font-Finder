@@ -161,7 +161,7 @@ export const ko: TranslationSchema = {
         "phase": "단계 02 // 뉴럴 스캔",
         "tag": "GPU 가속",
         "title": "광학 스캔",
-        "desc": "서브픽셀 래스터라이저를 사용하여 메모리에서 로컬로 대비, 획 굵기, 16×16 글리프 지문을 추출합니다.",
+        "desc": "서브픽셀 래스터라이저를 통해 대비와 획 굵기를 로컬 메모리에서 추출하여 폰트 인식을 수행합니다.",
         "matrix": "매트릭스: 16×16 비트맵",
         "apertures": "개구부: 기하학적 형태",
         "vectorNodes": "벡터 노드: 100% 일치",
@@ -183,7 +183,7 @@ export const ko: TranslationSchema = {
       "badge": "엔진 사양",
       "title": "오픈소스 일치.",
       "titleAccent": "프로덕션 준비 완료.",
-      "desc": "상업용 라이선스 부담을 줄이세요. Font Finder는 비트맵 글자 형태를 합법적으로 사용 가능한 무료 Google Fonts 대안에 매핑합니다.",
+      "desc": "상업용 라이선스 부담을 줄이세요. 스마트한 인브라우저 폰트 감지 도구로서, Pro Font Finder는 비트맵 글자 형태를 합법적으로 사용 가능한 무료 Google Fonts 대안에 매핑합니다.",
       "licensingModel": "라이선스 모델",
       "licensingValue": "100% 무료 SIL Open Font License",
       "processingArch": "처리 아키텍처",
@@ -214,7 +214,7 @@ export const ko: TranslationSchema = {
       "digitalAssets": {
         "badge": "디지털 에셋 스캔",
         "title": "스크린샷·사진·로고에서 글꼴 찾기",
-        "desc": "타이포그래피 영감은 스크린샷, 사진, 브랜드 로고에서 오는 경우가 많습니다. 이미지 폰트 찾기 도구는 이 모두를 분석합니다.",
+        "desc": "타이포그래피 영감은 스크린샷, 사진, 브랜드 로고에서 옵니다. 당사의 이미지 폰트 인식기가 이 모두를 분석합니다.",
         "card1Title": "웹 및 모바일 앱 스크린샷",
         "card1Desc": "화면을 캡처하여 Screenshot Font Finder에 드롭하면 유료 결제 없이 즉시 서체를 확인할 수 있습니다.",
         "card1Link": "스크린샷 폰트 검색기 사용하기",
@@ -238,7 +238,7 @@ export const ko: TranslationSchema = {
       "practicalUtility": {
         "badge": "실무적 유용성",
         "title": "디자이너와 개발자를 위한 이미지 폰트 찾기",
-        "desc": "ProFontFinder는 디자인과 개발 전반의 워크플로를 크게 단축시킵니다:",
+        "desc": "다재다능한 폰트 식별 도구로서 ProFontFinder는 디자인과 개발 전반의 워크플로를 크게 단축시킵니다:",
         "devTitle": "프론트엔드 개발자",
         "devDesc": "검증된 Google Fonts @import 코드와 Tailwind 클래스를 즉시 복사하세요. URL Font Finder로 라이브 사이트 서체도 분석할 수 있습니다.",
         "uiTitle": "UI/UX 디자이너",
@@ -289,7 +289,7 @@ export const ko: TranslationSchema = {
         },
         {
           "q": "글꼴 매칭 정확도를 높이려면 어떻게 해야 하나요?",
-          "a": "대비가 선명한 고화질 이미지를 업로드하고 인식된 문자를 확인한 뒤, 비교 슬라이더를 통해 원본과 대조해보세요."
+          "a": "대비가 선명한 고화질 이미지를 ProFontFinder 폰트 인식기에 업로드하고 인식된 문자를 확인한 뒤, 비교 슬라이더를 통해 원본과 대조해보세요."
         },
         {
           "q": "사진을 찍어서 글꼴을 찾을 수 있나요?",
@@ -341,7 +341,7 @@ export const ko: TranslationSchema = {
         },
         {
           "q": "이미지를 업로드하여 폰트 찾기를 이용할 수 있나요?",
-          "a": "네, 물론입니다! 이미지 업로드는 ProFontFinder의 기본 작동 방식입니다. PNG, JPG, WebP 이미지 파일을 드래그 앤 드롭하거나, Ctrl+V(Mac은 Cmd+V)로 클립보드에서 바로 붙여넣기하거나, 파일 선택 버튼을 클릭하여 사용할 수 있습니다. 이미지는 서버에 저장되지 않고 브라우저 메모리 내에서 100% 안전하게 분석됩니다."
+          "a": "네, 물론입니다! 이미지 폰트 감지 도구로서 ProFontFinder를 활용하는 가장 대표적인 방법이 이미지 업로드입니다. PNG, JPG, WebP 이미지 파일을 드래그 앤 드롭하거나, Ctrl+V(Mac은 Cmd+V)로 클립보드에서 바로 붙여넣기하여 사용할 수 있습니다. 이미지는 서버에 저장되지 않고 브라우저 메모리 내에서 100% 안전하게 분석됩니다."
         }
       ]
     },

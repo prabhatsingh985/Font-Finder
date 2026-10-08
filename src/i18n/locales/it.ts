@@ -161,7 +161,7 @@ export const it: TranslationSchema = {
         "phase": "FASE 02 // SCANSIONE NEURALE",
         "tag": "ACCELERAZIONE GPU",
         "title": "Scansione Ottica",
-        "desc": "Estrae contrasto, spessore dei tratti e impronte di glifi 16×16 localmente in memoria con rasterizzatore a precisione sub-pixel.",
+        "desc": "Alimenta il riconoscimento font estraendo contrasto, spessore dei tratti e impronte di glifi 16×16 localmente in memoria con un rasterizzatore a precisione sub-pixel.",
         "matrix": "Matrice: Bitmap 16×16",
         "apertures": "Aperture: Geometriche",
         "vectorNodes": "Nodi vettoriali: 100% Corrispondenza",
@@ -183,7 +183,7 @@ export const it: TranslationSchema = {
       "badge": "SPECIFICHE DEL MOTORE",
       "title": "Corrispondenze open source.",
       "titleAccent": "Pronte per la produzione.",
-      "desc": "Evita le trappole delle licenze commerciali. Font Finder mappa le forme delle lettere su autentiche alternative gratuite di Google Fonts.",
+      "desc": "Evita le trappole delle licenze commerciali. Operando come un intelligente rilevatore di font nel browser, Pro Font Finder mappa le forme delle lettere su autentiche alternative gratuite di Google Fonts.",
       "licensingModel": "Modello di licenza",
       "licensingValue": "100% Gratuito SIL Open Font License",
       "processingArch": "Architettura di elaborazione",
@@ -197,7 +197,7 @@ export const it: TranslationSchema = {
         "badge": "RICONOSCIMENTO IMMAGINE",
         "title": "Trovare un font da un'immagine o da una foto",
         "desc": "Scorgere una bella tipografia è stimolante, ma identificarla da una grafica può rivelarsi difficile. Che si tratti di un poster, di una rivista o di uno screenshot, chiedersi \"che font è questo?\" è un dilemma comune nel design.",
-        "cardP1": "Un identificatore di font specializzato colma il divario tra pixel statici e caratteri tipografici reali. Invece di scorrere cataloghi infiniti, estrae i contorni dei glifi e li confronta con librerie indicizzate.",
+        "cardP1": "Un identificatore di font da immagine dedicato colma il divario tra pixel statici e font reali. Invece di scorrere cataloghi infiniti, estrae i contorni dei glifi e li confronta con librerie indicizzate.",
         "cardP2": "Che tu stia analizzando un vecchio branding, le interfacce dei concorrenti o semplicemente esplorando la tipografia, il nostro identificatore di font da immagine semplifica la ricerca. Scatta una foto, trova il font e ottieni in pochi secondi una corrispondenza verificata su Google Fonts."
       },
       "opticalAnalysis": {
@@ -214,7 +214,7 @@ export const it: TranslationSchema = {
       "digitalAssets": {
         "badge": "SCANSIONE ASSET DIGITALI",
         "title": "Riconoscere un font da screenshot, foto o logo",
-        "desc": "L'ispirazione tipografica arriva spesso da screenshot, foto e loghi di marchi. Il nostro riconoscimento font da immagine li analizza tutti.",
+        "desc": "L'ispirazione tipografica arriva spesso da screenshot, foto e loghi di marchi. Il nostro strumento di riconoscimento font li analizza tutti.",
         "card1Title": "Screenshot di app web e mobile",
         "card1Desc": "Cattura uno scorcio dello schermo durante la navigazione e rilascialo in Screenshot Font Finder per risposte immediate senza costi.",
         "card1Link": "Usa il nostro strumento di ricerca font da screenshot",
@@ -238,7 +238,7 @@ export const it: TranslationSchema = {
       "practicalUtility": {
         "badge": "UTILITÀ PRATICA",
         "title": "Identificare font da immagine: uno strumento per designer e sviluppatori",
-        "desc": "ProFontFinder ottimizza i flussi di lavoro in tutte le discipline creative:",
+        "desc": "Come versatile identificatore di font, ProFontFinder ottimizza i flussi di lavoro in tutte le discipline creative:",
         "devTitle": "Sviluppatori Frontend",
         "devDesc": "Copia frammenti @import di Google Fonts e classi Tailwind pronte all'uso. Analizza siti web dal vivo con URL Font Finder.",
         "uiTitle": "Designer UI/UX",
@@ -289,7 +289,7 @@ export const it: TranslationSchema = {
         },
         {
           "q": "Come trovare il font corrispondente con precisione?",
-          "a": "Usa un'immagine nitida e ad alto contrasto, verifica le lettere rilevate e confronta i risultati con il cursore interattivo prima e dopo."
+          "a": "Usa un'immagine nitida caricandola nello strumento di riconoscimento font ProFontFinder, verifica le lettere rilevate e confronta i risultati con il cursore interattivo prima e dopo."
         },
         {
           "q": "Posso scattare una foto a un testo e trovare il font?",
@@ -341,7 +341,7 @@ export const it: TranslationSchema = {
         },
         {
           "q": "Posso usare il trova font caricando un'immagine?",
-          "a": "Sì, assolutamente! Il caricamento di immagini è il modo principale per utilizzare ProFontFinder. Puoi trascinare qualsiasi file (PNG, JPG, WebP), incollare con Ctrl+V (o Cmd+V) o selezionare un file dal tuo dispositivo. L'elaborazione avviene al 100% in locale nel tuo browser."
+          "a": "Sì, assolutamente! Il caricamento di immagini è il modo principale per utilizzare ProFontFinder come rilevatore di font da immagine. Puoi trascinare qualsiasi file (PNG, JPG, WebP), incollare con Ctrl+V (o Cmd+V) o selezionare un file dal tuo dispositivo. L'elaborazione avviene al 100% in locale nel tuo browser."
         }
       ]
     },

@@ -161,7 +161,7 @@ export const pt: TranslationSchema = {
         "phase": "FASE 02 // VARREDURA NEURAL",
         "tag": "ACELERAÇÃO GPU",
         "title": "Varredura Óptica",
-        "desc": "Extrai contraste, espessura de traços e assinaturas de glifos 16×16 localmente na memória com rasterizador de precisão subpixel.",
+        "desc": "Alimenta o reconhecimento de fontes extraindo contraste, espessura de traços e assinaturas de glifos 16×16 localmente na memória com um rasterizador de precisão subpixel.",
         "matrix": "Matriz: Bitmaps 16×16",
         "apertures": "Aberturas: Geométricas",
         "vectorNodes": "Nós vetoriais: 100% Correspondência",
@@ -183,7 +183,7 @@ export const pt: TranslationSchema = {
       "badge": "ESPECIFICAÇÕES DO MOTOR",
       "title": "Correspondências de código aberto.",
       "titleAccent": "Prontas para produção.",
-      "desc": "Evite armadilhas de licenças comerciais. O Font Finder mapeia formas de letras para alternativas autênticas e gratuitas do Google Fonts.",
+      "desc": "Evite armadilhas de licenças comerciais. Atuando como um detector de fontes inteligente no navegador, o Pro Font Finder mapeia formas de letras para alternativas autênticas e gratuitas do Google Fonts.",
       "licensingModel": "Modelo de licença",
       "licensingValue": "100% Gratuito SIL Open Font License",
       "processingArch": "Arquitetura de processamento",
@@ -198,7 +198,7 @@ export const pt: TranslationSchema = {
         "title": "Descobrir a fonte pela imagem ou foto",
         "desc": "Encontrar uma tipografia marcante é inspirador, mas identificá-la a partir de uma imagem estática pode ser um desafio. Seja em cartazes, revistas ou capturas de tela, perguntar \"qual é essa fonte?\" é uma dúvida comum no design.",
         "cardP1": "Um identificador óptico especializado une os pixels estáticos a fontes reais utilizáveis. Em vez de folhear catálogos extensos, a ferramenta extrai a geometria das letras e a compara com acervos indexados.",
-        "cardP2": "Seja auditando uma identidade visual antiga, analisando interfaces da concorrência ou explorando tipografia, nosso identificador de fontes por imagem simplifica a descoberta. Tire uma foto, descubra a fonte e receba uma correspondência verificada do Google Fonts em segundos."
+        "cardP2": "Seja auditando uma identidade visual antiga, analisando interfaces da concorrência ou explorando tipografia, nosso identificador e detector de fontes por imagem simplifica a descoberta. Tire uma foto, descubra a fonte e receba uma correspondência verificada do Google Fonts em segundos."
       },
       "opticalAnalysis": {
         "badge": "ANÁLISE ÓPTICA",
@@ -214,7 +214,7 @@ export const pt: TranslationSchema = {
       "digitalAssets": {
         "badge": "VARREDURA DE ATIVOS DIGITAIS",
         "title": "Identificar fonte de captura de tela, foto ou logotipo",
-        "desc": "A inspiração tipográfica costuma chegar em capturas de tela, fotos e logotipos de marcas. Nosso identificador de fontes por imagem analisa todos eles.",
+        "desc": "A inspiração tipográfica costuma chegar em capturas de tela, fotos e logotipos de marcas. Nosso identificador e reconhecedor de fontes por imagem analisa todos eles.",
         "card1Title": "Capturas de tela da web e aplicativos móveis",
         "card1Desc": "Capture um trecho da tela enquanto navega e arraste para o Screenshot Font Finder para obter respostas imediatas sem custos.",
         "card1Link": "Use nosso identificador de fontes para capturas de tela",
@@ -238,7 +238,7 @@ export const pt: TranslationSchema = {
       "practicalUtility": {
         "badge": "UTILIDADE PRÁTICA",
         "title": "Descobrir fonte pela imagem: ferramenta para designers e desenvolvedores",
-        "desc": "O ProFontFinder otimiza fluxos de trabalho em diversas frentes criativas:",
+        "desc": "Como um identificador de fontes versátil, o ProFontFinder otimiza fluxos de trabalho em diversas frentes criativas:",
         "devTitle": "Desenvolvedores Frontend",
         "devDesc": "Copie trechos @import do Google Fonts e classes Tailwind diretamente. Inspecione sites ao vivo com o URL Font Finder.",
         "uiTitle": "Designers UI/UX",
@@ -289,7 +289,7 @@ export const pt: TranslationSchema = {
         },
         {
           "q": "Como encontrar a fonte correspondente com precisão?",
-          "a": "Envie uma imagem nítida com bom contraste, confirme os caracteres identificados e avalie as opções recomendadas com nosso comparador interativo."
+          "a": "Envie uma imagem nítida ao reconhecedor de fontes ProFontFinder, confirme os caracteres identificados e avalie as opções recomendadas com nosso comparador interativo."
         },
         {
           "q": "Posso tirar uma foto de um texto e encontrar a fonte?",
@@ -341,7 +341,7 @@ export const pt: TranslationSchema = {
         },
         {
           "q": "Posso usar o identificador de fontes enviando uma imagem?",
-          "a": "Sim, com certeza! O envio de imagens é a forma principal de usar o ProFontFinder. Você pode arrastar e soltar arquivos (PNG, JPG, WebP), colar da área de transferência com Ctrl+V (Cmd+V no Mac) ou selecionar um arquivo. O processamento é 100% local no seu navegador com total privacidade."
+          "a": "Sim, com certeza! O envio de imagens é a forma principal de usar o ProFontFinder como detector de fontes por imagem. Você pode arrastar e soltar arquivos (PNG, JPG, WebP), colar da área de transferência com Ctrl+V (Cmd+V no Mac) ou selecionar um arquivo. O processamento é 100% local no seu navegador com total privacidade."
         }
       ]
     },

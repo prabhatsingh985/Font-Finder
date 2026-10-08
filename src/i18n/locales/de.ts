@@ -161,7 +161,7 @@ export const de: TranslationSchema = {
         "phase": "PHASE 02 // NEURALER SCAN",
         "tag": "GPU-BESCHLEUNIGT",
         "title": "Optischer Scan",
-        "desc": "Extrahiert Kontrast, Strichstärken und 16×16-Glyphen-Fingerabdrücke lokal im Speicher mit Subpixel-Präzisions-Rasterizer.",
+        "desc": "Ermöglicht Schriftarterkennung durch Extrahieren von Kontrast, Strichstärken und 16×16-Glyphen-Fingerabdrücken lokal im Speicher mit einem Subpixel-Präzisions-Rasterizer.",
         "matrix": "Matrix: 16×16 Bitmaps",
         "apertures": "Öffnungen: Geometrisch",
         "vectorNodes": "Vektorknoten: 100% Übereinstimmung",
@@ -183,7 +183,7 @@ export const de: TranslationSchema = {
       "badge": "ENGINE-SPEZIFIKATIONEN",
       "title": "Open-Source-Treffer.",
       "titleAccent": "Produktionsreif.",
-      "desc": "Vermeiden Sie kommerzielle Lizenzfallen. Font Finder ordnet Bitmap-Buchstabenformen authentischen, kostenlosen Google Fonts-Alternativen zu.",
+      "desc": "Vermeiden Sie kommerzielle Lizenzfallen. Als intelligenter In-Browser Schriftart-Detektor ordnet Pro Font Finder Bitmap-Buchstabenformen authentischen, kostenlosen Google Fonts-Alternativen zu.",
       "licensingModel": "Lizenzmodell",
       "licensingValue": "100% freie SIL Open Font License",
       "processingArch": "Verarbeitungsarchitektur",
@@ -197,7 +197,7 @@ export const de: TranslationSchema = {
         "badge": "BILDERKENNUNG",
         "title": "Schriftart aus Bild, Foto oder Grafik herausfinden",
         "desc": "Eine auffällige Schriftart in freier Wildbahn zu entdecken ist inspirierend, aber sie anhand einer flachen Grafik zu identifizieren, kann schwierig sein. Ob auf Plakaten, Magazin-Layouts, Bannern oder Screenshots: Die Frage \"Welche Schriftart ist das?\" ist eine häufige Hürde im visuellen Design.",
-        "cardP1": "Ein dedizierter Schriftarten-Finder aus Bildern schließt die Lücke zwischen statischen Rasterpixeln und echten typografischen Schriftarten. Statt Schriftkataloge zu durchforsten, extrahiert ein optischer Bild-Font-Finder Glyphenstrukturen und gleicht sie mit indexierten Bibliotheken ab.",
+        "cardP1": "Ein dedizierter Schriftarten-Finder, um jede Schriftart aus Bild zu erkennen, schließt die Lücke zwischen statischen Rasterpixeln und echten typografischen Schriftarten. Statt Schriftkataloge zu durchforsten, extrahiert ein optischer Bild-Font-Finder Glyphenstrukturen und gleicht sie mit indexierten Bibliotheken ab.",
         "cardP2": "Ob Sie ein altes Branding prüfen, Interfaces der Konkurrenz analysieren oder Typografie erkunden – unser kostenloser Font Finder für Bilder vereinfacht die Suche. Machen Sie ein Foto, erkennen Sie die Schriftart und erhalten Sie in Sekunden einen geprüften Google-Fonts-Treffer."
       },
       "opticalAnalysis": {
@@ -214,7 +214,7 @@ export const de: TranslationSchema = {
       "digitalAssets": {
         "badge": "DIGITALE ASSET-ERFASSUNG",
         "title": "Schriftart aus Screenshot, Foto oder Logo erkennen",
-        "desc": "Typografische Inspiration kommt oft als Screenshot, Foto oder Marken-Logo. Unsere Schrifterkennung aus Bildern verarbeitet sie alle.",
+        "desc": "Typografische Inspiration kommt oft als Screenshot, Foto oder Marken-Logo. Unser Schriftarten-Finder und unsere Schriftarterkennung aus Bildern verarbeitet sie alle.",
         "card1Title": "Screenshots von Web- und Mobil-Apps",
         "card1Desc": "Machen Sie beim Surfen einen Bildschirmausschnitt und ziehen Sie ihn in unseren Screenshot Font Finder. Wenn Sie sich fragen \"Welche Schrift ist das?\", erhalten Sie sofort Antworten ohne Bezahlschranke.",
         "card1Link": "Nutzen Sie unseren Screenshot-Schriftartenfinder",
@@ -238,7 +238,7 @@ export const de: TranslationSchema = {
       "practicalUtility": {
         "badge": "PRAKTISCHER NUTZEN",
         "title": "Schriftart-Erkennung aus Bildern für Designer und Entwickler",
-        "desc": "ProFontFinder optimiert Workflows über alle kreativen Disziplinen hinweg:",
+        "desc": "Als vielseitiges Werkzeug zur Schriftarterkennung optimiert ProFontFinder Workflows über alle kreativen Disziplinen hinweg:",
         "devTitle": "Frontend-Entwickler",
         "devDesc": "Kopieren Sie verifizierte Google Fonts @import-Snippets und Tailwind-Deklarationen direkt. Prüfen Sie Live-Websites mit unserem URL Font Finder.",
         "uiTitle": "UI/UX-Designer",
@@ -289,7 +289,7 @@ export const de: TranslationSchema = {
         },
         {
           "q": "Wie ordne ich eine Schriftart zu?",
-          "a": "Erstellen Sie ein scharfes Bild des Textes, laden Sie es in ProFontFinder hoch, überprüfen Sie die erkannten Buchstaben und nutzen Sie den Schieberegler zum direkten visuellen Vergleich mit den Treffern."
+          "a": "Erstellen Sie ein scharfes Bild des Textes, laden Sie es in die ProFontFinder Schriftarterkennung hoch, überprüfen Sie die erkannten Buchstaben und nutzen Sie den Schieberegler zum direkten visuellen Vergleich mit den Treffern."
         },
         {
           "q": "Kann ich ein Foto einer Schriftart machen und sie finden?",
@@ -341,7 +341,7 @@ export const de: TranslationSchema = {
         },
         {
           "q": "Kann ich den Schriftartenfinder durch Hochladen eines Bildes nutzen?",
-          "a": "Ja, absolut! Das Hochladen eines Bildes ist die Kernfunktion von ProFontFinder. Sie können jede Bilddatei (PNG, JPG, WebP) per Drag & Drop hineinziehen, per Strg+V (Cmd+V) aus der Zwischenablage einfügen oder eine Datei auswählen. Die Analyse läuft vollständig lokal in Ihrem Browser."
+          "a": "Ja, absolut! Das Hochladen eines Bildes ist der ideale Weg, um ProFontFinder als Schriftart-Detektor aus Bildern zu nutzen. Sie können jede Bilddatei (PNG, JPG, WebP) per Drag & Drop hineinziehen, per Strg+V (Cmd+V) aus der Zwischenablage einfügen oder eine Datei auswählen. Die Analyse läuft vollständig lokal in Ihrem Browser."
         }
       ]
     },

@@ -161,7 +161,7 @@ export const es: TranslationSchema = {
         "phase": "FASE 02 // ESCANEO NEURONAL",
         "tag": "ACELERACIÓN GPU",
         "title": "Escaneo Óptico",
-        "desc": "Extrae contraste, grosores de trazo y huellas dactilares de glifos de 16×16 localmente en memoria con rasterizador de precisión subpíxel.",
+        "desc": "Impulsa el reconocimiento de fuentes extrayendo contraste, grosores de trazo y huellas dactilares de glifos de 16×16 localmente en memoria con un rasterizador de precisión subpíxel.",
         "matrix": "Matriz: Mapas de bits 16×16",
         "apertures": "Aperturas: Geométricas",
         "vectorNodes": "Nodos vectoriales: 100% Coincidencia",
@@ -183,7 +183,7 @@ export const es: TranslationSchema = {
       "badge": "ESPECIFICACIONES DEL MOTOR",
       "title": "Coincidencias de código abierto.",
       "titleAccent": "Listas para producción.",
-      "desc": "Evita trampas de licencias comerciales. Font Finder asigna formas de letras de mapa de bits a alternativas auténticas y gratuitas de Google Fonts.",
+      "desc": "Evita trampas de licencias comerciales. Como un detector de fuentes inteligente en el navegador, Pro Font Finder asigna formas de letras de mapa de bits a alternativas auténticas y gratuitas de Google Fonts.",
       "licensingModel": "Modelo de licencia",
       "licensingValue": "100% Gratuito SIL Open Font License",
       "processingArch": "Arquitectura de procesamiento",
@@ -198,7 +198,7 @@ export const es: TranslationSchema = {
         "title": "Encontrar una fuente a partir de una imagen o foto",
         "desc": "Descubrir una tipografía atractiva es inspirador, pero identificarla a partir de un gráfico plano puede resultar complicado. Ya sea en un cartel, revista, banner o captura, preguntar \"¿qué fuente es esta?\" es un dilema común en el diseño visual.",
         "cardP1": "Un identificador de fuentes por imagen dedicado une los píxeles estáticos con fuentes tipográficas activas. En lugar de buscar en catálogos, extrae estructuras de glifos y las compara con bibliotecas indexadas.",
-        "cardP2": "Ya sea auditando marcas heredadas, analizando interfaces de la competencia o explorando tipografías, nuestro buscador de fuentes por imagen simplifica el descubrimiento. Toma una foto, encuentra la fuente y obtén una coincidencia verificada de Google Fonts en segundos."
+        "cardP2": "Ya sea auditando marcas heredadas, analizando interfaces de la competencia o explorando tipografías, nuestro buscador de fuentes y detector de fuentes por imagen simplifica el descubrimiento. Toma una foto, encuentra la fuente y obtén una coincidencia verificada de Google Fonts en segundos."
       },
       "opticalAnalysis": {
         "badge": "ANÁLISIS ÓPTICO",
@@ -214,7 +214,7 @@ export const es: TranslationSchema = {
       "digitalAssets": {
         "badge": "ESCANEO DE ACTIVOS DIGITALES",
         "title": "Identificar fuente de una imagen, captura de pantalla o logotipo",
-        "desc": "La inspiración tipográfica suele llegar en forma de capturas de pantalla, fotos y logotipos de marcas. Nuestro buscador de fuentes por imagen los analiza todos.",
+        "desc": "La inspiración tipográfica suele llegar en forma de capturas de pantalla, fotos y logotipos de marcas. Nuestro buscador y reconocedor de fuentes por imagen los analiza todos.",
         "card1Title": "Capturas de pantalla de aplicaciones web y móviles",
         "card1Desc": "Toma un recorte de pantalla mientras navegas y suéltalo en nuestro Screenshot Font Finder para obtener respuestas instantáneas sin muros de pago.",
         "card1Link": "Usa nuestro buscador de fuentes en capturas de pantalla",
@@ -238,7 +238,7 @@ export const es: TranslationSchema = {
       "practicalUtility": {
         "badge": "UTILIDAD PRÁCTICA",
         "title": "Identificador de fuentes por imagen para diseñadores y desarrolladores",
-        "desc": "ProFontFinder agiliza los flujos de trabajo en todas las disciplinas creativas:",
+        "desc": "Como un identificador de fuentes versátil, ProFontFinder agiliza los flujos de trabajo en todas las disciplinas creativas:",
         "devTitle": "Desarrolladores Frontend",
         "devDesc": "Copia fragmentos @import de Google Fonts y declaraciones Tailwind directamente. Inspecciona sitios web con nuestro URL Font Finder.",
         "uiTitle": "Diseñadores UI/UX",
@@ -289,7 +289,7 @@ export const es: TranslationSchema = {
         },
         {
           "q": "¿Cómo hacer coincidir una fuente?",
-          "a": "Captura una imagen nítida, súbela a ProFontFinder, verifica los caracteres detectados y revisa las fuentes sugeridas con el comparador interactivo."
+          "a": "Captura una imagen nítida, súbela al reconocedor de fuentes ProFontFinder, verifica los caracteres detectados y revisa las fuentes sugeridas con el comparador interactivo."
         },
         {
           "q": "¿Puedo tomar una foto de una fuente y encontrarla?",
@@ -341,7 +341,7 @@ export const es: TranslationSchema = {
         },
         {
           "q": "¿Puedo usar el buscador de fuentes subiendo una imagen?",
-          "a": "¡Sí, totalmente! Subir una imagen es la forma principal de usar ProFontFinder. Puedes arrastrar y soltar cualquier archivo (PNG, JPG, WebP), pegar desde el portapapeles con Ctrl+V (o Cmd+V) o hacer clic en 'Seleccionar archivo'. Todo se procesa 100% localmente en tu navegador sin subir nada a servidores."
+          "a": "¡Sí, totalmente! Subir una imagen es la forma principal de usar ProFontFinder como detector de fuentes por imagen. Puedes arrastrar y soltar cualquier archivo (PNG, JPG, WebP), pegar desde el portapapeles con Ctrl+V (o Cmd+V) o hacer clic en 'Seleccionar archivo'. Todo se procesa 100% localmente en tu navegador sin subir nada a servidores."
         }
       ]
     },
