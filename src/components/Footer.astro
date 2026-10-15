@@ -23,11 +23,13 @@ const p = (path: string) => getLocalizedPath(path, currentLocale);
       <!-- Col 1: Brand & Core Mission -->
       <div class="sm:col-span-2 lg:col-span-2 space-y-4">
         <a href={p('/')} class="inline-flex items-center gap-2 font-[510] text-[#08090a] dark:text-[#ffffff] tracking-[-0.015em] text-sm sm:text-base">
-          <div class="w-6 h-6 rounded-[6px] bg-[#f1f3f6] dark:bg-[#161718] border border-[#e2e4e8] dark:border-[#23252a] flex items-center justify-center text-[#08090a] dark:text-[#ffffff]">
-            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
+          <img
+            src="/favicon.svg"
+            alt={t.common.brandName}
+            width="24"
+            height="24"
+            class="w-6 h-6 rounded-[6px] shrink-0 border border-[#e2e4e8] dark:border-[#23252a]"
+          />
           <span>{t.common.brandName}</span>
         </a>
         <p class="text-[13px] text-[#475569] dark:text-[#8a8f98] max-w-sm leading-relaxed">
